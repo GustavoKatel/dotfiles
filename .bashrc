@@ -1,11 +1,14 @@
 # Aliases
 alias myip="curl http://myip.dnsomatic.com && echo ''"
-alias pretty-json="python -mjson.tool"
 
 # Functions
 youtube() {
    # mplayer -fs -cookies -cookies-file cookie.txt $(youtube-dl -g --cookies cookie.txt -f 18 "http://www.youtube.com/watch?v=$1")
    echo "Not implemented"
+}
+
+pretty-json() {
+    echo $* | python -mjson.tool
 }
 
 # PATH
