@@ -8,7 +8,11 @@ youtube() {
 }
 
 pretty-json() {
-    echo $* | python -mjson.tool
+    if [ $# -gt 0 ]; then
+        echo $* | python -mjson.tool
+    else
+        python -mjson.tool
+    fi
 }
 
 # PATH
