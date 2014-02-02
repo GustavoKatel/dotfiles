@@ -16,3 +16,4 @@ inoremap <S-@> <C-R>=AutoCompletar("voltar")<CR>
 set number
 set expandtab
 set tabstop=4
+colorscheme hipster

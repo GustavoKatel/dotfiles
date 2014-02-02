@@ -30,6 +30,10 @@ lsport() {
     
 }
 
+openserver() {
+   ncat  -k -l $*
+}
+
 # PATH
 export NDK_ROOT=~/android-ndk
 export SDK_ROOT=~/android-sdks
