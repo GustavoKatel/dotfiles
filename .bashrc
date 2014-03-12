@@ -6,6 +6,12 @@ alias doHibernate="dbus-send --system --print-reply --dest=\"org.freedesktop.UPo
 alias doCleanCache="sysctl -w vm.drop_caches=3"
 alias doSleep="xset dpms force off"
 
+alias g5="cd ~/g5"
+
+alias q="exit"
+
+alias upgrade="sudo aptitude update && sudo aptitude upgrade"
+
 # Functions
 youtube() {
    # mplayer -fs -cookies -cookies-file cookie.txt $(youtube-dl -g --cookies cookie.txt -f 18 "http://www.youtube.com/watch?v=$1")
@@ -40,3 +46,12 @@ export SDK_ROOT=~/android-sdks
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+export LD_LIBRARY_PATH="/usr/local/lib:/opt/openmpi/lib:$LD_LIBRARY_PATH"
+
+# MxPost (NLP)
+CLASSPATH="/media/Arquivos/g5/ufpb/PIBIC - NLP&ML/AeliusPOS/versions/jmx/mxpost.jar"
+export CLASSPATH
+PATH="${PATH}:/media/Arquivos/g5/ufpb/PIBIC - NLP&ML/AeliusPOS/versions/jmx"
+export PATH
+

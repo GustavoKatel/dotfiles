@@ -1,8 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/home/gustavokatel'
-let g:netrw_dirhist_2='/media/Arquivos/g4/ufpb/PDI/Trabalho 4/ImageMorph'
-let g:netrw_dirhist_3='/home/gustavokatel'
-let g:netrw_dirhist_4='/media/Arquivos/g4/Dropbox/Shared/Familia/.logs'
-let g:netrw_dirhist_5='/media/Arquivos/g4/Dropbox/Shared/Familia'
-let g:netrw_dirhist_6='/media/Arquivos/g4/Dropbox/Shared/Familia/.logs'
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/media/Arquivos/g5/ufpb/Pet/SDC/2014.1/semcompXI/static'
+let g:netrw_dirhist_2='/media/Arquivos/g5/ufpb/Pet/SDC/2014.1/semcompXI'
+let g:netrw_dirhist_3='/media/Arquivos/g5/ufpb/Pet/SDC/2014.1/semcompXI/staticfiles'
+let g:netrw_dirhist_4='/media/Arquivos/g5/ufpb/Pet/SDC/2014.1/semcompXI/staticfiles/images'
+let g:netrw_dirhist_5='/media/Arquivos/g5/ufpb/Pet/SDC/2014.1/semcompXI'
+let g:netrw_dirhist_6='/media/Arquivos/g5/ufpb/PIBIC - NLP&ML/AeliusPOS'
+let g:netrw_dirhist_7='/media/Arquivos/g5/python/scripts'
