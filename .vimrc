@@ -12,6 +12,9 @@ endfunction
 inoremap <C-@> <C-R>=AutoCompletar("avancar")<CR>
 inoremap <S-@> <C-R>=AutoCompletar("voltar")<CR>
 
+" pathogen plugin system
+execute pathogen#infect()
+
 " Options
 set number
 set expandtab
