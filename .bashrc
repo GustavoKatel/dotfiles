@@ -1,6 +1,6 @@
 # Aliases
 alias myip="curl http://myip.dnsomatic.com && echo ''"
-alias xclip="xclip -selection clipboard"
+alias xclip="xclip -selection clipboard -i"
 alias doHibernate="dbus-send --system --print-reply --dest=\"org.freedesktop.UPower\" /org/freedesktop/UPower org.freedesktop.UPower.Suspend"
 
 alias doCleanCache="sysctl -w vm.drop_caches=3"
@@ -16,6 +16,9 @@ alias la='ls -la'
 
 # vim with nerdtree auto load, also maps for the session the 'q' key to close all windows ('qall')
 alias vimt="vim +\"NERDTree .\" +\"command Q qall\" +\"cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Q' : 'q')<CR>\""
+
+alias tmux_paste_hack="notify-send \"paste\""
+alias tmux_copy_hack="notify-send \"copy\""
 
 # Functions
 youtube() {
@@ -45,7 +48,9 @@ openserver() {
    ncat  -k -l $*
 }
 
-# PATH
+# CONFIG AND PATH
+export EDITOR='vim'
+
 export NDK_ROOT=~/android-ndk
 export SDK_ROOT=~/android-sdks
 

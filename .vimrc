@@ -17,6 +17,7 @@ nnoremap <F5> :GundoToggle<CR>
 
 " pathogen plugin system
 execute pathogen#infect()
+execute pathogen#helptags()
 
 " Options
 set number
