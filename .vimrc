@@ -12,6 +12,9 @@ endfunction
 inoremap <C-@> <C-R>=AutoCompletar("avancar")<CR>
 inoremap <S-@> <C-R>=AutoCompletar("voltar")<CR>
 
+" gundo key map
+nnoremap <F5> :GundoToggle<CR>
+
 " pathogen plugin system
 execute pathogen#infect()
 
