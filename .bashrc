@@ -1,10 +1,11 @@
 # Aliases
 alias myip="curl http://myip.dnsomatic.com && echo ''"
-alias xclip="xclip -selection clipboard -i"
 alias doHibernate="dbus-send --system --print-reply --dest=\"org.freedesktop.UPower\" /org/freedesktop/UPower org.freedesktop.UPower.Suspend"
-
 alias doCleanCache="sysctl -w vm.drop_caches=3"
 alias doSleep="xset dpms force off"
+
+alias clipi="xsel -b -i"
+alias clipo="xsel -b -o"
 
 alias g5="cd ~/g5"
 
@@ -16,6 +17,12 @@ alias la='ls -la'
 
 # vim with nerdtree auto load, also maps for the session the 'q' key to close all windows ('qall')
 alias vimt="vim +\"NERDTree .\" +\"command Q qall\" +\"cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Q' : 'q')<CR>\""
+alias svim="sudo vim"
+
+# curl for useragents
+alias curl-ie="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)\""
+alias curl-firefox="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.0 (.NET CLR 3.5.30729)\""
+alias curl-chrome="curk -H \"User-Agent: Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36\""
 
 # Functions
 youtube() {
