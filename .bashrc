@@ -17,9 +17,6 @@ alias la='ls -la'
 # vim with nerdtree auto load, also maps for the session the 'q' key to close all windows ('qall')
 alias vimt="vim +\"NERDTree .\" +\"command Q qall\" +\"cabbrev q <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Q' : 'q')<CR>\""
 
-alias tmux_paste_hack="notify-send \"paste\""
-alias tmux_copy_hack="notify-send \"copy\""
-
 # Functions
 youtube() {
    # mplayer -fs -cookies -cookies-file cookie.txt $(youtube-dl -g --cookies cookie.txt -f 18 "http://www.youtube.com/watch?v=$1")
