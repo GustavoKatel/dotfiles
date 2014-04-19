@@ -23,4 +23,4 @@ execute pathogen#helptags()
 set number
 set expandtab
 set tabstop=4
-colorscheme hipster
+colorscheme deathstar
