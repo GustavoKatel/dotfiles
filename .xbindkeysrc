@@ -1,0 +1,32 @@
+# open g5
+"nemo /media/Arquivos/g5"
+    Control+Alt+Mod2+Mod4 + g
+
+# open chrome
+"google-chrome"
+    Control+Alt+Mod2+Mod4 + w
+
+# raise vol
+"amixer set Master 5%+"
+    Control+Alt+Mod2+Mod4 + Prior
+
+# lower vol
+"amixer set Master 5%-"
+    Control+Alt+Mod2+Mod4 + Next
+
+# play song
+"clementine --play"
+    Control+Alt+Mod2+Mod4 + Up
+
+# stop song
+"clementine --pause"
+    Control+Alt+Mod2+Mod4 + Down
+
+# next song
+"clementine --next"
+    Control+Alt+Mod2+Mod4 + Right
+
+# previous song
+"clementine --previous"
+    Control+Alt+Mod2+Mod4 + Left
+
