@@ -25,3 +25,7 @@ set expandtab
 set tabstop=4
 colorscheme deathstar
 set laststatus=2
+
+" Special chars
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set list

@@ -7,7 +7,7 @@ alias doSleep="xset dpms force off"
 alias clipi="xsel -b -i"
 alias clipo="xsel -b -o"
 
-alias g5="cd ~/g5"
+alias g5="cd /media/Arquivos/g5"
 
 alias q="exit"
 
