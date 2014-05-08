@@ -2,27 +2,3 @@
 	path = .oh-my-zsh
 	url = https://github.com/GustavoKatel/oh-my-zsh.git
 
-[submodule "auto-pairs"]
-	path = .vim/bundle/auto-pairs
-	url = https://github.com/jiangmiao/auto-pairs.git
-
-[submodule "gundo.vim"]
-	path = .vim/bundle/gundo.vim
-	url = https://github.com/sjl/gundo.vim.git
-
-[submodule "nerdtree"]
-	path = .vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-
-[submodule "tcomment_vim"]
-	path = .vim/bundle/tcomment_vim
-	url = https://github.com/tomtom/tcomment_vim.git
-
-[submodule "vim-markdown"]
-	path = .vim/bundle/vim-markdown
-	url = https://github.com/plasticboy/vim-markdown.git
-
-[submodule "vim-surround"]
-	path = .vim/bundle/vim-surround
-	url = https://github.com/tpope/vim-surround.git
-
