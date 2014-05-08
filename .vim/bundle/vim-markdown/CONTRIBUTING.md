@@ -8,7 +8,7 @@ Every non local identifier must start with `g:vim_markdown_`.
 
 # Documentation
 
-Every new feature must be documented under in the [README.md](README.md). Documentation must be written in [GFM](https://help.github.com/articles/github-flavored-markdown) since Github itself is the primary to HTML converter used. In particular, remember that GFM adds line breaks at single newlines, so just forget about the 70 characters wide rule.
+Every new feature must be documented under in the [README.md](README.md). Documentation must be written in [GFM](https://help.github.com/articles/github-flavored-markdown) since GitHub itself is the primary to HTML converter used. In particular, remember that GFM adds line breaks at single newlines, so just forget about the 70 characters wide rule.
 
 # Markdown Flavors
 
@@ -28,11 +28,17 @@ There are many flavors of markdown, each one with an unique feature set. This pl
 
     Next, if there are many more than one Jekyll feature options, create a `g:vim_markdown_jekyll` option that turns them all on at once.
 
+# Style
+
+When choosing between multiple valid Markdown syntaxes, the default behavior must be that specified at: <http://www.cirosantilli.com/markdown-styleguide>
+
+If you wish to have a behavior that differs from that style guide, add an option to turn it on or off, and leave it off by default.
+
 # Tests
 
 All new features must have tests. We don't require unit tests: tests that require users to open markdown code in Vim and check things manually are accepted, but you should point clearly to where the tests are.
 
-Wherever possible, use test cases from the [karlcow'w Markdown Test Suite](https://github.com/karlcow/markdown-testsuite), and link to the relevant test files on your merge request.
+Wherever possible, use test cases from the [karlcow's Markdown Test Suite](https://github.com/karlcow/markdown-testsuite), and link to the relevant test files on your merge request.
 
 If a test does not exist there yet, make a pull request to them, and link to that pull request on the pull request you make here.
 
