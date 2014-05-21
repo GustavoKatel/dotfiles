@@ -1,3 +1,6 @@
+filetype plugin indent on
+filetype plugin on
+
 function AutoCompletar(direcao)
    let posicao = col(".") - 1
    if ! posicao && getline(".")[posicao - 1] !~ '\k'
@@ -40,5 +43,3 @@ set laststatus=2
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 set showbreak=↪
 set list
-
-filetype plugin on
