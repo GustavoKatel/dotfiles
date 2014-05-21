@@ -32,8 +32,6 @@ execute pathogen#helptags()
 
 " Options
 set number
-set expandtab
-set tabstop=4
 colorscheme deathstar
 set laststatus=2
 
@@ -42,3 +40,5 @@ set laststatus=2
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 set showbreak=↪
 set list
+
+filetype plugin on
