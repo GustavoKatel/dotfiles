@@ -33,7 +33,7 @@
 		},
 		"tmux": {
 			"colorscheme": "default",
-			"theme": "default"
+			"theme": "deathstar"
 		},
 		"vim": {
 			"colorscheme": "default",
