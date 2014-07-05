@@ -52,13 +52,6 @@ openserver() {
    ncat  -k -l $*
 }
 
-startdev() {
-    echo -n "Session name: "
-    read session
-    echo "Starting $session ..."
-    tmux new-session -s "$session"
-}
-
 # CONFIG AND PATH
 export EDITOR='vim'
 
