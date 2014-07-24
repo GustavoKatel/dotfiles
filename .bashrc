@@ -1,3 +1,4 @@
+# source .bashrc.debian
 # Aliases
 alias myip="curl http://myip.dnsomatic.com && echo ''"
 alias doHibernate="dbus-send --system --print-reply --dest=\"org.freedesktop.UPower\" /org/freedesktop/UPower org.freedesktop.UPower.Suspend"
@@ -70,3 +71,4 @@ export LD_LIBRARY_PATH="/usr/local/lib:/opt/openmpi/lib:$LD_LIBRARY_PATH"
 # PATH="${PATH}:/media/Arquivos/g5/ufpb/PIBIC - NLP&ML/AeliusPOS/versions/jmx"
 #export PATH
 
+TERM=konsole-256color
