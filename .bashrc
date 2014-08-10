@@ -71,4 +71,4 @@ export LD_LIBRARY_PATH="/usr/local/lib:/opt/openmpi/lib:$LD_LIBRARY_PATH"
 # PATH="${PATH}:/media/Arquivos/g5/ufpb/PIBIC - NLP&ML/AeliusPOS/versions/jmx"
 #export PATH
 
-TERM=konsole-256color
+# TERM=konsole-256color
