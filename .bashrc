@@ -55,6 +55,7 @@ openserver() {
 
 # CONFIG AND PATH
 export EDITOR='vim'
+export SHELL='zsh'
 
 export NDK_ROOT=~/android-ndk
 export SDK_ROOT=~/android-sdks
