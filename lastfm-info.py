@@ -3,22 +3,22 @@
 import sys, argparse
 import lastfmapi as lastfm
 
-API_KEY = "API_KEY_HERE"
+API_KEY = "8a40f5950e301d95268f45c640cdd654"
 
 class LastFMInfo:
 
     pattern2tag = {
-        "%a": "artist",
-        "%t": "title",
-        "%b": "album",
-        "%c": "playcount",
-        "%C": "totalplaycount",
-        "%g": "genre",
-        "%p": "position",
-        "%P": "percent",
-        "%l": "time",
-        "%i": "arturl",
-        "%f": "location",
+        "%a": u"artist",
+        "%t": u"title",
+        "%b": u"album",
+        "%c": u"playcount",
+        "%C": u"totalplaycount",
+        "%g": u"genre",
+        "%p": u"position",
+        "%P": u"percent",
+        "%l": u"time",
+        "%i": u"arturl",
+        "%f": u"location",
     }
 
     def __init__(self):
@@ -36,28 +36,32 @@ class LastFMInfo:
             # check tag existence
             tag = self.pattern2tag[k]
             if tag in self.metadata:
-                res = res.replace(k, unicode(self.metadata[tag]))
+                res = res.replace(k, self.metadata[tag].decode("utf-8"))
 
         return res
 
     def getMetadata(self):
         res = self.api.user_getRecentTracks(limit=1, user=self.username, extended=1)
         self.metadata = {}
-        self.metadata["album"]=res["recenttracks"]["track"][0]["album"]["#text"]
-        self.metadata["artist"]=res["recenttracks"]["track"][0]["artist"]["name"]
-        self.metadata["title"]=res["recenttracks"]["track"][0]["name"]
+        if len(res["recenttracks"]["track"])==0:
+            return
+        self.metadata["album"]=res["recenttracks"]["track"][0]["album"]["#text"].encode("utf-8")
+        self.metadata["artist"]=res["recenttracks"]["track"][0]["artist"]["name"].encode("utf-8")
+        self.metadata["title"]=res["recenttracks"]["track"][0]["name"].encode("utf-8")
 
-        self.metadata["mbid"]=res["recenttracks"]["track"][0]["mbid"]
+        self.metadata["mbid"]=res["recenttracks"]["track"][0]["mbid"].encode("utf-8")
 
-        res = self.api.track_getInfo(mbid=self.metadata["mbid"], username=self.username)
+        res = self.api.track_getInfo(track=self.metadata["title"], artist=self.metadata["artist"], username=self.username)
 
-        self.metadata["playcount"]=res["track"]["userplaycount"]
-
-        self.metadata["arturl"]=res["track"]["album"]["image"][1]["#text"]
+        try:
+            self.metadata["playcount"]=res["track"]["userplaycount"].encode("utf-8")
+            self.metadata["arturl"]=res["track"]["album"]["image"][1]["#text"].encode("utf-8")
+        except:
+            pass
 
         res = self.api.user_getInfo(user=self.username)
 
-        self.metadata["totalplaycount"]=res["user"]["playcount"]
+        self.metadata["totalplaycount"]=res["user"]["playcount"].encode("utf-8")
 
         # print self.metadata["totalplaycount"]
         # print res
