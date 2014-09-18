@@ -2,6 +2,13 @@
 "nemo /media/Arquivos/g5"
     Control+Alt+Mod2+Mod4 + g
 
+"gnome-terminal -e \"tmux new-session -s deathstar\""
+    Control+Alt+Mod2+Mod4 + t
+
+# open spotify
+"spotify"
+    Control+Alt+Mod2+Mod4 + s
+
 # open chrome
 "google-chrome"
     Control+Alt+Mod2+Mod4 + w
