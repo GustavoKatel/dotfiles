@@ -25,6 +25,11 @@ alias curl-ie="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; MSIE 6.0; Windows 
 alias curl-firefox="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.0 (.NET CLR 3.5.30729)\""
 alias curl-chrome="curk -H \"User-Agent: Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36\""
 
+#git aliases
+alias push="git push origin master"
+alias commit="git commit -a"
+alias status="git status"
+
 # Functions
 youtube() {
    # mplayer -fs -cookies -cookies-file cookie.txt $(youtube-dl -g --cookies cookie.txt -f 18 "http://www.youtube.com/watch?v=$1")
