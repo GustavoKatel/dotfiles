@@ -1,4 +1,7 @@
-# source .bashrc.debian
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# source .bashrc_debian
 # Aliases
 alias myip="curl http://myip.dnsomatic.com && echo ''"
 alias doHibernate="dbus-send --system --print-reply --dest=\"org.freedesktop.UPower\" /org/freedesktop/UPower org.freedesktop.UPower.Suspend"
