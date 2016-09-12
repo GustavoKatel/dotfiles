@@ -14,3 +14,9 @@ function pretty-json
 end
 
 set -x EDITOR 'vim'
+
+# git helpers
+
+alias push="git push"
+
+alias commit="git commit"
