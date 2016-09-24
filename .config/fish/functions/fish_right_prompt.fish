@@ -17,6 +17,6 @@ function fish_right_prompt
 
   end
 
-  echo -n $yellow$duration$red"δ » Δ | λ » Λ" $cyan(date +%H:%M:%S)
+  echo -n $yellow$duration$red"Λ" $cyan(date +%H:%M:%S)
 
 end
