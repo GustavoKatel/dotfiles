@@ -2,6 +2,7 @@
 # Do NOT edit it directly, your changes will be overwritten.
 SET __fish_classic_git_prompt_initialized:\x1d
 SET __fish_init_1_50_0:\x1d
+SET __fish_init_2_39_8:\x1d
 SET __fish_init_2_3_0:\x1d
 SET fish_color_autosuggestion:555\x1eyellow
 SET fish_color_command:005fd7\x1epurple
@@ -30,4 +31,5 @@ SET fish_pager_color_completion:normal
 SET fish_pager_color_description:555\x1eyellow
 SET fish_pager_color_prefix:cyan
 SET fish_pager_color_progress:cyan
-SET fisher_dependency_count:bass\x1edocker\x2dcompose\x1ebass\x1edocker\x2dcompose\x1ebass\x1envm
+SET fish_user_paths:/home/gustavokatel/\x2efzf/bin
+SET fisher_dependency_count:bass\x1edocker\x2dcompose\x1ebass\x1edocker\x2dcompose\x1ebass\x1envm\x1egetopts\x1eget\x1emenu\x1efishkit\x1efproject

@@ -20,7 +20,6 @@ set -x EDITOR 'vim'
 alias push="git push"
 
 alias commit="git commit"
-rvm default
 
 # add rustup to the path
-set PATH /home/$USER/.cargo/bin $PATH
+# set PATH /home/$USER/.cargo/bin $PATH
