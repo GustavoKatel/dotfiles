@@ -17,7 +17,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
 
 " rust lang
-Plug 'rust-lang/rust.vim' ", { 'for': 'rust' }
+" Plug 'rust-lang/rust.vim' ", { 'for': 'rust' }
+Plug 'tarrant/rust.vim'
 
 " airline
 Plug 'vim-airline/vim-airline'
@@ -65,6 +66,9 @@ Plug 'Yggdroot/indentLine'
 " One dark color scheme
 Plug 'joshdick/onedark.vim'
 
+" Vim sintax
+Plug 'vim-scripts/fish.vim'
+
 call plug#end() " ------------- }}}
 
 
@@ -90,6 +94,9 @@ nmap <silent> <esc> :noh<cr>
 " set color scheme to onedark
 colorscheme onedark
 
+nmap bb :bNext<cr>
+nmap BB :bprevious<cr>
+
 "}}}
 
 
@@ -114,6 +121,9 @@ set completeopt+=noinsert
 
 " airline    "{{{
 let g:airline_powerline_fonts = 1
+
+" enable tabline
+let g:airline#extensions#tabline#enabled = 1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -166,13 +176,14 @@ nnoremap <F5> :MundoToggle<CR>
 
 " NerdTree    "{{{
 " F6 opens a new nerdtree or create a new nerdtree
-nnoremap <F6> :NERDTreeFocus<CR>
+" nnoremap <F6> :NERDTreeFocus<CR>
+nnoremap <F6> :NERDTreeToggle<CR>
 
 " Shift+F6 finds a the current buffer in the tree
 nnoremap <F18> :NERDTreeFind<CR>
 
 " Control-F6 closes the nerdtree
-nnoremap <F30> :NERDTreeClose<CR>
+" nnoremap <F30> :NERDTreeClose<CR>
 
 " show hidden files
 let NERDTreeShowHidden=1

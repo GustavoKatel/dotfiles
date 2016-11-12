@@ -21,5 +21,8 @@ alias push="git push"
 
 alias commit="git commit"
 
+# use x to open nvim
+alias x="nvim"
+
 # add rustup to the path
 # set PATH /home/$USER/.cargo/bin $PATH
