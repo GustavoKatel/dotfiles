@@ -62,6 +62,9 @@ Plug 'terryma/vim-multiple-cursors'
 " ident gui
 Plug 'Yggdroot/indentLine'
 
+" One dark color scheme
+Plug 'joshdick/onedark.vim'
+
 call plug#end() " ------------- }}}
 
 
@@ -83,6 +86,10 @@ imap <c-k> <ESC>ddi
 
 " remove selection after a search (/)
 nmap <silent> <esc> :noh<cr>
+
+" set color scheme to onedark
+colorscheme onedark
+
 "}}}
 
 
