@@ -201,6 +201,19 @@ set runtimepath+=~/.config/nvim/UltiSnips
 " TabExpander
 let g:UltiSnipsExpandTrigger= "<F8>"
 let g:UltiSnipsListSnippets = "<F32>" " control-f8
+
+" also maps <c-space> to snippet triggering
+if has("gui_running")
+    " C-Space seems to work under gVim on both Linux and win32
+    imap <C-Space> <F8>
+else " no gui
+  if has("unix")
+    imap <Nul> <F8>
+  else
+  " I have no idea of the name of Ctrl-Space elsewhere
+  endif
+endif
+
 "}}}
 
 
@@ -218,6 +231,9 @@ let g:multi_cursor_next_key='<C-d>'
 " folding     "{{{
 set foldmethod=marker
 set foldlevel=99
+
+" if it is a vim file, sets foldlevel to 0, which will close all folds
+autocmd! FileType vim set foldlevel=0
 
 " Ref: http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 fu! CustomFoldText()
