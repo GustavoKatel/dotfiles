@@ -12,6 +12,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " NerdTree
 Plug 'scrooloose/nerdtree' ", { 'on':  'NERDTreeToggle' }
@@ -68,6 +69,9 @@ Plug 'joshdick/onedark.vim'
 
 " Vim sintax
 Plug 'vim-scripts/fish.vim'
+
+" Auto-pairs - auto close
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end() " ------------- }}}
 
@@ -156,7 +160,10 @@ let g:airline_theme = 'distinguished'  "}}}
 
 
 " Fuzzy search \+t   "{{{
-noremap <leader>t :FZF<CR>
+noremap <leader>t :Files<CR>
+
+" respect gitignore
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 "}}}
 
