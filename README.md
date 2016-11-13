@@ -17,7 +17,7 @@
 
 4 - Install Fish Shell - [Here](http://fishshell.com/)
 
-5 - Clone the repo in you `$HOME` directory
+5 - Clone the repo in your `$HOME` directory
 
 6 - Configure Neovim
 
