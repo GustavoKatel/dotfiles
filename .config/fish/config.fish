@@ -24,5 +24,8 @@ alias commit="git commit"
 # use x to open nvim
 alias x="nvim"
 
+# Enable direnv (per directory variables)
+eval (direnv hook fish)
+
 # add rustup to the path
 # set PATH /home/$USER/.cargo/bin $PATH
