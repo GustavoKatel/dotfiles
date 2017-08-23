@@ -90,3 +90,26 @@ export ANDROID_HOME="$HOME/Android/Sdk/"
 
 # fzf ftw
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# NVM - wrappers to avoid big init delays
+function nvm_load() {
+    export NVM_DIR="/home/gustavokatel/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+}
+
+function nvm_unset() {
+    unset -f node
+    unset -f npm
+}
+
+function node() {
+    nvm_unset
+    nvm_load
+    node $argv
+}
+
+function npm() {
+    nvm_unset
+    nvm_load
+    npm $argv
+}
