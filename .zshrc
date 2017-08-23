@@ -113,3 +113,8 @@ function npm() {
     nvm_load
     npm $argv
 }
+
+# TILIX current dir bugfix
+if [[ $TILIX_ID ]]; then
+        source /etc/profile.d/vte.sh
+fi
