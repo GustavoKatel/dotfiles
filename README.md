@@ -1,7 +1,8 @@
 ## Dependencies
+- fzf - [Here](https://github.com/junegunn/fzf)
 - Neovim
 - Neovim python integration
-- fish shell
+- zsh + oh-my-zsh (or fish shell)
 
 ## Installation
 
@@ -19,10 +20,17 @@
 
 5 - Clone the repo in your `$HOME` directory
 
-6 - Configure Neovim
+6 - Update submodules
+
+        $ git submodule init && git submodule update
+
+Submodules used:
+- https://github.com/zsh-users/zsh-autosuggestions
+
+7 - Configure Neovim
 
         $ nvim +PlugInstall
 
 ## Recomendations
 
-- Terminix - [Here](https://github.com/gnunn1/terminix)
+- Tilix - [Here](https://github.com/gnunn1/tilix)
