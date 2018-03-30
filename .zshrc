@@ -7,7 +7,14 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="deathstar"
+ZSH_THEME="mars"
+
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,70 +58,38 @@ ZSH_THEME="deathstar"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(
+  git
+  zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-alias myip="curl http://myip.dnsomatic.com && echo ''"
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+export EDITOR='vim'
+
+alias q="exit"
 
 alias clipi="xsel -b -i"
 alias clipo="xsel -b -o"
 
-alias g5="cd /media/Arquivos/g5"
-export g5="/media/Arquivos/g5"
+alias code="code-oss"
 
-alias q="exit"
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /usr/share/defaults/etc/profile.d/vte.sh
+fi
 
-alias upgrade="sudo apt update && sudo apt upgrade"
-
-function pretty-json() {
-    python -mjson.tool
-}
-
-export EDITOR="vim"
-
-# add rustup to the path
-PATH="$PATH:/home/$USER/.cargo/bin"
-
-# add golang bin to the path
-export GOPATH="/home/$USER/go"
-PATH="$PATH:/usr/local/go/bin"
-PATH="$PATH:/home/$USER/go/bin"
-
-# java home
-export JAVA_HOME="(update-alternatives --query javac | sed -n -e 's/Best: *\(.*\)\/bin\/javac/\1/p')"
-
-# android home
-export ANDROID_HOME="$HOME/Android/Sdk/"
-
-# fzf ftw
+# FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # NVM - wrappers to avoid big init delays
 function nvm_load() {
-    export NVM_DIR="/home/gustavokatel/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
-
-function nvm_unset() {
-    unset -f node
-    unset -f npm
-}
-
-function node() {
-    nvm_unset
-    nvm_load
-    node $argv
-}
-
-function npm() {
-    nvm_unset
-    nvm_load
-    npm $argv
-}
-
-# TILIX current dir bugfix
-if [[ $TILIX_ID ]]; then
-        source /etc/profile.d/vte.sh
-fi
