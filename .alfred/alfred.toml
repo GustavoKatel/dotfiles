@@ -1,0 +1,8 @@
+[command.st]
+exec="git status"
+
+[command.cc]
+exec="git commit -a"
+
+[command.push]
+exec="git push"
