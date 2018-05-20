@@ -1,6 +1,7 @@
 ## Dependencies
 - fzf - [Here](https://github.com/junegunn/fzf)
 - zsh + oh-my-zsh
+- zsh-autosuggestions [Here](https://github.com/zsh-users/zsh-autosuggestions)
 - alfredcmd - [Here](https://github.com/GustavoKatel/alfredcmd)
 - Nvm (optional)
 
