@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/gustavokatel/.oh-my-zsh
+  export ZSH=/home/gustavo/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -78,7 +78,9 @@ alias q="exit"
 alias clipi="xsel -b -i"
 alias clipo="xsel -b -o"
 
-alias code="code-oss"
+alias code="code-oss --enable-proposed-api GitHub.vscode-pull-request-github"
+
+alias rmpyc="find . -name '*.pyc' -delete"
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /usr/share/defaults/etc/profile.d/vte.sh
@@ -93,3 +95,9 @@ function nvm_load() {
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
+
+# Miniconda
+export PATH=$HOME/miniconda3/bin:$PATH
+
+# added by travis gem
+[ -f /home/gustavo/.travis/travis.sh ] && source /home/gustavo/.travis/travis.sh
