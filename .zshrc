@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/gustavo/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -82,6 +82,22 @@ alias code="code-oss --enable-proposed-api GitHub.vscode-pull-request-github"
 
 alias rmpyc="find . -name '*.pyc' -delete"
 
+alias venv="source venv/bin/activate"
+
+alias docker-rmf="docker rm $(docker ps -a -q)"
+
+alias ..="cd .."
+alias ...="cd ../.."
+
+function done-notify() {
+  if [ $? -eq 0 ]; then
+    RESULT="Ok"
+  else
+    RESULT="Fail ($?)"
+  fi
+  pb push "Done: $RESULT"
+}
+
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /usr/share/defaults/etc/profile.d/vte.sh
 fi
@@ -100,4 +116,12 @@ function nvm_load() {
 export PATH=$HOME/miniconda3/bin:$PATH
 
 # added by travis gem
-[ -f /home/gustavo/.travis/travis.sh ] && source /home/gustavo/.travis/travis.sh
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+
+# dry docker version integration
+source $HOME/Projects/dry.sh
+
+export PATH=/opt/ngrok:$PATH
+
+# go bin path
+export PATH=$PATH:$HOME/go/bin
