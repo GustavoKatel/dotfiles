@@ -112,6 +112,11 @@ function nvm_load() {
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 
+function json() {
+  nvm_load
+  fx $@
+}
+
 # Miniconda
 export PATH=$HOME/miniconda3/bin:$PATH
 
