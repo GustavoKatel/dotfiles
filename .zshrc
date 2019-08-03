@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="mars"
+ZSH_THEME="jupyter"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -78,7 +78,7 @@ alias q="exit"
 alias clipi="xsel -b -i"
 alias clipo="xsel -b -o"
 
-alias code="code-oss --enable-proposed-api GitHub.vscode-pull-request-github"
+#alias code="code-oss --enable-proposed-api GitHub.vscode-pull-request-github"
 
 alias rmpyc="find . -name '*.pyc' -delete"
 
@@ -88,6 +88,8 @@ alias docker-rmf="docker rm $(docker ps -a -q)"
 
 alias ..="cd .."
 alias ...="cd ../.."
+
+alias du-sort="du -h . | sort -h -r"
 
 function done-notify() {
   if [ $? -eq 0 ]; then
@@ -119,7 +121,7 @@ function json() {
 }
 
 # Miniconda
-export PATH=$HOME/miniconda3/bin:$PATH
+# export PATH=$HOME/miniconda3/bin:$PATH
 
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
@@ -127,7 +129,24 @@ export PATH=$HOME/miniconda3/bin:$PATH
 # dry docker version integration
 source $HOME/Projects/dry.sh
 
+# task integration
+source $HOME/Projects/task.sh
+
+# docker-machine extensions
+source $HOME/Projects/docker-machine-wrapper.sh
+source $HOME/Projects/docker-machine-prompt.sh
+
 export PATH=/opt/ngrok:$PATH
 
 # go bin path
-export PATH=$PATH:$HOME/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/gustavo/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/gustavo/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/gustavo/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/gustavo/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
