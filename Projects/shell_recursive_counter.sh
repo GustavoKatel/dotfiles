@@ -1,0 +1,3 @@
+#!/bin/bash
+
+export SHELL_RECURSIVE_COUNTER=$((${SHELL_RECURSIVE_COUNTER:-0}+1))

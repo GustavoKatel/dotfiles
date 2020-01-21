@@ -34,6 +34,31 @@ nvm_node_prompt() {
   echo "[%{$fg_bold[yellow]%}%{$reset_color%} `node -v` ]"
 }
 
+### Pyenv
+
+pyenv_prompt() {
+  # Only print if nvm is loaded
+  type pyenv 2>&1 >/dev/null || exit;
+
+  echo "[%{$fg_bold[blue]%}%{$reset_color%} `pyenv version 2>/dev/null | cut -c-5` ]"
+}
+
+### Shell recursive counter
+shell_counter() {
+
+  ignore_value=0
+  if [ -n "$TMUX" ]; then
+      # tmux adds one extra session
+      ignore_value=1
+  fi
+
+  counter=$(($SHELL_RECURSIVE_COUNTER-$ignore_value))
+
+  test $counter -eq 1 && exit;
+
+  echo "[%{$fg_bold[black]%}%{$reset_color%}  $counter ]"
+}
+
 ### Git [~branch-glyph~ master ▾●]
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" [%{$fg_bold[green]%}%{$reset_color%}%{$fg_bold[white]%} "
@@ -151,9 +176,9 @@ mars_precmd () {
   else
     MARS_COMMAND_DURATION=0
   fi
-  
+
   # prompt
-  right="$(mars_command_duration) $_1RIGHT" 
+  right="$(mars_command_duration) $_1RIGHT"
   _1SPACES=`get_space $_1LEFT $right`
   print
   print -rP "$_1LEFT$_1SPACES$right"
@@ -161,7 +186,7 @@ mars_precmd () {
 
 setopt prompt_subst
 PROMPT='> $_LIBERTY '
-RPROMPT='$(nvm_node_prompt)$(mars_git_prompt)'
+RPROMPT='%{$fg_bold[white]%}$(legalist_check_env [ ])%{$reset_color%} $(kube_ps1) $(shell_counter)$(pyenv_prompt)$(nvm_node_prompt)$(mars_git_prompt)'
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd mars_precmd
