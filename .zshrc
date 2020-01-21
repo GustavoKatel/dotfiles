@@ -61,6 +61,8 @@ ZSH_THEME="mars"
 plugins=(
   git
   zsh-autosuggestions
+  kubectl
+  kube-ps1
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -136,6 +138,9 @@ source $HOME/Projects/task.sh
 source $HOME/Projects/docker-machine-wrapper.sh
 source $HOME/Projects/docker-machine-prompt.sh
 
+# Shell recursive counter
+source $HOME/Projects/shell_recursive_counter.sh
+
 export PATH=/opt/ngrok:$PATH
 
 # go bin path
@@ -145,8 +150,37 @@ export PATH=$PATH:$GOPATH/bin
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
+function conda_load() {
+  # >>> conda initialize >>>
+  # !! Contents within this block are managed by 'conda init' !!
+  __conda_setup="$('/home/gustavokatel/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/home/gustavokatel/miniconda3/etc/profile.d/conda.sh" ]; then
+          . "/home/gustavokatel/miniconda3/etc/profile.d/conda.sh"
+      else
+          export PATH="/home/gustavokatel/miniconda3/bin:$PATH"
+      fi
+  fi
+  unset __conda_setup
+  # <<< conda initialize <<<
+}
+
+function pyenv_load() {
+  export PATH="/home/gustavokatel/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+}
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/gustavo/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/gustavo/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/home/gustavokatel/google-cloud-sdk/path.zsh.inc' ]; then . '/home/gustavokatel/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/gustavo/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/gustavo/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/home/gustavokatel/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/gustavokatel/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Disable KUBE_PS1
+export KUBE_PS1_ENABLED=false
+
+source ~/Jobs/legalist/env_prompt.sh
+alias legalist_shell=~/Jobs/legalist/env_shell.sh
