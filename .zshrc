@@ -93,6 +93,8 @@ alias ...="cd ../.."
 
 alias du-sort="du -h . | sort -h -r"
 
+alias st="git status"
+
 function done-notify() {
   if [ $? -eq 0 ]; then
     RESULT="Ok"
