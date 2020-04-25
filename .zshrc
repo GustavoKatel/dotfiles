@@ -168,9 +168,10 @@ function conda_load() {
 }
 
 function pyenv_load() {
-  export PATH="/home/gustavokatel/.pyenv/bin:$PATH"
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  export PYENV_VERSION=3.7.7
   eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
 }
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -180,7 +181,8 @@ if [ -f '/home/gustavokatel/google-cloud-sdk/path.zsh.inc' ]; then . '/home/gust
 if [ -f '/home/gustavokatel/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/gustavokatel/google-cloud-sdk/completion.zsh.inc'; fi
 
 # Disable KUBE_PS1
-export KUBE_PS1_ENABLED=false
+kubeoff
 
 source ~/Jobs/legalist/env_prompt.sh
 alias legalist_shell=~/Jobs/legalist/env_shell.sh
+
