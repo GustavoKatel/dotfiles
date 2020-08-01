@@ -1,0 +1,57 @@
+[character]
+format = "[[>](dimmed white) λ ](green)"
+style_success = "green"
+
+[hostname]
+ssh_only = false
+format = "[$hostname ](dimmed white)"
+
+[username]
+show_always = false
+suffix = "@"
+
+[directory]
+prefix = ""
+style = "bold white"
+
+[git_branch]
+format = "\\[[$symbol$branch]($style)\\] "
+
+[package]
+format = "\\[[$symbol$version]($style)\\] "
+
+[rust]
+format = "\\[[$symbol$version]($style)\\] "
+
+[nodejs]
+format = "\\[[$symbol$version]($style)\\] "
+
+[python]
+format = "\\[[${symbol}${version}( \\($virtualenv\\))]($style)\\] "
+
+[cmd_duration]
+format = "\\[[祥$duration]($style)\\] "
+
+[custom.shell_counter]
+command = "source ~/.zshrc && shell_counter"
+format = "\\[[[$symbol](bold grey)  $output]($style)\\] "
+when = "exit 0"
+shell = ["zsh", "-l"]
+symbol = ""
+style = "white"
+
+[custom.pyenv]
+command = "source ~/.zshrc && pyenv version 2>/dev/null | cut -c-5"
+format = "\\[[[$symbol](bold blue)  $output]($style)\\] "
+when = "! [ -z $PYENV_ROOT ]"
+shell = ["zsh", "-l"]
+symbol = ""
+style = "white"
+
+[custom.nvm]
+command = "source ~/.zshrc && node -v"
+format = "\\[[[$symbol](bold yellow)  $output]($style)\\] "
+when = "! [ -z $NVM_DIR ]"
+shell = ["zsh", "-l"]
+symbol = ""
+style = "white"

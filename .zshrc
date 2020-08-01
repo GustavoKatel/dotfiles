@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="mars"
+# ZSH_THEME="mars"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -86,8 +86,6 @@ alias rmpyc="find . -name '*.pyc' -delete"
 
 alias venv="source venv/bin/activate"
 
-alias docker-rmf="docker rm $(docker ps -a -q)"
-
 alias ..="cd .."
 alias ...="cd ../.."
 
@@ -105,11 +103,12 @@ function done-notify() {
 }
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /usr/share/defaults/etc/profile.d/vte.sh
+        source /etc/profile.d/vte-2.91.sh
 fi
 
 # FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+FZF_BINDINGS=/usr/share/doc/fzf/examples/key-bindings.zsh
+[ -f $FZF_BINDINGS ] && source $FZF_BINDINGS
 
 # NVM - wrappers to avoid big init delays
 function nvm_load() {
@@ -188,3 +187,8 @@ kubeoff
 source ~/Jobs/legalist/env_prompt.sh
 alias legalist_shell=~/Jobs/legalist/env_shell.sh
 
+function docker-rmf() {
+  docker rm $(docker ps -a -f status=exited -q)
+}
+
+eval $(/media/Arquivos/Projects/starship/target/release/starship init zsh)
