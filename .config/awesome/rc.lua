@@ -106,23 +106,23 @@ awful.layout.layouts = {
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
+    -- awful.layout.suit.fair,
     --awful.layout.suit.fair.horizontal,
     --awful.layout.suit.spiral,
     --awful.layout.suit.spiral.dwindle,
     --awful.layout.suit.max,
     --awful.layout.suit.max.fullscreen,
-    --awful.layout.suit.magnifier,
+    awful.layout.suit.magnifier,
     --awful.layout.suit.corner.nw,
     --awful.layout.suit.corner.ne,
     --awful.layout.suit.corner.sw,
     --awful.layout.suit.corner.se,
     --lain.layout.cascade,
     --lain.layout.cascade.tile,
-    --lain.layout.centerwork,
+    lain.layout.centerwork,
     --lain.layout.centerwork.horizontal,
     --lain.layout.termfair,
-    --lain.layout.termfair.center,
+    lain.layout.termfair.center,
 }
 
 awful.util.taglist_buttons = my_table.join(
@@ -654,6 +654,7 @@ for i = 1, 9 do
         awful.key({ modkey, "Control" }, "#" .. i + 9, function () tag_toggle_view(i) end, descr_toggle),
         -- Move client to tag.
         awful.key({ modkey, "Shift" }, "#" .. i + 9, function () tag_move_client(i) end, descr_move),
+        awful.key({ modkey, "Shift" }, "#" .. np_map[i], function () tag_move_client(i) end, descr_move),
         -- Toggle tag on focused client.
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, function () tag_toggle_focused_client(i) end, descr_toggle_focus)
     )
