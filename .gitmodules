@@ -1,0 +1,3 @@
+[submodule "argos"]
+	path = argos
+	url = git@github.com:mwilck/argos.git
