@@ -37,6 +37,7 @@ theme.titlebar_fg_focus                         = theme.fg_focus
 theme.menu_height                               = dpi(16)
 theme.menu_width                                = dpi(140)
 theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
+theme.taglist_font                               = "Hack Nerd Font Mono"
 theme.taglist_squares_sel                       = theme.dir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
 theme.layout_tile                               = theme.dir .. "/icons/tile.png"
@@ -66,8 +67,7 @@ theme.widget_vol                                = theme.dir .. "/icons/vol.png"
 theme.widget_vol_low                            = theme.dir .. "/icons/vol_low.png"
 theme.widget_vol_no                             = theme.dir .. "/icons/vol_no.png"
 theme.widget_vol_mute                           = theme.dir .. "/icons/vol_mute.png"
-theme.widget_mail                               = theme.dir .. "/icons/mail.png"
-theme.widget_mail_on                            = theme.dir .. "/icons/mail_on.png"
+theme.widget_weather                               = theme.dir .. "/icons/dish.png"
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = false
 theme.tasklist_disable_task_name                = true
@@ -113,26 +113,18 @@ theme.cal = lain.widget.cal({
     }
 })
 
--- Mail IMAP check
-local mailicon = wibox.widget.imagebox(theme.widget_mail)
---[[ commented because it needs to be set before use
-mailicon:buttons(my_table.join(awful.button({ }, 1, function () awful.spawn(mail) end)))
-theme.mail = lain.widget.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
+-- Weather
+local weathericon = wibox.widget.imagebox(theme.widget_weather)
+theme.weather = lain.widget.weather({
+    city_id = 3397277, -- placeholder (João Pessoa)
+    notification_preset = { font = "Terminus 10", fg = theme.fg_normal },
+    weather_na_markup = markup.fontfg(theme.font, "#96ae94", "N/A "),
     settings = function()
-        if mailcount > 0 then
-            widget:set_markup(markup.font(theme.font, " " .. mailcount .. " "))
-            mailicon:set_image(theme.widget_mail_on)
-        else
-            widget:set_text("")
-            mailicon:set_image(theme.widget_mail)
-        end
+        descr = weather_now["weather"][1]["description"]:lower()
+        units = math.floor(weather_now["main"]["temp"])
+        widget:set_markup(markup.fontfg(theme.font, "#96ae94", descr .. " @ " .. units .. "°C "))
     end
 })
---]]
 
 -- Spotify
 local playericon = wibox.widget.imagebox(theme.widget_music)
@@ -150,7 +142,7 @@ playericon:buttons(my_table.join(
         os.execute("playerctl next")
         theme.spotify.update()
     end)))
-theme.spotify = spotify_widget({ show_tooltip = true })
+theme.spotify = spotify_widget()
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
@@ -269,6 +261,7 @@ function theme.at_screen_connect(s)
     awful.tag.incmwfact(0.3, awful.screen.focused().tags[2])
     awful.tag.incmwfact(0.3, awful.screen.focused().tags[3])
     awful.tag.incmwfact(0.3, awful.screen.focused().tags[4])
+    awful.layout.set(awful.layout.suit.floating, awful.screen.focused().tags[6])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -312,8 +305,8 @@ function theme.at_screen_connect(s)
             volicon,
             theme.volume.widget,
             arrl_ld,
-            wibox.container.background(mailicon, theme.bg_focus),
-            --wibox.container.background(theme.mail.widget, theme.bg_focus),
+            wibox.container.background(weathericon, theme.bg_focus),
+            wibox.container.background(theme.weather.widget, theme.bg_focus),
             arrl_dl,
             memicon,
             mem.widget,

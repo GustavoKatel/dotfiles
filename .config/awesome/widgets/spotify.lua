@@ -41,6 +41,7 @@ local function worker(args)
     local cur_artist = ''
     local cur_title = ''
     local cur_album = ''
+    local cur_album_art = ''
 
     spotify_widget = wibox.widget {
         {
@@ -105,6 +106,11 @@ local function worker(args)
             cur_title = metadata["title"]
             cur_album = metadata["album"]
 
+            album_art_url = metadata["artUrl"]:gsub("open.spotify.com", "i.scdn.co")
+            awful.spawn.easy_async("/home/gustavokatel/Projects/cached_web_file.sh /tmp/album_art_ "..album_art_url, function(stdout, stderr, exitreason, exitcode)
+                cur_album_art = string.match(stdout, "(.*)\n")
+            end)
+
             widget:set_text(metadata["artist"], metadata["title"])
             widget:set_visible(true)
         end
@@ -135,20 +141,56 @@ local function worker(args)
     end)
 
 
-    if show_tooltip then
-        local spotify_tooltip = awful.tooltip {
-            mode = 'outside',
-            preferred_positions = {'bottom'},
-        }
+        -- local spotify_tooltip = awful.tooltip {
+        --     mode = 'outside',
+        --     preferred_positions = {'bottom'},
+        -- }
 
-        spotify_tooltip:add_to_object(spotify_widget)
+        -- spotify_tooltip:add_to_object(spotify_widget)
 
-        spotify_widget:connect_signal('mouse::enter', function()
-            spotify_tooltip.markup = '<b>Album</b>: ' .. cur_album
-                .. '\n<b>Artist</b>: ' .. cur_artist
-                .. '\n<b>Song</b>: ' .. cur_title
-        end)
-    end
+        -- spotify_widget:connect_signal('mouse::enter', function()
+        --     spotify_tooltip.markup = '<b>Album</b>: ' .. cur_album
+        --         .. '\n<b>Artist</b>: ' .. cur_artist
+        --         .. '\n<b>Song</b>: ' .. cur_title
+        -- end)
+
+    local popup_title_widget = wibox.widget{ text =  '🎵', font = font, widget = wibox.widget.textbox}
+    local popup_artist_widget = wibox.widget{ text =  '🎤', font = font, widget = wibox.widget.textbox}
+    local popup_album_widget = wibox.widget{ text =  '💿', font = font, widget = wibox.widget.textbox}
+    local popup_album_art_widget = wibox.widget {
+        image  = "",
+        resize = false,
+        widget = wibox.widget.imagebox
+    }
+    spotify_widget.spotify_popup = awful.popup {
+        widget = {
+            {
+                popup_title_widget,
+                popup_artist_widget,
+                popup_album_widget,
+                popup_album_art_widget,
+                layout = wibox.layout.fixed.vertical,
+            },
+            margins = 10,
+            widget  = wibox.container.margin
+        },
+        border_color = '#324A40',
+        border_width = 5,
+        visible      = false,
+        ontop = true,
+    }
+
+    spotify_widget:connect_signal("mouse::enter", function()
+        popup_title_widget.text = '🎵 ' .. cur_title
+        popup_artist_widget.text = '🎤 ' .. cur_artist
+        popup_album_widget.text = '💿 ' .. cur_album
+        popup_album_art_widget.image = cur_album_art
+        spotify_widget.spotify_popup:move_next_to(mouse.current_widget_geometry)
+        spotify_widget.spotify_popup.visible = true
+    end)
+    spotify_widget:connect_signal("mouse::leave", function()
+        spotify_widget.spotify_popup.visible = false
+    end)
 
     return spotify_widget
 

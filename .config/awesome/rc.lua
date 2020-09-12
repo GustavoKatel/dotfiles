@@ -58,6 +58,8 @@ local function run_once(cmd_arr)
 end
 
 run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
+run_once({ "nm-applet" }) -- entries must be separated by commas
+run_once({ "gnome-screensaver" }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -90,16 +92,18 @@ local themes = {
 local chosen_theme = themes[11]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
+local hyper     = "hyper"
 local terminal     = "gnome-terminal"
 local vi_focus     = false -- vi-like client focus - https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = false -- cycle trough all previous client or just the first -- https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
+local file_manager   = "nautilus"
 local browser      = os.getenv("BROWSER") or "firefox"
-local scrlocker    = "slock"
+local scrlocker    = "gnome-screensaver-command -l"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5" }
+awful.util.tagnames = { "", "", "", "", "", "6"}
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
@@ -256,8 +260,7 @@ root.buttons(my_table.join(
 -- {{{ Key bindings
 globalkeys = my_table.join(
     -- Take a screenshot
-    -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-    awful.key({ altkey }, "p", function() os.execute("screenshot") end,
+    awful.key({ }, "Print", function() os.execute("flameshot gui") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
@@ -387,7 +390,7 @@ globalkeys = my_table.join(
               {description = "delete tag", group = "tag"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+    awful.key({ modkey,           }, "Return", function () awful.spawn(hyper) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
@@ -441,13 +444,13 @@ globalkeys = my_table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- ALSA volume control
-    awful.key({ altkey }, "Up",
+    awful.key({ altkey, "Shift" }, "Page_Up",
         function ()
             os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
-    awful.key({ altkey }, "Down",
+    awful.key({ altkey, "Shift" }, "Page_Down",
         function ()
             os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
             beautiful.volume.update()
@@ -472,44 +475,27 @@ globalkeys = my_table.join(
         end,
         {description = "volume 0%", group = "hotkeys"}),
 
-    -- MPD control
-    awful.key({ altkey, "Control" }, "Up",
+    -- mpris control
+    awful.key({ altkey, "Shift" }, "Up",
         function ()
-            os.execute("mpc toggle")
-            beautiful.mpd.update()
+            os.execute("playerctl play-pause")
+        end,
+        {description = "player toggle", group = "widgets"}),
+    awful.key({ altkey, "Shift" }, "Down",
+        function ()
+            os.execute("playerctl play-pause")
         end,
         {description = "mpc toggle", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Down",
+    awful.key({ altkey, "Shift" }, "Left",
         function ()
-            os.execute("mpc stop")
-            beautiful.mpd.update()
+            os.execute("playerctl previous")
         end,
-        {description = "mpc stop", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Left",
+        {description = "player previous", group = "widgets"}),
+    awful.key({ altkey, "Shift" }, "Right",
         function ()
-            os.execute("mpc prev")
-            beautiful.mpd.update()
+            os.execute("playerctl next")
         end,
-        {description = "mpc prev", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Right",
-        function ()
-            os.execute("mpc next")
-            beautiful.mpd.update()
-        end,
-        {description = "mpc next", group = "widgets"}),
-    awful.key({ altkey }, "0",
-        function ()
-            local common = { text = "MPD widget ", position = "top_middle", timeout = 2 }
-            if beautiful.mpd.timer.started then
-                beautiful.mpd.timer:stop()
-                common.text = common.text .. lain.util.markup.bold("OFF")
-            else
-                beautiful.mpd.timer:start()
-                common.text = common.text .. lain.util.markup.bold("ON")
-            end
-            naughty.notify(common)
-        end,
-        {description = "mpc on/off", group = "widgets"}),
+        {description = "playerctl next", group = "widgets"}),
 
     -- Copy primary to clipboard (terminals to gtk)
     awful.key({ modkey }, "c", function () awful.spawn.with_shell("xsel | xsel -i -b") end,
@@ -521,30 +507,9 @@ globalkeys = my_table.join(
     -- User programs
     awful.key({ modkey }, "q", function () awful.spawn(browser) end,
               {description = "run browser", group = "launcher"}),
-    awful.key({ modkey }, "a", function () awful.spawn(gui_editor) end,
-              {description = "run gui editor", group = "launcher"}),
+    awful.key({ modkey }, "a", function () awful.spawn(file_manager) end,
+              {description = "run file manager", group = "launcher"}),
 
-    -- Default
-    --[[ Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
-    --]]
-    --[[ dmenu
-    awful.key({ modkey }, "x", function ()
-            os.execute(string.format("dmenu_run -i -fn 'Monospace' -nb '%s' -nf '%s' -sb '%s' -sf '%s'",
-            beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
-        end,
-        {description = "show dmenu", group = "launcher"})
-    --]]
-    -- alternatively use rofi, a dmenu-like application with more features
-    -- check https://github.com/DaveDavenport/rofi for more details
-    --[[ rofi
-    awful.key({ modkey }, "x", function ()
-            os.execute(string.format("rofi -show %s -theme %s",
-            'run', 'dmenu'))
-        end,
-        {description = "show rofi", group = "launcher"}),
-    --]]
     -- Prompt
     awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
@@ -558,8 +523,19 @@ globalkeys = my_table.join(
                     history_path = awful.util.get_cache_dir() .. "/history_eval"
                   }
               end,
-              {description = "lua execute prompt", group = "awesome"})
+              {description = "lua execute prompt", group = "awesome"}),
     --]]
+
+    -- Rofi
+    -- Launch
+    awful.key({ modkey }, "/", function () awful.spawn("rofi -show drun") end,
+              {description = "run rofi", group = "launcher"}),
+    -- Windows
+    awful.key({ modkey, "Shift" }, "/", function () awful.spawn("rofi -show window") end,
+              {description = "run rofi", group = "launcher"}),
+    -- Emoji
+    awful.key({ modkey }, ";", function () awful.spawn("rofi -show emoji") end,
+              {description = "run rofi", group = "launcher"})
 )
 
 clientkeys = my_table.join(
@@ -571,7 +547,7 @@ clientkeys = my_table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+    awful.key({ altkey }, "F4",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
@@ -602,10 +578,10 @@ clientkeys = my_table.join(
 
 local function tag_view_only(i)
 	local screen = awful.screen.focused()
-        local tag = screen.tags[i]
-        if tag then
-        	tag:view_only()
-        end
+    local tag = screen.tags[i]
+    if tag then
+        tag:view_only()
+    end
 end
 
 local function tag_toggle_view(i)
@@ -700,8 +676,8 @@ awful.rules.rules = {
       properties = { titlebars_enabled = true } },
 
     -- Set Firefox to always map on the first tag on screen 1.
-    { rule = { class = "Firefox" },
-      properties = { screen = 1, tag = awful.util.tagnames[1] } },
+    --{ rule = { class = "Firefox" },
+     -- properties = { screen = 1, tag = awful.util.tagnames[1] } },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
@@ -778,6 +754,12 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+-- Focus urgent clients automatically
+client.connect_signal("property::urgent", function(c)
+    c.minimized = false
+    c:jump_to()
+end)
 
 -- possible workaround for tag preservation when switching back to default screen:
 -- https://github.com/lcpz/awesome-copycats/issues/251
