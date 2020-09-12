@@ -1,0 +1,26 @@
+
+* {
+    text-color: #324A40;
+    background-color: rgba(209, 207, 189, 0.76);
+    font: "Hack Nerd Font Mono 12";
+}
+
+#window {
+	border:        5px;
+    border-color: #324A40;
+	transparency:  "real";
+    children: [mainbox];
+}
+
+#mainbox {
+	expand:            false;
+	background-color:  @bg-color;
+	spacing:           1em;
+  	padding:           10px;
+  	border: 0px 1px 0px 0px;
+	border-color: #666666;
+}
+
+#prompt {
+	padding:       0em 1em 0 0em;
+}

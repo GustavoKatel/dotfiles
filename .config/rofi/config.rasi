@@ -1,0 +1,6 @@
+configuration {
+	modi: "window,drun,combi,emoji";
+	combi-modi: "window,drun";
+	theme: "theme.rasi";
+	show-icons: true;
+}

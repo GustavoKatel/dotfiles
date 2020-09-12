@@ -11,6 +11,7 @@ local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
+local spotify_widget = require("widgets/spotify")
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -20,15 +21,15 @@ theme.dir                                       = os.getenv("HOME") .. "/.config
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 theme.font                                      = "Terminus 9"
 theme.fg_normal                                 = "#DDDDFF"
-theme.fg_focus                                  = "#EA6F81"
-theme.fg_urgent                                 = "#CC9393"
+theme.fg_focus                                  = "#96ae94"
+theme.fg_urgent                                 = "#E54B4B"
 theme.bg_normal                                 = "#1A1A1A"
 theme.bg_focus                                  = "#313131"
 theme.bg_urgent                                 = "#1A1A1A"
 theme.border_width                              = dpi(1)
 theme.border_normal                             = "#3F3F3F"
 theme.border_focus                              = "#7F7F7F"
-theme.border_marked                             = "#CC9393"
+theme.border_marked                             = "#E54B4B"
 theme.tasklist_bg_focus                         = "#1A1A1A"
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
@@ -133,41 +134,23 @@ theme.mail = lain.widget.imap({
 })
 --]]
 
--- MPD
-local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
-local mpdicon = wibox.widget.imagebox(theme.widget_music)
-mpdicon:buttons(my_table.join(
-    awful.button({ modkey }, 1, function () awful.spawn.with_shell(musicplr) end),
+-- Spotify
+local playericon = wibox.widget.imagebox(theme.widget_music)
+playericon:buttons(my_table.join(
+    awful.button({ modkey }, 1, function () awful.spawn.with_shell("spotify") end),
     awful.button({ }, 1, function ()
-        os.execute("mpc prev")
-        theme.mpd.update()
+        os.execute("playerctl previous")
+        theme.spotify.update()
     end),
     awful.button({ }, 2, function ()
-        os.execute("mpc toggle")
-        theme.mpd.update()
+        os.execute("playerctl play-pause")
+        theme.spotify.update()
     end),
     awful.button({ }, 3, function ()
-        os.execute("mpc next")
-        theme.mpd.update()
+        os.execute("playerctl next")
+        theme.spotify.update()
     end)))
-theme.mpd = lain.widget.mpd({
-    settings = function()
-        if mpd_now.state == "play" then
-            artist = " " .. mpd_now.artist .. " "
-            title  = mpd_now.title  .. " "
-            mpdicon:set_image(theme.widget_music_on)
-        elseif mpd_now.state == "pause" then
-            artist = " mpd "
-            title  = "paused "
-        else
-            artist = ""
-            title  = ""
-            mpdicon:set_image(theme.widget_music)
-        end
-
-        widget:set_markup(markup.font(theme.font, markup("#EA6F81", artist) .. title))
-    end
-})
+theme.spotify = spotify_widget({ show_tooltip = true })
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
@@ -195,14 +178,12 @@ local temp = lain.widget.temp({
 
 -- / fs
 local fsicon = wibox.widget.imagebox(theme.widget_hdd)
---[[ commented because it needs Gio/Glib >= 2.54
 theme.fs = lain.widget.fs({
     notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
     settings = function()
         widget:set_markup(markup.font(theme.font, " " .. fs_now["/"].percentage .. "% "))
     end
 })
---]]
 
 -- Battery
 local baticon = wibox.widget.imagebox(theme.widget_battery)
@@ -282,7 +263,12 @@ function theme.at_screen_connect(s)
     gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
-    awful.tag(awful.util.tagnames, s, awful.layout.layouts)
+    awful.tag(awful.util.tagnames, s, awful.layout.layouts[7])
+
+    awful.layout.set(lain.layout.termfair.center, awful.screen.focused().tags[1])
+    awful.tag.incmwfact(0.3, awful.screen.focused().tags[2])
+    awful.tag.incmwfact(0.3, awful.screen.focused().tags[3])
+    awful.tag.incmwfact(0.3, awful.screen.focused().tags[4])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -320,8 +306,8 @@ function theme.at_screen_connect(s)
             wibox.widget.systray(),
             spr,
             arrl_ld,
-            wibox.container.background(mpdicon, theme.bg_focus),
-            wibox.container.background(theme.mpd.widget, theme.bg_focus),
+            wibox.container.background(playericon, theme.bg_focus),
+            wibox.container.background(theme.spotify, theme.bg_focus),
             arrl_dl,
             volicon,
             theme.volume.widget,
@@ -339,7 +325,7 @@ function theme.at_screen_connect(s)
             temp.widget,
             arrl_ld,
             wibox.container.background(fsicon, theme.bg_focus),
-            --wibox.container.background(theme.fs.widget, theme.bg_focus),
+            wibox.container.background(theme.fs.widget, theme.bg_focus),
             arrl_dl,
             baticon,
             bat.widget,
