@@ -37,7 +37,7 @@ theme.titlebar_fg_focus                         = theme.fg_focus
 theme.menu_height                               = dpi(16)
 theme.menu_width                                = dpi(140)
 theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.png"
-theme.taglist_font                               = "Hack Nerd Font Mono"
+theme.taglist_font                               = "Hack Nerd Font Mono 14"
 theme.taglist_squares_sel                       = theme.dir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
 theme.layout_tile                               = theme.dir .. "/icons/tile.png"
@@ -71,7 +71,7 @@ theme.widget_weather                               = theme.dir .. "/icons/dish.p
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = false
 theme.tasklist_disable_task_name                = true
-theme.useless_gap                               = dpi(0)
+theme.useless_gap                               = dpi(2)
 theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close_focus.png"
 theme.titlebar_close_button_normal              = theme.dir .. "/icons/titlebar/close_normal.png"
 theme.titlebar_ontop_button_focus_active        = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
@@ -286,14 +286,16 @@ function theme.at_screen_connect(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
+        expand = "none",
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             --spr,
             s.mytaglist,
             s.mypromptbox,
             spr,
+            s.mytasklist,
         },
-        s.mytasklist, -- Middle widget
+        clock, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
@@ -326,10 +328,8 @@ function theme.at_screen_connect(s)
             wibox.container.background(neticon, theme.bg_focus),
             wibox.container.background(net.widget, theme.bg_focus),
             arrl_dl,
-            clock,
             spr,
-            arrl_ld,
-            wibox.container.background(s.mylayoutbox, theme.bg_focus),
+            s.mylayoutbox,
         },
     }
 end

@@ -528,10 +528,10 @@ globalkeys = my_table.join(
 
     -- Rofi
     -- Launch
-    awful.key({ modkey }, "/", function () awful.spawn("rofi -show drun") end,
+    awful.key({ modkey, "Shift" }, "p", function () awful.spawn("rofi -show drun") end,
               {description = "run rofi", group = "launcher"}),
     -- Windows
-    awful.key({ modkey, "Shift" }, "/", function () awful.spawn("rofi -show window") end,
+    awful.key({ modkey }, "p", function () awful.spawn("rofi -show window") end,
               {description = "run rofi", group = "launcher"}),
     -- Emoji
     awful.key({ modkey }, ";", function () awful.spawn("rofi -show emoji") end,
