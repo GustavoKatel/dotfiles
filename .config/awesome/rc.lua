@@ -22,6 +22,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
                       require("awful.hotkeys_popup.keys")
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local dpi           = require("beautiful.xresources").apply_dpi
+local logout_widget = require("widgets/logout")
 -- }}}
 
 -- {{{ Error handling
@@ -262,6 +263,8 @@ globalkeys = my_table.join(
     -- Take a screenshot
     awful.key({ }, "Print", function() os.execute("flameshot gui") end,
               {description = "take a screenshot", group = "hotkeys"}),
+
+    awful.key({ modkey }, "Pause", function() logout_widget.launch() end, {description = "Show logout screen", group = "custom"}),
 
     -- X screen locker
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
@@ -666,8 +669,8 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
-                     size_hints_honor = false
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen+awful.placement.centered,
+                     size_hints_honor = true
      }
     },
 
@@ -681,6 +684,8 @@ awful.rules.rules = {
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
+    { rule = { class = "Org.gnome.Nautilus" },
+          properties = { floating = true } },
 }
 -- }}}
 

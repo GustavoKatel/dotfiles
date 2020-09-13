@@ -7,3 +7,6 @@
 [submodule ".config/awesome/freedesktop"]
 	path = .config/awesome/freedesktop
 	url = https://github.com/lcpz/awesome-freedesktop.git
+[submodule ".config/awesome/awesome-buttons"]
+	path = .config/awesome/awesome-buttons
+	url = git@github.com:streetturtle/awesome-buttons.git

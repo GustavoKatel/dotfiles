@@ -33,7 +33,7 @@ local function worker(args)
     local play_icon = args.play_icon or '    '
     local pause_icon = args.pause_icon or '    '
     local font = args.font or 'Hack Nerd Font Mono 9'
-    local dim_when_paused = args.dim_when_paused == nil and true or args.dim_when_paused
+    local dim_when_paused = args.dim_when_paused == nil and false or args.dim_when_paused
     local dim_opacity = args.dim_opacity or 0.2
     local max_length = args.max_length or 50
     local show_tooltip = args.show_tooltip == nil and false or args.show_tooltip
@@ -141,19 +141,13 @@ local function worker(args)
     end)
 
 
-        -- local spotify_tooltip = awful.tooltip {
-        --     mode = 'outside',
-        --     preferred_positions = {'bottom'},
-        -- }
-
-        -- spotify_tooltip:add_to_object(spotify_widget)
-
-        -- spotify_widget:connect_signal('mouse::enter', function()
-        --     spotify_tooltip.markup = '<b>Album</b>: ' .. cur_album
-        --         .. '\n<b>Artist</b>: ' .. cur_artist
-        --         .. '\n<b>Song</b>: ' .. cur_title
-        -- end)
-
+    local separator = wibox.widget {
+        orientation = "horizontal",
+        color = '#324A40',
+        forced_width = 10,
+        forced_height = 10,
+        widget = wibox.widget.separator
+    }
     local popup_title_widget = wibox.widget{ text =  '🎵', font = font, widget = wibox.widget.textbox}
     local popup_artist_widget = wibox.widget{ text =  '🎤', font = font, widget = wibox.widget.textbox}
     local popup_album_widget = wibox.widget{ text =  '💿', font = font, widget = wibox.widget.textbox}
@@ -168,7 +162,11 @@ local function worker(args)
                 popup_title_widget,
                 popup_artist_widget,
                 popup_album_widget,
-                popup_album_art_widget,
+                separator,
+                {
+                    popup_album_art_widget,
+                    layout = wibox.container.place,
+                },
                 layout = wibox.layout.fixed.vertical,
             },
             margins = 10,

@@ -11,7 +11,9 @@ local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local dpi   = require("beautiful.xresources").apply_dpi
+local logout_widget = require("widgets/logout")
 local spotify_widget = require("widgets/spotify")
+local wclock_widget = require("widgets/wclock")
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -90,28 +92,18 @@ theme.titlebar_maximized_button_focus_active    = theme.dir .. "/icons/titlebar/
 theme.titlebar_maximized_button_normal_active   = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
+theme.logout_border_width                           = dpi(5)
+theme.logout_border_color                           = "#324A40"
+theme.logout_text_color                             = "#324A40"
+theme.logout_accent_color                           = "#324A40"
+theme.logout_bg_color                                = "#d1cfbd"
 
 local markup = lain.util.markup
 local separators = lain.util.separators
 
 -- Textclock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
-local clock = awful.widget.watch(
-    "date +'%a %d %b %R'", 60,
-    function(widget, stdout)
-        widget:set_markup(" " .. markup.font(theme.font, stdout))
-    end
-)
-
--- Calendar
-theme.cal = lain.widget.cal({
-    attach_to = { clock },
-    notification_preset = {
-        font = "Terminus 10",
-        fg   = theme.fg_normal,
-        bg   = theme.bg_normal
-    }
-})
+local clock = wclock_widget({timezones = { "America/Los_Angeles", "Europe/London" }})
 
 -- Weather
 local weathericon = wibox.widget.imagebox(theme.widget_weather)
@@ -238,6 +230,10 @@ local net = lain.widget.net({
     end
 })
 
+-- logout widget
+local logout_button = logout_widget.widget{ icon = theme.dir .. "/icons/power.svg" }
+
+
 -- Separators
 local spr     = wibox.widget.textbox(' ')
 local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
@@ -330,6 +326,8 @@ function theme.at_screen_connect(s)
             arrl_dl,
             spr,
             s.mylayoutbox,
+            arrl_ld,
+            wibox.container.background(logout_button, theme.bg_focus),
         },
     }
 end
