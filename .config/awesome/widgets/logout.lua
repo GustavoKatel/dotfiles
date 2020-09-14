@@ -25,9 +25,9 @@ local w = wibox {
     ontop = true,
     height = 200,
     width = 400,
-    shape = function(cr, width, height)
-        gears.shape.rounded_rect(cr, width, height, 8)
-    end,
+    -- shape = function(cr, width, height)
+    --     gears.shape.rounded_rect(cr, width, height, 8)
+    -- end,
     border_color = '#324A40',
     border_width = 5,
 }

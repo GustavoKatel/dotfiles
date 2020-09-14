@@ -55,3 +55,14 @@ when = "! [ -z $NVM_DIR ]"
 shell = ["zsh", "-l"]
 symbol = ""
 style = "white"
+
+[custom.legalist_env]
+command = "source ~/.zshrc && legalist_check_env"
+format = "\\[[$output]($style)\\] "
+when = "! [ -z $DJANGO_SETTINGS_MODULE ]"
+shell = ["zsh", "-l"]
+symbol = ""
+style = "white"
+
+[gcloud]
+disabled = true

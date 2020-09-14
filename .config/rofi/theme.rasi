@@ -1,13 +1,25 @@
 
 * {
-    text-color: #324A40;
-    background-color: rgba(209, 207, 189, 0.76);
+	fg-normal-color: #324A40;
+	bg-normal-color: rgba(209, 207, 189, 0.76);
+
+	fg-urgent-color: rgba(209, 207, 189, 0.76);
+	bg-urgent-color: #E54B4B;
+
+	fg-selected-color: rgba(209, 207, 189, 0.76);
+	bg-selected-color: #324A40;
+
+	fg-selected-active-color: rgba(209, 207, 189, 0.76);
+	bg-selected-active-color: #96ae94;
+
+    text-color: @fg-normal-color;
+    background-color: @bg-normal-color;
     font: "Hack Nerd Font Mono 12";
 }
 
 #window {
 	border:        5px;
-    border-color: #324A40;
+    border-color: @fg-normal-color;
 	transparency:  "real";
     children: [mainbox];
 }
@@ -23,4 +35,19 @@
 
 #prompt {
 	padding:       0em 1em 0 0em;
+}
+
+#element.normal.urgent {
+    background-color: @bg-urgent-color;
+    text-color:       @fg-urgent-color;
+}
+
+#element.selected.normal {
+    background-color: @bg-selected-color;
+    text-color:       @fg-selected-color;
+}
+
+#element.selected.active {
+    background-color: @bg-selected-active-color;
+    text-color:       @fg-selected-active-color;
 }

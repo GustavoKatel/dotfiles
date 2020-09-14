@@ -148,7 +148,8 @@ module.exports = {
   //   `project#1.0.1`
   plugins: [
   	'hyperocean',
-  	'hyper-active-tab',
+    'hyper-active-tab',
+    'hyper-native-window-decoration',
   	//'hyper-dracula'
   ],
 

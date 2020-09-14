@@ -97,6 +97,7 @@ theme.logout_border_color                           = "#324A40"
 theme.logout_text_color                             = "#324A40"
 theme.logout_accent_color                           = "#324A40"
 theme.logout_bg_color                                = "#d1cfbd"
+theme.notification_icon_size                        = 100
 
 local markup = lain.util.markup
 local separators = lain.util.separators
