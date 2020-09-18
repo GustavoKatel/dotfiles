@@ -61,7 +61,7 @@ end
 
 run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
 run_once({ "nm-applet" }) -- entries must be separated by commas
-run_once({ "gnome-screensaver" }) -- entries must be separated by commas
+run_once({ "light-locker" }) -- entries must be separated by commas
 run_once({ "copyq" }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
@@ -96,14 +96,14 @@ local chosen_theme = themes[11]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local hyper     = "hyper"
-local terminal     = "gnome-terminal"
+local terminal     = "xfce4-terminal"
 local vi_focus     = false -- vi-like client focus - https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = false -- cycle trough all previous client or just the first -- https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
-local file_manager   = "nemo"
+local file_manager   = "thunar"
 local browser      = os.getenv("BROWSER") or "firefox"
-local scrlocker    = "gnome-screensaver-command -l"
+local scrlocker    = "light-locker-command -l"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "", "", "", "", "", "缾", "缾"}
@@ -695,7 +695,7 @@ awful.rules.rules = {
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
-    { rule = { class = "Nemo" },
+    { rule = { class = "Thunar" },
           properties = { floating = true } },
 }
 -- }}}

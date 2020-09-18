@@ -75,13 +75,14 @@ $IS_BACKUP  && $exec cp -r $TARGET/.config/{awesome,rofi,starship.toml} $DOTFILE
 
 # ---------------------------
 # standalone files
-rc_files=(.hyper.js .tmux.conf .vimrc .zshrc)
+rc_files=( .hyper.js .tmux.conf .vimrc .zshrc )
 
-for file in $rc_files; do
+for file in "${rc_files[@]}"; do
     $IS_INSTALL && $exec cp $DOTFILES_DIR/$file $TARGET
     $IS_BACKUP  && $exec cp $TARGET/$file $DOTFILES_DIR/
 done
 
+exit 0
 
 # ---------------------------
 # sym links

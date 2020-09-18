@@ -103,7 +103,7 @@ function done-notify() {
 }
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte-2.91.sh
+        source /etc/profile.d/vte.sh
 fi
 
 # FZF
@@ -173,13 +173,8 @@ function pyenv_load() {
   export PATH="$PYENV_ROOT/bin:$PATH"
   export PYENV_VERSION=3.7.7
   eval "$(pyenv init -)"
+  echo "ok"
 }
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/gustavokatel/google-cloud-sdk/path.zsh.inc' ]; then . '/home/gustavokatel/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/gustavokatel/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/gustavokatel/google-cloud-sdk/completion.zsh.inc'; fi
 
 # Disable KUBE_PS1
 kubeoff
@@ -192,3 +187,4 @@ function docker-rmf() {
 }
 
 eval $(/media/Arquivos/Projects/starship/target/release/starship init zsh)
+
