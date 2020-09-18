@@ -30,7 +30,7 @@ theme.bg_focus                                  = "#313131"
 theme.bg_urgent                                 = "#1A1A1A"
 theme.border_width                              = dpi(1)
 theme.border_normal                             = "#3F3F3F"
-theme.border_focus                              = "#7F7F7F"
+theme.border_focus                              = "#324A40"
 theme.border_marked                             = "#E54B4B"
 theme.tasklist_bg_focus                         = "#1A1A1A"
 theme.titlebar_bg_focus                         = theme.bg_focus
@@ -60,6 +60,7 @@ theme.widget_battery_low                        = theme.dir .. "/icons/battery_l
 theme.widget_battery_empty                      = theme.dir .. "/icons/battery_empty.png"
 theme.widget_mem                                = theme.dir .. "/icons/mem.png"
 theme.widget_cpu                                = theme.dir .. "/icons/cpu.png"
+theme.widget_cpu_font                          = "Hack Nerd Font Mono 9"
 theme.widget_temp                               = theme.dir .. "/icons/temp.png"
 theme.widget_net                                = theme.dir .. "/icons/net.png"
 theme.widget_hdd                                = theme.dir .. "/icons/hdd.png"
@@ -97,7 +98,11 @@ theme.logout_border_color                           = "#324A40"
 theme.logout_text_color                             = "#324A40"
 theme.logout_accent_color                           = "#324A40"
 theme.logout_bg_color                                = "#d1cfbd"
-theme.notification_icon_size                        = 100
+theme.notification_icon_size                        = 90
+theme.notification_width                             = 500
+theme.notification_height                            = 100
+theme.notification_border_width                     = dpi(5)
+theme.notification_border_color                     = "#324A40"
 
 local markup = lain.util.markup
 local separators = lain.util.separators
@@ -141,7 +146,9 @@ theme.spotify = spotify_widget()
 local memicon = wibox.widget.imagebox(theme.widget_mem)
 local mem = lain.widget.mem({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. mem_now.used .. "MB "))
+        total_gb = mem_now.used / 1024
+        total_gb_str = string.format("%.2f", total_gb)
+        widget:set_markup(markup.font(theme.font, " " .. total_gb_str .. " GB "))
     end
 })
 
@@ -149,7 +156,8 @@ local mem = lain.widget.mem({
 local cpuicon = wibox.widget.imagebox(theme.widget_cpu)
 local cpu = lain.widget.cpu({
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. cpu_now.usage .. "% "))
+        padded_value = string.format("%2d", cpu_now.usage)
+        widget:set_markup(markup.font(theme.widget_cpu_font, " " .. padded_value .. "% "))
     end
 })
 
@@ -259,6 +267,7 @@ function theme.at_screen_connect(s)
     awful.tag.incmwfact(0.3, awful.screen.focused().tags[3])
     awful.tag.incmwfact(0.3, awful.screen.focused().tags[4])
     awful.layout.set(awful.layout.suit.floating, awful.screen.focused().tags[6])
+    awful.layout.set(awful.layout.suit.floating, awful.screen.focused().tags[7])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -300,6 +309,7 @@ function theme.at_screen_connect(s)
             arrl_ld,
             wibox.container.background(playericon, theme.bg_focus),
             wibox.container.background(theme.spotify, theme.bg_focus),
+            wibox.container.background(spr, theme.bg_focus),
             arrl_dl,
             volicon,
             theme.volume.widget,
@@ -327,6 +337,7 @@ function theme.at_screen_connect(s)
             arrl_dl,
             spr,
             s.mylayoutbox,
+            spr,
             arrl_ld,
             wibox.container.background(logout_button, theme.bg_focus),
         },

@@ -23,6 +23,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local dpi           = require("beautiful.xresources").apply_dpi
 local logout_widget = require("widgets/logout")
+local switcher_widget = require("widgets/switcher")
 -- }}}
 
 -- {{{ Error handling
@@ -61,6 +62,7 @@ end
 run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
 run_once({ "nm-applet" }) -- entries must be separated by commas
 run_once({ "gnome-screensaver" }) -- entries must be separated by commas
+run_once({ "copyq" }) -- entries must be separated by commas
 
 -- This function implements the XDG autostart specification
 --[[
@@ -99,12 +101,12 @@ local vi_focus     = false -- vi-like client focus - https://github.com/lcpz/awe
 local cycle_prev   = false -- cycle trough all previous client or just the first -- https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
-local file_manager   = "nautilus"
+local file_manager   = "nemo"
 local browser      = os.getenv("BROWSER") or "firefox"
 local scrlocker    = "gnome-screensaver-command -l"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "", "", "", "", "", "缾"}
+awful.util.tagnames = { "", "", "", "", "", "缾", "缾"}
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
@@ -532,13 +534,22 @@ globalkeys = my_table.join(
     -- Rofi
     -- Launch
     awful.key({ modkey, "Shift" }, "p", function () awful.spawn("rofi -show drun") end,
-              {description = "run rofi", group = "launcher"}),
+              {description = "rofi: apps", group = "launcher"}),
     -- Windows
     awful.key({ modkey }, "p", function () awful.spawn("rofi -show window") end,
-              {description = "run rofi", group = "launcher"}),
+              {description = "rofi: windows", group = "launcher"}),
     -- Emoji
     awful.key({ modkey }, ";", function () awful.spawn("rofi -show emoji") end,
-              {description = "run rofi", group = "launcher"})
+              {description = "rofi: emojis", group = "launcher"}),
+
+    -- copyq
+    awful.key({ modkey }, "F9", function () awful.spawn("copyq menu") end,
+              {description = "copyq menu", group = "launcher"}),
+    awful.key({ modkey, "Shift" }, "F9", function () awful.spawn.with_shell("copyq -e - < ~/Projects/copyq-remove-all.js") end,
+              {description = "copyq clear", group = "launcher"}),
+
+    awful.key({ modkey }, "t", function () switcher_widget() end,
+              {description = "test", group = "launcher"})
 )
 
 clientkeys = my_table.join(
@@ -684,7 +695,7 @@ awful.rules.rules = {
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
-    { rule = { class = "Org.gnome.Nautilus" },
+    { rule = { class = "Nemo" },
           properties = { floating = true } },
 }
 -- }}}
@@ -753,9 +764,9 @@ client.connect_signal("request::titlebars", function(c)
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
-client.connect_signal("mouse::enter", function(c)
-    c:emit_signal("request::activate", "mouse_enter", {raise = vi_focus})
-end)
+-- client.connect_signal("mouse::enter", function(c)
+--     c:emit_signal("request::activate", "mouse_enter", {raise = vi_focus})
+-- end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)

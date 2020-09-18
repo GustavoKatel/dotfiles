@@ -3,7 +3,7 @@
 # set -x
 set -e
 
-DOTFILES_DIR=$(dirname $0)
+DOTFILES_DIR=$(dirname $(realpath $0))
 TARGET=~
 
 exec="run"
@@ -87,7 +87,9 @@ done
 # sym links
 for file in $(ls $DOTFILES_DIR/Projects); do
     name=$(basename $file)
-    $IS_INSTALL && $exec ln -s $file $TARGET/Projects/$name
+    source_file_name=$DOTFILES_DIR/Projects/$file
+    target_file_name=$TARGET/Projects/$name
+    $IS_INSTALL && ($exec ln -fs $source_file_name $target_file_name)
 done
 
 # ---------------------------
