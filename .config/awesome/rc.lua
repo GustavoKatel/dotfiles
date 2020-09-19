@@ -23,7 +23,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local dpi           = require("beautiful.xresources").apply_dpi
 local logout_widget = require("widgets/logout")
-local switcher_widget = require("widgets/switcher")
+local floating2_layout = require("layouts/floating2")
 -- }}}
 
 -- {{{ Error handling
@@ -57,12 +57,16 @@ local function run_once(cmd_arr)
     for _, cmd in ipairs(cmd_arr) do
         awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
     end
+    -- weird behaviors with this one
+    -- awful.spawn.single_instance(cmd_arr, {})
 end
 
 run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
 run_once({ "nm-applet" }) -- entries must be separated by commas
 run_once({ "light-locker" }) -- entries must be separated by commas
 run_once({ "copyq" }) -- entries must be separated by commas
+run_once({ "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" })
+run_once({ "pamac-tray" })
 
 -- This function implements the XDG autostart specification
 --[[
@@ -535,8 +539,11 @@ globalkeys = my_table.join(
     -- Launch
     awful.key({ modkey, "Shift" }, "p", function () awful.spawn("rofi -show drun") end,
               {description = "rofi: apps", group = "launcher"}),
-    -- Windows
-    awful.key({ modkey }, "p", function () awful.spawn("rofi -show window") end,
+    -- Windows current workspace
+    awful.key({ modkey }, "p", function () awful.spawn("rofi -show windowcd") end,
+              {description = "rofi: windows", group = "launcher"}),
+    -- Windows all
+    awful.key({ modkey, "Control" }, "p", function () awful.spawn("rofi -show window") end,
               {description = "rofi: windows", group = "launcher"}),
     -- Emoji
     awful.key({ modkey }, ";", function () awful.spawn("rofi -show emoji") end,
@@ -546,10 +553,7 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "F9", function () awful.spawn("copyq menu") end,
               {description = "copyq menu", group = "launcher"}),
     awful.key({ modkey, "Shift" }, "F9", function () awful.spawn.with_shell("copyq -e - < ~/Projects/copyq-remove-all.js") end,
-              {description = "copyq clear", group = "launcher"}),
-
-    awful.key({ modkey }, "t", function () switcher_widget() end,
-              {description = "test", group = "launcher"})
+              {description = "copyq clear", group = "launcher"})
 )
 
 clientkeys = my_table.join(
@@ -696,6 +700,8 @@ awful.rules.rules = {
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
     { rule = { class = "Thunar" },
+          properties = { floating = true } },
+    { rule = { class = "discord" },
           properties = { floating = true } },
 }
 -- }}}

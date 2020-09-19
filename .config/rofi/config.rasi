@@ -1,5 +1,5 @@
 configuration {
-	modi: "window,drun,combi,emoji";
+	modi: "window,drun,combi,emoji,windowcd";
 	combi-modi: "window,drun";
 	theme: "theme.rasi";
 	show-icons: true;
