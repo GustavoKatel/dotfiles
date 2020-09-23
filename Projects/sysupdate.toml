@@ -1,0 +1,31 @@
+[env]
+CARGO_BINS = "exa cargo-make"
+
+[tasks.base]
+command = "yay"
+args = ["-Suy"]
+
+[tasks.flatpak]
+command = "flatpak"
+args = ["update"]
+
+[tasks.rustup]
+command = "rustup"
+args = ["update"]
+
+[tasks.cargo-bins]
+script = [
+    """
+    CARGO_BINS=(${CARGO_BINS})
+
+    for bin in "${CARGO_BINS[@]}"; do
+        cargo install $bin
+    done
+    """
+]
+
+[tasks.default]
+alias = "base"
+
+[tasks.all]
+dependencies = ["base", "flatpak", "rustup", "cargo-bins"]

@@ -180,7 +180,8 @@ function docker-rmf() {
   docker rm $(docker ps -a -f status=exited -q)
 }
 
-alias sysupdate=$HOME/Projects/sysupdate.sh
+alias sysupdate="cargo make --makefile $HOME/Projects/sysupdate.toml"
+
 alias ee=exa
 alias ea="exa -lh --git --icons"
 
