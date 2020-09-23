@@ -82,15 +82,13 @@ for file in "${rc_files[@]}"; do
     $IS_BACKUP  && $exec cp $TARGET/$file $DOTFILES_DIR/
 done
 
-exit 0
-
 # ---------------------------
 # sym links
 for file in $(ls $DOTFILES_DIR/Projects); do
     name=$(basename $file)
     source_file_name=$DOTFILES_DIR/Projects/$file
     target_file_name=$TARGET/Projects/$name
-    $IS_INSTALL && ($exec ln -fs $source_file_name $target_file_name)
+    $IS_INSTALL && (test -e $target_file_name || $exec ln -fs $source_file_name $target_file_name)
 done
 
 # ---------------------------

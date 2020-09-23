@@ -170,11 +170,18 @@ local temp = lain.widget.temp({
 })
 
 -- / fs
-local fsicon = wibox.widget.imagebox(theme.widget_hdd)
+-- local fsicon = wibox.widget.imagebox(theme.widget_hdd)
+local fsicon = wibox.widget{
+    markup = '',
+    align  = 'center',
+    valign = 'center',
+    font = "Hack Nerd Font Mono 11",
+    widget = wibox.widget.textbox
+}
 theme.fs = lain.widget.fs({
     notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
     settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. fs_now["/"].percentage .. "% "))
+        widget:set_markup(markup.font(theme.font, "  " .. fs_now["/"].percentage .. "% "))
     end
 })
 

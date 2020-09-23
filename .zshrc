@@ -148,9 +148,6 @@ export PATH=/opt/ngrok:$PATH
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
 function conda_load() {
   # >>> conda initialize >>>
   # !! Contents within this block are managed by 'conda init' !!
@@ -179,12 +176,17 @@ function pyenv_load() {
 # Disable KUBE_PS1
 kubeoff
 
-source ~/Jobs/legalist/env_prompt.sh
-alias legalist_shell=~/Jobs/legalist/env_shell.sh
-
 function docker-rmf() {
   docker rm $(docker ps -a -f status=exited -q)
 }
+
+alias sysupdate=$HOME/Projects/sysupdate.sh
+alias ee=exa
+alias ea="exa -lh --git --icons"
+
+# legalist goodies
+source ~/Jobs/legalist/env_prompt.sh
+alias legalist_shell=~/Jobs/legalist/env_shell.sh
 
 eval $(/media/Arquivos/Projects/starship/target/release/starship init zsh)
 
