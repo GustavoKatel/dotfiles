@@ -107,8 +107,10 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 fi
 
 # FZF
-FZF_BINDINGS=/usr/share/doc/fzf/examples/key-bindings.zsh
+FZF_BINDINGS=/usr/share/fzf/key-bindings.zsh
 [ -f $FZF_BINDINGS ] && source $FZF_BINDINGS
+FZF_COMPLETITIONS=/usr/share/fzf/completion.zsh
+[ -f $FZF_COMPLETITIONS ] && source $FZF_COMPLETITIONS
 
 # NVM - wrappers to avoid big init delays
 function nvm_load() {
@@ -168,9 +170,8 @@ function conda_load() {
 function pyenv_load() {
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
-  export PYENV_VERSION=3.7.7
+  export PYENV_VERSION=3.7.9
   eval "$(pyenv init -)"
-  echo "ok"
 }
 
 # Disable KUBE_PS1
@@ -188,6 +189,8 @@ alias ea="exa -lh --git --icons"
 # legalist goodies
 source ~/Jobs/legalist/env_prompt.sh
 alias legalist_shell=~/Jobs/legalist/env_shell.sh
+
+cat ~/.cache/wal/sequences
 
 eval $(/media/Arquivos/Projects/starship/target/release/starship init zsh)
 

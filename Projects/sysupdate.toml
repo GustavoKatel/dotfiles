@@ -1,5 +1,5 @@
 [env]
-CARGO_BINS = "exa cargo-make"
+CARGO_BINS = "cargo-make"
 
 [tasks.base]
 command = "yay"

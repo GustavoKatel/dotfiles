@@ -65,7 +65,7 @@ local function launch(args)
 
     w:set_bg(bg_color)
     w.border_width = border_width
-    w.border_color = border_width
+    w.border_color = border_color
 
     local phrase_widget = wibox.widget{
         markup = '<span color="'.. text_color .. '" size="20000">' .. phrases[ math.random( #phrases ) ] .. '</span>',

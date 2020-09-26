@@ -14,6 +14,7 @@ local dpi   = require("beautiful.xresources").apply_dpi
 local logout_widget = require("widgets/logout")
 local spotify_widget = require("widgets/spotify")
 local wclock_widget = require("widgets/wclock")
+local ip_country_widget = require("widgets/ip_country")
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -21,18 +22,18 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/jupiter"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
-theme.font                                      = "Terminus 9"
-theme.fg_normal                                 = "#DDDDFF"
+theme.font                                      = "Hack Nerd Font Mono 9"
+theme.fg_normal                                 = "#ece7e0"
 theme.fg_focus                                  = "#96ae94"
-theme.fg_urgent                                 = "#E54B4B"
-theme.bg_normal                                 = "#1A1A1A"
-theme.bg_focus                                  = "#313131"
-theme.bg_urgent                                 = "#1A1A1A"
-theme.border_width                              = dpi(1)
+theme.fg_urgent                                 = "#916E5A"
+theme.bg_normal                                 = "#0a110d"
+theme.bg_focus                                  = "#0a110d"
+theme.bg_urgent                                 = "#0a110d"
+theme.border_width                              = dpi(2)
 theme.border_normal                             = "#3F3F3F"
 theme.border_focus                              = "#324A40"
-theme.border_marked                             = "#E54B4B"
-theme.tasklist_bg_focus                         = "#1A1A1A"
+theme.border_marked                             = "#916E5A"
+theme.tasklist_bg_focus                         = "#0a110d"
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
@@ -93,16 +94,16 @@ theme.titlebar_maximized_button_focus_active    = theme.dir .. "/icons/titlebar/
 theme.titlebar_maximized_button_normal_active   = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
-theme.logout_border_width                           = dpi(5)
-theme.logout_border_color                           = "#324A40"
-theme.logout_text_color                             = "#324A40"
-theme.logout_accent_color                           = "#324A40"
-theme.logout_bg_color                                = "#d1cfbd"
+theme.logout_border_width                           = dpi(2)
+theme.logout_border_color                           = "#916E5A"
+theme.logout_text_color                             = "#ece7e0"
+theme.logout_accent_color                           = "#916E5A"
+theme.logout_bg_color                                = "#0a110d"
 theme.notification_icon_size                        = 90
 theme.notification_width                             = 500
 theme.notification_height                            = 100
-theme.notification_border_width                     = dpi(5)
-theme.notification_border_color                     = "#324A40"
+theme.notification_border_width                     = dpi(0)
+theme.notification_border_color                     = "#916E5A"
 
 local markup = lain.util.markup
 local separators = lain.util.separators
@@ -116,13 +117,17 @@ local weathericon = wibox.widget.imagebox(theme.widget_weather)
 theme.weather = lain.widget.weather({
     city_id = 3397277, -- placeholder (João Pessoa)
     notification_preset = { font = "Terminus 10", fg = theme.fg_normal },
-    weather_na_markup = markup.fontfg(theme.font, "#96ae94", "N/A "),
+    weather_na_markup = markup.fontfg(theme.font, theme.fg_focus, "N/A "),
+    showpopup = "off",
     settings = function()
         descr = weather_now["weather"][1]["description"]:lower()
         units = math.floor(weather_now["main"]["temp"])
-        widget:set_markup(markup.fontfg(theme.font, "#96ae94", descr .. " @ " .. units .. "°C "))
+        widget:set_markup(markup.fontfg(theme.font, theme.fg_focus, " " .. descr .. " @ " .. units .. "°C "))
     end
 })
+
+-- ip country
+theme.ip_country = ip_country_widget({ font = theme.font })
 
 -- Spotify
 local playericon = wibox.widget.imagebox(theme.widget_music)
@@ -175,11 +180,12 @@ local fsicon = wibox.widget{
     markup = '',
     align  = 'center',
     valign = 'center',
-    font = "Hack Nerd Font Mono 11",
+    font = theme.font,
     widget = wibox.widget.textbox
 }
 theme.fs = lain.widget.fs({
     notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
+    showpopup = "off",
     settings = function()
         widget:set_markup(markup.font(theme.font, "  " .. fs_now["/"].percentage .. "% "))
     end
@@ -240,9 +246,9 @@ local neticon = wibox.widget.imagebox(theme.widget_net)
 local net = lain.widget.net({
     settings = function()
         widget:set_markup(markup.font(theme.font,
-                          markup("#7AC82E", " " .. string.format("%06.1f", net_now.received))
+                          markup(theme.fg_focus, " " .. string.format("%06.1f", net_now.received))
                           .. " " ..
-                          markup("#46A8C3", " " .. string.format("%06.1f", net_now.sent) .. " ")))
+                          markup(theme.fg_normal, " " .. string.format("%06.1f", net_now.sent) .. " ")))
     end
 })
 
@@ -341,6 +347,7 @@ function theme.at_screen_connect(s)
             arrl_ld,
             wibox.container.background(neticon, theme.bg_focus),
             wibox.container.background(net.widget, theme.bg_focus),
+            wibox.container.background(theme.ip_country, theme.bg_focus),
             arrl_dl,
             spr,
             s.mylayoutbox,

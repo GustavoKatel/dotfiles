@@ -24,6 +24,7 @@ local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local dpi           = require("beautiful.xresources").apply_dpi
 local logout_widget = require("widgets/logout")
 local floating2_layout = require("layouts/floating2")
+local notifs = require("notifs")
 -- }}}
 
 -- {{{ Error handling
@@ -61,12 +62,13 @@ local function run_once(cmd_arr)
     -- awful.spawn.single_instance(cmd_arr, {})
 end
 
-run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
+-- run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
 run_once({ "nm-applet" }) -- entries must be separated by commas
-run_once({ "light-locker" }) -- entries must be separated by commas
+run_once({ "light-locker --no-lock-on-lid --no-late-locking" }) -- entries must be separated by commas
 run_once({ "copyq" }) -- entries must be separated by commas
 run_once({ "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" })
 run_once({ "pamac-tray" })
+run_once({ "picom" })
 
 -- This function implements the XDG autostart specification
 --[[
@@ -272,6 +274,8 @@ globalkeys = my_table.join(
 
     awful.key({ modkey }, "Pause", function() logout_widget.launch() end, {description = "Show logout screen", group = "custom"}),
 
+    awful.key({ modkey }, "o", function() notifs.pop() end, {description = "Pop last notifications", group = "custom"}),
+
     -- X screen locker
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
@@ -399,7 +403,7 @@ globalkeys = my_table.join(
               {description = "delete tag", group = "tag"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(hyper) end,
+    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
@@ -691,7 +695,7 @@ awful.rules.rules = {
 
     -- Titlebars
     { rule_any = { type = { "dialog", "normal" } },
-      properties = { titlebars_enabled = true } },
+      properties = { titlebars_enabled = false } },
 
     -- Set Firefox to always map on the first tag on screen 1.
     --{ rule = { class = "Firefox" },

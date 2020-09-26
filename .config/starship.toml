@@ -38,7 +38,7 @@ format = "\\[[祥$duration]($style)\\] "
 [custom.shell_counter]
 command = "source ~/.zshrc && shell_counter"
 format = "\\[[[$symbol](bold grey)  $output]($style)\\] "
-when = "exit 0"
+when = "source ~/.zshrc && shell_counter"
 shell = ["zsh", "-l"]
 symbol = ""
 style = "white"

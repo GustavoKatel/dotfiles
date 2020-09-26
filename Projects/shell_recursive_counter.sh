@@ -13,7 +13,7 @@ function shell_counter() {
 
   counter=$(($SHELL_RECURSIVE_COUNTER-$ignore_value))
 
-  test $counter -eq 1 && exit;
+  test $counter -le 1 && exit 1;
 
   echo $counter
 }

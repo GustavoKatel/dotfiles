@@ -33,7 +33,7 @@ local function worker(args)
     local play_icon = args.play_icon or '    '
     local pause_icon = args.pause_icon or '    '
     local font = args.font or 'Hack Nerd Font Mono 9'
-    local dim_when_paused = args.dim_when_paused == nil and false or args.dim_when_paused
+    local dim_when_paused = args.dim_when_paused == nil and true or args.dim_when_paused
     local dim_opacity = args.dim_opacity or 0.2
     local max_length = args.max_length or 50
     local show_tooltip = args.show_tooltip == nil and false or args.show_tooltip
