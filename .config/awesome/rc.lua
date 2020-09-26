@@ -276,6 +276,8 @@ globalkeys = my_table.join(
 
     awful.key({ modkey }, "o", function() notifs.pop() end, {description = "Pop last notifications", group = "custom"}),
 
+    awful.key({ modkey }, "i", function() beautiful.caffeine_widget.toggle() end, {description = "Toggle caffeine mode", group = "custom"}),
+
     -- X screen locker
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
@@ -575,8 +577,6 @@ clientkeys = my_table.join(
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
-    awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
-              {description = "move to screen", group = "client"}),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
               {description = "toggle keep on top", group = "client"}),
     awful.key({ modkey,           }, "n",

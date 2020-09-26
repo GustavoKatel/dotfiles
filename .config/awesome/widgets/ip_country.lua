@@ -26,13 +26,6 @@ local function worker(args)
 
     local font = args.font or beautiful.font or "Hack Nerd Font Mono 15"
 
-    -- ip_country_widget = watch({
-    --     cmd = GET_COUNTRY_CODE_CMD,
-    --     timeout = 5,
-    --     settings = function()
-    --         widget.markup = '<span font="'.. font .. '">'..output..'</span>'
-    --     end
-    -- })
     ip_country_widget = wibox.widget{
         markup = '<span font="'.. font .. '">🔃</span>',
         align  = 'center',
@@ -46,7 +39,7 @@ local function worker(args)
             function(out)
                 out = string.gsub(out, "\n", "")
                 local flag = flags[out]
-                ip_country_widget.markup = '<span font="'.. font .. '">'..flag..'</span>'
+                ip_country_widget.markup = '<span font="'.. font .. '"> '..flag..' </span>'
             end
         )
     end

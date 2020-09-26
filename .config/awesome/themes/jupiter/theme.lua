@@ -15,6 +15,7 @@ local logout_widget = require("widgets/logout")
 local spotify_widget = require("widgets/spotify")
 local wclock_widget = require("widgets/wclock")
 local ip_country_widget = require("widgets/ip_country")
+local caffeine_widget = require("widgets/caffeine")
 
 local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -106,11 +107,13 @@ theme.notification_border_width                     = dpi(0)
 theme.notification_border_color                     = "#916E5A"
 
 local markup = lain.util.markup
-local separators = lain.util.separators
 
 -- Textclock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
 local clock = wclock_widget({timezones = { "America/Los_Angeles", "Europe/London" }})
+
+-- caffeine widget
+theme.caffeine_widget = caffeine_widget({ font = theme.taglist_font })
 
 -- Weather
 local weathericon = wibox.widget.imagebox(theme.widget_weather)
@@ -177,7 +180,7 @@ local temp = lain.widget.temp({
 -- / fs
 -- local fsicon = wibox.widget.imagebox(theme.widget_hdd)
 local fsicon = wibox.widget{
-    markup = '',
+    markup = ' ',
     align  = 'center',
     valign = 'center',
     font = theme.font,
@@ -257,9 +260,8 @@ local logout_button = logout_widget.widget{ icon = theme.dir .. "/icons/power.sv
 
 
 -- Separators
-local spr     = wibox.widget.textbox(' ')
-local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
-local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
+local spr = wibox.widget.textbox(' | ')
+local spr_space = wibox.widget.textbox(' ')
 
 function theme.at_screen_connect(s)
     -- Quake application
@@ -318,42 +320,45 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+            spr_space,
+            spr_space,
             spr,
-            arrl_ld,
-            wibox.container.background(playericon, theme.bg_focus),
-            wibox.container.background(theme.spotify, theme.bg_focus),
-            wibox.container.background(spr, theme.bg_focus),
-            arrl_dl,
+            playericon,
+            theme.spotify,
+            spr_space,
+            spr_space,
+            spr,
             volicon,
             theme.volume.widget,
-            arrl_ld,
-            wibox.container.background(weathericon, theme.bg_focus),
-            wibox.container.background(theme.weather.widget, theme.bg_focus),
-            arrl_dl,
+            spr,
+            theme.caffeine_widget,
+            spr,
+            weathericon,
+            theme.weather.widget,
+            spr,
             memicon,
             mem.widget,
-            arrl_ld,
-            wibox.container.background(cpuicon, theme.bg_focus),
-            wibox.container.background(cpu.widget, theme.bg_focus),
-            arrl_dl,
+            spr,
+            cpuicon,
+            cpu.widget,
+            spr,
             tempicon,
             temp.widget,
-            arrl_ld,
-            wibox.container.background(fsicon, theme.bg_focus),
-            wibox.container.background(theme.fs.widget, theme.bg_focus),
-            arrl_dl,
+            spr,
+            fsicon,
+            theme.fs.widget,
+            spr,
             baticon,
             bat.widget,
-            arrl_ld,
-            wibox.container.background(neticon, theme.bg_focus),
-            wibox.container.background(net.widget, theme.bg_focus),
-            wibox.container.background(theme.ip_country, theme.bg_focus),
-            arrl_dl,
+            spr,
+            neticon,
+            net.widget,
+            spr,
+            theme.ip_country,
             spr,
             s.mylayoutbox,
             spr,
-            arrl_ld,
-            wibox.container.background(logout_button, theme.bg_focus),
+            logout_button,
         },
     }
 end
