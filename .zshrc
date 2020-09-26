@@ -190,7 +190,7 @@ alias ea="exa -lh --git --icons"
 source ~/Jobs/legalist/env_prompt.sh
 alias legalist_shell=~/Jobs/legalist/env_shell.sh
 
-cat ~/.cache/wal/sequences
+cat ~/.config/sequences
 
 eval $(/media/Arquivos/Projects/starship/target/release/starship init zsh)
 
