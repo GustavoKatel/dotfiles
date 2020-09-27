@@ -37,8 +37,18 @@ local function worker(args)
         awful.spawn.easy_async_with_shell(
             GET_COUNTRY_CODE_CMD,
             function(out)
+                if out == nil then
+                    return
+                end
+
                 out = string.gsub(out, "\n", "")
+
                 local flag = flags[out]
+
+                if flag == nil then
+                    return
+                end
+
                 ip_country_widget.markup = '<span font="'.. font .. '"> '..flag..' </span>'
             end
         )

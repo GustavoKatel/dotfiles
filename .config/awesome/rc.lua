@@ -23,7 +23,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local dpi           = require("beautiful.xresources").apply_dpi
 local logout_widget = require("widgets/logout")
-local floating2_layout = require("layouts/floating2")
+local centershrink_layout = require("layouts/center_shrink")
 local notifs = require("notifs")
 -- }}}
 
@@ -136,6 +136,7 @@ awful.layout.layouts = {
     --lain.layout.centerwork.horizontal,
     --lain.layout.termfair,
     lain.layout.termfair.center,
+    -- centershrink_layout,
 }
 
 awful.util.taglist_buttons = my_table.join(
@@ -277,6 +278,37 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "o", function() notifs.pop() end, {description = "Pop last notifications", group = "custom"}),
 
     awful.key({ modkey }, "i", function() beautiful.caffeine_widget.toggle() end, {description = "Toggle caffeine mode", group = "custom"}),
+
+    awful.key({ modkey }, "l", function()
+
+        local layouts = ""
+
+        local name_to_layout_map = {}
+
+        for k, layout in ipairs(awful.layout.layouts) do
+            local name = awful.layout.getname(layout)
+            layouts = layouts .. name .. "\\n"
+            name_to_layout_map[name] = layout
+        end
+
+        awful.spawn.easy_async_with_shell(
+            'echo -e "'.. layouts ..'" | rofi -dmenu -p "layout"',
+            function(out)
+                out = string.gsub(out, "\n", "")
+
+                local layout = name_to_layout_map[out]
+
+                if layout == nil then
+                    return
+                end
+
+                naughty.notify({ title = "Info", text = "Layout changed to: " .. out })
+
+                awful.layout.set(layout)
+            end
+        )
+
+    end, {description = "Layout selector (rofi)", group = "custom"}),
 
     -- X screen locker
     awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,

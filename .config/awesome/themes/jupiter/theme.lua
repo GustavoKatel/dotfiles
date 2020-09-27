@@ -247,6 +247,7 @@ theme.volume.widget:buttons(awful.util.table.join(
 -- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
 local net = lain.widget.net({
+    units = math.pow(1024,2),
     settings = function()
         widget:set_markup(markup.font(theme.font,
                           markup(theme.fg_focus, " " .. string.format("%06.1f", net_now.received))
@@ -261,6 +262,7 @@ local logout_button = logout_widget.widget{ icon = theme.dir .. "/icons/power.sv
 
 -- Separators
 local spr = wibox.widget.textbox(' | ')
+local spr_lambda = wibox.widget.textbox(' λ ')
 local spr_space = wibox.widget.textbox(' ')
 
 function theme.at_screen_connect(s)
@@ -312,8 +314,8 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
             --spr,
             s.mytaglist,
+            spr_lambda,
             s.mypromptbox,
-            spr,
             s.mytasklist,
         },
         clock, -- Middle widget
