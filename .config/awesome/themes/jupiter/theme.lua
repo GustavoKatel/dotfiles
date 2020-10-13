@@ -6,6 +6,7 @@
 
 --]]
 
+local naughty = require("naughty")
 local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
@@ -72,7 +73,8 @@ theme.widget_vol                                = theme.dir .. "/icons/vol.png"
 theme.widget_vol_low                            = theme.dir .. "/icons/vol_low.png"
 theme.widget_vol_no                             = theme.dir .. "/icons/vol_no.png"
 theme.widget_vol_mute                           = theme.dir .. "/icons/vol_mute.png"
-theme.widget_weather                               = theme.dir .. "/icons/dish.png"
+theme.widget_weather                            = theme.dir .. "/icons/dish.png"
+theme.widget_clock_icon_font                    = "Hack Nerd Font Mono 12"
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = false
 theme.tasklist_disable_task_name                = true
@@ -109,7 +111,13 @@ theme.notification_border_color                     = "#916E5A"
 local markup = lain.util.markup
 
 -- Textclock
-local clockicon = wibox.widget.imagebox(theme.widget_clock)
+local clockicon = wibox.widget{
+    markup = '',
+    align  = 'center',
+    valign = 'center',
+    font = theme.widget_clock_icon_font,
+    widget = wibox.widget.textbox
+}
 local clock = wclock_widget({timezones = { "America/Los_Angeles", "Europe/London" }})
 
 -- caffeine widget
@@ -148,7 +156,7 @@ playericon:buttons(my_table.join(
         os.execute("playerctl next")
         theme.spotify.update()
     end)))
-theme.spotify = spotify_widget()
+theme.spotify = spotify_widget({ dim_when_paused = false })
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
@@ -280,11 +288,41 @@ function theme.at_screen_connect(s)
     awful.tag(awful.util.tagnames, s, awful.layout.layouts[7])
 
     awful.layout.set(lain.layout.termfair.center, awful.screen.focused().tags[1])
-    awful.tag.incmwfact(0.3, awful.screen.focused().tags[2])
-    awful.tag.incmwfact(0.3, awful.screen.focused().tags[3])
-    awful.tag.incmwfact(0.3, awful.screen.focused().tags[4])
     awful.layout.set(awful.layout.suit.floating, awful.screen.focused().tags[6])
-    awful.layout.set(awful.layout.suit.floating, awful.screen.focused().tags[7])
+
+    local big_master_tags = {[2] = true, [3] = true, [4] = true}
+    local temp_tags = {7, 8, 9}
+
+    -- update the tags 2, 3 and 4 to make sure they have a nice master width factor (mwfact)
+    local update_big_master_factors = function(c)
+        for k, v in pairs(big_master_tags) do
+            local tag = awful.screen.focused().tags[k]
+
+            local cls = tag:clients()
+
+            local floating_count = 0
+            for k, c in ipairs(cls) do
+                if c.floating then
+                    floating_count = floating_count + 1
+                end
+            end
+
+            local total_non_floating = #cls - floating_count
+
+            if total_non_floating == 1 then
+                awful.tag.incmwfact(0.3, tag)
+                big_master_tags[k] = false
+            elseif big_master_tags[k] == false then
+                awful.tag.incmwfact(-0.3, tag)
+                big_master_tags[k] = true
+            end
+        end
+    end
+
+    update_big_master_factors()
+
+    client.connect_signal("manage", update_big_master_factors)
+    client.connect_signal("unmanage", update_big_master_factors)
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -304,7 +342,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(18), bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(18), bg = theme.bg_normal .. "55", fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -318,11 +356,16 @@ function theme.at_screen_connect(s)
             s.mypromptbox,
             s.mytasklist,
         },
-        clock, -- Middle widget
+        nil, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
+            clockicon,
             spr_space,
+            clock,
+            spr_space,
+            spr,
+            spr_space,
+            wibox.widget.systray(),
             spr_space,
             spr,
             playericon,

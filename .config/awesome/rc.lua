@@ -25,6 +25,7 @@ local dpi           = require("beautiful.xresources").apply_dpi
 local logout_widget = require("widgets/logout")
 local centershrink_layout = require("layouts/center_shrink")
 local notifs = require("notifs")
+local util = require("util")
 -- }}}
 
 -- {{{ Error handling
@@ -64,7 +65,7 @@ end
 
 -- run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
 run_once({ "nm-applet" }) -- entries must be separated by commas
-run_once({ "light-locker --no-lock-on-lid --no-late-locking" }) -- entries must be separated by commas
+run_once({ "light-locker" }) -- entries must be separated by commas
 run_once({ "copyq" }) -- entries must be separated by commas
 run_once({ "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1" })
 run_once({ "pamac-tray" })
@@ -112,7 +113,7 @@ local browser      = os.getenv("BROWSER") or "firefox"
 local scrlocker    = "light-locker-command -l"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "", "", "", "", "", "缾", "缾"}
+awful.util.tagnames = { "", "", "", "", "", "缾"}
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
@@ -270,7 +271,7 @@ root.buttons(my_table.join(
 -- {{{ Key bindings
 globalkeys = my_table.join(
     -- Take a screenshot
-    awful.key({ }, "Print", function() os.execute("flameshot gui") end,
+    awful.key({ }, "Print", function() util.execute("flameshot gui") end,
               {description = "take a screenshot", group = "hotkeys"}),
 
     awful.key({ modkey }, "Pause", function() logout_widget.launch() end, {description = "Show logout screen", group = "custom"}),
@@ -311,7 +312,7 @@ globalkeys = my_table.join(
     end, {description = "Layout selector (rofi)", group = "custom"}),
 
     -- X screen locker
-    awful.key({ altkey, "Control" }, "l", function () os.execute(scrlocker) end,
+    awful.key({ altkey, "Control" }, "l", function () util.execute(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
 
     -- Hotkeys
@@ -425,7 +426,7 @@ globalkeys = my_table.join(
               {description = "decrement useless gaps", group = "tag"}),
 
     -- Dynamic tagging
-    awful.key({ modkey, "Shift" }, "n", function () lain.util.add_tag() end,
+    awful.key({ modkey, "Shift" }, "n", function () util.add_tag() end,
               {description = "add new tag", group = "tag"}),
     awful.key({ modkey, "Shift" }, "r", function () lain.util.rename_tag() end,
               {description = "rename tag", group = "tag"}),
@@ -433,7 +434,7 @@ globalkeys = my_table.join(
               {description = "move tag to the left", group = "tag"}),
     awful.key({ modkey, "Shift" }, "Right", function () lain.util.move_tag(1) end,
               {description = "move tag to the right", group = "tag"}),
-    awful.key({ modkey, "Shift" }, "d", function () lain.util.delete_tag() end,
+    awful.key({ modkey, "Shift" }, "d", function () util.delete_tag({ index_ignore = {1, 2, 3, 4, 5, 6} }) end,
               {description = "delete tag", group = "tag"}),
 
     -- Standard program
@@ -485,39 +486,39 @@ globalkeys = my_table.join(
               {description = "show weather", group = "widgets"}),
 
     -- Brightness
-    awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 10") end,
+    awful.key({ }, "XF86MonBrightnessUp", function () util.execute("xbacklight -inc 10") end,
               {description = "+10%", group = "hotkeys"}),
-    awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 10") end,
+    awful.key({ }, "XF86MonBrightnessDown", function () util.execute("xbacklight -dec 10") end,
               {description = "-10%", group = "hotkeys"}),
 
     -- ALSA volume control
     awful.key({ altkey, "Shift" }, "Page_Up",
         function ()
-            os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
+            util.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
     awful.key({ altkey, "Shift" }, "Page_Down",
         function ()
-            os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
+            util.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
     awful.key({ altkey }, "m",
         function ()
-            os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
+            util.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "toggle mute", group = "hotkeys"}),
     awful.key({ altkey, "Control" }, "m",
         function ()
-            os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
+            util.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume 100%", group = "hotkeys"}),
     awful.key({ altkey, "Control" }, "0",
         function ()
-            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
+            util.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume 0%", group = "hotkeys"}),
@@ -525,22 +526,22 @@ globalkeys = my_table.join(
     -- mpris control
     awful.key({ altkey, "Shift" }, "Up",
         function ()
-            os.execute("playerctl play-pause")
+            util.execute("playerctl play-pause")
         end,
         {description = "player toggle", group = "widgets"}),
     awful.key({ altkey, "Shift" }, "Down",
         function ()
-            os.execute("playerctl play-pause")
+            util.execute("playerctl play-pause")
         end,
         {description = "mpc toggle", group = "widgets"}),
     awful.key({ altkey, "Shift" }, "Left",
         function ()
-            os.execute("playerctl previous")
+            util.execute("playerctl previous")
         end,
         {description = "player previous", group = "widgets"}),
     awful.key({ altkey, "Shift" }, "Right",
         function ()
-            os.execute("playerctl next")
+            util.execute("playerctl next")
         end,
         {description = "playerctl next", group = "widgets"}),
 
@@ -635,7 +636,14 @@ local function tag_view_only(i)
     local tag = screen.tags[i]
     if tag then
         tag:view_only()
+        return
     end
+
+    awful.tag.add("缾", {
+        screen = screen,
+        layout = awful.layout.suit.floating,
+        volatile = true,
+    }):view_only()
 end
 
 local function tag_toggle_view(i)
@@ -739,6 +747,8 @@ awful.rules.rules = {
           properties = { floating = true } },
     { rule = { class = "discord" },
           properties = { floating = true } },
+    { rule = { class = "Orage" },
+          properties = { floating = true } },
 }
 -- }}}
 
@@ -806,9 +816,9 @@ client.connect_signal("request::titlebars", function(c)
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
--- client.connect_signal("mouse::enter", function(c)
---     c:emit_signal("request::activate", "mouse_enter", {raise = vi_focus})
--- end)
+client.connect_signal("mouse::enter", function(c)
+    c:emit_signal("request::activate", "mouse_enter", {raise = vi_focus})
+end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)

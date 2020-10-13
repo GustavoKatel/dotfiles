@@ -93,6 +93,10 @@ alias du-sort="du -h . | sort -h -r"
 
 alias st="git status"
 
+alias nv="nvim"
+
+alias nvu="xfce4-terminal --command=nvim --working-directory=$PWD"
+
 function done-notify() {
   if [ $? -eq 0 ]; then
     RESULT="Ok"
@@ -192,5 +196,5 @@ alias legalist_shell=~/Jobs/legalist/env_shell.sh
 
 cat ~/.config/sequences
 
-eval $(/media/Arquivos/Projects/starship/target/release/starship init zsh)
+eval $(starship init zsh)
 

@@ -106,10 +106,14 @@ local function worker(args)
             cur_title = metadata["title"]
             cur_album = metadata["album"]
 
-            album_art_url = metadata["artUrl"]:gsub("open.spotify.com", "i.scdn.co")
-            awful.spawn.easy_async("/home/gustavokatel/Projects/cached_web_file.sh /tmp/album_art_ "..album_art_url, function(stdout, stderr, exitreason, exitcode)
-                cur_album_art = string.match(stdout, "(.*)\n")
-            end)
+            if string.find(stdout, 'spotify') ~= nil then
+                album_art_url = metadata["artUrl"]:gsub("open.spotify.com", "i.scdn.co")
+                awful.spawn.easy_async("/home/gustavokatel/Projects/cached_web_file.sh /tmp/album_art_ "..album_art_url, function(stdout, stderr, exitreason, exitcode)
+                    cur_album_art = string.match(stdout, "(.*)\n")
+                end)
+            else
+                cur_album_art = ""
+            end
 
             widget:set_text(metadata["artist"], metadata["title"])
             widget:set_visible(true)
