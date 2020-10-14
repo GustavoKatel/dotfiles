@@ -95,7 +95,10 @@ alias st="git status"
 
 alias nv="nvim"
 
-alias nvu="xfce4-terminal --command=nvim --working-directory=$PWD"
+function nvu() {
+    #xfce4-terminal --command=nvim --working-directory=$PWD --title="$(basename $PWD)"
+    nvim-qt
+}
 
 function done-notify() {
   if [ $? -eq 0 ]; then

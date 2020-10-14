@@ -37,13 +37,13 @@ Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 
 Plug 'prettier/vim-prettier'
 
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-session'
-
-"Plug 'tpope/vim-obsession'
-"Plug 'dhruvasagar/vim-prosession'
-
 Plug 'thaerkh/vim-workspace'
+
+Plug 'cespare/vim-toml'
+
+Plug 'tpope/vim-fugitive'
+
+Plug 'yggdroot/indentline'
 
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
 " Plug 'neovim/nvim-lspconfig'
@@ -56,11 +56,14 @@ set encoding=UTF-8
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
+" enable mouse support 😛
+set mouse=a
+
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'python': ['pyls'],
     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
     \ }
 
@@ -93,7 +96,10 @@ set completeopt=noinsert,menuone,noselect
 " gitgutter update time - this also controls .swp write delay
 set updatetime=100
 
+" show airline buffer line
 let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 let NERDTreeChDirMode=2
 
@@ -108,6 +114,27 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --iglob "!.git"'
 
 let g:workspace_session_directory = $HOME . '/.config/nvim/sessions/'
 let g:workspace_persist_undo_history = 0  " enabled = 1 (default), disabled = 0
+
+" sets the window/terminal title based on current dir
+set title
+augroup dirchange
+    autocmd!
+    " autocmd DirChanged * let &titlestring=v:event['cwd']
+    autocmd DirChanged * let &titlestring=fnamemodify(getcwd(), ':t')
+augroup END
+
+" splits window below of the focused one
+set splitbelow
+" splits window on the right
+set splitright
+
+" always keep at least 30 lines on the screen
+set scrolloff=30
+
+" enable indent lines
+autocmd VimEnter * IndentLinesEnable
+
+autocmd VimEnter * IndentLinesEnable
 
 """""""""""""""""""""""" FERN stuff
 
@@ -131,6 +158,19 @@ augroup fern-custom
 augroup END
 
 """""""""""""""""""""""" END FERN STUFF
+
+"""""""""""""""""""""""" FORMAT ON SAVE
+
+function! MaybeFormat() abort
+    " currently this works only for rust. TODO work on js/ts and python
+    if &filetype ==# 'rust'
+        call LanguageClient#textDocument_formatting_sync()
+    endif
+endfunction
+
+autocmd BufWritePre * call MaybeFormat()
+
+"""""""""""""""""""""""" END FORMAT ON SAVE
 
 """""""""""""""""""""""" KEY BINDINGS
 map <C-t> :Fern . -reveal=% -drawer -toggle<CR>
@@ -164,9 +204,36 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " kill buffer without losing split/window
-map <C-c> :BD<cr>
+map <C-d> :BD<cr>
 
 " toggle workspace - testing
 nnoremap <leader>s :ToggleWorkspace<CR>
+
+" change focus splits using keypad, does not work on every terminal
+nnoremap <silent> <C-k6> <c-w>l
+nnoremap <silent> <C-k4> <c-w>h
+nnoremap <silent> <C-k8> <c-w>k
+nnoremap <silent> <C-k2> <c-w>j
+
+" insert mode ctrl+v paste from clipboard
+inoremap <silent> <C-v> <ESC>"+pa
+vnoremap <silent> <C-c> "+y
+
+augroup CustomTermMappings
+    autocmd!
+    " send ctrl+c to kill processes in term buffers
+    autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
+    " force close term buffer :BD!
+    autocmd TermOpen * nnoremap <buffer> <C-d> :BD!<CR>
+    " disable line numbers in terminal
+    autocmd TermOpen * execute ":set nonumber"
+augroup END
+
+" open terminal in new split
+
+nnoremap <silent> <A-F12> :split<CR>:terminal<CR>i
+
+nnoremap <silent> <C-PageUp> :bprevious<CR>
+nnoremap <silent> <C-PageDown> :bnext<CR>
 
 """""""""""""""""""""""" END KEY BINDINGS
