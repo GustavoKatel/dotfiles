@@ -97,7 +97,7 @@ alias nv="nvim"
 
 function nvu() {
     #xfce4-terminal --command=nvim --working-directory=$PWD --title="$(basename $PWD)"
-    nvim-qt
+    nvim-qt $@
 }
 
 function done-notify() {

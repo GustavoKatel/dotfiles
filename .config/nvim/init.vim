@@ -45,6 +45,13 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'yggdroot/indentline'
 
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+
+Plug 'alvan/vim-closetag'
+
+Plug 'tpope/vim-surround'
+
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
 " Plug 'neovim/nvim-lspconfig'
 
@@ -62,7 +69,9 @@ set mouse=a
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
     \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'typescript.tsx': ['javascript-typescript-stdio'],
     \ 'python': ['pyls'],
     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
     \ }
@@ -100,6 +109,8 @@ set updatetime=100
 let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
+" show buffer numbers
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 let NERDTreeChDirMode=2
 
@@ -135,6 +146,9 @@ set scrolloff=30
 autocmd VimEnter * IndentLinesEnable
 
 autocmd VimEnter * IndentLinesEnable
+
+" auto close tags
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.tsx"
 
 """""""""""""""""""""""" FERN stuff
 
@@ -203,6 +217,9 @@ vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" ctrl-space to trigger autocompletition
+inoremap <C-space> <C-r>=ncm2#force_trigger()<cr>
+
 " kill buffer without losing split/window
 map <C-d> :BD<cr>
 
@@ -217,7 +234,10 @@ nnoremap <silent> <C-k2> <c-w>j
 
 " insert mode ctrl+v paste from clipboard
 inoremap <silent> <C-v> <ESC>"+pa
+" visual mode ctrl+c copy to clipboard
 vnoremap <silent> <C-c> "+y
+" insert mode ctrl-z undo
+inoremap <silent> <C-z> <ESC>ui
 
 augroup CustomTermMappings
     autocmd!
