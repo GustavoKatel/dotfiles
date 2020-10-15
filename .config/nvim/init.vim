@@ -1,9 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+" language clients and autocomplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -16,12 +14,6 @@ Plug 'lambdalisue/fern-git-status.vim'
 Plug 'vim-airline/vim-airline'
 
 Plug 'preservim/nerdcommenter'
-
-" autocompletition
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
 
 " multiple cursors
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -52,6 +44,14 @@ Plug 'alvan/vim-closetag'
 
 Plug 'tpope/vim-surround'
 
+Plug 'jiangmiao/auto-pairs'
+
+Plug 'mbbill/undotree'
+
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+
+Plug 'mhinz/vim-startify'
+
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
 " Plug 'neovim/nvim-lspconfig'
 
@@ -65,16 +65,6 @@ set hidden
 
 " enable mouse support 😛
 set mouse=a
-
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rust-analyzer'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'typescript.tsx': ['javascript-typescript-stdio'],
-    \ 'python': ['pyls'],
-    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-    \ }
 
 colorscheme codedark
 
@@ -96,12 +86,6 @@ set expandtab
 
 syntax on
 
-" enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
-
-" IMPORTANT: :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
-
 " gitgutter update time - this also controls .swp write delay
 set updatetime=100
 
@@ -112,13 +96,9 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " show buffer numbers
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
-let NERDTreeChDirMode=2
-
 " fern show hidden files
 let g:fern#default_hidden = 1
 let g:fern#renderer = "nerdfont"
-
-let g:sessions_dir = '~/.config/nvim/vim-sessions'
 
 " use ripgrep as source to fzf
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --iglob "!.git"'
@@ -139,6 +119,9 @@ set splitbelow
 " splits window on the right
 set splitright
 
+" incremental substitute + preview
+set inccommand=split
+
 " always keep at least 30 lines on the screen
 set scrolloff=30
 
@@ -150,6 +133,16 @@ autocmd VimEnter * IndentLinesEnable
 " auto close tags
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.tsx"
 
+" always show sign column (gitgutter)
+set signcolumn=yes
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+let g:coc_global_extensions = ["coc-highlight", "coc-json", "coc-python", "coc-rust-analyzer", "coc-snippets", "coc-tsserver"]
 """""""""""""""""""""""" FERN stuff
 
 function! s:init_fern() abort
@@ -173,29 +166,49 @@ augroup END
 
 """""""""""""""""""""""" END FERN STUFF
 
-"""""""""""""""""""""""" FORMAT ON SAVE
+"""""""""""""""""""""""" LSP STUFF
 
-function! MaybeFormat() abort
-    " currently this works only for rust. TODO work on js/ts and python
-    if &filetype ==# 'rust'
-        call LanguageClient#textDocument_formatting_sync()
-    endif
+" GoTo code navigation.
+nmap <silent> <F12> <Plug>(coc-definition)
+imap <silent> <F12> <Plug>(coc-definition)
+" Symbol renaming.
+nmap <F2> <Plug>(coc-rename)
+nmap <silent> <F5> <Plug>(coc-codelens-action)
+nmap <silent> <F6> <Plug>(coc-codeaction-line)
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-autocmd BufWritePre * call MaybeFormat()
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-"""""""""""""""""""""""" END FORMAT ON SAVE
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+"""""""""""""""""""""""" END LSP STUFF
 
 """""""""""""""""""""""" KEY BINDINGS
 map <C-t> :Fern . -reveal=% -drawer -toggle<CR>
 
-" note that if you are using Plug mapping you should not use `noremap` mappings.
-nmap <F5> <Plug>(lcn-menu)
-" Or map each action separately
-nmap <silent>K <Plug>(lcn-hover)
-nmap <silent> <F12> <Plug>(lcn-definition)
-nmap <silent> <F2> <Plug>(lcn-rename)
-nmap <silent> <F3> <Plug>(lcn-code-lens-action)
 
 map <C-s> :w<CR>
 
@@ -216,9 +229,6 @@ vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
 " use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" ctrl-space to trigger autocompletition
-inoremap <C-space> <C-r>=ncm2#force_trigger()<cr>
 
 " kill buffer without losing split/window
 map <C-d> :BD<cr>
@@ -253,7 +263,18 @@ augroup END
 
 nnoremap <silent> <A-F12> :split<CR>:terminal<CR>i
 
+" PageUp PageDown to navigate through buffers
 nnoremap <silent> <C-PageUp> :bprevious<CR>
 nnoremap <silent> <C-PageDown> :bnext<CR>
+
+" ctrl-a in insert mode to select all
+inoremap <silent> <C-a> <Esc>ggVG
+" ctrl-a in normal mode to select all
+nnoremap <silent> <C-a> ggVG
+
+" Toggle Undotree with F4
+nnoremap <F4> :UndotreeToggle<cr>
+
+nnoremap <leader>b :enew<CR>
 
 """""""""""""""""""""""" END KEY BINDINGS
