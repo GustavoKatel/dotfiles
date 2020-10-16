@@ -26,6 +26,8 @@ local logout_widget = require("widgets/logout")
 local centershrink_layout = require("layouts/center_shrink")
 local notifs = require("notifs")
 local util = require("util")
+
+local treetile = require("treetile")
 -- }}}
 
 -- {{{ Error handling
@@ -138,6 +140,7 @@ awful.layout.layouts = {
     --lain.layout.termfair,
     lain.layout.termfair.center,
     -- centershrink_layout,
+    treetile,
 }
 
 awful.util.taglist_buttons = my_table.join(
@@ -202,6 +205,8 @@ lain.layout.cascade.tile.offset_y      = dpi(32)
 lain.layout.cascade.tile.extra_padding = dpi(5)
 lain.layout.cascade.tile.nmaster       = 5
 lain.layout.cascade.tile.ncol          = 2
+
+treetile.focusnew = true
 
 beautiful.init(string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), chosen_theme))
 -- }}}
@@ -624,7 +629,11 @@ clientkeys = my_table.join(
             c.maximized = not c.maximized
             c:raise()
         end ,
-        {description = "maximize", group = "client"})
+        {description = "maximize", group = "client"}),
+
+    -- treetile keybindings
+    awful.key({ modkey }, "v", treetile.vertical),
+    awful.key({ modkey }, "h", treetile.horizontal)
 )
 
 -- Bind all key numbers to tags.

@@ -1,10 +1,23 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": ["rust", "css", "markdown", "javascript", "typescript", "javascript.jsx", "typescript.tsx", "graphql", "html", "python"],
+    "coc.preferences.formatOnSaveFiletypes": [
+        "rust",
+        "css",
+        "markdown",
+        "javascript",
+        "typescript",
+        "javascript.jsx",
+        "typescript.tsx",
+        "graphql",
+        "html",
+        "python"
+    ],
     "diagnostic.virtualText": false,
     "codeLens.enable": true,
     "codeLens.subseparator": " | ",
+    "python.jediEnabled": false,
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black",
-    "snippets.userSnippetsDirectory": "$HOME/.config/nvim/ultisnips"
+    "snippets.userSnippetsDirectory": "$HOME/.config/nvim/ultisnips",
+    "python.analysis.memory.keepLibraryAst": true
 }

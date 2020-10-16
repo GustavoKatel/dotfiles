@@ -127,8 +127,9 @@ set scrolloff=30
 
 " enable indent lines
 autocmd VimEnter * IndentLinesEnable
-
-autocmd VimEnter * IndentLinesEnable
+" disable indent lines for json files, they're not really useful and very
+" buggy due to conflictants conceal settings: https://github.com/Yggdroot/indentLine/issues/140
+autocmd BufRead,BufNewFile *.json IndentLinesDisable
 
 " auto close tags
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.tsx"
@@ -142,7 +143,9 @@ set shortmess+=c
 " Give more space for displaying messages.
 set cmdheight=2
 
+" coc extensions
 let g:coc_global_extensions = ["coc-highlight", "coc-json", "coc-python", "coc-rust-analyzer", "coc-snippets", "coc-tsserver"]
+
 """""""""""""""""""""""" FERN stuff
 
 function! s:init_fern() abort
@@ -275,6 +278,14 @@ nnoremap <silent> <C-a> ggVG
 " Toggle Undotree with F4
 nnoremap <F4> :UndotreeToggle<cr>
 
-nnoremap <leader>b :enew<CR>
+" alt-b to create a new buffer in the current split,
+nnoremap <M-b> :enew<CR>
+
+" search current file with ctrl+f
+nnoremap <C-F> /
+inoremap <C-F> <ESC>/
+" search all files with alt+f
+nnoremap <M-f> :Rg<CR>
+inoremap <M-f> <ESC>:Rg<CR>
 
 """""""""""""""""""""""" END KEY BINDINGS
