@@ -52,6 +52,8 @@ Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 
 Plug 'mhinz/vim-startify'
 
+Plug 'voldikss/vim-floaterm'
+
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
 " Plug 'neovim/nvim-lspconfig'
 
@@ -145,6 +147,9 @@ set cmdheight=2
 
 " coc extensions
 let g:coc_global_extensions = ["coc-highlight", "coc-json", "coc-python", "coc-rust-analyzer", "coc-snippets", "coc-tsserver"]
+
+" ignore gitcommit and floaterm file types in vim-workspace
+let g:workspace_autosave_ignore = ["gitcommit", "floaterm"]
 
 """""""""""""""""""""""" FERN stuff
 
@@ -264,7 +269,17 @@ augroup END
 
 " open terminal in new split
 
-nnoremap <silent> <A-F12> :split<CR>:terminal<CR>i
+" alt+f12 to toggle term window
+nnoremap <silent> <A-F12> :FloatermToggle<CR>
+inoremap <silent> <A-F12> <ESC>:FloatermToggle<CR>
+tnoremap <silent> <A-F12> <C-\><C-N>:FloatermToggle<CR>
+" page up/down to move between terms
+tnoremap <silent> <C-PageDown> <C-\><C-N>:FloatermNext<CR>
+tnoremap <silent> <C-PageUp> <C-\><C-N>:FloatermPrev<CR>
+" alt+n to create a new term
+tnoremap <silent> <M-n> <C-\><C-N>:FloatermNew<CR>
+" ctrl+q to kill the current term
+tnoremap <silent> <C-q> <C-\><C-N>:FloatermKill<CR>
 
 " PageUp PageDown to navigate through buffers
 nnoremap <silent> <C-PageUp> :bprevious<CR>
@@ -282,10 +297,19 @@ nnoremap <F4> :UndotreeToggle<cr>
 nnoremap <M-b> :enew<CR>
 
 " search current file with ctrl+f
-nnoremap <C-F> /
-inoremap <C-F> <ESC>/
-" search all files with alt+f
+nnoremap <C-f> /
+inoremap <C-f> <ESC>/
+" visual mode searches for the selected text
+vnoremap // y/<C-R>=escape(@",'/\')<CR><CR>
+vnoremap <C-f> y/<C-R>=escape(@",'/\')<CR><CR>
+
+" visual mode replace the currently selected text
+vnoremap <C-h> y:%s/<C-R>=escape(@",'/\')<CR>/
+
+" alt+f to search in all files
 nnoremap <M-f> :Rg<CR>
 inoremap <M-f> <ESC>:Rg<CR>
+vnoremap <M-f> y:Rg <C-R>"<CR>
+
 
 """""""""""""""""""""""" END KEY BINDINGS
