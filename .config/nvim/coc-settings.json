@@ -11,6 +11,8 @@
         "html",
         "python"
     ],
+    "coc.preferences.formatOnType": false,
+    "coc.preferences.formatOnInsertLeave": false,
     "diagnostic.virtualText": false,
     "codeLens.enable": true,
     "codeLens.subseparator": " | ",

@@ -156,7 +156,7 @@ playericon:buttons(my_table.join(
         os.execute("playerctl next")
         theme.spotify.update()
     end)))
-theme.spotify = spotify_widget({ dim_when_paused = true })
+theme.spotify = spotify_widget({ dim_when_paused = false })
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)

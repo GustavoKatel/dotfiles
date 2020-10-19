@@ -54,6 +54,8 @@ Plug 'mhinz/vim-startify'
 
 Plug 'voldikss/vim-floaterm'
 
+Plug 'equalsraf/neovim-gui-shim'
+
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
 " Plug 'neovim/nvim-lspconfig'
 
@@ -91,6 +93,8 @@ syntax on
 " gitgutter update time - this also controls .swp write delay
 set updatetime=100
 
+set termguicolors
+
 " show airline buffer line
 let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
@@ -107,6 +111,10 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --iglob "!.git"'
 
 let g:workspace_session_directory = $HOME . '/.config/nvim/sessions/'
 let g:workspace_persist_undo_history = 0  " enabled = 1 (default), disabled = 0
+" ignore gitcommit and floaterm file types in vim-workspace
+"let g:workspace_autosave_ignore = ["gitcommit", "floaterm"]
+" do not fu*** auto-save 😡
+let g:workspace_autosave = 0
 
 " sets the window/terminal title based on current dir
 set title
@@ -131,7 +139,7 @@ set scrolloff=30
 autocmd VimEnter * IndentLinesEnable
 " disable indent lines for json files, they're not really useful and very
 " buggy due to conflictants conceal settings: https://github.com/Yggdroot/indentLine/issues/140
-autocmd BufRead,BufNewFile *.json IndentLinesDisable
+autocmd BufEnter *.json,*.md IndentLinesDisable
 
 " auto close tags
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.tsx"
@@ -147,9 +155,6 @@ set cmdheight=2
 
 " coc extensions
 let g:coc_global_extensions = ["coc-highlight", "coc-json", "coc-python", "coc-rust-analyzer", "coc-snippets", "coc-tsserver"]
-
-" ignore gitcommit and floaterm file types in vim-workspace
-let g:workspace_autosave_ignore = ["gitcommit", "floaterm"]
 
 """""""""""""""""""""""" FERN stuff
 
@@ -183,6 +188,7 @@ imap <silent> <F12> <Plug>(coc-definition)
 nmap <F2> <Plug>(coc-rename)
 nmap <silent> <F5> <Plug>(coc-codelens-action)
 nmap <silent> <F6> <Plug>(coc-codeaction-line)
+nmap <silent> <F7> :CocDiagnostics<CR>
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -219,6 +225,7 @@ map <C-t> :Fern . -reveal=% -drawer -toggle<CR>
 
 
 map <C-s> :w<CR>
+imap <C-s> <ESC>:w<CR>i
 
 map <C-\> :vsplit<CR>
 
