@@ -1,9 +1,16 @@
 [env]
-CARGO_BINS = "cargo-make"
+CARGO_BINS = "cargo-make exa"
 
-[tasks.base]
-command = "yay"
-args = ["-Suy"]
+[tasks.apt_update]
+command = "sudo"
+args = ["apt", "update"]
+
+[tasks.apt_upgrade]
+command = "sudo"
+args = ["apt", "upgrade"]
+
+[tasks.apt]
+dependencies = ["apt_update", "apt_upgrade"]
 
 [tasks.flatpak]
 command = "flatpak"
@@ -16,16 +23,16 @@ args = ["update"]
 [tasks.cargo-bins]
 script = [
     """
-    CARGO_BINS=(${CARGO_BINS})
+    CARGO_BINS="${CARGO_BINS}"
 
-    for bin in "${CARGO_BINS[@]}"; do
+    for bin in $CARGO_BINS; do
         cargo install $bin
     done
     """
 ]
 
 [tasks.default]
-alias = "base"
+alias = "apt"
 
 [tasks.all]
-dependencies = ["base", "flatpak", "rustup", "cargo-bins"]
+dependencies = ["apt", "flatpak", "rustup", "cargo-bins"]

@@ -8,10 +8,8 @@ format = "[$hostname ](dimmed white)"
 
 [username]
 show_always = false
-suffix = "@"
 
 [directory]
-prefix = ""
 style = "bold white"
 
 [git_branch]

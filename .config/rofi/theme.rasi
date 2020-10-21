@@ -1,4 +1,6 @@
 * {
+    font: "Hack Nerd Font Mono 14";
+
     active-background: #506358;
     active-foreground: @foreground;
     normal-background: @background;

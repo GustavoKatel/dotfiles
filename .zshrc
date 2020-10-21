@@ -109,15 +109,12 @@ function done-notify() {
   pb push "Done: $RESULT"
 }
 
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
+#if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        #source /etc/profile.d/vte.sh
+#fi
 
 # FZF
-FZF_BINDINGS=/usr/share/fzf/key-bindings.zsh
-[ -f $FZF_BINDINGS ] && source $FZF_BINDINGS
-FZF_COMPLETITIONS=/usr/share/fzf/completion.zsh
-[ -f $FZF_COMPLETITIONS ] && source $FZF_COMPLETITIONS
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # NVM - wrappers to avoid big init delays
 function nvm_load() {
@@ -157,6 +154,9 @@ export PATH=/opt/ngrok:$PATH
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+# cargo/rust
+export PATH=$PATH:$HOME/.cargo/bin
+
 function conda_load() {
   # >>> conda initialize >>>
   # !! Contents within this block are managed by 'conda init' !!
@@ -174,12 +174,7 @@ function conda_load() {
   # <<< conda initialize <<<
 }
 
-function pyenv_load() {
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  export PYENV_VERSION=3.7.9
-  eval "$(pyenv init -)"
-}
+alias pyenv_load=/home/gustavokatel/Projects/pyenv_load.sh
 
 # Disable KUBE_PS1
 kubeoff
