@@ -110,7 +110,7 @@ local vi_focus     = false -- vi-like client focus - https://github.com/lcpz/awe
 local cycle_prev   = false -- cycle trough all previous client or just the first -- https://github.com/lcpz/awesome-copycats/issues/274
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = os.getenv("GUI_EDITOR") or "gvim"
-local file_manager   = "thunar"
+local file_manager   = "nautilus"
 local browser      = os.getenv("BROWSER") or "firefox"
 local scrlocker    = "gnome-screensaver-command -l"
 
@@ -752,7 +752,7 @@ awful.rules.rules = {
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
-    { rule = { class = "Thunar" },
+    { rule = { class = "Nautilus" },
           properties = { floating = true } },
     { rule = { class = "discord" },
           properties = { floating = true } },

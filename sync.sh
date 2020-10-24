@@ -74,7 +74,7 @@ $IS_BACKUP  && $exec cp -r $TARGET/.themes/oomox-jupiter $DOTFILES_DIR/.themes/
 
 # nvim backup
 $IS_BACKUP  && $exec mkdir -p $DOTFILES_DIR/.config/nvim
-$IS_BACKUP  && $exec cp -r $TARGET/.config/nvim/{*.vim,coc-settings.json,ultisnips} $DOTFILES_DIR/.config/nvim/
+$IS_BACKUP  && $exec cp -r $TARGET/.config/nvim/{*.vim,custom,coc-settings.json,ultisnips} $DOTFILES_DIR/.config/nvim/
 
 # ---------------------------
 # oh-my-zsh (deprecated)
