@@ -1,5 +1,5 @@
 " use ripgrep as source to fzf
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --iglob "!.git"'
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --iglob "!.git" --iglob "!venv"'
 
 " Asynctasks fzf integration
 function! s:fzf_sink(what)

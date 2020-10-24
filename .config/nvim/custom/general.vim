@@ -85,10 +85,7 @@ packadd termdebug
 let g:termdebugger="rust-gdb"
 let g:termdebug_wide=1
 
-" asynctasks quickfix window auto-open
-let g:asyncrun_open = 6
-
-let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
 
 """""""""""""""""""""""" KEY BINDINGS

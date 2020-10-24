@@ -48,7 +48,7 @@ endfunction
 function! s:multi_dir_fzf_edit()
     let dirs = join(s:multi_dir_list(), ' ')
 
-    call fzf#run(fzf#wrap({'source': 'find '.. dirs ..' -type f',
+    call fzf#run(fzf#wrap({'source': 'rg --files --hidden --iglob "!.git" --iglob "!venv" '.dirs.' | xargs realpath --relative-to="$PWD"',
              \ 'sink':  'edit'}))
 endfunction
 
