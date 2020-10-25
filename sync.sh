@@ -69,12 +69,12 @@ function run() {
 $IS_INSTALL && $exec cp -r $DOTFILES_DIR/.config/* $TARGET/.config/
 $IS_INSTALL && $exec cp -r $DOTFILES_DIR/.themes/* $TARGET/.themes
 
-$IS_BACKUP  && $exec cp -r $TARGET/.config/{awesome,rofi,starship.toml,picom.conf,sequences,kitty} $DOTFILES_DIR/.config/
+$IS_BACKUP  && $exec cp -r $TARGET/.config/{awesome,rofi,starship.toml,picom.conf,sequences,kitty,devcontainer.json} $DOTFILES_DIR/.config/
 $IS_BACKUP  && $exec cp -r $TARGET/.themes/oomox-jupiter $DOTFILES_DIR/.themes/
 
 # nvim backup
 $IS_BACKUP  && $exec mkdir -p $DOTFILES_DIR/.config/nvim
-$IS_BACKUP  && $exec cp -r $TARGET/.config/nvim/{*.vim,custom,coc-settings.json,ultisnips} $DOTFILES_DIR/.config/nvim/
+$IS_BACKUP  && $exec cp -r $TARGET/.config/nvim/{*.vim,custom,coc-settings.json,ultisnips,devcontainer} $DOTFILES_DIR/.config/nvim/
 
 # ---------------------------
 # oh-my-zsh (deprecated)
