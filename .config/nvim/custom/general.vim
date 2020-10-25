@@ -11,6 +11,9 @@ colorscheme codedark
 set number
 set laststatus=2
 
+" disable swap files
+set noswapfile
+
 " Special chars
 " set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
