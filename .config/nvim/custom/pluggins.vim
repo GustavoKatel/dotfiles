@@ -62,7 +62,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'ryanoasis/vim-devicons'
 
 " vimspector
-"Plug 'puremourning/vimspector'
+Plug 'puremourning/vimspector'
 
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
 " Plug 'neovim/nvim-lspconfig'

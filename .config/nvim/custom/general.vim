@@ -34,14 +34,6 @@ set updatetime=100
 
 set termguicolors
 
-" sets the window/terminal title based on current dir
-set title
-augroup dirchange
-    autocmd!
-    " autocmd DirChanged * let &titlestring=v:event['cwd']
-    autocmd DirChanged * let &titlestring=fnamemodify(getcwd(), ':t')
-augroup END
-
 " splits window below of the focused one
 set splitbelow
 " splits window on the right
@@ -65,14 +57,6 @@ set cmdheight=2
 " spell checking dictionaries, enable/disable with: set [no]spell
 set spelllang=en_us,pt_br
 
-let g:workspace_session_directory = $HOME . '/.config/nvim/sessions/'
-let g:workspace_persist_undo_history = 0  " enabled = 1 (default), disabled = 0
-" ignore gitcommit and floaterm file types in vim-workspace
-"let g:workspace_autosave_ignore = ["gitcommit", "floaterm"]
-" do not fu*** auto-save 😡
-let g:workspace_autosave = 0
-
-
 " enable indent lines
 autocmd VimEnter * IndentLinesEnable
 " disable indent lines for json files, they're not really useful and very
@@ -87,9 +71,6 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.tsx"
 packadd termdebug
 let g:termdebugger="rust-gdb"
 let g:termdebug_wide=1
-
-let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
-let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-cpptools', 'CodeLLDB' ]
 
 """""""""""""""""""""""" KEY BINDINGS
 
