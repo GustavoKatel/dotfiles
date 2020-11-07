@@ -12,6 +12,7 @@ Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 
 Plug 'vim-airline/vim-airline'
+"Plug 'itchyny/lightline.vim'
 
 Plug 'preservim/nerdcommenter'
 
@@ -29,7 +30,7 @@ Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 
 Plug 'prettier/vim-prettier'
 
-Plug 'thaerkh/vim-workspace'
+Plug 'GustavoKatel/vim-workspace'
 
 Plug 'cespare/vim-toml'
 
@@ -64,8 +65,16 @@ Plug 'ryanoasis/vim-devicons'
 " vimspector
 Plug 'puremourning/vimspector'
 
+" better python syntax
+Plug 'vim-python/python-syntax'
+
+Plug 'easymotion/vim-easymotion'
+
+Plug 'vim-test/vim-test'
+
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
-" Plug 'neovim/nvim-lspconfig'
+"Plug 'neovim/nvim-lspconfig'
+"Plug 'nvim-treesitter/nvim-treesitter'
 
 " Initialize plugin system
 call plug#end()

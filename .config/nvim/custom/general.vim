@@ -57,6 +57,9 @@ set cmdheight=2
 " spell checking dictionaries, enable/disable with: set [no]spell
 set spelllang=en_us,pt_br
 
+" enable current line highlight
+set cursorline
+
 " enable indent lines
 autocmd VimEnter * IndentLinesEnable
 " disable indent lines for json files, they're not really useful and very
@@ -71,6 +74,9 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.tsx"
 packadd termdebug
 let g:termdebugger="rust-gdb"
 let g:termdebug_wide=1
+
+" enable vim-python syntax highlight
+let g:python_highlight_all = 1
 
 """""""""""""""""""""""" KEY BINDINGS
 
@@ -116,6 +122,8 @@ augroup CustomTermMappings
     autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
     " force close term buffer :BD!
     autocmd TermOpen * nnoremap <buffer> <C-d> :BD!<CR>
+    " close buffer and split with <C-q>
+    autocmd TermOpen * nnoremap <buffer> <C-q> :bd!<CR>
     " disable line numbers in terminal
     autocmd TermOpen * execute ":set nonumber"
 augroup END
@@ -146,6 +154,11 @@ vnoremap <C-f> y/<C-R>=escape(@",'/\')<CR><CR>
 
 " visual mode replace the currently selected text
 vnoremap <C-h> y:%s/<C-R>=escape(@",'/\')<CR>/
+
+" ctrl+enter in insert mode to create new line below
+inoremap <C-CR> <ESC>o
+" shift+enter in insert mode to create new line above
+inoremap <S-CR> <ESC>O
 
 
 """""""""""""""""""""""" END KEY BINDINGS

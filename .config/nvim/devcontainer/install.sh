@@ -10,7 +10,11 @@ apt update
 apt upgrade -y
 
 ########## install deps
-apt install -y git ripgrep nodejs npm python3 python3-pip locales locales-all
+apt install -y git ripgrep python3 python3-pip locales locales-all ranger
+
+curl https://deb.nodesource.com/setup_14.x | bash
+
+apt update && apt install -y nodejs
 
 pip3 install pynvim neovim-remote
 npm install -g neovim

@@ -2,7 +2,8 @@
 let g:coc_global_extensions = [
     \ "coc-highlight",
     \ "coc-json",
-    \ "coc-python",
+    "\ "coc-python",
+    \ "coc-pyright",
     \ "coc-rust-analyzer",
     \ "coc-snippets",
     \ "coc-tsserver",
@@ -38,6 +39,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd User CocTerminalOpen :resize +20
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')

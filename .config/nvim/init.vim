@@ -13,8 +13,12 @@ source $HOME/.config/nvim/custom/floaterm.vim
 source $HOME/.config/nvim/custom/asynctasks.vim
 source $HOME/.config/nvim/custom/vimspector.vim
 source $HOME/.config/nvim/custom/workspace.vim
+source $HOME/.config/nvim/custom/easymotion.vim
+source $HOME/.config/nvim/custom/test.vim
 
 " personal plugins
 source $HOME/.config/nvim/custom/updater.vim
 source $HOME/.config/nvim/custom/multi_dir.vim
-
+ 
+" testing
+"source $HOME/.config/nvim/custom/treesitter.vim
