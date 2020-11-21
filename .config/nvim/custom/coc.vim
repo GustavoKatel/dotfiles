@@ -7,6 +7,8 @@ let g:coc_global_extensions = [
     \ "coc-rust-analyzer",
     \ "coc-snippets",
     \ "coc-tsserver",
+    \ "coc-lua",
+    \ "coc-vimlsp",
     \]
 
 " GoTo code navigation.

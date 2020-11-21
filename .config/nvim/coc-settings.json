@@ -21,5 +21,6 @@
     "python.formatting.provider": "black",
     "snippets.userSnippetsDirectory": "$HOME/.config/nvim/ultisnips",
     "rust-analyzer.debug.runtime": "vimspector",
-    "rust-analyzer.debug.vimspector.configuration.name": "launch"
+    "rust-analyzer.debug.vimspector.configuration.name": "launch",
+    "rust-analyzer.updates.prompt":false
 }

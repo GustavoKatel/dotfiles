@@ -62,9 +62,19 @@ function! s:multi_dir_fzf_rg(...)
     call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case  -- ".shellescape(args)." ".dirs, 1, s:p(), 0)
 endfunction
 
+function! s:save_to_session()
+    let l:lines = []
+
+        for dir in g:multi_dir_dirs
+        call add(l:lines, printf("MultiDirAdd %s", dir))
+    endfor
+
+    call g:WorkspaceSessionAddLine(l:lines)
+endfunction
 
 augroup MultiDir
     autocmd VimEnter * call s:multi_dir_start()
+    autocmd User WorkspacePostSave call s:save_to_session()
 augroup end
 
 

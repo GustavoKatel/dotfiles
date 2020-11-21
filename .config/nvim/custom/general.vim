@@ -1,5 +1,8 @@
 set encoding=UTF-8
 
+" set leader to ,
+let mapleader = ","
+
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
@@ -78,7 +81,11 @@ let g:termdebug_wide=1
 " enable vim-python syntax highlight
 let g:python_highlight_all = 1
 
-"""""""""""""""""""""""" KEY BINDINGS
+" better color for illuminate
+hi illuminatedWord guibg=#424242
+
+""""""""""" KEYBINDINGS"
+set foldmethod=marker 
 
 map <C-s> :w<CR>
 imap <C-s> <ESC>:w<CR>i
@@ -90,6 +97,7 @@ map <C-q> :q<CR>
 nnoremap <M-Right> <C-I>
 nnoremap <M-Left> <C-O>
 
+imap <C-_>   <Plug>NERDCommenterInsert
 nmap <C-_>   <Plug>NERDCommenterToggle
 vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
 
@@ -160,5 +168,6 @@ inoremap <C-CR> <ESC>o
 " shift+enter in insert mode to create new line above
 inoremap <S-CR> <ESC>O
 
+nnoremap <leader>c :VenterToggle<CR>
 
 """""""""""""""""""""""" END KEY BINDINGS

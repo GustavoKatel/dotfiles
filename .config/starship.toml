@@ -67,3 +67,7 @@ style = "white"
 
 [gcloud]
 disabled = true
+
+[java]
+disabled = true
+

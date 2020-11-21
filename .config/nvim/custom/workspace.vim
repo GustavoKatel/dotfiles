@@ -11,3 +11,5 @@ let g:workspace_persist_undo_history = 0  " enabled = 1 (default), disabled = 0
 " do not fu*** auto-save 😡
 let g:workspace_autosave = 0
 
+let g:workspace_dir_replace_char = "_"
+

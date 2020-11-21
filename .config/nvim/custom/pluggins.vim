@@ -72,9 +72,17 @@ Plug 'easymotion/vim-easymotion'
 
 Plug 'vim-test/vim-test'
 
+Plug 'RRethy/vim-illuminate'
+
+" shows how many times a searched key appears
+Plug 'google/vim-searchindex'
+
+" horizontally center buffer
+Plug 'jmckiern/vim-venter'
+
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
 "Plug 'neovim/nvim-lspconfig'
-"Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter'
 
 " Initialize plugin system
 call plug#end()

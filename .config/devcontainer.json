@@ -1,7 +1,7 @@
 {
 
     "application": { "cmd": ["bash", "-c", "nvim-qt --server 127.0.0.1:${DEVCONTAINER_APPLICATION_PORT:-7777} --nofork"]  },
-    "forwardPorts": [7777],
+    "forwardPorts": [],
     "mounts": ["/home/gustavokatel/.config/nvim:/root/.config/nvim", "/home/gustavokatel/.local/share/nvim:/root/.local/share/nvim"],
     "postCreateCommand": ["bash", "/root/.config/nvim/devcontainer/install.sh"],
     "postAttachCommand": ["bash", "/root/.config/nvim/devcontainer/run.sh"]

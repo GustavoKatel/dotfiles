@@ -30,7 +30,9 @@ echo "LANG=en_US.UTF-8" > /etc/locale.conf
 locale-gen en_US.UTF-8
 
 ############ install neovim
-wget https://github.com/neovim/neovim/releases/download/v0.4.4/nvim-linux64.tar.gz -O /tmp/nvim.tar.gz
+NVIM_URL=https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+
+wget $NVIM_URL -O /tmp/nvim.tar.gz
 
 cd /tmp
 

@@ -643,6 +643,13 @@ clientkeys = my_table.join(
 local function tag_view_only(i)
 	local screen = awful.screen.focused()
     local tag = screen.tags[i]
+
+    -- if the tag is selected show rofi to select window
+    if tag and tag.selected then
+        awful.spawn("rofi -show windowcd")
+        return
+    end
+
     if tag then
         tag:view_only()
         return
