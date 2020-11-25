@@ -170,4 +170,6 @@ inoremap <S-CR> <ESC>O
 
 nnoremap <leader>c :VenterToggle<CR>
 
+" remove search highlight on ESC
+noremap <ESC> :noh<CR><ESC>
 """""""""""""""""""""""" END KEY BINDINGS

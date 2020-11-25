@@ -1,6 +1,9 @@
 " use ripgrep as source to fzf
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --iglob "!.git" --iglob "!venv"'
 
+" smaller window - good for ultrawide
+let g:fzf_layout = { 'window': { 'width': 0.5, 'height': 0.6 } }
+
 " Asynctasks fzf integration
 function! s:fzf_sink(what)
     let p1 = stridx(a:what, '<')
