@@ -1,16 +1,9 @@
 [env]
 CARGO_BINS = "cargo-make exa"
 
-[tasks.apt_update]
-command = "sudo"
-args = ["apt", "update"]
-
-[tasks.apt_upgrade]
-command = "sudo"
-args = ["apt", "upgrade"]
-
-[tasks.apt]
-dependencies = ["apt_update", "apt_upgrade"]
+[tasks.yay]
+command = "yay"
+args = ["-Suy"]
 
 [tasks.flatpak]
 command = "flatpak"
@@ -32,7 +25,7 @@ script = [
 ]
 
 [tasks.default]
-alias = "apt"
+alias = "yay"
 
 [tasks.all]
-dependencies = ["apt", "flatpak", "rustup", "cargo-bins"]
+dependencies = ["yay", "flatpak", "rustup", "cargo-bins"]

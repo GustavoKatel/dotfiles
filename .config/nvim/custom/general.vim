@@ -1,3 +1,4 @@
+" SETTINGS {{{
 set encoding=UTF-8
 
 " set leader to ,
@@ -63,6 +64,9 @@ set spelllang=en_us,pt_br
 " enable current line highlight
 set cursorline
 
+" show tab line
+set showtabline=2
+
 " enable indent lines
 autocmd VimEnter * IndentLinesEnable
 " disable indent lines for json files, they're not really useful and very
@@ -83,8 +87,10 @@ let g:python_highlight_all = 1
 
 " better color for illuminate
 hi illuminatedWord guibg=#424242
+ 
+" END SETTINGS }}}
 
-""""""""""" KEYBINDINGS"
+" KEYBINDINGS {{{
 set foldmethod=marker 
 
 map <C-s> :w<CR>
@@ -172,4 +178,8 @@ nnoremap <leader>c :VenterToggle<CR>
 
 " remove search highlight on ESC
 noremap <ESC> :noh<CR><ESC>
-"""""""""""""""""""""""" END KEY BINDINGS
+
+" fold keys
+nnoremap <C-S-]> :foldopen<CR>
+nnoremap <C-S-[> :foldclose<CR>
+""""""""""""""""""""""" END KEY BINDINGS"}}}

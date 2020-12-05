@@ -1,3 +1,4 @@
+" old airline config {{{
 " show airline buffer line
 let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
@@ -15,31 +16,59 @@ let g:airline_symbols.branch = ''
 " performance improvement
 let g:airline_highlighting_cache = 1
 
+" end old airline config }}}
 
-"let g:lightline = {
-      "\ 'colorscheme': 'codedark',
-       "\ 'active': {
-      "\   'left': [ [ 'mode', 'paste' ],
-      "\             [ 'gitbranch' ],
-      "\             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
-      "\ },
-      "\ 'component_function': {
-      "\   'cocstatus': 'coc#status',
-      "\   'currentfunction': 'CocCurrentFunction',
-      "\   'gitbranch': 'FugitiveHead',
-      "\   'filetype': 'MyFiletype',
-      "\   'fileformat': 'MyFileformat',
-      "\ },
-      "\ }
+let g:lightline = {
+      \ 'colorscheme': 'codedark',
+       \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranchicon', 'gitbranch' ],
+      \             [ 'cocstatus', 'currentfunction', 'readonly', 'customfilename', 'modified' ] ]
+      \ },
+      \ 'tabline': {
+      \   'left': [ ['buffers'] ],
+      \   'right': [ [] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction',
+      \   'gitbranchicon': 'GitBranchIcon',
+      \   'gitbranch': 'FugitiveHead',
+      \   'filetype': 'MyFiletype',
+      \   'fileformat': 'MyFileformat',
+      \   'customfilename': 'CustomFilename',
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ }
+      \ }
 
-"function! CocCurrentFunction()
-    "return get(b:, 'coc_current_function', '')
-"endfunction
+function! GitBranchIcon()
+    "let l:branch_name = FugitiveHead()
+    "return strlen(l:branch_name) ? '' : ''
+    return ''
+endfunction
 
-"function! MyFiletype()
-  "return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-"endfunction
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
 
-"function! MyFileformat()
-  "return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-"endfunction
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
+function! CustomFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction

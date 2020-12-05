@@ -11,8 +11,9 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-git-status.vim'
 
-Plug 'vim-airline/vim-airline'
-"Plug 'itchyny/lightline.vim'
+"Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 
 Plug 'preservim/nerdcommenter'
 
@@ -82,7 +83,7 @@ Plug 'jmckiern/vim-venter'
 
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
 "Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter'
+"Plug 'nvim-treesitter/nvim-treesitter'
 
 " Initialize plugin system
 call plug#end()
