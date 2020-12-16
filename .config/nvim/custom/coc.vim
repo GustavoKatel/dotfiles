@@ -9,6 +9,7 @@ let g:coc_global_extensions = [
     \ "coc-tsserver",
     \ "coc-lua",
     \ "coc-vimlsp",
+    \ "coc-prettier",
     \]
 
 " GoTo code navigation.

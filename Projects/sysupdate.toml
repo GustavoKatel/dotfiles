@@ -24,6 +24,15 @@ script = [
     """
 ]
 
+[tasks.nvim-nightly]
+script = [
+    """
+    wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -O /tmp/nvim.appimage && \
+    mv /tmp/nvim.appimage ~/Downloads/nvim.appimage && \
+    chmod +x ~/Downloads/nvim.appimage
+    """
+]
+
 [tasks.default]
 alias = "yay"
 

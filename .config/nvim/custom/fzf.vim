@@ -34,6 +34,7 @@ command! -nargs=0 AsyncTaskFzf call s:fzf_task()
 map <C-b> :Buffers<CR>
 "map <C-p> :FZF<CR>
 map <C-p> :MultiDirFzf<CR>
+map <C-S-P> :Commands<CR>
 
 " alt+f to search in all files
 nnoremap <M-f> :MultiDirRg<CR>

@@ -1,5 +1,5 @@
 
-GuiFont JetBrainsMono Nerd Font Mono:h10
+GuiFont JetBrainsMono Nerd Font Mono:h9.5
 GuiTabline 0
 GuiPopupmenu 0
 

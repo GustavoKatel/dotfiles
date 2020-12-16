@@ -18,6 +18,13 @@ let g:airline_highlighting_cache = 1
 
 " end old airline config }}}
 
+" show buffer number
+let g:lightline#bufferline#show_number = 1
+" show filetype icon
+let g:lightline#bufferline#enable_devicons = 1
+" show unicode symbols instead of ascii
+let g:lightline#bufferline#unicode_symbols = 1
+
 let g:lightline = {
       \ 'colorscheme': 'codedark',
        \ 'active': {

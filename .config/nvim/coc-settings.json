@@ -4,7 +4,7 @@
         "css",
         "markdown",
         "javascript",
-        //"typescript",
+        "typescript",
         "javascript.jsx",
         "typescript.tsx",
         "graphql",

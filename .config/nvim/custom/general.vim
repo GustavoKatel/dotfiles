@@ -28,6 +28,15 @@ set list
 set tabstop=4
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
+
+" use two spaces instead of 4 to match prettier settings
+autocmd Filetype javascript setlocal ts=2 sw=2
+autocmd Filetype typescript setlocal ts=2 sw=2
+autocmd Filetype tsx setlocal ts=2 sw=2
+autocmd Filetype jsx setlocal ts=2 sw=2
+autocmd Filetype html setlocal ts=2 sw=2
+autocmd Filetype css setlocal ts=2 sw=2
+
 " On pressing tab, insert 4 spaces
 set expandtab
 

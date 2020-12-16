@@ -29,7 +29,7 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 
-Plug 'prettier/vim-prettier'
+"Plug 'prettier/vim-prettier'
 
 Plug 'GustavoKatel/vim-workspace'
 

@@ -1,5 +1,5 @@
 let g:vimspector_enable_mappings = 'CUSTOM'
-let g:vimspector_install_gadgets = [ 'debugpy', 'CodeLLDB' ]
+let g:vimspector_install_gadgets = [ 'debugpy', 'CodeLLDB', 'vscode-node-debug2' ]
 
 " make breakpoint signs show above other signs
 let g:vimspector_sign_priority = {
