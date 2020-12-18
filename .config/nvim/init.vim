@@ -21,7 +21,5 @@ source $HOME/.config/nvim/custom/updater.vim
 source $HOME/.config/nvim/custom/multi_dir.vim
  
 " testing
-"source $HOME/.config/nvim/custom/treesitter.vim
-
-"lua require("treesitter")
+lua require("treesitter")
 "lua require("lsp_settings")

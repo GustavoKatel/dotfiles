@@ -83,7 +83,7 @@ Plug 'jmckiern/vim-venter'
 
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
 "Plug 'neovim/nvim-lspconfig'
-"Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter'
 
 " Initialize plugin system
 call plug#end()
