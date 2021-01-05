@@ -45,10 +45,11 @@ function! s:multi_dir_remove(index)
 endfunction
 
 
-function! s:multi_dir_fzf_edit()
+function! s:multi_dir_fzf_edit(...)
     let dirs = join(s:multi_dir_list(), ' ')
+    let args = join(a:000, ' ')
 
-    call fzf#run(fzf#wrap({'source': 'rg --files --hidden --iglob "!.git" --iglob "!venv" '.dirs.' | xargs realpath --relative-to="$PWD"',
+    call fzf#run(fzf#wrap({'source': 'rg --files --hidden --iglob "!.git" --iglob "!venv" '.dirs.' '.args.' | xargs realpath --relative-to="$PWD"',
              \ 'sink':  'edit'}))
 endfunction
 
@@ -81,5 +82,5 @@ augroup end
 command! -nargs=* -complete=file MultiDirAdd call s:multi_dir_add(<f-args>)
 command! -nargs=0 MultiDirClear call s:multi_dir_clear()
 command! -nargs=1 MultiDirRemove call s:multi_dir_remove(<f-args>)
-command! -nargs=0 MultiDirFzf call s:multi_dir_fzf_edit()
+command! -nargs=* MultiDirFzf call s:multi_dir_fzf_edit(<f-args>)
 command! -nargs=* MultiDirRg call s:multi_dir_fzf_rg(<f-args>)

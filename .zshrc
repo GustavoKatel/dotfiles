@@ -93,7 +93,8 @@ alias du-sort="du -h . | sort -h -r"
 
 alias st="git status"
 
-alias nv="nvim"
+#alias nv="nvim"
+alias nv="/home/gustavokatel/Downloads/nvim.appimage"
 
 function nvu() {
     #xfce4-terminal --command=nvim --working-directory=$PWD --title="$(basename $PWD)"
@@ -185,7 +186,11 @@ function docker-rmf() {
   docker rm $(docker ps -a -f status=exited -q)
 }
 
-alias sysupdate="cargo make --makefile $HOME/Projects/sysupdate.toml"
+function sysupdate() {
+    pushd ~
+    cargo make --makefile $HOME/Projects/sysupdate.toml $*
+    popd
+}
 
 alias ee=exa
 alias ea="exa -lh --git --icons"

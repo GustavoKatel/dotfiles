@@ -6,6 +6,7 @@ function! s:global_updater()
     exec "PlugUpgrade"
     exec "PlugUpdate"
     exec "UpdateRemotePlugins"
+    exec "TSUpdate"
     " close the last split created by Plug
     exec "q"
 endfunction

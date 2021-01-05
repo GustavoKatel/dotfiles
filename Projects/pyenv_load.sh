@@ -5,5 +5,11 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 export PYENV_VERSION=3.7.9
 eval "$(pyenv init -)"
 
-$SHELL
+command=$SHELL
+
+if [ "$#" -gt "0" ]; then
+    command=$*
+fi
+
+$command
 

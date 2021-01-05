@@ -36,6 +36,7 @@ autocmd Filetype tsx setlocal ts=2 sw=2
 autocmd Filetype jsx setlocal ts=2 sw=2
 autocmd Filetype html setlocal ts=2 sw=2
 autocmd Filetype css setlocal ts=2 sw=2
+autocmd Filetype yaml setlocal ts=2 sw=2
 
 " On pressing tab, insert 4 spaces
 set expandtab
@@ -112,9 +113,15 @@ map <C-q> :q<CR>
 nnoremap <M-Right> <C-I>
 nnoremap <M-Left> <C-O>
 
+" ctrl-/ to toggle comment, C-_ can also be interpreted as ctrl-/
 imap <C-_>   <Plug>NERDCommenterInsert
 nmap <C-_>   <Plug>NERDCommenterToggle
 vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
+
+imap <C-/>   <Plug>NERDCommenterInsert
+nmap <C-/>   <Plug>NERDCommenterToggle
+vmap <C-/>   <Plug>NERDCommenterToggle<CR>gv
+
 
 " use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -191,4 +198,18 @@ noremap <ESC> :noh<CR><ESC>
 " fold keys
 nnoremap <C-S-]> :foldopen<CR>
 nnoremap <C-S-[> :foldclose<CR>
+
+inoremap <S-Del> <ESC>ddi
+
+" line movement
+nnoremap <M-Down> :m .+1<CR>==
+nnoremap <M-Up> :m .-2<CR>==
+inoremap <M-Down> <Esc>:m .+1<CR>==gi
+inoremap <M-Up> <Esc>:m .-2<CR>==gi
+vnoremap <M-Down> :m '>+1<CR>gv=gv
+vnoremap <M-Up> :m '<-2<CR>gv=gv
+
+" duplicate line with Ctrl+Shift+D
+nnoremap <C-S-D> yyp
+inoremap <C-S-D> <ESC>yypi
 """"""""""""""""""""""" END KEY BINDINGS"}}}

@@ -7,6 +7,8 @@
         "typescript",
         "javascript.jsx",
         "typescript.tsx",
+        "typescriptreact",
+        "javascriptreact",
         "graphql",
         "html",
         "python"

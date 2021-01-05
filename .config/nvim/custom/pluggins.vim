@@ -29,6 +29,7 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 
+" currently using coc-prettier
 "Plug 'prettier/vim-prettier'
 
 Plug 'GustavoKatel/vim-workspace'
@@ -39,8 +40,9 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'yggdroot/indentline'
 
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+" currently using treesitter + coc-typescript
+"Plug 'leafgarland/typescript-vim'
+"Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'alvan/vim-closetag'
 

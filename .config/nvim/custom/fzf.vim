@@ -35,6 +35,8 @@ map <C-b> :Buffers<CR>
 "map <C-p> :FZF<CR>
 map <C-p> :MultiDirFzf<CR>
 map <C-S-P> :Commands<CR>
+" Ctrl+Alt+p include ignored files
+map <C-M-p> :MultiDirFzf --no-ignore<CR>
 
 " alt+f to search in all files
 nnoremap <M-f> :MultiDirRg<CR>
