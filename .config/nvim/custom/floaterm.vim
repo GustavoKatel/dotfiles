@@ -14,3 +14,5 @@ tnoremap <silent> <C-q> <C-\><C-N>:FloatermKill<CR>
 " alt-t to open ranger in a float terminal
 nnoremap <silent> <A-t> :Ranger<CR>
 
+" use esc to exite insert mode in terminal
+"tnoremap <ESC>   <C-\><C-n>

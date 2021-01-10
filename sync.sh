@@ -10,14 +10,17 @@ exec="run"
 
 OPERATION=""
 
+UPLOAD=false
+
 function usage() {
-    echo "$0 -o install|backup [-d]"
+    echo "$0 -o install|backup [-d] [-u]"
     echo "-o OPERATION can be install or backup"
     echo "-d run in dry run mode"
+    echo "-u upload to github"
 }
 
 # list of arguments expected in the input
-optstring=":do:"
+optstring=":duo:"
 
 while getopts ${optstring} arg; do
   case ${arg} in
@@ -27,6 +30,10 @@ while getopts ${optstring} arg; do
     ;;
     o)
         OPERATION=${OPTARG}
+        echo $OPERATION
+    ;;
+    u)
+        UPLOAD=true
     ;;
     ?)
         echo "Invalid option: -${OPTARG}."
@@ -64,6 +71,13 @@ function run() {
     echo -e "\r* [$status] $*"
 }
 
+function upload() {
+    cd $DOTFILES_DIR
+    git add .
+    git commit -am "$(TZ=":America/Los_Angeles" date)"
+    git push
+}
+
 # ---------------------------
 # .config
 $IS_INSTALL && $exec cp -r $DOTFILES_DIR/.config/* $TARGET/.config/
@@ -98,6 +112,6 @@ for file in $(ls $DOTFILES_DIR/Projects); do
     $IS_INSTALL && (test -e $target_file_name || $exec ln -fs $source_file_name $target_file_name)
 done
 
-# ---------------------------
-# .argos (deprecated)
-# $exec cp -r $DOTFILES_DIR/argos $TARGET/argos
+# ----------------- upload
+
+$IS_BACKUP && $UPLOAD && upload

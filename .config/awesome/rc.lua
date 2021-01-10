@@ -597,7 +597,14 @@ globalkeys = my_table.join(
     awful.key({ modkey }, "F9", function () awful.spawn("copyq menu") end,
               {description = "copyq menu", group = "launcher"}),
     awful.key({ modkey, "Shift" }, "F9", function () awful.spawn.with_shell("copyq -e - < ~/Projects/copyq-remove-all.js") end,
-              {description = "copyq clear", group = "launcher"})
+              {description = "copyq clear", group = "launcher"}),
+
+    -- use Mod+d to activate single external monitor xrandr
+    awful.key({ modkey }, "d", function () awful.spawn.with_shell("bash ~/Projects/fix-monitors.sh") end,
+              {description = "activate single external with xrandr", group = "launcher"}),
+    -- use Mod+d to activate dual monitor xrandr
+    awful.key({ modkey, "Control" }, "d", function () awful.spawn.with_shell("bash ~/Projects/fix-monitors.sh dual") end,
+              {description = "activate dual monitor with xrandr", group = "launcher"})
 )
 
 clientkeys = my_table.join(

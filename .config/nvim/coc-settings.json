@@ -22,6 +22,7 @@
     "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black",
     "snippets.userSnippetsDirectory": "$HOME/.config/nvim/ultisnips",
+    "snippets.priority": 100,
     "rust-analyzer.debug.runtime": "vimspector",
     "rust-analyzer.debug.vimspector.configuration.name": "launch",
     "rust-analyzer.updates.prompt":false
