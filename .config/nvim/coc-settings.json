@@ -11,7 +11,8 @@
         "javascriptreact",
         "graphql",
         "html",
-        "python"
+        "python",
+        "go"
     ],
     "coc.preferences.formatOnType": false,
     "coc.preferences.formatOnInsertLeave": false,
@@ -25,5 +26,11 @@
     "snippets.priority": 100,
     "rust-analyzer.debug.runtime": "vimspector",
     "rust-analyzer.debug.vimspector.configuration.name": "launch",
-    "rust-analyzer.updates.prompt":false
+    "rust-analyzer.updates.prompt":false,
+    "go.goplsOptions": {
+        "codelenses": {
+            "tidy": true,
+            "test": true
+        }
+    }
 }

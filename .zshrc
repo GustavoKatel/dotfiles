@@ -93,8 +93,8 @@ alias du-sort="du -h . | sort -h -r"
 
 alias st="git status"
 
-#alias nv="nvim"
-alias nv="/home/gustavokatel/Downloads/nvim.appimage"
+alias nv="nvim"
+#alias nv="/home/gustavokatel/Downloads/nvim.appimage"
 
 function nvu() {
     #xfce4-terminal --command=nvim --working-directory=$PWD --title="$(basename $PWD)"

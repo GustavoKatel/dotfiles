@@ -2,7 +2,6 @@
 let g:coc_global_extensions = [
     \ "coc-highlight",
     \ "coc-json",
-    "\ "coc-python",
     \ "coc-pyright",
     \ "coc-rust-analyzer",
     \ "coc-snippets",
@@ -10,6 +9,7 @@ let g:coc_global_extensions = [
     \ "coc-lua",
     \ "coc-vimlsp",
     \ "coc-prettier",
+    \ "coc-go",
     \]
 
 " GoTo code navigation.
