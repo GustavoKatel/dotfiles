@@ -2,7 +2,6 @@
     "coc.preferences.formatOnSaveFiletypes": [
         "rust",
         "css",
-        "markdown",
         "javascript",
         "typescript",
         "javascript.jsx",
@@ -32,5 +31,7 @@
             "tidy": true,
             "test": true
         }
-    }
+    },
+    "explorer.icon.enableNerdfont": true,
+    "explorer.file.autoReveal": true
 }

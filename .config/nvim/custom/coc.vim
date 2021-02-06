@@ -1,5 +1,6 @@
 " coc extensions
 let g:coc_global_extensions = [
+    \ "coc-explorer",
     \ "coc-highlight",
     \ "coc-json",
     \ "coc-pyright",
@@ -50,3 +51,7 @@ command! -nargs=0 Format :call CocAction('format')
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OrganizeImports   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
+
+nnoremap <C-t> :CocCommand explorer
+    \ --toggle
+    \ --sources=buffer+,file+<CR>

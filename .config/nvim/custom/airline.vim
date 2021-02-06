@@ -26,11 +26,11 @@ let g:lightline#bufferline#enable_devicons = 1
 let g:lightline#bufferline#unicode_symbols = 1
 
 let g:lightline = {
-      \ 'colorscheme': 'codedark',
+      \ 'colorscheme': 'deus',
        \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranchicon', 'gitbranch' ],
-      \             [ 'cocstatus', 'currentfunction', 'readonly', 'customfilename', 'modified' ] ]
+      \             [ 'cocstatus', 'readonly', 'customfilename', 'modified' ] ]
       \ },
       \ 'tabline': {
       \   'left': [ ['buffers'] ],
@@ -38,7 +38,6 @@ let g:lightline = {
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction',
       \   'gitbranchicon': 'GitBranchIcon',
       \   'gitbranch': 'FugitiveHead',
       \   'filetype': 'MyFiletype',
@@ -57,10 +56,6 @@ function! GitBranchIcon()
     "let l:branch_name = FugitiveHead()
     "return strlen(l:branch_name) ? '' : ''
     return ''
-endfunction
-
-function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
 endfunction
 
 function! MyFiletype()

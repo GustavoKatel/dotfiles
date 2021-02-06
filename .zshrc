@@ -99,8 +99,8 @@ alias nv="nvim"
 function nvu() {
     #xfce4-terminal --command=nvim --working-directory=$PWD --title="$(basename $PWD)"
     # uncomment this to enable nvim nightly
-    nvim-qt --nvim /home/gustavokatel/Downloads/nvim.appimage $@
-    #nvim-qt $@
+    #nvim-qt --nvim /home/gustavokatel/Downloads/nvim.appimage $@
+    nvim-qt $@
 }
 
 function done-notify() {

@@ -6,10 +6,12 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+""""" Color schemes
 Plug 'tomasiser/vim-code-dark'
-
-Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/fern-git-status.vim'
+Plug 'sainnhe/sonokai'
+Plug 'kjssad/quantum.vim'
+Plug 'ajmwagar/vim-deus'
+""""" END Color schemes
 
 "Plug 'vim-airline/vim-airline'
 Plug 'itchyny/lightline.vim'
@@ -27,7 +29,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'qpkorr/vim-bufkill'
 
 Plug 'lambdalisue/nerdfont.vim'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 
 " currently using coc-prettier
 "Plug 'prettier/vim-prettier'
@@ -86,6 +87,16 @@ Plug 'jmckiern/vim-venter'
 " native builtin nvim stuff: disabled for now, not currently supported in 0.4
 "Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
+
+" testing
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-vimspector.nvim'
+
+"Plug expand('~/Projects/telescope-asynctasks.nvim')
+Plug 'GustavoKatel/telescope-asynctasks.nvim'
 
 " Initialize plugin system
 call plug#end()
