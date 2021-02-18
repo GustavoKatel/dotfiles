@@ -54,4 +54,4 @@ command! -nargs=0 OrganizeImports   :call     CocAction('runCommand', 'editor.ac
 
 nnoremap <C-t> :CocCommand explorer
     \ --toggle
-    \ --sources=buffer+,file+<CR>
+    \ --sources=buffer-,file+<CR>

@@ -10,9 +10,9 @@ set hidden
 " enable mouse support 😛
 set mouse=a
 
-colorscheme deus
+colorscheme codedark
 "let g:sonokai_style = 'maia'
-set background=dark
+"set background=dark
 
 set number
 set laststatus=2
