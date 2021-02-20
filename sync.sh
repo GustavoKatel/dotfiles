@@ -3,7 +3,7 @@
 # set -x
 set -e
 
-DOTFILES_DIR=$(dirname $(realpath $0))
+DOTFILES_DIR=$(dirname $0)
 TARGET=~
 
 exec="run"
@@ -81,14 +81,16 @@ function upload() {
 # ---------------------------
 # .config
 $IS_INSTALL && $exec cp -r $DOTFILES_DIR/.config/* $TARGET/.config/
-$IS_INSTALL && $exec cp -r $DOTFILES_DIR/.themes/* $TARGET/.themes
 
-$IS_BACKUP  && $exec cp -r $TARGET/.config/{awesome,rofi,starship.toml,picom.conf,sequences,kitty,devcontainer.json} $DOTFILES_DIR/.config/
-$IS_BACKUP  && $exec cp -r $TARGET/.themes/oomox-jupiter $DOTFILES_DIR/.themes/
+$IS_BACKUP  && $exec cp -r $TARGET/.config/starship.toml $DOTFILES_DIR/.config/
 
 # nvim backup
 $IS_BACKUP  && $exec mkdir -p $DOTFILES_DIR/.config/nvim
-$IS_BACKUP  && $exec cp -r $TARGET/.config/nvim/{*.vim,custom,lua,coc-settings.json,ultisnips,devcontainer} $DOTFILES_DIR/.config/nvim/
+
+nvim_folders=("*.vim" "custom" "lua" "coc-settings.json" "ultisnips" "devcontainer")
+for folder in $nvim_folders; do
+    $IS_BACKUP  && $exec cp -r $TARGET/.config/nvim/$folder $DOTFILES_DIR/.config/nvim/
+done
 
 # ---------------------------
 # oh-my-zsh (deprecated)
@@ -96,7 +98,7 @@ $IS_BACKUP  && $exec cp -r $TARGET/.config/nvim/{*.vim,custom,lua,coc-settings.j
 
 # ---------------------------
 # standalone files
-rc_files=( .hyper.js .tmux.conf .vimrc .zshrc )
+rc_files=( .tmux.conf .vimrc .zshrc .custom.zsh)
 
 for file in "${rc_files[@]}"; do
     $IS_INSTALL && $exec cp $DOTFILES_DIR/$file $TARGET
@@ -105,11 +107,12 @@ done
 
 # ---------------------------
 # sym links
-for file in $(ls $DOTFILES_DIR/Projects); do
+for file in $(ls $DOTFILES_DIR/dev); do
     name=$(basename $file)
-    source_file_name=$DOTFILES_DIR/Projects/$file
-    target_file_name=$TARGET/Projects/$name
-    $IS_INSTALL && (test -e $target_file_name || $exec ln -fs $source_file_name $target_file_name)
+    source_file_name=$DOTFILES_DIR/dev/$file
+    target_file_name=$TARGET/dev/$name
+    $IS_INSTALL && $exec cp -r $source_file_name $target_file_name
+    $IS_BACKUP && $exec cp -r $target_file_name $source_file_name
 done
 
 # ----------------- upload
