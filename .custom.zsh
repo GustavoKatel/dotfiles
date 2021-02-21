@@ -56,7 +56,7 @@ alias rosetta_shell=$HOME/dev/apple_silicon_shims/rosetta_shell.sh
 # homebrew
 #alias brew=$HOME/dev/apple_silicon_shims/brew.sh
 alias mbrew="/opt/homebrew/bin/brew"
-alias ibrew="/usr/local/bin/brew"
+alias ibrew="rosetta_shell /usr/local/bin/brew"
 # end homebrew
 
 eval $(starship init zsh)
