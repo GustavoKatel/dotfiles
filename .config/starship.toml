@@ -74,6 +74,14 @@ shell = ["zsh", "-l"]
 symbol = ""
 style = "white"
 
+[custom.rosetta_shell]
+command = "echo 🌹"
+format = "\\[[$output]($style)\\] "
+when = "! [ -z $ROSETTA_SHELL ]"
+shell = ["zsh", "-l"]
+symbol = ""
+style = "white"
+
 [gcloud]
 disabled = true
 

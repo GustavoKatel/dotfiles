@@ -45,6 +45,8 @@ source $HOME/dev/shell_recursive_counter.sh
 alias ee=exa
 alias ea="exa -lh --git --icons"
 
+export PATH="$HOME/go/bin/:$PATH"
+
 alias pyenv_load=$HOME/dev/pyenv_load.sh
 
 # legalist goodies
