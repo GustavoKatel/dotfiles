@@ -1,6 +1,6 @@
 [character]
 format = "[[>](dimmed white) λ ](green)"
-style_success = "green"
+success_symbol = "green"
 
 [hostname]
 ssh_only = false

@@ -82,7 +82,11 @@ function upload() {
 # .config
 $IS_INSTALL && $exec cp -r $DOTFILES_DIR/.config/* $TARGET/.config/
 
-$IS_BACKUP  && $exec cp -r $TARGET/.config/starship.toml $DOTFILES_DIR/.config/
+config_files=( starship.toml saturn_iterm2.json )
+
+for file in "${config_files[@]}"; do
+    $IS_BACKUP  && $exec cp -r $TARGET/.config/$file $DOTFILES_DIR/.config/
+done
 
 # nvim backup
 $IS_BACKUP  && $exec mkdir -p $DOTFILES_DIR/.config/nvim
