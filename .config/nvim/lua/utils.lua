@@ -223,7 +223,7 @@ local mappings = {
 }
 
 for _, map in ipairs(mappings) do
-    v[map] = function(key, cmd)
+    v[map] = function(key, cmd, --[[optional]] no_esc)
         if type(key) == 'table' then
             key = table_to_str(key, '')
         end
@@ -234,7 +234,13 @@ for _, map in ipairs(mappings) do
             vim.cmd(':' .. map .. ' ' .. key .. ' :'.. tostring(cmd) .. '<CR>')
         else
             local fn_name = make_global_fn(cmd)
-            vim.cmd(':' .. map .. ' ' .. key .. ' :call v:lua.' .. fn_name .. '()<CR>')
+            local esc = "<ESC>"
+
+            if no_esc then
+                esc = ""
+            end
+
+            vim.cmd(':' .. map .. ' ' .. key .. ' ' .. esc .. ':call v:lua.' .. fn_name .. '()<CR>')
         end
     end
 end
