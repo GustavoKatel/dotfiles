@@ -91,7 +91,7 @@ done
 # nvim backup
 $IS_BACKUP  && $exec mkdir -p $DOTFILES_DIR/.config/nvim
 
-nvim_folders=("*.vim" "custom" "lua" "coc-settings.json" "ultisnips" "devcontainer")
+nvim_folders=("*.{vim,lua}" "custom" "lua" "coc-settings.json" "ultisnips" "devcontainer")
 for folder in $nvim_folders; do
     $IS_BACKUP  && $exec cp -r $TARGET/.config/nvim/$folder $DOTFILES_DIR/.config/nvim/
 done
