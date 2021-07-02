@@ -92,8 +92,8 @@ done
 $IS_BACKUP  && $exec mkdir -p $DOTFILES_DIR/.config/nvim
 
 nvim_folders=("*.lua" "custom" "lua" "coc-settings.json" "ultisnips" "devcontainer")
-for folder in $nvim_folders; do
-    $IS_BACKUP  && $exec cp -r $TARGET/.config/nvim/$folder $DOTFILES_DIR/.config/nvim/
+for folder in "${nvim_folders[@]}"; do
+    $IS_BACKUP  && ($exec cp -r $TARGET/.config/nvim/$folder $DOTFILES_DIR/.config/nvim/ || echo "File: '$TARGET/.config/nvim/$folder' does not exist" )
 done
 
 # ---------------------------
