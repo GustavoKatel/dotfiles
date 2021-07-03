@@ -160,13 +160,24 @@ v.nnoremap({"<C-p>"}, function()
     --telescope.find_files({layout_config = { width_padding = 130, height_padding = 15 }})
     telescope.find_files()
 end)
+v.nnoremap({"<D-p>"}, function()
+    local telescope = require("telescope.builtin")
+    --telescope.find_files({layout_config = { width_padding = 130, height_padding = 15 }})
+    telescope.find_files()
+end)
 
 -- telescope commands
-v.nnoremap({"<C-P>"}, function()
+v.nnoremap({"<C-S-P>"}, function()
     local telescope = require("telescope.builtin")
     --telescope.find_files({layout_config = { width_padding = 130, height_padding = 15 }})
     telescope.commands()
 end)
+v.nnoremap({"<D-P>"}, function()
+    local telescope = require("telescope.builtin")
+    --telescope.find_files({layout_config = { width_padding = 130, height_padding = 15 }})
+    telescope.commands()
+end)
+
 
 -- telescope buffers
 v.nnoremap({"<C-b>"}, function()

@@ -15,7 +15,7 @@ alias st="git status"
 
 alias nv="nvim"
 
-alias nvu="/Applications/goneovim.app/Contents/MacOS/goneovim"
+alias nvu="/Applications/goneovim.app/Contents/MacOS/goneovim >/dev/null 2>&1 & disown"
 
 function done-notify() {
   if [ $? -eq 0 ]; then
