@@ -21,7 +21,7 @@ packer.startup(function()
     -- language support
     use { 'cespare/vim-toml' }
     -- use {'sheerun/vim-polyglot'} -- multiple language support
-    use {'nvim-treesitter/nvim-treesitter', opt = true} -- semantic highlight
+    use {'nvim-treesitter/nvim-treesitter'} -- semantic highlight
     -- colorscheme
     -- use {'drewtempelmeyer/palenight.vim', config='vim.cmd[[colorscheme palenight]]'}
     use { 'tomasiser/vim-code-dark' }
