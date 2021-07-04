@@ -1,56 +1,67 @@
-    local v = require("utils")
+local v = require("utils")
 
-    -- save with ctrl-s/command-s
-    v.nnoremap({"<D-s>"}, ":w<CR>")
-    v.inoremap({"<D-s>"}, "<ESC>:w<CR>i")
-    v.nnoremap({"<C-s>"}, ":w<CR>")
-    v.inoremap({"<C-s>"}, "<ESC>:w<CR>i")
+-- save with ctrl-s/command-s
+v.nnoremap({"<D-s>"}, ":w<CR>")
+v.inoremap({"<D-s>"}, "<ESC>:w<CR>i")
+v.nnoremap({"<C-s>"}, ":w<CR>")
+v.inoremap({"<C-s>"}, "<ESC>:w<CR>i")
 
-    -- vertical split with ctrl-\ | command-\
-    v.nnoremap({"<D-\\>"}, ":vsplit<CR>")
-    v.nnoremap({"<C-\\>"}, ":vsplit<CR>")
+-- vertical split with ctrl-\ | command-\
+v.nnoremap({"<D-\\>"}, ":vsplit<CR>")
+v.nnoremap({"<C-\\>"}, ":vsplit<CR>")
 
-    -- ctrl/cmd-/ to toggle comment, C-_ can also be interpreted as ctrl-/
-    for _, code in ipairs({"<C-_>", "<C-/>", "<D-/>"}) do
-        v.imap({code}, "<Plug>NERDCommenterInsert")
-        v.nmap({code}, "<Plug>NERDCommenterToggle<CR>")
-        v.vmap({code}, "<Plug>NERDCommenterToggle<CR>gv")
-    end
+-- ctrl/cmd-/ to toggle comment, C-_ can also be interpreted as ctrl-/
+for _, code in ipairs({"<C-_>", "<C-/>", "<D-/>"}) do
+    v.imap({code}, "<Plug>NERDCommenterInsert")
+    v.nmap({code}, "<Plug>NERDCommenterToggle<CR>")
+    v.vmap({code}, "<Plug>NERDCommenterToggle<CR>gv")
+end
 
-    -- Alt-Shift-Left/Right to move to previous next position
-    v.nnoremap({"<M-S-Right>"}, "<C-I>")
-    v.nnoremap({"<M-S-Left>"}, "<C-O>")
+-- Alt-Shift-Left/Right to move to previous next position
+v.nnoremap({"<M-S-Right>"}, "<C-I>")
+v.nnoremap({"<M-S-Left>"}, "<C-O>")
 
-    -- use <TAB> to select the popup menu
-    v.inoremap({"<expr>", "<Tab>"}, 'pumvisible() ? "\\<C-n>" : "\\<Tab>"')
-    v.inoremap({"<expr>", "<S-Tab>"}, 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
+-- use <TAB>/arrow keys to select the popup menu
+v.inoremap({"<expr>", "<Tab>"}, 'pumvisible() ? "\\<C-n>" : "\\<Tab>"')
+v.inoremap({"<expr>", "<Down>"}, 'pumvisible() ? "\\<C-n>" : "\\<Down>"')
+v.inoremap({"<expr>", "<S-Tab>"}, 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
+v.inoremap({"<expr>", "<Up>"}, 'pumvisible() ? "\\<C-p>" : "\\<Up>"')
 
-    -- ctrl/cmd-d kill buffer without losing split/window
-    v.nnoremap({"<C-d>"}, ":BD<CR>")
-    v.nnoremap({"<D-d>"}, ":BD<CR>")
+-- ctrl/cmd-d kill buffer without losing split/window
+v.nnoremap({"<C-d>"}, ":BD<CR>")
+v.nnoremap({"<D-d>"}, ":BD<CR>")
 
-    -- toggle workspace
-    v.nnoremap({"<leader>s"}, v.cmd.ToggleWorkspace)
+-- ctrl/cmd-q kill the current split/window
+v.nnoremap({"<C-q>"}, ":q<CR>")
+v.nnoremap({"<D-q>"}, ":q<CR>")
 
-    -- change focus splits using keypad, does not work on every terminal
-    v.nnoremap({"<silent>", "<D-k6>"}, "<c-w>l")
-    v.nnoremap({"<silent>", "<D-k4>"}, "<c-w>h")
-    v.nnoremap({"<silent>", "<D-k8>"}, "<c-w>k")
-    v.nnoremap({"<silent>", "<D-k2>"}, "<c-w>j")
+-- toggle workspace
+v.nnoremap({"<leader>s"}, v.cmd.ToggleWorkspace)
+
+-- change focus splits
+v.nnoremap({"<silent>", "<D-Right>"}, "<c-w>l")
+v.nnoremap({"<silent>", "<D-left>"}, "<c-w>h")
+v.nnoremap({"<silent>", "<D-Up>"}, "<c-w>k")
+v.nnoremap({"<silent>", "<D-Down>"}, "<c-w>j")
+
+for i = 1,9,1 do
+    v.nnoremap({"<silent>", "<D-k"..i..">"}, ":"..i.."wincmd w<CR>")
+end
 
 
-    -- insert mode ctrl/cmd+v paste from clipboard
-    v.inoremap({"<silent>", "<C-v>"}, '<ESC>"+pa')
-    v.inoremap({"<silent>", "<D-v>"}, '<ESC>"+pa')
-    -- visual mode ctrl/cmd+c copy to clipboard
-    v.vnoremap({"<silent>", "<C-c>"}, '"+y')
-    v.vnoremap({"<silent>", "<D-c>"}, '"+y')
+
+-- insert mode ctrl/cmd+v paste from clipboard
+v.inoremap({"<silent>", "<C-v>"}, '<ESC>"+pa')
+v.inoremap({"<silent>", "<D-v>"}, '<ESC>"+pa')
+-- visual mode ctrl/cmd+c copy to clipboard
+v.vnoremap({"<silent>", "<C-c>"}, '"+y')
+v.vnoremap({"<silent>", "<D-c>"}, '"+y')
 
 
-    -- terminal keymaps
-    -- ctrl-c will close processes in normal mode
-    v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-c>"}, "i<C-c>") end)
-    -- forcily close buffer without closing split BD!
+-- terminal keymaps
+-- ctrl-c will close processes in normal mode
+v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-c>"}, "i<C-c>") end)
+-- forcily close buffer without closing split BD!
 v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-d>"}, ":BD!<CR>") end)
 -- forcily close buffer and split
 v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-q>"}, ":bd!<CR>") end)
@@ -157,24 +168,20 @@ v.nnoremap({"<A-t>"}, v.cmd.Ranger)
 -- telescope files
 v.nnoremap({"<C-p>"}, function()
     local telescope = require("telescope.builtin")
-    --telescope.find_files({layout_config = { width_padding = 130, height_padding = 15 }})
     telescope.find_files()
 end)
 v.nnoremap({"<D-p>"}, function()
     local telescope = require("telescope.builtin")
-    --telescope.find_files({layout_config = { width_padding = 130, height_padding = 15 }})
     telescope.find_files()
 end)
 
 -- telescope commands
 v.nnoremap({"<C-S-P>"}, function()
     local telescope = require("telescope.builtin")
-    --telescope.find_files({layout_config = { width_padding = 130, height_padding = 15 }})
     telescope.commands()
 end)
 v.nnoremap({"<D-P>"}, function()
     local telescope = require("telescope.builtin")
-    --telescope.find_files({layout_config = { width_padding = 130, height_padding = 15 }})
     telescope.commands()
 end)
 
@@ -182,7 +189,6 @@ end)
 -- telescope buffers
 v.nnoremap({"<C-b>"}, function()
     local telescope = require("telescope.builtin")
-    --telescope.find_files({layout_config = { width_padding = 130, height_padding = 15 }})
     telescope.buffers()
 end)
 
@@ -190,7 +196,6 @@ end)
 for _, code in ipairs({"<C-S-F>", "<C-F>", "<D-F>"}) do
     v.nnoremap({code}, function()
         local telescope = require("telescope.builtin")
-        --telescope.find_files({layout_config = { width_padding = 130, height_padding = 15 }})
         telescope.live_grep()
     end)
 end
@@ -203,5 +208,36 @@ for _, code in ipairs({"<M-F9>"}) do
     end)
 end
 
+-- undo with ctrl/cmd-z in insert mode
+v.inoremap({"<C-z>"}, "<ESC>ui")
+v.inoremap({"<D-z>"}, "<ESC>ui")
+
 -- vim-test test nearest test
 v.nmap({"<C-F10>"}, v.cmd.TestNearest)
+
+-- - and + to go back to previous position
+v.nnoremap({"<M-->"}, "<C-o>")
+v.nnoremap({"<M-KMinus>"}, "<C-o>")
+v.nnoremap({"<M-+>"}, "<C-i>")
+v.nnoremap({"<M-KPlus>"}, "<C-i>")
+
+-- GoTo code navigation.
+v.nmap({"<silent>", "<F12>"}, "<Plug>(coc-definition)")
+v.imap({"<silent>", "<F12>"}, "<Plug>(coc-definition)")
+
+
+-- Symbol renaming.
+v.nmap({"<F2>"}, "<Plug>(coc-rename)")
+v.nmap({"<silent>", "<F5>"},  "<Plug>(coc-codelens-action)")
+v.nmap({"<silent>", "<F6>"}, "<Plug>(coc-codeaction-line)")
+v.nmap({"<silent>", "<F7>"}, v.cmd.CocDiagnostics)
+
+
+-- Use <c-space> to trigger completion.
+v.inoremap("<silent><expr> <c-space>", v.cmd["coc#refresh()"])
+
+-- Make <CR> auto-select the first completion item and notify coc.nvim to
+-- format on enter, <cr> could be remapped by other vim plugin
+v.inoremap("<silent><expr> <cr>", "pumvisible() ? coc#_select_confirm(): \"\\<C-g>u\\<CR>\\<c-r>=coc#on_enter()\\<CR>\"")
+
+

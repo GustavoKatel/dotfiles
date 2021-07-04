@@ -8,3 +8,9 @@ require("vim-test")
 require("title")
 require("treesitter")
 require("workspace")
+require("telescope_setup")
+
+--require("lsp")
+require("coc")
+
+require("statusline")

@@ -53,9 +53,6 @@ v.opt.inccommand = "split"
 -- always keep at least 60 lines on the screen
 v.opt.scrolloff = 60
 
--- always show sign column (gitgutter)
-v.opt.signcolumn = "yes"
-
 -- give more space displaying messages in the command line
 v.opt.cmdheight = 2
 
@@ -79,3 +76,28 @@ v.autocmd("TermOpen", "*", function() v.cmd.set("nonumber") end)
 
 -- enable window title
 v.opt.title = true
+
+-- Set completeopt to have a better completion experience
+v.opt.completeopt="menuone,noinsert,noselect"
+
+-- Avoid showing message extra message when using completion
+v.opt.shortmess = v.opt.shortmess.."c"
+
+v.opt.signcolumn = "yes:2"
+
+-- the following is not working :(
+-- auto close tags
+--v.v.g.closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.tsx"
+--v.v.g.closetag_filetypes = 'html,xhtml,phtml,javascriptreact,typescriptreact'
+--v.v.g.closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascriptreact,typescriptreact'
+
+----Disables auto-close if not in a "valid" region (based on filetype)
+--v.v.g.closetag_regions = {
+    --['typescript.tsx'] = 'jsxRegion,tsxRegion',
+    --['javascript.jsx'] = 'jsxRegion',
+    --['typescriptreact'] = 'jsxRegion,tsxRegion',
+    --['javascriptreact'] = 'jsxRegion',
+    --}
+
+---- Shortcut for closing tags, default is '>'
+--v.v.g.closetag_shortcut = '>'

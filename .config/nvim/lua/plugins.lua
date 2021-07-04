@@ -10,17 +10,17 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 local packer = require('packer')
-local v = require('utils')
 
 -- Install Plugins
 packer.startup(function()
     use {'wbthomason/packer.nvim'} -- updates package manager
-    -- lsp 
-    use {'neovim/nvim-lspconfig'}
-    use {'nvim-lua/completion-nvim'}
+    -- lsp
+    --use {'neovim/nvim-lspconfig'}
+    --use { 'kabouzeid/nvim-lspinstall' }
+    --use {'nvim-lua/completion-nvim'}
+    use { 'neoclide/coc.nvim', branch = "release" }
     -- language support
     use { 'cespare/vim-toml' }
-    -- use {'sheerun/vim-polyglot'} -- multiple language support
     use {'nvim-treesitter/nvim-treesitter'} -- semantic highlight
     -- colorscheme
     -- use {'drewtempelmeyer/palenight.vim', config='vim.cmd[[colorscheme palenight]]'}
@@ -34,21 +34,21 @@ packer.startup(function()
     use { 'RRethy/vim-illuminate' } -- hightlight same word across buffer
     use { 'google/vim-searchindex' } -- better search results
     use {'editorconfig/editorconfig-vim'}
+    use { 'alvan/vim-closetag' }
     -- HUD
     use {'airblade/vim-gitgutter'} -- git information in the buffer lines
     use {'ryanoasis/vim-devicons'} -- add support for devicons
     use {'lambdalisue/nerdfont.vim'} -- add support for nerdfont
     use { 'kyazdani42/nvim-web-devicons' }
-    -- use { 'yggdroot/indentline' } -- shows identline
+    use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
+     use { 'yggdroot/indentline' } -- shows identline
     -- debugging & testing
     use { 'puremourning/vimspector' } -- debugging platform
     use { 'vim-test/vim-test' } -- better support for running tests
     -- utils
     use {'tpope/vim-fugitive'} -- some git goodies
-    -- use {'psliwka/vim-smoothie'}
     use {'romgrk/barbar.nvim'} -- buffer line bar
     use {'voldikss/vim-floaterm'} -- floating terminal
-    -- use {'justinmk/vim-sneak'}
     use {'qpkorr/vim-bufkill'} -- better support for killing buffers
     use {'mbbill/undotree'} -- undo history on steroids
     use {'mhinz/vim-startify'} -- startup page
@@ -62,15 +62,3 @@ packer.startup(function()
     use { 'GustavoKatel/telescope-asynctasks.nvim' }
 end)
 
--- LSP
-local nvim_lsp = require 'lspconfig'
-local completion = require 'completion'
-
-local servers = { "pyright", "rust_analyzer", "tsserver", "gopls" }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = completion.on_attach }
-end
-
---lsp.tsserver.setup{on_attach=completion.on_attach}
---lsp.rust_analyzer.setup{on_attach=completion.on_attach}
---lsp.pyls.setup{on_attach=completion.on_attach}
