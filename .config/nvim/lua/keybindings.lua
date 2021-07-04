@@ -57,7 +57,6 @@ v.inoremap({"<silent>", "<D-v>"}, '<ESC>"+pa')
 v.vnoremap({"<silent>", "<C-c>"}, '"+y')
 v.vnoremap({"<silent>", "<D-c>"}, '"+y')
 
-
 -- terminal keymaps
 -- ctrl-c will close processes in normal mode
 v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-c>"}, "i<C-c>") end)
