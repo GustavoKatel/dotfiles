@@ -246,4 +246,3 @@ v.inoremap("<silent><expr> <c-space>", v.cmd["coc#refresh()"])
 -- format on enter, <cr> could be remapped by other vim plugin
 v.inoremap("<silent><expr> <cr>", "pumvisible() ? coc#_select_confirm(): \"\\<C-g>u\\<CR>\\<c-r>=coc#on_enter()\\<CR>\"")
 
-
