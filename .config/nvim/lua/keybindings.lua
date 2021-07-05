@@ -171,11 +171,11 @@ v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-q>"}, ":bd!<CR
 -- telescope files
 v.nnoremap({"<C-p>"}, function()
     local telescope = require("telescope.builtin")
-    telescope.find_files()
+    telescope.find_files({previewer = false})
 end)
 v.nnoremap({"<D-p>"}, function()
     local telescope = require("telescope.builtin")
-    telescope.find_files()
+    telescope.find_files({previewer = false})
 end)
 
 -- telescope commands
