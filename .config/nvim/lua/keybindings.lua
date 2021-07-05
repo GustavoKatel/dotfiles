@@ -207,6 +207,13 @@ for _, code in ipairs({"<M-F9>"}) do
     end)
 end
 
+for _, code in ipairs({"<C-S-L>", "<C-L>", "<D-L>"}) do
+    v.nnoremap({code}, function()
+        local telescope = require("telescope.builtin")
+        telescope.filetypes()
+    end)
+end
+
 -- undo with ctrl/cmd-z in insert mode
 v.inoremap({"<C-z>"}, "<ESC>ui")
 v.inoremap({"<D-z>"}, "<ESC>ui")
