@@ -46,24 +46,19 @@ v.nnoremap({"<silent>", "<D-Down>"}, "<c-w>j")
 
 for i = 1,9,1 do
     v.nnoremap({"<silent>", "<D-k"..i..">"}, ":"..i.."wincmd w<CR>")
+    v.tnoremap({"<silent>", "<D-k"..i..">"}, "<C-\\><C-N>:"..i.."wincmd w<CR>")
 end
 
 
 
 -- insert mode ctrl/cmd+v paste from clipboard
-v.inoremap({"<silent>", "<C-v>"}, '<ESC>"+pa')
-v.inoremap({"<silent>", "<D-v>"}, '<ESC>"+pa')
+for _, code in ipairs({"<C-v>", "<D-v>"}) do
+    v.inoremap({"<silent>", code}, '<ESC>"+pa')
+    v.tnoremap({"<silent>", code}, '<ESC>"+pa')
+end
 -- visual mode ctrl/cmd+c copy to clipboard
 v.vnoremap({"<silent>", "<C-c>"}, '"+y')
 v.vnoremap({"<silent>", "<D-c>"}, '"+y')
-
--- terminal keymaps
--- ctrl-c will close processes in normal mode
-v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-c>"}, "i<C-c>") end)
--- forcily close buffer without closing split BD!
-v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-d>"}, ":BD!<CR>") end)
--- forcily close buffer and split
-v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-q>"}, ":bd!<CR>") end)
 
 
 -- PageUp PageDown to navigate through buffers
@@ -147,6 +142,8 @@ for _, code in ipairs({"<A-F12>", "<M-F12>"}) do
     v.tnoremap({code}, "<C-\\><C-N>:FloatermToggle<CR>")
 end
 
+
+-- terminal keymaps
 -- exit terminal mode with <ESC>
 v.tnoremap({"<ESC>"}, "<C-\\><C-N>")
 
@@ -162,6 +159,13 @@ v.tnoremap({"<C-q>"}, "<C-\\><C-N>:FloatermKill<CR>")
 
 -- alt-t to open ranger in a float terminal
 v.nnoremap({"<A-t>"}, v.cmd.Ranger)
+
+-- ctrl-c will close processes in normal mode
+v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-c>"}, "i<C-c>") end)
+-- forcily close buffer without closing split BD!
+v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-d>"}, ":BD!<CR>") end)
+-- forcily close buffer and split
+v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-q>"}, ":bd!<CR>") end)
 
 
 -- telescope files
