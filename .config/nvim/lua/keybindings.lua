@@ -55,6 +55,7 @@ end
 for _, code in ipairs({"<C-v>", "<D-v>"}) do
     v.inoremap({"<silent>", code}, '<ESC>"+pa')
     v.tnoremap({"<silent>", code}, '<ESC>"+pa')
+    v.cnoremap({code}, '<C-r>+')
 end
 -- visual mode ctrl/cmd+c copy to clipboard
 v.vnoremap({"<silent>", "<C-c>"}, '"+y')

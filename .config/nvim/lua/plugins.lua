@@ -22,6 +22,7 @@ packer.startup(function()
     -- language support
     use { 'cespare/vim-toml' }
     use {'nvim-treesitter/nvim-treesitter'} -- semantic highlight
+    use { 'windwp/nvim-ts-autotag' }
     -- colorscheme
     -- use {'drewtempelmeyer/palenight.vim', config='vim.cmd[[colorscheme palenight]]'}
     use { 'tomasiser/vim-code-dark' }
@@ -34,7 +35,7 @@ packer.startup(function()
     use { 'RRethy/vim-illuminate' } -- hightlight same word across buffer
     use { 'google/vim-searchindex' } -- better search results
     use {'editorconfig/editorconfig-vim'}
-    use { 'alvan/vim-closetag' }
+    --use { 'alvan/vim-closetag' }
     -- HUD
     use {'airblade/vim-gitgutter'} -- git information in the buffer lines
     use {'ryanoasis/vim-devicons'} -- add support for devicons

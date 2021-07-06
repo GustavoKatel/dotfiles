@@ -7,5 +7,8 @@ treesitter_config.setup {
     highlight = {
         enable = true,
         custom_captures = {},
+    },
+    autotag = {
+       enable = true,
     }
 }
