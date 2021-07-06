@@ -85,6 +85,8 @@ v.opt.shortmess = v.opt.shortmess.."c"
 
 v.opt.signcolumn = "yes:2"
 
+v.v.g.vim_json_conceal=0
+
 -- the following is not working :(
 -- auto close tags
 --v.v.g.closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.tsx"
