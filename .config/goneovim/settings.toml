@@ -7,7 +7,6 @@ BorderlessWindow = false
 FontFamily = "JetBrainsMono Nerd Font Mono"
 FontSize = 12
 
-
 ExtCmdline   = false
 ExtPopupmenu = true
 ExtTabline   = false
@@ -31,3 +30,7 @@ Visible = false
 [Palette]
 ## Specifies the proportion of the command line palette to the height of the entire window.
 AreaRatio = 0.5
+
+[Statusline]
+## Whether or not to display the external status line
+Visible = false
