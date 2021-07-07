@@ -1,5 +1,6 @@
 local v = require("utils")
 local lualine = require('lualine')
+local theme = require("statusline_theme")
 
 local function lualine_custom_winnr()
     return " "..v.fn.winnr()
@@ -26,7 +27,8 @@ end
 
 lualine.setup({
     options = {
-        theme = "codedark",
+        --theme = "codedark",
+        theme = theme,
     },
     sections = {
         lualine_c = {

@@ -11,7 +11,9 @@ v.opt.hidden = true
 -- enable mouse support 😛
 v.opt.mouse = "a"
 
-v.cmd.colorscheme("codedark")
+--v.cmd.colorscheme("codedark")
+v.v.g.material_style = "darker"
+v.cmd.colorscheme("material")
 
 -- show line numbers
 v.opt.number = true

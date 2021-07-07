@@ -26,6 +26,7 @@ packer.startup(function()
     -- colorscheme
     -- use {'drewtempelmeyer/palenight.vim', config='vim.cmd[[colorscheme palenight]]'}
     use { 'tomasiser/vim-code-dark' }
+    use { 'marko-cerovac/material.nvim' }
     -- editting
     use {'preservim/nerdcommenter'} -- toggle comment
     use {'jiangmiao/auto-pairs'} -- auto close brackets, parenthesis etc
