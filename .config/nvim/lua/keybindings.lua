@@ -185,7 +185,15 @@ end
 for _, code in ipairs({'<M-p>', '<A-p>'}) do
     v.nnoremap({code}, function()
         local telescope = require("telescope.builtin")
-        telescope.find_files({previewer = false, find_command = {"rg", "--files", "--hidden", "--no-ignore"}})
+        telescope.find_files({
+            previewer = false,
+            find_command = {
+                "rg", "--files", "--hidden", "--no-ignore",
+                "-g", "!node_modules/**/*",
+                "-g", "!venv/**/*",
+                "-g", "!.git/**/*"
+            }
+        })
     end)
 end
 
