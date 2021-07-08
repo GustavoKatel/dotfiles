@@ -55,8 +55,10 @@ end
 for _, code in ipairs({"<C-v>", "<D-v>"}) do
     v.inoremap({"<silent>", code}, '<ESC>"+pa')
     v.tnoremap({"<silent>", code}, '<ESC>"+pa')
-    v.cnoremap({code}, '<C-r>+')
 end
+-- same as above, but maps ctrl+shift+v instead of ctrl+v. still uses cmd-v
+v.cnoremap({"<C-S-V>", "<D-v>"}, '<C-r>+')
+
 -- visual mode ctrl/cmd+c copy to clipboard
 v.vnoremap({"<silent>", "<C-c>"}, '"+y')
 v.vnoremap({"<silent>", "<D-c>"}, '"+y')
@@ -180,7 +182,7 @@ for _, code in ipairs({"<C-p>", "<D-p>"}) do
 end
 
 -- telescope files, but with hidden+ignored files
-for _, code in ipairs({'<D-t>', '<C-t>'}) do
+for _, code in ipairs({'<M-p>', '<A-p>'}) do
     v.nnoremap({code}, function()
         local telescope = require("telescope.builtin")
         telescope.find_files({previewer = false, find_command = {"rg", "--files", "--hidden", "--no-ignore"}})
