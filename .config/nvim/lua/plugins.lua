@@ -54,9 +54,9 @@ packer.startup(function()
     use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
      use { 'yggdroot/indentline' } -- shows identline
     -- debugging & testing
-    --use { 'puremourning/vimspector' } -- debugging platform
-    use { 'mfussenegger/nvim-dap' }
-    use { "Pocco81/DAPInstall.nvim" }
+    use { 'puremourning/vimspector' } -- debugging platform
+    --use { 'mfussenegger/nvim-dap' }
+    --use { "Pocco81/DAPInstall.nvim" }
     use { 'vim-test/vim-test' } -- better support for running tests
     -- utils
     use {'tpope/vim-fugitive'} -- some git goodies

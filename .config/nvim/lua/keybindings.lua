@@ -243,6 +243,12 @@ for _, code in ipairs({"<C-S-L>", "<C-L>", "<D-L>"}) do
     end)
 end
 
+-- telescope vimspector
+for  _, code in ipairs({"<S-F9>"}) do
+    v.nnoremap({code}, function()
+        require('telescope').extensions.vimspector.configurations()
+    end)
+end
 
 -- undo with ctrl/cmd-z in insert mode
 v.inoremap({"<C-z>"}, "<ESC>ui")
@@ -276,3 +282,14 @@ v.inoremap("<silent><expr> <c-space>", v.cmd["coc#refresh()"])
 -- format on enter, <cr> could be remapped by other vim plugin
 v.inoremap("<silent><expr> <cr>", "pumvisible() ? coc#_select_confirm(): \"\\<C-g>u\\<CR>\\<c-r>=coc#on_enter()\\<CR>\"")
 
+
+-- vimspector mappings
+--v.nmap({"<C-F8>"}, "<Plug>VimspectorToggleBreakpoint")
+--v.nmap({"<C-F5>"}, "<Plug>VimspectorContinue")
+--v.nmap({"<C-F6>"}, "<Plug>VimspectorStepOut")
+
+--v.nmap({"<C-F9>"}, "<Plug>VimspectorStepInto")
+--v.nmap({"<C-F10>"}, "<Plug>VimspectorStepOver")
+
+--v.nmap({"<C-F1>"}, ":call vimspector#Launch()<CR>")
+--v.nmap({"<C-F2>"}, ":VimspectorReset<CR>:tabprevious<CR>")
