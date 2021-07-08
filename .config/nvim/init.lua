@@ -14,3 +14,4 @@ require("telescope_setup")
 require("coc")
 
 require("statusline")
+require("window_picker")

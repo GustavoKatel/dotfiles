@@ -5,11 +5,24 @@ local v = {}
 -- Some util functions
 math.randomseed(os.time())
 
-local function make_global_fn(fn)
-    local fn_name = '_function_' .. math.random(1000000)
+local function clean_fn_name(name)
+    if not name or name == '' then
+        return ''
+    end
+
+    cleaned = string.gsub(name, '%s+', '')
+    return cleaned
+end
+
+local function make_global_fn(fn, key)
+    local prefix = '_fn_'
+
+    key = clean_fn_name(key)
+
+    local fn_name = prefix .. key .. math.random(1000000)
     while true do
         if _G[fn_name] == nil then break end
-        fn_name = '_function_' .. math.random(1000000)
+        fn_name = prefix .. key .. math.random(1000000)
     end
     _G[fn_name] = fn
     return fn_name
@@ -103,7 +116,7 @@ end
 local __cmd_newindex = function(table, key, fn)
     local nargs = debug.getinfo(fn).nparams
     if nargs > 1 then nargs = '*' end
-    local fn_name = make_global_fn(fn)
+    local fn_name = make_global_fn(fn, key)
     vim.cmd(':command -nargs=' .. nargs .. ' ' .. key .. ' call v:lua.' .. fn_name .. '(<f-args>)')
 end
 
@@ -203,7 +216,7 @@ local __fn_newindex = function(table, key, fn)
     local wrapper = function(args)
         return fn(unpack(args))
     end
-    local fn_name = make_global_fn(wrapper)
+    local fn_name = make_global_fn(wrapper, key)
     vim.cmd(':function '.. key .. '(...)\ncall v:lua.' .. fn_name .. '(a:000)\n:endfunction')
 end
 

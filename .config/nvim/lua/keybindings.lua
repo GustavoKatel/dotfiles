@@ -132,8 +132,10 @@ v.inoremap({"<C-S-D>"}, "<ESC>yypi")
 v.inoremap({"<D-D>"}, "<ESC>yypi")
 
 
--- easymotion
-v.nmap("f", "<Plug>(easymotion-overwin-f2)")
+-- easymotion/hop.nvim
+--v.nmap("f", "<Plug>(easymotion-overwin-f2)")
+v.nnoremap("f", function() print("enter 2 char pattern") require('hop').hint_char2() end)
+v.nnoremap("<leader>w", require('nvim-window').pick)
 
 
 -- floaterm keybindings
@@ -170,25 +172,28 @@ v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-q>"}, ":bd!<CR
 
 
 -- telescope files
-v.nnoremap({"<C-p>"}, function()
-    local telescope = require("telescope.builtin")
-    telescope.find_files({previewer = false})
-end)
-v.nnoremap({"<D-p>"}, function()
-    local telescope = require("telescope.builtin")
-    telescope.find_files({previewer = false})
-end)
+for _, code in ipairs({"<C-p>", "<D-p>"}) do
+    v.nnoremap({code}, function()
+        local telescope = require("telescope.builtin")
+        telescope.find_files({previewer = false})
+    end)
+end
+
+-- telescope files, but with hidden+ignored files
+for _, code in ipairs({'<D-t>', '<C-t>'}) do
+    v.nnoremap({code}, function()
+        local telescope = require("telescope.builtin")
+        telescope.find_files({previewer = false, find_command = {"rg", "--files", "--hidden", "--no-ignore"}})
+    end)
+end
 
 -- telescope commands
-v.nnoremap({"<C-S-P>"}, function()
-    local telescope = require("telescope.builtin")
-    telescope.commands()
-end)
-v.nnoremap({"<D-P>"}, function()
-    local telescope = require("telescope.builtin")
-    telescope.commands()
-end)
-
+for _, code in ipairs({"<C-S-P>", "<D-P>"}) do
+    v.nnoremap({code}, function()
+        local telescope = require("telescope.builtin")
+        telescope.commands()
+    end)
+end
 
 -- telescope buffers
 v.nnoremap({"<C-b>"}, function()
@@ -212,12 +217,14 @@ for _, code in ipairs({"<M-F9>"}) do
     end)
 end
 
+-- telescope select/change filetype
 for _, code in ipairs({"<C-S-L>", "<C-L>", "<D-L>"}) do
     v.nnoremap({code}, function()
         local telescope = require("telescope.builtin")
         telescope.filetypes()
     end)
 end
+
 
 -- undo with ctrl/cmd-z in insert mode
 v.inoremap({"<C-z>"}, "<ESC>ui")

@@ -32,7 +32,16 @@ packer.startup(function()
     use {'jiangmiao/auto-pairs'} -- auto close brackets, parenthesis etc
     use { 'mg979/vim-visual-multi' } -- multiple cursors
     use { 'tpope/vim-surround' }
-    use { 'easymotion/vim-easymotion' }
+    --use { 'easymotion/vim-easymotion' }
+    use {
+      'phaazon/hop.nvim',
+      as = 'hop',
+      config = function()
+        -- you can configure Hop the way you like here; see :h hop-config
+        require'hop'.setup {  }
+      end
+    }
+    use { 'https://gitlab.com/yorickpeterse/nvim-window.git' }
     use { 'RRethy/vim-illuminate' } -- hightlight same word across buffer
     use { 'google/vim-searchindex' } -- better search results
     use {'editorconfig/editorconfig-vim'}
