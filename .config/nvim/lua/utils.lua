@@ -2,6 +2,10 @@
 
 local v = {}
 
+unpack = unpack or table.unpack
+
+v.unpack = unpack
+
 -- Some util functions
 math.randomseed(os.time())
 

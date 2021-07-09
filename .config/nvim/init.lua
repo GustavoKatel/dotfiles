@@ -12,7 +12,7 @@ require("telescope_setup")
 
 --require("lsp")
 require("coc")
---require("vimspector")
+require("vimspector")
 
 require("statusline")
 require("window_picker")

@@ -174,27 +174,38 @@ v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-q>"}, ":bd!<CR
 
 
 -- telescope files
+local function telescope_files(with_gitignored)
+    local telescope = require("telescope.builtin")
+
+    local cmd = {"rg", "--files", "--hidden"}
+
+    if with_gitignored then
+        table.insert(cmd, "--no-ignore")
+    end
+
+    local cmd_args = {
+        "-g", "!node_modules/**/*",
+        "-g", "!venv/**/*",
+        "-g", "!.git/**/*"
+    }
+
+    for _, arg in pairs(cmd_args) do
+        table.insert(cmd, arg)
+    end
+
+    telescope.find_files({
+        previewer = false,
+        find_command = cmd
+    })
+end
+
 for _, code in ipairs({"<C-p>", "<D-p>"}) do
-    v.nnoremap({code}, function()
-        local telescope = require("telescope.builtin")
-        telescope.find_files({previewer = false})
-    end)
+    v.nnoremap({code}, function() telescope_files(false) end)
 end
 
 -- telescope files, but with hidden+ignored files
 for _, code in ipairs({'<M-p>', '<A-p>'}) do
-    v.nnoremap({code}, function()
-        local telescope = require("telescope.builtin")
-        telescope.find_files({
-            previewer = false,
-            find_command = {
-                "rg", "--files", "--hidden", "--no-ignore",
-                "-g", "!node_modules/**/*",
-                "-g", "!venv/**/*",
-                "-g", "!.git/**/*"
-            }
-        })
-    end)
+    v.nnoremap({code}, function() telescope_files(true) end)
 end
 
 -- telescope commands
@@ -284,12 +295,24 @@ v.inoremap("<silent><expr> <cr>", "pumvisible() ? coc#_select_confirm(): \"\\<C-
 
 
 -- vimspector mappings
---v.nmap({"<C-F8>"}, "<Plug>VimspectorToggleBreakpoint")
---v.nmap({"<C-F5>"}, "<Plug>VimspectorContinue")
---v.nmap({"<C-F6>"}, "<Plug>VimspectorStepOut")
+v.nmap({"<F8>"}, "<Plug>VimspectorToggleBreakpoint")
+--v.nmap({"<F1>"}, ":call vimspector#Launch()<CR>")
+v.nmap({"<F1>"}, require('telescope').extensions.vimspector.configurations)
+v.nmap({"<C-F2>"}, ":VimspectorReset<CR>:tabprevious<CR>")
+local vimspector_bindings = {
+    ["<F5>"] = "<Plug>VimspectorContinue",
+    ["<F6>"] = "<Plug>VimspectorStepOut",
 
---v.nmap({"<C-F9>"}, "<Plug>VimspectorStepInto")
---v.nmap({"<C-F10>"}, "<Plug>VimspectorStepOver")
-
---v.nmap({"<C-F1>"}, ":call vimspector#Launch()<CR>")
---v.nmap({"<C-F2>"}, ":VimspectorReset<CR>:tabprevious<CR>")
+    ["<F9>"] = "<Plug>VimspectorStepInto",
+    ["<F10>"] = "<Plug>VimspectorStepOver",
+}
+v.autocmd("User", "VimspectorJumpedToFrame", function()
+    for code, cmd in pairs(vimspector_bindings) do
+        v.nmap({code}, cmd)
+    end
+end)
+v.autocmd("User", "VimspectorDebugEnded", function()
+    for code, cmd in pairs(vimspector_bindings) do
+        pcall(v.nunmap, {code}, cmd)
+    end
+end)
