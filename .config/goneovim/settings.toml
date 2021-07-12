@@ -14,7 +14,7 @@ ExtMessages  = false
 
 
 # Animates the scrolling behavior of Neovim when the scroll command is entered.
-SmoothScroll = true
+SmoothScroll = false
 
 DisableLigatures = true
 

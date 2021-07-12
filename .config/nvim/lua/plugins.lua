@@ -24,7 +24,6 @@ packer.startup(function()
     use {'nvim-treesitter/nvim-treesitter'} -- semantic highlight
     use { 'windwp/nvim-ts-autotag' }
     -- colorscheme
-    -- use {'drewtempelmeyer/palenight.vim', config='vim.cmd[[colorscheme palenight]]'}
     use { 'tomasiser/vim-code-dark' }
     use { 'marko-cerovac/material.nvim' }
     -- editting
@@ -32,7 +31,6 @@ packer.startup(function()
     use {'jiangmiao/auto-pairs'} -- auto close brackets, parenthesis etc
     use { 'mg979/vim-visual-multi' } -- multiple cursors
     use { 'tpope/vim-surround' }
-    --use { 'easymotion/vim-easymotion' }
     use {
       'phaazon/hop.nvim',
       as = 'hop',
@@ -45,7 +43,6 @@ packer.startup(function()
     use { 'RRethy/vim-illuminate' } -- hightlight same word across buffer
     use { 'google/vim-searchindex' } -- better search results
     use {'editorconfig/editorconfig-vim'}
-    --use { 'alvan/vim-closetag' }
     -- HUD
     use {'airblade/vim-gitgutter'} -- git information in the buffer lines
     use {'ryanoasis/vim-devicons'} -- add support for devicons

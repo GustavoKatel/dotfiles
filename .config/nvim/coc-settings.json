@@ -33,5 +33,6 @@
             "tidy": true,
             "test": true
         }
-    }
+    },
+    "go.goplsUseDaemon": false
 }

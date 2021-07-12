@@ -16,3 +16,5 @@ require("vimspector")
 
 require("statusline")
 require("window_picker")
+
+require("misc")
