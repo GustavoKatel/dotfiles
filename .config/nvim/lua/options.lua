@@ -91,19 +91,5 @@ v.v.g.vim_json_conceal=0
 
 v.v.g.AutoPairsShortcutToggle = ''
 
--- the following is not working :(
--- auto close tags
---v.v.g.closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.tsx"
---v.v.g.closetag_filetypes = 'html,xhtml,phtml,javascriptreact,typescriptreact'
---v.v.g.closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascriptreact,typescriptreact'
+v.v.g.dashboard_default_executive = "telescope"
 
-----Disables auto-close if not in a "valid" region (based on filetype)
---v.v.g.closetag_regions = {
-    --['typescript.tsx'] = 'jsxRegion,tsxRegion',
-    --['javascript.jsx'] = 'jsxRegion',
-    --['typescriptreact'] = 'jsxRegion,tsxRegion',
-    --['javascriptreact'] = 'jsxRegion',
-    --}
-
----- Shortcut for closing tags, default is '>'
---v.v.g.closetag_shortcut = '>'

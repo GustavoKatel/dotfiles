@@ -61,7 +61,8 @@ packer.startup(function()
     use {'voldikss/vim-floaterm'} -- floating terminal
     use {'qpkorr/vim-bufkill'} -- better support for killing buffers
     use {'mbbill/undotree'} -- undo history on steroids
-    use {'mhinz/vim-startify'} -- startup page
+    --use {'mhinz/vim-startify'} -- startup page
+    use { 'glepnir/dashboard-nvim' }
     use { 'skywind3000/asynctasks.vim' }
     use { 'skywind3000/asyncrun.vim' }
 
