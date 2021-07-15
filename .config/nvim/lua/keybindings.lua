@@ -54,7 +54,7 @@ end
 -- insert mode ctrl/cmd+v paste from clipboard
 for _, code in ipairs({"<C-v>", "<D-v>"}) do
     v.inoremap({"<silent>", code}, '<ESC>"+pa')
-    v.tnoremap({"<silent>", code}, '<ESC>"+pa')
+    v.tnoremap({"<silent>", code}, '<C-\\><C-N>"+pa')
 end
 -- same as above, but maps ctrl+shift+v instead of ctrl+v. still uses cmd-v
 v.cnoremap({"<C-S-V>", "<D-v>"}, '<C-r>+')
