@@ -234,7 +234,27 @@ end
 for _, code in ipairs({"<C-S-F>", "<C-F>", "<D-F>"}) do
     v.nnoremap({code}, function()
         local telescope = require("telescope.builtin")
-        telescope.live_grep()
+
+        local rg_arguments = {}
+
+        for k,v in pairs(require('telescope.config').values.vimgrep_arguments) do
+            rg_arguments[k] = v
+        end
+
+        table.insert(rg_arguments, "--hidden")
+        table.insert(rg_arguments, "--no-ignore")
+
+        local cmd_args = {
+            "-g", "!node_modules/**/*",
+            "-g", "!venv/**/*",
+            "-g", "!.git/**/*"
+        }
+
+        for _, arg in pairs(cmd_args) do
+            table.insert(rg_arguments, arg)
+        end
+
+        telescope.live_grep({ vimgrep_arguments = rg_arguments })
     end)
 end
 
