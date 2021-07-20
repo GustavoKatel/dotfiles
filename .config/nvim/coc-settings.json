@@ -18,6 +18,8 @@
     "diagnostic.virtualText": false,
     "codeLens.enable": true,
     "codeLens.subseparator": " | ",
+    "typescript.referencesCodeLens.enable": false,
+    "eslint.autoFixOnSave": true,
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black",
@@ -32,6 +34,5 @@
             "test": true
         }
     },
-    "explorer.icon.enableNerdfont": true,
-    "explorer.file.autoReveal": true
+    "go.goplsUseDaemon": false
 }

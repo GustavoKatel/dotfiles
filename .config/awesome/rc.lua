@@ -115,7 +115,7 @@ local browser      = os.getenv("BROWSER") or "firefox"
 local scrlocker    = "light-locker-command -l"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "", "", "", "", "", "缾"}
+awful.util.tagnames = { "", "", "", "", "缾"}
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,

@@ -288,7 +288,7 @@ function theme.at_screen_connect(s)
     awful.tag(awful.util.tagnames, s, awful.layout.layouts[7])
 
     awful.layout.set(lain.layout.termfair.center, awful.screen.focused().tags[1])
-    awful.layout.set(awful.layout.suit.floating, awful.screen.focused().tags[6])
+    awful.layout.set(awful.layout.suit.floating, awful.screen.focused().tags[5])
 
     local big_master_tags = {[2] = true, [3] = true, [4] = true}
     local temp_tags = {7, 8, 9}
