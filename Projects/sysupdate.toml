@@ -6,8 +6,7 @@ command = "yay"
 args = ["-Suy"]
 
 [tasks.flatpak]
-command = "flatpak"
-args = ["update"]
+script = "sudo flatpak update"
 
 [tasks.rustup]
 command = "rustup"
