@@ -23,6 +23,7 @@ packer.startup(function()
     use { 'cespare/vim-toml' }
     use {'nvim-treesitter/nvim-treesitter'} -- semantic highlight
     use { 'windwp/nvim-ts-autotag' }
+    use { 'nvim-treesitter/nvim-treesitter-textobjects' }
     -- colorscheme
     use { 'tomasiser/vim-code-dark' }
     use { 'marko-cerovac/material.nvim' }
