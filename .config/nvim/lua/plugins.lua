@@ -13,6 +13,7 @@ local packer = require('packer')
 
 -- Install Plugins
 packer.startup(function()
+    local use = use or use
     use {'wbthomason/packer.nvim'} -- updates package manager
     -- lsp
     --use {'neovim/nvim-lspconfig'}
@@ -23,6 +24,7 @@ packer.startup(function()
     use { 'cespare/vim-toml' }
     use {'nvim-treesitter/nvim-treesitter'} -- semantic highlight
     use { 'windwp/nvim-ts-autotag' }
+    use { 'nvim-treesitter/nvim-treesitter-textobjects' }
     -- colorscheme
     use { 'tomasiser/vim-code-dark' }
     use { 'marko-cerovac/material.nvim' }
@@ -49,7 +51,14 @@ packer.startup(function()
     use {'lambdalisue/nerdfont.vim'} -- add support for nerdfont
     use { 'kyazdani42/nvim-web-devicons' }
     use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
-     use { 'yggdroot/indentline' } -- shows identline
+    use { 'yggdroot/indentline' } -- shows identline
+    use {
+      "folke/todo-comments.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require("todo-comments").setup {}
+      end
+    }
     -- debugging & testing
     use { 'puremourning/vimspector' } -- debugging platform
     --use { 'mfussenegger/nvim-dap' }
@@ -61,13 +70,12 @@ packer.startup(function()
     use {'voldikss/vim-floaterm'} -- floating terminal
     use {'qpkorr/vim-bufkill'} -- better support for killing buffers
     use {'mbbill/undotree'} -- undo history on steroids
-    --use {'mhinz/vim-startify'} -- startup page
     use { 'glepnir/dashboard-nvim' }
     use { 'skywind3000/asynctasks.vim' }
     use { 'skywind3000/asyncrun.vim' }
 
     use {'GustavoKatel/vim-workspace'}
-    
+
     use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
     use { 'nvim-telescope/telescope-vimspector.nvim' }
     use { 'GustavoKatel/telescope-asynctasks.nvim' }

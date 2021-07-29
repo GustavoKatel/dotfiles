@@ -254,9 +254,8 @@ for _, code in ipairs({"<C-S-F>", "<C-F>", "<D-F>"}) do
             table.insert(rg_arguments, arg)
         end
 
-        telescope.live_grep({
-            vimgrep_arguments = rg_arguments,
-        })
+        --telescope.live_grep({ vimgrep_arguments = rg_arguments })
+        require("telescope_rg_pattern").live_grep_pattern({ vimgrep_arguments = rg_arguments })
     end)
 end
 

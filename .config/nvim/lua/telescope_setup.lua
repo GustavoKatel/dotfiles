@@ -3,8 +3,8 @@ require('telescope').setup{
   defaults = {
     mappings = {
       i = {
-        ["<esc>"] = actions.close,
         ["<c-s>"] = actions.send_to_qflist,
+        ["<esc>"] = actions.close
       },
     },
     --layout_config = { width_padding = 130, height_padding = 15 }
