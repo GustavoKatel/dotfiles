@@ -35,4 +35,4 @@ AreaRatio = 0.5
 Visible = false
 
 [Cursor]
-SmoothMove = true
+SmoothMove = false
