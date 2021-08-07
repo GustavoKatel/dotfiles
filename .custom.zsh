@@ -15,7 +15,7 @@ alias st="git status"
 
 alias nv="nvim"
 
-alias nvu="/Applications/goneovim.app/Contents/MacOS/goneovim >/dev/null 2>&1 & disown"
+alias nvu="/Applications/goneovim.app/Contents/MacOS/goneovim --maximized >/dev/null 2>&1 & disown"
 
 function done-notify() {
   if [ $? -eq 0 ]; then
@@ -36,6 +36,10 @@ function nvm_load() {
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 alias nl=nvm_load
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
+# END NVM wrappers
 
 # task integration
 source $HOME/dev/task.sh

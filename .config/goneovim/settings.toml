@@ -22,7 +22,6 @@ DisableLigatures = true
 # This option works only if `ExtMessages` is enabled.
 DesktopNotifications = true
 
-
 [SideBar]
 # Specifies whether to show the external sidebar or not.
 Visible = false
@@ -34,3 +33,6 @@ AreaRatio = 0.5
 [Statusline]
 ## Whether or not to display the external status line
 Visible = false
+
+[Cursor]
+SmoothMove = false
