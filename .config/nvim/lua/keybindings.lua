@@ -45,11 +45,20 @@ v.nnoremap({"<silent>", "<D-Up>"}, "<c-w>k")
 v.nnoremap({"<silent>", "<D-Down>"}, "<c-w>j")
 
 for i = 1,9,1 do
-    v.nnoremap({"<silent>", "<D-k"..i..">"}, ":"..i.."wincmd w<CR>")
-    v.tnoremap({"<silent>", "<D-k"..i..">"}, "<C-\\><C-N>:"..i.."wincmd w<CR>")
+    for _, key in ipairs({"<D-k"..i..">", "<D-"..i..">"}) do
+        v.nnoremap({"<silent>", key}, ":"..i.."wincmd w<CR>")
+        v.tnoremap({"<silent>", key}, "<C-\\><C-N>:"..i.."wincmd w<CR>")
+    end
+
+    -- only bind this on linux, not macos
+    -- ctrl-<number>
+    if v.fn.has("macunix") == 0 then
+        for _, key in ipairs({"<C-k"..i..">","<C-"..i..">"}) do
+            v.nnoremap({"<silent>", key}, ":"..i.."wincmd w<CR>")
+            v.tnoremap({"<silent>", key}, "<C-\\><C-N>:"..i.."wincmd w<CR>")
+        end
+    end
 end
-
-
 
 -- insert mode ctrl/cmd+v paste from clipboard
 for _, code in ipairs({"<C-v>", "<D-v>"}) do
