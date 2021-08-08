@@ -28,6 +28,12 @@ packer.startup(function()
     -- colorscheme
     use { 'tomasiser/vim-code-dark' }
     use { 'marko-cerovac/material.nvim' }
+    --use { 'projekt0n/github-nvim-theme', config = function()
+        --require("github-theme").setup({
+            --themeStyle = "dark",
+            ---- ... your github-theme config
+        --})
+    --end}
     -- editting
     use {'preservim/nerdcommenter'} -- toggle comment
     use {'jiangmiao/auto-pairs'} -- auto close brackets, parenthesis etc
@@ -51,7 +57,8 @@ packer.startup(function()
     use {'lambdalisue/nerdfont.vim'} -- add support for nerdfont
     use { 'kyazdani42/nvim-web-devicons' }
     use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
-    use { 'yggdroot/indentline' } -- shows identline
+    --use { 'yggdroot/indentline' } -- shows identline
+    use { "lukas-reineke/indent-blankline.nvim" }
     use {
       "folke/todo-comments.nvim",
       requires = "nvim-lua/plenary.nvim",
@@ -66,7 +73,7 @@ packer.startup(function()
     use { 'vim-test/vim-test' } -- better support for running tests
     -- utils
     use {'tpope/vim-fugitive'} -- some git goodies
-    use {'romgrk/barbar.nvim'} -- buffer line bar
+    --use {'romgrk/barbar.nvim'} -- buffer line bar
     use {'voldikss/vim-floaterm'} -- floating terminal
     use {'qpkorr/vim-bufkill'} -- better support for killing buffers
     use {'mbbill/undotree'} -- undo history on steroids
@@ -79,5 +86,7 @@ packer.startup(function()
     use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
     use { 'nvim-telescope/telescope-vimspector.nvim' }
     use { 'GustavoKatel/telescope-asynctasks.nvim' }
+    
+    use '/Users/gustavokatel/dev/sidebar.nvim'
 end)
 

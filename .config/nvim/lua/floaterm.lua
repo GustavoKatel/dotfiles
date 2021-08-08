@@ -5,5 +5,5 @@ v.cmd["Ranger"] = function()
 end
 
 -- disable  indent lines on floaterm windows
-v.autocmd("User", "FloatermOpen", v.cmd.IndentLinesDisable)
+--v.autocmd("User", "FloatermOpen", v.cmd.IndentLinesDisable)
 

@@ -152,7 +152,7 @@ v.nnoremap("<leader>w", require('nvim-window').pick)
 -- floaterm keybindings
 for _, code in ipairs({"<A-F12>", "<M-F12>"}) do
     v.nnoremap({code}, v.cmd.FloatermToggle)
-    v.inoremap({code}, v.cmd.FloatermToggle)
+    v.inoremap({code}, "<ESC>:FloatermToggle<CR>")
     v.tnoremap({code}, "<C-\\><C-N>:FloatermToggle<CR>")
 end
 

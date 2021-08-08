@@ -34,5 +34,6 @@
             "test": true
         }
     },
-    "go.goplsUseDaemon": false
+    "go.goplsUseDaemon": false,
+    "Lua.diagnostics.globals": ["vim"]
 }
