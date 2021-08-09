@@ -16,10 +16,10 @@ packer.startup(function()
     local use = use or use
     use {'wbthomason/packer.nvim'} -- updates package manager
     -- lsp
-    --use {'neovim/nvim-lspconfig'}
-    --use { 'kabouzeid/nvim-lspinstall' }
-    --use {'nvim-lua/completion-nvim'}
-    use { 'neoclide/coc.nvim', branch = "release" }
+    use {'neovim/nvim-lspconfig'}
+    use { 'kabouzeid/nvim-lspinstall' }
+    use {'hrsh7th/nvim-compe'}
+    --use { 'neoclide/coc.nvim', branch = "release" }
     -- language support
     use { 'cespare/vim-toml' }
     use {'nvim-treesitter/nvim-treesitter'} -- semantic highlight
