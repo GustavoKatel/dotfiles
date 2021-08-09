@@ -304,26 +304,6 @@ v.nnoremap({"<M-KMinus>"}, "<C-o>")
 v.nnoremap({"<M-+>"}, "<C-i>")
 v.nnoremap({"<M-KPlus>"}, "<C-i>")
 
--- GoTo code navigation.
-v.nmap({"<silent>", "<F12>"}, "<Plug>(coc-definition)")
-v.imap({"<silent>", "<F12>"}, "<Plug>(coc-definition)")
-
-
--- Symbol renaming.
-v.nmap({"<F2>"}, "<Plug>(coc-rename)")
-v.nmap({"<silent>", "<F5>"},  "<Plug>(coc-codelens-action)")
-v.nmap({"<silent>", "<F6>"}, "<Plug>(coc-codeaction-line)")
-v.nmap({"<silent>", "<F7>"}, v.cmd.CocDiagnostics)
-
-
--- Use <c-space> to trigger completion.
-v.inoremap("<silent><expr> <c-space>", v.cmd["coc#refresh()"])
-
--- Make <CR> auto-select the first completion item and notify coc.nvim to
--- format on enter, <cr> could be remapped by other vim plugin
-v.inoremap("<silent><expr> <cr>", "pumvisible() ? coc#_select_confirm(): \"\\<C-g>u\\<CR>\\<c-r>=coc#on_enter()\\<CR>\"")
-
-
 -- vimspector mappings
 v.nmap({"<F8>"}, "<Plug>VimspectorToggleBreakpoint")
 --v.nmap({"<F1>"}, ":call vimspector#Launch()<CR>")

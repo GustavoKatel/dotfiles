@@ -1,46 +1,40 @@
 local v = require("utils")
 
-local nvim_lsp = require 'lspconfig'
-local completion = require 'completion'
-local lspinstall = require'lspinstall'
+local nvim_lsp = require('lspconfig')
+local lspinstall = require('lspinstall')
+local configs = require("lsp_languages")
+local lsp_on_attach = require("lsp_on_attach")
 
+--local servers = { "python", "rust", "typescript", "go", "lua" }
+local servers = { "efm", "lua", "typescript" }
 
-local servers = { "python", "rust", "typescript", "go", "lua" }
+-- config that activates keymaps and enables snippet support
+local function make_config(server)
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+        'documentation',
+        'detail',
+        'additionalTextEdits',
+    }
+  }
+  local config = {
+    capabilities = capabilities,
+    on_attach = lsp_on_attach.on_attach,
+  }
+
+  local server_config = configs[server] or {}
+
+  return vim.tbl_extend("force", server_config, config)
+end
 
 local function setup_servers()
     lspinstall.setup()
 
     for _, lsp in ipairs(lspinstall.installed_servers()) do
-        if lsp == "lua" then
-            nvim_lsp[lsp].setup {
-                on_attach = completion.on_attach,
-                init_options = {
-                    codelenses = {
-                        test = true,
-                    },
-                },
-                settings = {
-                    Lua = {
-                        runtime = {
-                            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                            version = 'LuaJIT',
-                            -- Setup your lua path
-                            path = vim.split(package.path, ';')
-                        },
-                        diagnostics = {
-                            -- Get the language server to recognize the `vim` global
-                            globals = {'vim', 'use'}
-                        },
-                        workspace = {
-                            -- Make the server aware of Neovim runtime files
-                            library = {[vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
-                        }
-                    }
-                }
-            }
-        else
-            nvim_lsp[lsp].setup { on_attach = completion.on_attach }
-        end
+        local config = make_config(lsp)
+        nvim_lsp[lsp].setup(config)
     end
 end
 
@@ -48,7 +42,6 @@ setup_servers()
 
 lspinstall.post_install_hook = function ()
   setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
 
 v.cmd["UpdateLSP"] = function()

@@ -10,8 +10,9 @@ require("treesitter")
 require("workspace")
 require("telescope_setup")
 
---require("lsp")
-require("coc")
+require("lsp")
+require("completion")
+--require("coc")
 require("vimspector")
 
 require("statusline")
