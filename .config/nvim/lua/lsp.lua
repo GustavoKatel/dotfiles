@@ -2,6 +2,8 @@ local v = require("utils")
 
 local nvim_lsp = require('lspconfig')
 local lspinstall = require('lspinstall')
+
+-- configs
 local configs = require("lsp_languages")
 local lsp_on_attach = require("lsp_on_attach")
 

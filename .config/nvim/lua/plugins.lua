@@ -18,6 +18,7 @@ packer.startup(function()
     -- lsp
     use {'neovim/nvim-lspconfig'}
     use { 'kabouzeid/nvim-lspinstall' }
+    use { 'glepnir/lspsaga.nvim' }
     use {'hrsh7th/nvim-compe'}
     --use { 'neoclide/coc.nvim', branch = "release" }
     -- language support
@@ -86,7 +87,7 @@ packer.startup(function()
     use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
     use { 'nvim-telescope/telescope-vimspector.nvim' }
     use { 'GustavoKatel/telescope-asynctasks.nvim' }
-    
+
     use '/Users/gustavokatel/dev/sidebar.nvim'
 end)
 
