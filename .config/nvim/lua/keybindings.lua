@@ -142,6 +142,18 @@ v.nnoremap({"<D-D>"}, "yyp")
 v.inoremap({"<C-S-D>"}, "<ESC>yypi")
 v.inoremap({"<D-D>"}, "<ESC>yypi")
 
+-- word movement with Alt-Left and Alt-Right
+local wordLeft = {"<M-Left>", "b"}
+local wordRight = {"<M-Right>", "w"}
+
+for _, mapfunc in ipairs({v.nnoremap, v.vnoremap}) do
+    mapfunc(unpack(wordLeft))
+    mapfunc(unpack(wordRight))
+end
+v.inoremap(wordLeft[1], "<ESC>vb")
+-- exit insert mode, move one char to right, enter visual mode and move word in visual mode
+v.inoremap(wordRight[1], "<ESC>lvw")
+
 
 -- easymotion/hop.nvim
 --v.nmap("f", "<Plug>(easymotion-overwin-f2)")
