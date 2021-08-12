@@ -150,10 +150,8 @@ for _, mapfunc in ipairs({v.nnoremap, v.vnoremap}) do
     mapfunc(unpack(wordLeft))
     mapfunc(unpack(wordRight))
 end
-v.inoremap(wordLeft[1], "<ESC>vb")
--- exit insert mode, move one char to right, enter visual mode and move word in visual mode
-v.inoremap(wordRight[1], "<ESC>lvw")
-
+v.inoremap(wordLeft[1], "<ESC>b")
+v.inoremap(wordRight[1], "<ESC>lw")
 
 -- easymotion/hop.nvim
 --v.nmap("f", "<Plug>(easymotion-overwin-f2)")
