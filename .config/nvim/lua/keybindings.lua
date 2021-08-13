@@ -228,10 +228,10 @@ for _, code in ipairs({'<M-p>', '<A-p>'}) do
 end
 
 -- telescope commands
-for _, code in ipairs({"<C-S-P>", "<D-P>"}) do
+for _, code in ipairs({"<C-S-P>", "<C-P>", "<D-P>"}) do
     v.nnoremap({code}, function()
         local telescope = require("telescope.builtin")
-        telescope.commands()
+        telescope.builtin()
     end)
 end
 
@@ -252,12 +252,10 @@ end
 -- telescope global search
 for _, code in ipairs({"<C-S-F>", "<C-F>", "<D-F>"}) do
     v.nnoremap({code}, function()
-        local telescope = require("telescope.builtin")
-
         local rg_arguments = {}
 
-        for k,v in pairs(require('telescope.config').values.vimgrep_arguments) do
-            rg_arguments[k] = v
+        for k, arg in pairs(require('telescope.config').values.vimgrep_arguments) do
+            rg_arguments[k] = arg
         end
 
         table.insert(rg_arguments, "--hidden")
