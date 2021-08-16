@@ -89,5 +89,6 @@ packer.startup(function()
     use { 'GustavoKatel/telescope-asynctasks.nvim' }
 
     use '/Users/gustavokatel/dev/sidebar.nvim'
+    --use '/Users/gustavokatel/dev/sidebar.nvim-dev'
 end)
 
