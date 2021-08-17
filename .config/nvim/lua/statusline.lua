@@ -6,24 +6,20 @@ local function lualine_custom_winnr()
     return " "..v.fn.winnr()
 end
 
-local _lualine_cache_window_count = 0
+local function lualine_tabs()
+    local current_tab = vim.api.nvim_tabpage_get_number(0)
+    local tabs = vim.api.nvim_list_tabpages()
 
-v.cmd["UpdateWindowNumber"] = function()
-    local win_count = v.fn.winnr("$")
-    local current_window = v.fn.winnr()
-
-    print(_lualine_cache_window_count)
-
-    if _lualine_cache_window_count == win_count then
-        return
+    if #tabs == 1 then
+        return nil
     end
 
-    _lualine_cache_window_count = win_count
-    v.cmd.windo("redrawstatus")
-    vim.cmd(":"..current_window.."wincmd w")
-end
+    tabs = vim.tbl_map(function(handle)
+        return vim.api.nvim_tabpage_get_number(handle)
+    end, tabs)
 
---v.autocmd("WinEnter", "*", "UpdateWindowNumber")
+    return current_tab .. " > " .. table.concat(tabs, " | ")
+end
 
 lualine.setup({
     options = {
@@ -43,5 +39,13 @@ lualine.setup({
     },
     inactive_sections = {
         lualine_x = {{lualine_custom_winnr}, 'location'}
+    },
+    tabline = {
+      lualine_a = {},
+      lualine_b = {'branch'},
+      lualine_c = {'filename'},
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {{lualine_tabs}}
     }
 })
