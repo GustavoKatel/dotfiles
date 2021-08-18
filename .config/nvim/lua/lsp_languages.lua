@@ -1,3 +1,4 @@
+local lsp_on_attach = require("lsp_on_attach")
 
 local eslint = {
   lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
@@ -38,6 +39,12 @@ local configs = {
                }
            }
        }
+   },
+   typescript = {
+    on_attach = function(client, bufnr)
+        client.resolved_capabilities.document_formatting = false
+        return lsp_on_attach.on_attach(client, bufnr)
+    end,
    },
    efm = {
     init_options = {documentFormatting = true},

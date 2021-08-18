@@ -27,6 +27,9 @@ local function make_config(server)
   }
 
   local server_config = configs[server] or {}
+  if server_config.on_attach ~= nil then
+      config.on_attach = server_config.on_attach
+  end
 
   return vim.tbl_extend("force", server_config, config)
 end
