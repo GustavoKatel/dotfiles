@@ -334,3 +334,6 @@ v.autocmd("User", "VimspectorDebugEnded", function()
         pcall(v.nunmap, {code}, cmd)
     end
 end)
+
+-- toggle sidebar
+v.nnoremap({"<F3>"}, ":SidebarNvimToggle<CR>")
