@@ -93,3 +93,10 @@ v.v.g.AutoPairsShortcutToggle = ''
 
 v.v.g.dashboard_default_executive = "telescope"
 
+vim.api.nvim_exec([[
+augroup markdownSpell
+    autocmd!
+    autocmd FileType markdown setlocal spell
+    autocmd BufRead,BufNewFile *.md setlocal spell
+augroup END
+]], false)

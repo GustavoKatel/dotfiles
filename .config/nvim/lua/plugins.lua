@@ -29,12 +29,7 @@ packer.startup(function()
     -- colorscheme
     use { 'tomasiser/vim-code-dark' }
     use { 'marko-cerovac/material.nvim' }
-    --use { 'projekt0n/github-nvim-theme', config = function()
-        --require("github-theme").setup({
-            --themeStyle = "dark",
-            ---- ... your github-theme config
-        --})
-    --end}
+
     -- editting
     use {'preservim/nerdcommenter'} -- toggle comment
     use {'jiangmiao/auto-pairs'} -- auto close brackets, parenthesis etc
