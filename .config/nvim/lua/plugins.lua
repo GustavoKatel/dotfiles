@@ -20,7 +20,6 @@ packer.startup(function()
     use {'kabouzeid/nvim-lspinstall'}
     use {'glepnir/lspsaga.nvim'}
     use {'hrsh7th/nvim-compe'}
-    -- use { 'neoclide/coc.nvim', branch = "release" }
     -- language support
     use {'cespare/vim-toml'}
     use {'nvim-treesitter/nvim-treesitter'} -- semantic highlight
@@ -53,10 +52,9 @@ packer.startup(function()
     use {'lambdalisue/nerdfont.vim'} -- add support for nerdfont
     use {'kyazdani42/nvim-web-devicons'}
     use {'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
-    -- use { 'yggdroot/indentline' } -- shows identline
     use {"lukas-reineke/indent-blankline.nvim"}
     use {
-        "folke/todo-comments.nvim",
+        "GustavoKatel/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
         config = function() require("todo-comments").setup {} end
     }
@@ -67,7 +65,6 @@ packer.startup(function()
     use {'vim-test/vim-test'} -- better support for running tests
     -- utils
     use {'tpope/vim-fugitive'} -- some git goodies
-    -- use {'romgrk/barbar.nvim'} -- buffer line bar
     use {'voldikss/vim-floaterm'} -- floating terminal
     use {'qpkorr/vim-bufkill'} -- better support for killing buffers
     use {'mbbill/undotree'} -- undo history on steroids

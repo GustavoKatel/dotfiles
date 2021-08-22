@@ -1,4 +1,5 @@
 local v = require("utils")
+local user_profile = require("user_profile")
 
 local nvim_lsp = require('lspconfig')
 local lspinstall = require('lspinstall')
@@ -8,7 +9,10 @@ local configs = require("lsp_languages")
 local lsp_on_attach = require("lsp_on_attach")
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
-local servers = {"efm", "lua", "typescript", "go"}
+local servers = user_profile.with_profile_table({
+    default = {"efm", "lua", "typescript", "go"},
+    work = {"efm", "lua", "typescript"}
+})
 
 -- config that activates keymaps and enables snippet support
 local function make_config(server)
