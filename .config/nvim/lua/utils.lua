@@ -1,5 +1,4 @@
 -- based on https://github.com/davysson/dotfiles/blob/master/nvim/utils.lua
-
 local v = {}
 
 unpack = unpack or table.unpack
@@ -10,9 +9,7 @@ v.unpack = unpack
 math.randomseed(os.time())
 
 local function clean_fn_name(name)
-    if not name or name == '' then
-        return ''
-    end
+    if not name or name == '' then return '' end
 
     cleaned = string.gsub(name, '%s+', '')
     return cleaned
@@ -34,9 +31,7 @@ end
 
 local function table_to_str(array, split)
     str = ''
-    for _, value in ipairs(array) do
-        str = str .. value .. split
-    end
+    for _, value in ipairs(array) do str = str .. value .. split end
     return str:sub(1, #str - #split)
 end
 
@@ -75,9 +70,7 @@ local __opt_index = function(table, key)
 end
 
 local __opt_newindex = function(table, key, value)
-    if type(value) == 'table' then
-        value = table_to_str(value, ',')
-    end
+    if type(value) == 'table' then value = table_to_str(value, ',') end
 
     local found_option = false
     if has_global_opt(key) then
@@ -103,7 +96,7 @@ setmetatable(v.opt, {__index = __opt_index, __newindex = __opt_newindex})
 -- Commands
 v.c = {}
 v.cmd = v.c
-v.commands =v.c
+v.commands = v.c
 
 local __cmd_index = function(table, key)
     local t = {}
@@ -112,7 +105,7 @@ local __cmd_index = function(table, key)
         __call = function(self, ...)
             local args = table_to_str({...}, ' ')
             vim.cmd(':' .. key .. ' ' .. args)
-        end,
+        end
     })
     return t
 end
@@ -132,57 +125,33 @@ v.var = v.v
 v.variables = v.v
 
 v.v.g = {}
-local __var_g_index = function(table, key)
-    return vim.g[key]
-end
+local __var_g_index = function(table, key) return vim.g[key] end
 
-local __var_g_newindex = function(table, key, value)
-    vim.g[key] = value
-end
+local __var_g_newindex = function(table, key, value) vim.g[key] = value end
 
 v.v.b = {}
-local __var_b_index = function(table, key)
-    return vim.b[key]
-end
+local __var_b_index = function(table, key) return vim.b[key] end
 
-local __var_b_newindex = function(table, key, value)
-    vim.b[key] = value
-end
+local __var_b_newindex = function(table, key, value) vim.b[key] = value end
 
 v.v.w = {}
-local __var_w_index = function(table, key)
-    return vim.w[key]
-end
+local __var_w_index = function(table, key) return vim.w[key] end
 
-local __var_w_newindex = function(table, key, value)
-    vim.w[key] = value
-end
+local __var_w_newindex = function(table, key, value) vim.w[key] = value end
 
 v.v.t = {}
-local __var_t_index = function(table, key)
-    return vim.t[key]
-end
+local __var_t_index = function(table, key) return vim.t[key] end
 
-local __var_t_newindex = function(table, key, value)
-    vim.t[key] = value
-end
+local __var_t_newindex = function(table, key, value) vim.t[key] = value end
 
 v.v.v = {}
-local __var_v_index = function(table, key)
-    return vim.v[key]
-end
+local __var_v_index = function(table, key) return vim.v[key] end
 
-local __var_v_newindex = function(table, key, value)
-    vim.v[key] = value
-end
+local __var_v_newindex = function(table, key, value) vim.v[key] = value end
 
-local __var_index = function(table, key)
-    return v.g[key]
-end
+local __var_index = function(table, key) return v.g[key] end
 
-local __var_newindex = function(table, key, value)
-    v.v.g[key] = value
-end
+local __var_newindex = function(table, key, value) v.v.g[key] = value end
 
 setmetatable(v.v.g, {__index = __var_g_index, __newindex = __var_g_newindex})
 setmetatable(v.v.b, {__index = __var_b_index, __newindex = __var_b_newindex})
@@ -193,16 +162,14 @@ setmetatable(v.v, {__index = __var_index, __newindex = __var_newindex})
 
 -- Autocmd
 v.autocmd = function(events, pattern, cmd)
-    if type(events) == 'table' then
-        events = table_to_str(events, ',')
-    end
+    if type(events) == 'table' then events = table_to_str(events, ',') end
 
-if type(cmd) == 'string' then
-        vim.cmd(':autocmd ' .. events .. ' ' .. pattern ..' '.. cmd)
+    if type(cmd) == 'string' then
+        vim.cmd(':autocmd ' .. events .. ' ' .. pattern .. ' ' .. cmd)
     elseif type(cmd) == 'table' then
-        vim.cmd(':autocmd ' .. events .. ' ' .. pattern ..' '.. tostring(cmd))
+        vim.cmd(':autocmd ' .. events .. ' ' .. pattern .. ' ' .. tostring(cmd))
     else
-        fn_name = make_global_fn(cmd)
+        local fn_name = make_global_fn(cmd)
         vim.cmd(':autocmd ' .. events .. ' ' .. pattern .. ' call v:lua.' .. fn_name .. '()')
     end
 end
@@ -212,55 +179,40 @@ v.f = {}
 v.fn = v.f
 v.functions = v.f
 
-local __fn_index = function(table, key)
-    return vim.fn[key]
-end
+local __fn_index = function(table, key) return vim.fn[key] end
 
 local __fn_newindex = function(table, key, fn)
-    local wrapper = function(args)
-        return fn(unpack(args))
-    end
+    local wrapper = function(args) return fn(unpack(args)) end
     local fn_name = make_global_fn(wrapper, key)
-    vim.cmd(':function '.. key .. '(...)\ncall v:lua.' .. fn_name .. '(a:000)\n:endfunction')
+    vim.cmd(':function ' .. key .. '(...)\ncall v:lua.' .. fn_name .. '(a:000)\n:endfunction')
 end
 
 setmetatable(v.f, {__index = __fn_index, __newindex = __fn_newindex})
 
 -- Keymaps
 local mappings = {
-    'map', 'noremap', 'unmap',
-    'nmap', 'nnoremap', 'nunmap',
-    'vmap', 'vnoremap', 'vunmap',
-    'smap', 'snoremap', 'sunmap',
-    'xmap', 'xnoremap', 'xunmap',
-    'cmap', 'cnoremap', 'cunmap',
-    'omap', 'onoremap', 'ounmap',
-    'imap', 'inoremap', 'iunmap',
-    'tmap', 'tnoremap', 'tunmap'
+    'map', 'noremap', 'unmap', 'nmap', 'nnoremap', 'nunmap', 'vmap', 'vnoremap', 'vunmap', 'smap', 'snoremap', 'sunmap',
+    'xmap', 'xnoremap', 'xunmap', 'cmap', 'cnoremap', 'cunmap', 'omap', 'onoremap', 'ounmap', 'imap', 'inoremap',
+    'iunmap', 'tmap', 'tnoremap', 'tunmap'
 }
 
 for _, map in ipairs(mappings) do
     v[map] = function(key, cmd, --[[optional]] no_esc)
-        if type(key) == 'table' then
-            key = table_to_str(key, '')
-        end
+        if type(key) == 'table' then key = table_to_str(key, '') end
 
         if type(cmd) == 'string' then
-            vim.cmd(':' .. map .. ' ' .. key .. ' '.. cmd)
+            vim.cmd(':' .. map .. ' ' .. key .. ' ' .. cmd)
         elseif type(cmd) == 'table' then
-            vim.cmd(':' .. map .. ' ' .. key .. ' :'.. tostring(cmd) .. '<CR>')
+            vim.cmd(':' .. map .. ' ' .. key .. ' :' .. tostring(cmd) .. '<CR>')
         else
             local fn_name = make_global_fn(cmd)
             local esc = "<ESC>"
 
-            if no_esc then
-                esc = ""
-            end
+            if no_esc then esc = "" end
 
             vim.cmd(':' .. map .. ' ' .. key .. ' ' .. esc .. ':call v:lua.' .. fn_name .. '()<CR>')
         end
     end
 end
-
 
 return v

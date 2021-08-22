@@ -11,7 +11,7 @@ v.opt.hidden = true
 -- enable mouse support 😛
 v.opt.mouse = "a"
 
---v.cmd.colorscheme("codedark")
+-- v.cmd.colorscheme("codedark")
 v.v.g.material_style = "darker"
 v.cmd.colorscheme("material")
 
@@ -75,19 +75,18 @@ v.opt.foldmethod = "marker"
 -- no line numbers on terminals
 v.autocmd("TermOpen", "*", function() v.cmd.set("nonumber") end)
 
-
 -- enable window title
 v.opt.title = true
 
 -- Set completeopt to have a better completion experience
-v.opt.completeopt="menuone,noinsert,noselect"
+v.opt.completeopt = "menuone,noinsert,noselect"
 
 -- Avoid showing message extra message when using completion
-v.opt.shortmess = v.opt.shortmess.."c"
+v.opt.shortmess = v.opt.shortmess .. "c"
 
 v.opt.signcolumn = "yes:2"
 
-v.v.g.vim_json_conceal=0
+v.v.g.vim_json_conceal = 0
 
 v.v.g.AutoPairsShortcutToggle = ''
 

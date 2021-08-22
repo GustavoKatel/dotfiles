@@ -7,31 +7,22 @@ local lspinstall = require('lspinstall')
 local configs = require("lsp_languages")
 local lsp_on_attach = require("lsp_on_attach")
 
---local servers = { "python", "rust", "typescript", "go", "lua" }
-local servers = { "efm", "lua", "typescript" }
+-- local servers = { "python", "rust", "typescript", "go", "lua" }
+local servers = {"efm", "lua", "typescript", "go"}
 
 -- config that activates keymaps and enables snippet support
 local function make_config(server)
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-        'documentation',
-        'detail',
-        'additionalTextEdits',
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.completion.completionItem.resolveSupport = {
+        properties = {'documentation', 'detail', 'additionalTextEdits'}
     }
-  }
-  local config = {
-    capabilities = capabilities,
-    on_attach = lsp_on_attach.on_attach,
-  }
+    local config = {capabilities = capabilities, on_attach = lsp_on_attach.on_attach}
 
-  local server_config = configs[server] or {}
-  if server_config.on_attach ~= nil then
-      config.on_attach = server_config.on_attach
-  end
+    local server_config = configs[server] or {}
+    if server_config.on_attach ~= nil then config.on_attach = server_config.on_attach end
 
-  return vim.tbl_extend("force", server_config, config)
+    return vim.tbl_extend("force", server_config, config)
 end
 
 local function setup_servers()
@@ -45,12 +36,8 @@ end
 
 setup_servers()
 
-lspinstall.post_install_hook = function ()
-  setup_servers() -- reload installed servers
+lspinstall.post_install_hook = function()
+    setup_servers() -- reload installed servers
 end
 
-v.cmd["UpdateLSP"] = function()
-    for _, lang in ipairs(servers) do
-        v.cmd.LspInstall(lang)
-    end
-end
+v.cmd["UpdateLSP"] = function() for _, lang in ipairs(servers) do v.cmd.LspInstall(lang) end end

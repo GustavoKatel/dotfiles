@@ -10,7 +10,7 @@ debuggers_config.installer.install = [[
 
 debuggers_config.uninstall = ""
 
-dap_install.setup({ verbosely_call_debuggers = true })
+dap_install.setup({verbosely_call_debuggers = true})
 
 dap_install.config("jsnode_dbg", {
     configurations = {
@@ -26,15 +26,14 @@ dap_install.config("jsnode_dbg", {
     }
 })
 
-
 dap.configurations.typescript = {
-  {
-    type = 'node2',
-    request = 'launch',
-    program = '${file}',
-    cwd = vim.fn.getcwd(),
-    sourceMaps = true,
-    protocol = 'inspector',
-    console = 'integratedTerminal',
-  },
+    {
+        type = 'node2',
+        request = 'launch',
+        program = '${file}',
+        cwd = vim.fn.getcwd(),
+        sourceMaps = true,
+        protocol = 'inspector',
+        console = 'integratedTerminal'
+    }
 }

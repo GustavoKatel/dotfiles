@@ -44,18 +44,18 @@ v.nnoremap({"<silent>", "<D-left>"}, "<c-w>h")
 v.nnoremap({"<silent>", "<D-Up>"}, "<c-w>k")
 v.nnoremap({"<silent>", "<D-Down>"}, "<c-w>j")
 
-for i = 1,9,1 do
-    for _, key in ipairs({"<D-k"..i..">", "<D-"..i..">"}) do
-        v.nnoremap({"<silent>", key}, ":"..i.."wincmd w<CR>")
-        v.tnoremap({"<silent>", key}, "<C-\\><C-N>:"..i.."wincmd w<CR>")
+for i = 1, 9, 1 do
+    for _, key in ipairs({"<D-k" .. i .. ">", "<D-" .. i .. ">"}) do
+        v.nnoremap({"<silent>", key}, ":" .. i .. "wincmd w<CR>")
+        v.tnoremap({"<silent>", key}, "<C-\\><C-N>:" .. i .. "wincmd w<CR>")
     end
 
     -- only bind this on linux, not macos
     -- ctrl-<number>
     if v.fn.has("macunix") == 0 then
-        for _, key in ipairs({"<C-k"..i..">","<C-"..i..">"}) do
-            v.nnoremap({"<silent>", key}, ":"..i.."wincmd w<CR>")
-            v.tnoremap({"<silent>", key}, "<C-\\><C-N>:"..i.."wincmd w<CR>")
+        for _, key in ipairs({"<C-k" .. i .. ">", "<C-" .. i .. ">"}) do
+            v.nnoremap({"<silent>", key}, ":" .. i .. "wincmd w<CR>")
+            v.tnoremap({"<silent>", key}, "<C-\\><C-N>:" .. i .. "wincmd w<CR>")
         end
     end
 end
@@ -72,7 +72,6 @@ v.cnoremap({"<C-S-V>", "<D-v>"}, '<C-r>+')
 v.vnoremap({"<silent>", "<C-c>"}, '"+y')
 v.vnoremap({"<silent>", "<D-c>"}, '"+y')
 
-
 -- PageUp PageDown to navigate through buffers
 v.nnoremap({"<C-PageUp>"}, v.cmd.bprevious)
 v.nnoremap({"<C-PageDown>"}, v.cmd.bnext)
@@ -83,20 +82,14 @@ for _, code in ipairs({"<C-a>", "<D-a>"}) do
     v.nnoremap({code}, "ggVG")
 end
 
-
 -- toggle Undotree with F4
 v.nnoremap({"<F4>"}, v.cmd.UndotreeToggle)
-
 
 -- alt-b to create a new buffer in the current split
 v.nnoremap({"<M-b>"}, v.cmd.enew)
 
-
 -- ctrl/cmd-f search in current buffer
-for _, code in ipairs({"<C-f>", "<D-f>"}) do
-    v.nnoremap({code}, "/")
-end
-
+for _, code in ipairs({"<C-f>", "<D-f>"}) do v.nnoremap({code}, "/") end
 
 -- visual mode searches for the selected text
 v.vnoremap({"/"}, "y/<C-R>=escape(@\",'/\\')<CR><CR>")
@@ -127,7 +120,6 @@ end
 -- delete current line in insert mode with shift-del
 v.inoremap({"<S-Del>"}, "<ESC>ddi")
 
-
 -- line movement
 v.nnoremap({"<M-Down>"}, ":m .+1<CR>==")
 v.nnoremap({"<M-Up>"}, ":m .-2<CR>==")
@@ -154,10 +146,12 @@ v.inoremap(wordLeft[1], "<ESC>b")
 v.inoremap(wordRight[1], "<ESC>lw")
 
 -- easymotion/hop.nvim
---v.nmap("f", "<Plug>(easymotion-overwin-f2)")
-v.nnoremap("f", function() print("enter 2 char pattern") require('hop').hint_char2() end)
+-- v.nmap("f", "<Plug>(easymotion-overwin-f2)")
+v.nnoremap("f", function()
+    print("enter 2 char pattern")
+    require('hop').hint_char2()
+end)
 v.nnoremap("<leader>w", require('nvim-window').pick)
-
 
 -- floaterm keybindings
 for _, code in ipairs({"<A-F12>", "<M-F12>"}) do
@@ -165,7 +159,6 @@ for _, code in ipairs({"<A-F12>", "<M-F12>"}) do
     v.inoremap({code}, "<ESC>:FloatermToggle<CR>")
     v.tnoremap({code}, "<C-\\><C-N>:FloatermToggle<CR>")
 end
-
 
 -- terminal keymaps
 -- exit terminal mode with <ESC>
@@ -191,41 +184,25 @@ v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-d>"}, ":BD!<CR
 -- forcily close buffer and split
 v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-q>"}, ":bd!<CR>") end)
 
-
 -- telescope files
 local function telescope_files(with_gitignored)
     local telescope = require("telescope.builtin")
 
     local cmd = {"rg", "--files", "--hidden"}
 
-    if with_gitignored then
-        table.insert(cmd, "--no-ignore")
-    end
+    if with_gitignored then table.insert(cmd, "--no-ignore") end
 
-    local cmd_args = {
-        "-g", "!node_modules/**/*",
-        "-g", "!venv/**/*",
-        "-g", "!.git/**/*"
-    }
+    local cmd_args = {"-g", "!node_modules/**/*", "-g", "!venv/**/*", "-g", "!.git/**/*"}
 
-    for _, arg in pairs(cmd_args) do
-        table.insert(cmd, arg)
-    end
+    for _, arg in pairs(cmd_args) do table.insert(cmd, arg) end
 
-    telescope.find_files({
-        previewer = false,
-        find_command = cmd
-    })
+    telescope.find_files({previewer = false, find_command = cmd})
 end
 
-for _, code in ipairs({"<C-p>", "<D-p>"}) do
-    v.nnoremap({code}, function() telescope_files(false) end)
-end
+for _, code in ipairs({"<C-p>", "<D-p>"}) do v.nnoremap({code}, function() telescope_files(false) end) end
 
 -- telescope files, but with hidden+ignored files
-for _, code in ipairs({'<M-p>', '<A-p>'}) do
-    v.nnoremap({code}, function() telescope_files(true) end)
-end
+for _, code in ipairs({'<M-p>', '<A-p>'}) do v.nnoremap({code}, function() telescope_files(true) end) end
 
 -- telescope commands
 for _, code in ipairs({"<C-S-P>", "<D-P>"}) do
@@ -254,25 +231,17 @@ for _, code in ipairs({"<C-S-F>", "<C-F>", "<D-F>"}) do
     v.nnoremap({code}, function()
         local rg_arguments = {}
 
-        for k, arg in pairs(require('telescope.config').values.vimgrep_arguments) do
-            rg_arguments[k] = arg
-        end
+        for k, arg in pairs(require('telescope.config').values.vimgrep_arguments) do rg_arguments[k] = arg end
 
         table.insert(rg_arguments, "--hidden")
         table.insert(rg_arguments, "--no-ignore")
 
-        local cmd_args = {
-            "-g", "!node_modules/**/*",
-            "-g", "!venv/**/*",
-            "-g", "!.git/**/*"
-        }
+        local cmd_args = {"-g", "!node_modules/**/*", "-g", "!venv/**/*", "-g", "!.git/**/*"}
 
-        for _, arg in pairs(cmd_args) do
-            table.insert(rg_arguments, arg)
-        end
+        for _, arg in pairs(cmd_args) do table.insert(rg_arguments, arg) end
 
-        --telescope.live_grep({ vimgrep_arguments = rg_arguments })
-        require("telescope_rg_pattern").live_grep_pattern({ vimgrep_arguments = rg_arguments })
+        -- telescope.live_grep({ vimgrep_arguments = rg_arguments })
+        require("telescope_rg_pattern").live_grep_pattern({vimgrep_arguments = rg_arguments})
     end)
 end
 
@@ -293,10 +262,8 @@ for _, code in ipairs({"<C-S-L>", "<C-L>", "<D-L>"}) do
 end
 
 -- telescope vimspector
-for  _, code in ipairs({"<S-F9>"}) do
-    v.nnoremap({code}, function()
-        require('telescope').extensions.vimspector.configurations()
-    end)
+for _, code in ipairs({"<S-F9>"}) do
+    v.nnoremap({code}, function() require('telescope').extensions.vimspector.configurations() end)
 end
 
 -- undo with ctrl/cmd-z in insert mode
@@ -314,7 +281,7 @@ v.nnoremap({"<M-KPlus>"}, "<C-i>")
 
 -- vimspector mappings
 v.nmap({"<F8>"}, "<Plug>VimspectorToggleBreakpoint")
---v.nmap({"<F1>"}, ":call vimspector#Launch()<CR>")
+-- v.nmap({"<F1>"}, ":call vimspector#Launch()<CR>")
 v.nmap({"<F1>"}, require('telescope').extensions.vimspector.configurations)
 v.nmap({"<C-F2>"}, ":VimspectorReset<CR>:tabprevious<CR>")
 local vimspector_bindings = {
@@ -322,18 +289,12 @@ local vimspector_bindings = {
     ["<F6>"] = "<Plug>VimspectorStepOut",
 
     ["<F9>"] = "<Plug>VimspectorStepInto",
-    ["<F10>"] = "<Plug>VimspectorStepOver",
+    ["<F10>"] = "<Plug>VimspectorStepOver"
 }
-v.autocmd("User", "VimspectorJumpedToFrame", function()
-    for code, cmd in pairs(vimspector_bindings) do
-        v.nmap({code}, cmd)
-    end
-end)
-v.autocmd("User", "VimspectorDebugEnded", function()
-    for code, cmd in pairs(vimspector_bindings) do
-        pcall(v.nunmap, {code}, cmd)
-    end
-end)
+v.autocmd("User", "VimspectorJumpedToFrame",
+          function() for code, cmd in pairs(vimspector_bindings) do v.nmap({code}, cmd) end end)
+v.autocmd("User", "VimspectorDebugEnded",
+          function() for code, cmd in pairs(vimspector_bindings) do pcall(v.nunmap, {code}, cmd) end end)
 
 -- toggle sidebar
 v.nnoremap({"<F3>"}, ":SidebarNvimToggle<CR>")

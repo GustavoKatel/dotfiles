@@ -1,6 +1,5 @@
 local v = require("utils")
 
-
 v.cmd["UpdateAll"] = function()
     v.cmd.CocUpdate()
 
