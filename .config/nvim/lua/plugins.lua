@@ -52,6 +52,12 @@ packer.startup(function()
     use {'lambdalisue/nerdfont.vim'} -- add support for nerdfont
     use {'kyazdani42/nvim-web-devicons'}
     use {'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
+    use {
+        'kdheepak/tabline.nvim',
+        config = function()
+            require'tabline'.setup {enable = false}
+        end
+    }
     use {"lukas-reineke/indent-blankline.nvim"}
     use {
         "GustavoKatel/todo-comments.nvim",
