@@ -72,9 +72,9 @@ v.cnoremap({"<C-S-V>", "<D-v>"}, '<C-r>+')
 v.vnoremap({"<silent>", "<C-c>"}, '"+y')
 v.vnoremap({"<silent>", "<D-c>"}, '"+y')
 
--- PageUp PageDown to navigate through buffers
-v.nnoremap({"<C-PageUp>"}, v.cmd.bprevious)
-v.nnoremap({"<C-PageDown>"}, v.cmd.bnext)
+-- PageUp PageDown to navigate through tabs
+v.nnoremap({"<C-PageUp>"}, v.cmd.tabprevious)
+v.nnoremap({"<C-PageDown>"}, v.cmd.tabnext)
 
 -- ctrl/cmd-a select all in insert and normal modes
 for _, code in ipairs({"<C-a>", "<D-a>"}) do
