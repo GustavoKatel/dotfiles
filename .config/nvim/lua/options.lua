@@ -13,6 +13,7 @@ v.opt.mouse = "a"
 
 -- v.cmd.colorscheme("codedark")
 v.v.g.material_style = "darker"
+vim.g.material_borders = true
 v.cmd.colorscheme("material")
 
 -- show line numbers
