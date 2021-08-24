@@ -218,13 +218,6 @@ v.nnoremap({"<C-b>"}, function()
     telescope.buffers()
 end)
 --
--- telescope registers
-for _, code in ipairs({"<C-y>", "<D-y>"}) do
-    v.nnoremap({code}, function()
-        local telescope = require("telescope.builtin")
-        telescope.registers()
-    end)
-end
 
 -- telescope global search
 for _, code in ipairs({"<C-S-F>", "<C-F>", "<D-F>"}) do
