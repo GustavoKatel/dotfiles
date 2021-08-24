@@ -17,8 +17,14 @@ v.cmd.colorscheme("material")
 
 -- show line numbers
 v.opt.number = true
--- show relative line number
-v.opt.relativenumber = true
+-- show relative line number only when the current window is focused
+vim.api.nvim_exec([[
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu  | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu  | set nornu | endif
+augroup END
+]], false)
 
 -- always show the status line
 v.opt.laststatus = 2
