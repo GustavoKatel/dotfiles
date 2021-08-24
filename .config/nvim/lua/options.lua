@@ -17,6 +17,8 @@ v.cmd.colorscheme("material")
 
 -- show line numbers
 v.opt.number = true
+-- show relative line number
+v.opt.relativenumber = true
 
 -- always show the status line
 v.opt.laststatus = 2
