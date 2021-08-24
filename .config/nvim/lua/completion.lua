@@ -8,7 +8,8 @@ require'compe'.setup {
         buffer = true,
         calc = false,
         vsnip = false,
-        ultisnips = true,
-        luasnip = false
+        ultisnips = false,
+        luasnip = false,
+        emoji = true,
     }
 }
