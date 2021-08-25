@@ -164,6 +164,10 @@ end
 -- exit terminal mode with <ESC>
 v.tnoremap({"<ESC>"}, "<C-\\><C-N>")
 
+-- alt movements
+v.tnoremap({"<M-Left>"}, "<M-B>")
+v.tnoremap({"<M-Right>"}, "<M-F>")
+
 -- page up/down to move between terms
 v.tnoremap({"<C-PageDown>"}, "<C-\\><C-N>:FloatermNext<CR>")
 v.tnoremap({"<C-PageUp>"}, "<C-\\><C-N>:FloatermPrev<CR>")
@@ -183,6 +187,16 @@ v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-c>"}, "i<C-c>"
 v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-d>"}, ":BD!<CR>") end)
 -- forcily close buffer and split
 v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-q>"}, ":bd!<CR>") end)
+-- leave insert mode before scrolling with mouse on terminal buffers
+-- TODO: this is not working 😢
+v.tnoremap({"<ScrollWheelUp>"}, "<C-\\><C-N><C-Y")
+v.tnoremap({"<ScrollWheelDown>"}, "<C-\\><C-N><C-E")
+v.tnoremap({"<2-ScrollWheelUp>"}, "<C-\\><C-N><C-Y")
+v.tnoremap({"<2-ScrollWheelDown>"}, "<C-\\><C-N><C-E")
+v.tnoremap({"<3-ScrollWheelUp>"}, "<C-\\><C-N><C-Y")
+v.tnoremap({"<3-ScrollWheelDown>"}, "<C-\\><C-N><C-E")
+v.tnoremap({"<4-ScrollWheelUp>"}, "<C-\\><C-N><C-Y")
+v.tnoremap({"<4-ScrollWheelDown>"}, "<C-\\><C-N><C-E")
 
 -- telescope files
 local function telescope_files(with_gitignored)
