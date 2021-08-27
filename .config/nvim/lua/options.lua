@@ -101,10 +101,19 @@ v.v.g.AutoPairsShortcutToggle = ''
 
 v.v.g.dashboard_default_executive = "telescope"
 
+-- set spell check for markdown files
 vim.api.nvim_exec([[
 augroup markdownSpell
     autocmd!
     autocmd FileType markdown setlocal spell
     autocmd BufRead,BufNewFile *.md setlocal spell
 augroup END
+]], false)
+
+-- set nvr as GIT_EDITOR so we can use the current nvim as editor for git
+vim.env.GIT_EDITOR = 'nvr -cc split --remote-wait'
+-- this will make sure to delete the bufer once we close the git commit/rebase/config buffer
+-- otherwise nvr will be waiting for us
+vim.api.nvim_exec([[
+autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
 ]], false)
