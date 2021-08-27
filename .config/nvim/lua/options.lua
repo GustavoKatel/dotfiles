@@ -82,7 +82,10 @@ v.opt.foldmethod = "marker"
 
 -- terminal overrides
 -- no line numbers on terminals
-v.autocmd("TermOpen", "*", function() v.cmd.set("nonumber") end)
+v.autocmd("TermOpen", "*", function()
+    v.cmd.set("nonumber")
+    v.cmd.set("norelativenumber")
+end)
 
 -- enable window title
 v.opt.title = true
