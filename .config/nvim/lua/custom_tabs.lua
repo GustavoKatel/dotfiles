@@ -118,7 +118,10 @@ end
 local function load_async(filename)
     async.void(function()
         local err, fd = async.uv.fs_open(filename, "r", 438)
-        assert(not err, err)
+        if err then
+            logging.warning(err)
+            return
+        end
 
         ---@diagnostic disable-next-line: redefined-local
         local err, stat = async.uv.fs_fstat(fd)
