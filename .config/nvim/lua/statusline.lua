@@ -1,6 +1,7 @@
 local v = require("utils")
 local lualine = require('lualine')
 local theme = require("statusline_theme")
+local tabs = require("custom_tabs")
 
 local function lualine_custom_winnr() return " " .. v.fn.winnr() end
 
@@ -28,7 +29,8 @@ lualine.setup({
         lualine_b = {'branch'},
         lualine_c = {'filename', {lualine_tab_treesitter}},
         lualine_x = {},
-        lualine_y = {require'tabline'.tabline_tabs},
+        -- lualine_y = {require'tabline'.tabline_tabs},
+        lualine_y = {tabs.tabline},
         lualine_z = {}
     }
 })

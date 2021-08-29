@@ -52,12 +52,6 @@ packer.startup(function()
     use {'lambdalisue/nerdfont.vim'} -- add support for nerdfont
     use {'kyazdani42/nvim-web-devicons'}
     use {'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
-    use {
-        'kdheepak/tabline.nvim',
-        config = function()
-            require'tabline'.setup {enable = false}
-        end
-    }
     use {"lukas-reineke/indent-blankline.nvim"}
     use {
         "GustavoKatel/todo-comments.nvim",
@@ -79,6 +73,7 @@ packer.startup(function()
     use {'skywind3000/asyncrun.vim'}
 
     use {'GustavoKatel/vim-workspace'}
+    -- use {'rmagatti/auto-session'}
 
     use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
     use {'nvim-telescope/telescope-vimspector.nvim'}
@@ -86,5 +81,6 @@ packer.startup(function()
 
     use {'/Users/gustavokatel/dev/sidebar.nvim'}
     -- use '/Users/gustavokatel/dev/sidebar.nvim-dev'
+    use {'/Users/gustavokatel/dev/auto-session'}
 end)
 

@@ -111,3 +111,4 @@ if [ -f '/Users/gustavokatel/google-cloud-sdk/completion.zsh.inc' ]; then . '/Us
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+export PATH="/opt/homebrew/bin:$PATH"

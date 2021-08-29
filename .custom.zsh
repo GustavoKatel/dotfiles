@@ -53,10 +53,6 @@ export PATH="$HOME/go/bin/:$PATH"
 
 alias pyenv_load=$HOME/dev/pyenv_load.sh
 
-# legalist goodies
-source ~/dev/legalist/env_prompt.sh
-alias legalist_shell=~/dev/legalist/env_shell.sh
-
 alias rosetta_shell=$HOME/dev/apple_silicon_shims/rosetta_shell.sh
 
 # homebrew
