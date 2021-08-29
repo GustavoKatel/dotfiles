@@ -6,7 +6,8 @@ local M = {
     -- {
     -- [tab_id] = { name = <string>, }
     -- }
-    tabs_data = {}
+    tabs_data = {},
+    is_loaded = false
 }
 
 M.data_dir = vim.fn.stdpath('data') .. "/sessions/"
@@ -142,6 +143,7 @@ local function load_async(filename)
                 M.tabs_data[tab_id] = item.data
             end
 
+            M.is_loaded = true
             logging.info("tabs loaded from: " .. filename)
         end)
     end)()
@@ -170,6 +172,9 @@ function M.init_tab(tabnr)
 
     tab_id = math.random(1000000)
     vim.api.nvim_tabpage_set_var(tabnr, tab_id_var_name, tab_id)
+
+    if M.is_loaded then v.cmd.tabmove() end
+
     return tab_id
 end
 
