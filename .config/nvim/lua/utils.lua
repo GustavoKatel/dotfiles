@@ -11,7 +11,7 @@ math.randomseed(os.time())
 local function clean_fn_name(name)
     if not name or name == '' then return '' end
 
-    cleaned = string.gsub(name, '%s+', '')
+    local cleaned = string.gsub(name, '%s+', '')
     return cleaned
 end
 
@@ -30,7 +30,7 @@ local function make_global_fn(fn, key)
 end
 
 local function table_to_str(array, split)
-    str = ''
+    local str = ''
     for _, value in ipairs(array) do str = str .. value .. split end
     return str:sub(1, #str - #split)
 end

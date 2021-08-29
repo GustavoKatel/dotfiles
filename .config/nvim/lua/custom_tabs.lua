@@ -2,16 +2,27 @@ local v = require("utils")
 local logging = require("logging")
 local async = require("plenary.async")
 
-local M = {tabs_data = {}}
+local M = {
+    -- {
+    -- [tab_id] = { name = <string>, }
+    -- }
+    tabs_data = {}
+}
 
 M.data_dir = vim.fn.stdpath('data') .. "/sessions/"
+
+local tab_id_var_name = "custom_tabs_id"
 
 local function escape_dir(dir) return dir:gsub("/", "__") end
 
 local function escaped_session_name_from_cwd() return escape_dir(vim.fn.getcwd()) end
 
 function M.get_tab_name(tabnr)
-    local tab_data = M.tabs_data[tabnr]
+    local tab_id = M.get_tab_id(tabnr)
+
+    if not tab_id then return tabnr end
+
+    local tab_data = M.tabs_data[tab_id]
     if tab_data then return tab_data.name end
 
     return tabnr
@@ -48,13 +59,17 @@ end
 
 function M.rename(name)
     local current_tab_nr = vim.fn.tabpagenr()
-    local tab_data = M.tabs_data[current_tab_nr]
+
+    local tab_id = M.get_tab_id(current_tab_nr)
+    if not tab_id then tab_id = M.init_tab(current_tab_nr) end
+
+    local tab_data = M.tabs_data[tab_id]
     if tab_data then
         tab_data.name = name
         return
     end
 
-    M.tabs_data[current_tab_nr] = {name = name}
+    M.tabs_data[tab_id] = {name = name}
 end
 
 local function write_file_async(filename, data)
@@ -81,7 +96,14 @@ function M.save()
     local filename = M.get_file_name()
 
     local serialized = {}
-    for tabnr, data in pairs(M.tabs_data) do table.insert(serialized, {tabnr = tabnr, data = data}) end
+
+    local last_tab = vim.fn.tabpagenr('$')
+    local i = 1
+    while i <= last_tab do
+        local tab_id = M.get_tab_id(i)
+        if tab_id and M.tabs_data[tab_id] then table.insert(serialized, {tabnr = i, data = M.tabs_data[tab_id]}) end
+        i = i + 1
+    end
 
     local data = vim.fn.json_encode(serialized)
     logging.info("tabs written to: " .. filename)
@@ -112,7 +134,10 @@ local function load_async(filename)
         vim.schedule(function()
             local deserialized = vim.fn.json_decode(data)
             M.tabs_data = {}
-            for _, item in ipairs(deserialized) do M.tabs_data[item.tabnr] = item.data end
+            for _, item in ipairs(deserialized) do
+                local tab_id = M.init_tab(item.tabnr)
+                M.tabs_data[tab_id] = item.data
+            end
 
             logging.info("tabs loaded from: " .. filename)
         end)
@@ -129,10 +154,33 @@ function M.tab_new(filename)
     v.cmd.tabnew(filename)
 end
 
+function M.get_tab_id(tabnr)
+    local status, tab_id = pcall(vim.api.nvim_tabpage_get_var, tabnr, tab_id_var_name)
+    if status then return tab_id end
+    return nil
+end
+
+function M.init_tab(tabnr)
+    tabnr = tabnr or 0
+    local tab_id = M.get_tab_id(tabnr)
+    if tab_id then return tab_id end
+
+    tab_id = math.random(1000000)
+    vim.api.nvim_tabpage_set_var(tabnr, tab_id_var_name, tab_id)
+    return tab_id
+end
+
 --
 -- Commands
 --
 v.cmd["TabRename"] = M.rename
-vim.cmd(":command -nargs=1 -complete=file TabNew lua require'custom_tabs'.tab_new(<args>)")
+vim.cmd(":command -nargs=1 -complete=file TabNew lua require'custom_tabs'.tab_new('<args>')")
+
+vim.api.nvim_exec([[
+augroup custom_tabs
+    autocmd!
+    autocmd TabNewEntered * lua require'custom_tabs'.init_tab()
+augroup END
+]], false)
 
 return M
