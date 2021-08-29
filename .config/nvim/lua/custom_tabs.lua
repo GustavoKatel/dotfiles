@@ -119,7 +119,7 @@ local function load_async(filename)
     async.void(function()
         local err, fd = async.uv.fs_open(filename, "r", 438)
         if err then
-            logging.warning(err)
+            vim.schedule(function() logging.warning(err) end)
             return
         end
 
