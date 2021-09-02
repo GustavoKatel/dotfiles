@@ -11,11 +11,6 @@ v.opt.hidden = true
 -- enable mouse support 😛
 v.opt.mouse = "a"
 
--- v.cmd.colorscheme("codedark")
-v.v.g.material_style = "darker"
-vim.g.material_borders = true
-v.cmd.colorscheme("material")
-
 -- show line numbers
 v.opt.number = true
 -- show relative line number only when the current window is focused

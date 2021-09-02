@@ -40,9 +40,16 @@ v.nnoremap({"<leader>s"}, v.cmd.ToggleWorkspace)
 
 -- change focus splits
 v.nnoremap({"<silent>", "<D-Right>"}, "<c-w>l")
+v.nnoremap({"<silent>", "<C-l>"}, "<c-w>l")
+
 v.nnoremap({"<silent>", "<D-left>"}, "<c-w>h")
+v.nnoremap({"<silent>", "<C-h>"}, "<c-w>h")
+
 v.nnoremap({"<silent>", "<D-Up>"}, "<c-w>k")
+v.nnoremap({"<silent>", "<C-k>"}, "<c-w>k")
+
 v.nnoremap({"<silent>", "<D-Down>"}, "<c-w>j")
+v.nnoremap({"<silent>", "<C-j>"}, "<c-w>j")
 
 for i = 1, 9, 1 do
     for _, key in ipairs({"<D-k" .. i .. ">", "<D-" .. i .. ">"}) do
@@ -261,7 +268,7 @@ for _, code in ipairs({"<M-F9>", "<A-F9>"}) do
 end
 
 -- telescope select/change filetype
-for _, code in ipairs({"<C-S-L>", "<C-L>", "<D-L>"}) do
+for _, code in ipairs({"<C-S-L>", "<D-L>"}) do
     v.nnoremap({code}, function()
         local telescope = require("telescope.builtin")
         telescope.filetypes()
