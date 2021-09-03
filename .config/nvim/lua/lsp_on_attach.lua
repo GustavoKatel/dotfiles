@@ -46,7 +46,7 @@ M.on_attach = function(client, bufnr)
     vim.api.nvim_exec([[
     augroup lsp_line_diagnostic
     autocmd! * <buffer>
-    autocmd CursorHold <buffer> lua require'lspsaga.diagnostic'.show_line_diagnostics()
+    autocmd CursorHold <buffer> lua require'lsp'.cursor_hold()
     augroup END
     ]], false)
 

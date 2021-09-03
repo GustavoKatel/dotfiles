@@ -1,3 +1,4 @@
+local luv = vim.loop
 local v = require("utils")
 local user_profile = require("user_profile")
 
@@ -45,3 +46,37 @@ lspinstall.post_install_hook = function()
 end
 
 v.cmd["UpdateLSP"] = function() for _, lang in ipairs(servers) do v.cmd.LspInstall(lang) end end
+
+local M = {}
+
+M.cursor_hold_timer = nil
+
+-- adds a small delay before showing the line diagnostics
+M.cursor_hold = function()
+    local timeout = 500
+
+    local bufnr = 0
+    local line_nr = (vim.api.nvim_win_get_cursor(0)[1] - 1)
+
+    if M.cursor_hold_timer then
+        M.cursor_hold_timer:stop()
+        M.cursor_hold_timer:close()
+        M.cursor_hold_timer = nil
+    end
+
+    M.cursor_hold_timer = luv.new_timer()
+
+    M.cursor_hold_timer:start(timeout, 0, function()
+        vim.schedule(function()
+            if M.cursor_hold_timer then
+                M.cursor_hold_timer:stop()
+                M.cursor_hold_timer:close()
+                M.cursor_hold_timer = nil
+            end
+            require'lspsaga.diagnostic'.show_line_diagnostics(nil, bufnr, line_nr)
+        end)
+    end)
+
+end
+
+return M
