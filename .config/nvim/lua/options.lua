@@ -47,6 +47,7 @@ v.cmd.syntax("on")
 v.opt.updatetime = 100
 
 v.opt.termguicolors = true
+v.v.g.t_Co = 256 -- Support 256 colors
 
 -- splits window below of the focused one
 v.opt.splitbelow = true

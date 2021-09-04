@@ -66,16 +66,14 @@ M.cursor_hold = function()
 
     M.cursor_hold_timer = luv.new_timer()
 
-    M.cursor_hold_timer:start(timeout, 0, function()
-        vim.schedule(function()
-            if M.cursor_hold_timer then
-                M.cursor_hold_timer:stop()
-                M.cursor_hold_timer:close()
-                M.cursor_hold_timer = nil
-            end
-            require'lspsaga.diagnostic'.show_line_diagnostics(nil, bufnr, line_nr)
-        end)
-    end)
+    M.cursor_hold_timer:start(timeout, 0, vim.schedule_wrap(function()
+        if M.cursor_hold_timer then
+            M.cursor_hold_timer:stop()
+            M.cursor_hold_timer:close()
+            M.cursor_hold_timer = nil
+        end
+        require'lspsaga.diagnostic'.show_line_diagnostics(nil, bufnr, line_nr)
+    end))
 
 end
 

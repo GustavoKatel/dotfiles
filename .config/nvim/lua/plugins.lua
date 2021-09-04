@@ -26,8 +26,9 @@ packer.startup(function()
     use {'windwp/nvim-ts-autotag'}
     use {'nvim-treesitter/nvim-treesitter-textobjects'}
     -- colorscheme
-    use {'tomasiser/vim-code-dark'}
+    -- use {'tomasiser/vim-code-dark'}
     use {'marko-cerovac/material.nvim'}
+    -- use {'projekt0n/github-nvim-theme'}
 
     -- editting
     use {'preservim/nerdcommenter'} -- toggle comment
@@ -72,8 +73,8 @@ packer.startup(function()
     use {'skywind3000/asynctasks.vim'}
     use {'skywind3000/asyncrun.vim'}
 
-    use {'GustavoKatel/vim-workspace'}
-    -- use {'rmagatti/auto-session'}
+    -- use {'GustavoKatel/vim-workspace'}
+    use {'rmagatti/auto-session'}
 
     use {'nvim-telescope/telescope.nvim', requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}}
     use {'nvim-telescope/telescope-vimspector.nvim'}
@@ -81,6 +82,5 @@ packer.startup(function()
 
     use {'/Users/gustavokatel/dev/sidebar.nvim'}
     -- use '/Users/gustavokatel/dev/sidebar.nvim-dev'
-    use {'/Users/gustavokatel/dev/auto-session'}
 end)
 
