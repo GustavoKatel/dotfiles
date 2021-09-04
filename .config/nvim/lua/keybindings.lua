@@ -73,7 +73,7 @@ for _, code in ipairs({"<C-v>", "<D-v>"}) do
     v.tnoremap({"<silent>", code}, '<C-\\><C-N>"+pa')
 end
 -- same as above, but maps ctrl+shift+v instead of ctrl+v. still uses cmd-v
-v.cnoremap({"<C-S-V>", "<D-v>"}, '<C-r>+')
+for _, code in ipairs({"<C-S-V>", "<D-v>"}) do v.cnoremap({code}, '<C-r>+') end
 
 -- visual mode ctrl/cmd+c copy to clipboard
 v.vnoremap({"<silent>", "<C-c>"}, '"+y')

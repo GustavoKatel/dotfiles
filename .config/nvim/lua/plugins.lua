@@ -19,7 +19,13 @@ packer.startup(function()
     use {'neovim/nvim-lspconfig'}
     use {'kabouzeid/nvim-lspinstall'}
     use {'glepnir/lspsaga.nvim'}
-    use {'hrsh7th/nvim-compe'}
+    use {
+        "hrsh7th/nvim-cmp",
+        requires = {
+            "hrsh7th/vim-vsnip", "hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-path",
+            "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-emoji"
+        }
+    }
     -- language support
     use {'cespare/vim-toml'}
     use {'nvim-treesitter/nvim-treesitter'} -- semantic highlight
@@ -82,5 +88,15 @@ packer.startup(function()
 
     use {'/Users/gustavokatel/dev/sidebar.nvim'}
     -- use '/Users/gustavokatel/dev/sidebar.nvim-dev'
+
+    -- neovim dev
+    use {
+        "tpope/vim-scriptease",
+        cmd = {
+            "Messages", -- view messages in quickfix list
+            "Verbose", -- view verbose output in preview window.
+            "Time" -- measure how long it takes to run some stuff.
+        }
+    }
 end)
 
