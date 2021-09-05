@@ -186,7 +186,7 @@ v.tnoremap({"<M-n>"}, "<C-\\><C-N>:FloatermNew<CR>")
 v.tnoremap({"<C-q>"}, "<C-\\><C-N>:FloatermKill<CR>")
 
 -- alt-t to open ranger in a float terminal
-v.nnoremap({"<A-t>"}, v.cmd.Ranger)
+v.nnoremap({"<leader>t"}, v.cmd.Ranger)
 
 -- ctrl-c will close processes in normal mode
 v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-c>"}, "i<C-c>") end)
