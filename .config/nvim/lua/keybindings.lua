@@ -226,7 +226,7 @@ for _, code in ipairs({"<C-p>", "<D-p>"}) do v.nnoremap({code}, function() teles
 for _, code in ipairs({'<M-p>', '<A-p>'}) do v.nnoremap({code}, function() telescope_files(true) end) end
 
 -- telescope commands
-for _, code in ipairs({"<C-S-P>", "<D-P>"}) do
+for _, code in ipairs({"<C-S-P>", "<S-D-P>", "<D-P>"}) do
     v.nnoremap({code}, function()
         local telescope = require("telescope.builtin")
         telescope.builtin()
