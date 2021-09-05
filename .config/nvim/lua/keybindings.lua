@@ -137,9 +137,9 @@ v.vnoremap({"<M-Up>"}, ":m '<-2<CR>gv=gv")
 
 -- duplicate line with Ctrl/cmd+Shift+D
 v.nnoremap({"<C-S-D>"}, "yyp")
-v.nnoremap({"<D-D>"}, "yyp")
+v.nnoremap({"<S-D-D>"}, "yyp")
 v.inoremap({"<C-S-D>"}, "<ESC>yypi")
-v.inoremap({"<D-D>"}, "<ESC>yypi")
+v.inoremap({"<S-D-D>"}, "<ESC>yypi")
 
 -- word movement with Alt-Left and Alt-Right
 local wordLeft = {"<M-Left>", "b"}
@@ -241,7 +241,7 @@ end)
 --
 
 -- telescope global search
-for _, code in ipairs({"<C-S-F>", "<C-F>", "<D-F>"}) do
+for _, code in ipairs({"<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>"}) do
     v.nnoremap({code}, function()
         local rg_arguments = {}
 
@@ -268,7 +268,7 @@ for _, code in ipairs({"<M-F9>", "<A-F9>"}) do
 end
 
 -- telescope select/change filetype
-for _, code in ipairs({"<C-S-L>", "<D-L>"}) do
+for _, code in ipairs({"<C-S-L>", "<S-D-L>", "<D-L>"}) do
     v.nnoremap({code}, function()
         local telescope = require("telescope.builtin")
         telescope.filetypes()
