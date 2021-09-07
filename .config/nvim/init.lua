@@ -22,5 +22,5 @@ require("window_picker")
 
 require("sidebar")
 require("misc")
-require("scratches")
+require("notes")
 require("folding_utils")
