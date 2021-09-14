@@ -31,13 +31,14 @@ local configs = {
                 },
                 diagnostics = {
                     -- Get the language server to recognize the `vim` global
-                    globals = {'vim', 'use'}
+                    globals = {'vim', 'use', 'hs'}
                 },
                 workspace = {
                     -- Make the server aware of Neovim runtime files
                     library = {
                         [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
+                        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                        [vim.fn.expand('/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/')] = true
                     }
                 }
             }
