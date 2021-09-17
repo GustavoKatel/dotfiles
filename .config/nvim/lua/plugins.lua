@@ -89,8 +89,10 @@ packer.startup(function()
     use {'nvim-telescope/telescope-vimspector.nvim'}
     use {'GustavoKatel/telescope-asynctasks.nvim'}
 
-    user_profile.with_profile_fn("default", use, {'/Users/gustavokatel/dev/sidebar.nvim'})
-    user_profile.with_profile_fn("work", use, {'/Users/gustavo/dev/sidebar.nvim'})
+    use(user_profile.with_profile_table({
+        default = {'/Users/gustavokatel/dev/sidebar.nvim'},
+        work = {'/Users/gustavo/dev/sidebar.nvim'}
+    }))
     -- use '/Users/gustavokatel/dev/sidebar.nvim-dev'
 
     -- neovim dev
