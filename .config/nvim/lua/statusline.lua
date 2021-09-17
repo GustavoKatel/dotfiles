@@ -7,6 +7,12 @@ local function lualine_custom_winnr() return " " .. v.fn.winnr() end
 
 local function lualine_tab_treesitter() return require("nvim-treesitter").statusline(200) end
 
+local function lualine_lsp_status()
+    if #vim.lsp.buf_get_clients() > 0 then return require('lsp-status').status() end
+
+    return "<no lsp>"
+end
+
 lualine.setup({
     options = {
         -- theme = "codedark",
@@ -27,7 +33,7 @@ lualine.setup({
     tabline = {
         lualine_a = {},
         lualine_b = {'branch'},
-        lualine_c = {'filename', {lualine_tab_treesitter}},
+        lualine_c = {'filename', {lualine_tab_treesitter}, {lualine_lsp_status}},
         lualine_x = {},
         -- lualine_y = {require'tabline'.tabline_tabs},
         lualine_y = {tabs.tabline},

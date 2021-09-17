@@ -45,9 +45,9 @@ local configs = {
         }
     },
     typescript = {
-        on_attach = function(client, bufnr)
+        on_attach = function(client, bufnr, ...)
             client.resolved_capabilities.document_formatting = false
-            return lsp_on_attach.on_attach(client, bufnr)
+            return lsp_on_attach.on_attach(client, bufnr, ...)
         end
     },
     efm = {

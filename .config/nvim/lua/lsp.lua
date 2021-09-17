@@ -5,6 +5,10 @@ local user_profile = require("user_profile")
 local nvim_lsp = require('lspconfig')
 local lspinstall = require('lspinstall')
 
+-- status in the tabline
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+
 -- configs
 local configs = require("lsp_languages")
 local lsp_on_attach = require("lsp_on_attach")
@@ -22,7 +26,12 @@ local function make_config(server)
     capabilities.textDocument.completion.completionItem.resolveSupport = {
         properties = {'documentation', 'detail', 'additionalTextEdits'}
     }
-    local config = {capabilities = capabilities, on_attach = lsp_on_attach.on_attach}
+
+    local lsp_status_extension = lsp_status.extensions[server]
+    local lsp_handlers = nil
+    if lsp_status_extension then lsp_handlers = lsp_status_extension.setup() end
+
+    local config = {capabilities = capabilities, handlers = lsp_handlers, on_attach = lsp_on_attach.on_attach}
 
     local server_config = configs[server] or {}
     if server_config.on_attach ~= nil then config.on_attach = server_config.on_attach end

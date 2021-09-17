@@ -26,6 +26,7 @@ packer.startup(function()
             "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-emoji"
         }
     }
+    use {'nvim-lua/lsp-status.nvim'}
     -- language support
     use {'cespare/vim-toml'}
     use {'nvim-treesitter/nvim-treesitter'} -- semantic highlight
