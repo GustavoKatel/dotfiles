@@ -13,7 +13,7 @@ function M.get_active_profile()
 end
 
 function M.with_profile_fn(profile_name, fn, ...)
-    if profile_name ~= M.get_active_profile() then return nil end
+    if profile_name ~= M.get_active_profile() and profile_name ~= "default" then return nil end
 
     return fn(...)
 end

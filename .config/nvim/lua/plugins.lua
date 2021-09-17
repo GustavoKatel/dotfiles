@@ -11,6 +11,8 @@ end
 
 local packer = require('packer')
 
+local user_profile = require("user_profile")
+
 -- Install Plugins
 packer.startup(function()
     local use = use or use
@@ -87,7 +89,8 @@ packer.startup(function()
     use {'nvim-telescope/telescope-vimspector.nvim'}
     use {'GustavoKatel/telescope-asynctasks.nvim'}
 
-    use {'/Users/gustavokatel/dev/sidebar.nvim'}
+    user_profile.with_profile_fn("default", use, {'/Users/gustavokatel/dev/sidebar.nvim'})
+    user_profile.with_profile_fn("work", use, {'/Users/gustavo/dev/sidebar.nvim'})
     -- use '/Users/gustavokatel/dev/sidebar.nvim-dev'
 
     -- neovim dev
