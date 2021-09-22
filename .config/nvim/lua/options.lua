@@ -114,5 +114,15 @@ vim.env.GIT_EDITOR = 'nvr -cc split --remote-wait'
 -- this will make sure to delete the bufer once we close the git commit/rebase/config buffer
 -- otherwise nvr will be waiting for us
 vim.api.nvim_exec([[
-autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
+augroup gitutilsbuffers
+    autocmd!
+    autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
+augroup END
+]], false)
+
+vim.api.nvim_exec([[
+augroup autoresizebuffers
+    autocmd!
+    autocmd VimResized,VimResume * wincmd =
+augroup END
 ]], false)
