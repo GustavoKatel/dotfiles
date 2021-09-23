@@ -1,7 +1,9 @@
 local colors = require('material.colors')
 local theme = require('lualine.themes.material-nvim')
+--local theme = require('lualine.themes.onedark')
 
-local white_dimmed = '#ababab'
+local white_dimmed = '#ababab' -- material-nvim
+--local white_dimmed = '#8c8c8c'  -- onedark
 
 theme.inactive.a.fg = white_dimmed
 theme.inactive.b.fg = white_dimmed

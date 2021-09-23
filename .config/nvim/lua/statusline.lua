@@ -18,6 +18,7 @@ lualine.setup({
         -- theme = "codedark",
         theme = theme
         -- theme = "github",
+        --theme = 'onedark',
     },
     sections = {
         lualine_c = {

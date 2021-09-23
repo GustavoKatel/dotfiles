@@ -38,6 +38,7 @@ packer.startup(function()
     -- use {'tomasiser/vim-code-dark'}
     use {'marko-cerovac/material.nvim'}
     -- use {'projekt0n/github-nvim-theme'}
+    use {'navarasu/onedark.nvim'}
 
     -- editting
     use {'preservim/nerdcommenter'} -- toggle comment

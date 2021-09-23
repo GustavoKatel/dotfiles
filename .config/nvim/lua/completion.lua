@@ -9,8 +9,13 @@ cmp.setup({
             -- fancy icons and a name of kind
             -- local lsp_info = require("lspkind").presets.default[vim_item.kind]
 
+            local kind = ""
+            if vim.g.gonvim_running == 1 and vim_item.kind then
+                kind = "("..vim_item.kind.. ")" .. " "
+            end
+
             -- set a name for each source
-            vim_item.menu = ({
+            vim_item.menu =  kind .. ({
                 nvim_lsp = "[LSP]",
                 nvim_lua = "[Lua]",
                 path = "[Path]",
