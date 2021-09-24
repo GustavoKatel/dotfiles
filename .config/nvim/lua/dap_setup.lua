@@ -1,39 +1,57 @@
+local user_profile = require("user_profile")
 local dap_install = require("dap-install")
-local debuggers_config = require("dap-install.debuggers.jsnode_dbg")
 local dap = require("dap")
 
-debuggers_config.installer.install = [[
-    git clone https://github.com/microsoft/vscode-node-debug2.git && cd vscode-node-debug2
-    npm install
-    node_modules/.bin/gulp build
-]]
+require("dapui").setup()
 
-debuggers_config.uninstall = ""
+dap_install.setup({
+	installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
+})
 
-dap_install.setup({verbosely_call_debuggers = true})
+user_profile.with_profile_fn("default", function()
+    dap_install.config("go", {})
+end)
 
-dap_install.config("jsnode_dbg", {
-    configurations = {
-        {
-            type = "node2",
-            request = "launch",
-            program = "${file}",
-            cwd = vim.fn.getcwd(),
-            sourceMaps = true,
-            protocol = "inspector",
-            console = "integratedTerminal"
-        }
-    }
+dap_install.config("jsnode", {
+   configurations = { {
+        name = "${file}",
+        type = 'node2',
+        request = 'launch',
+        program = '${workspaceFolder}/${file}',
+        cwd = vim.fn.getcwd(),
+        sourceMaps = true,
+        protocol = 'inspector',
+        console = 'integratedTerminal',
+    } }
 })
 
 dap.configurations.typescript = {
     {
+        name = "${file}",
         type = 'node2',
         request = 'launch',
-        program = '${file}',
+        program = '${workspaceFolder}/${file}',
         cwd = vim.fn.getcwd(),
         sourceMaps = true,
         protocol = 'inspector',
-        console = 'integratedTerminal'
+        console = 'integratedTerminal',
+        outFiles = {
+            "${workspaceRoot}/dist/**/*.js"
+        }
+    },
+    {
+        name = "jest",
+        type = 'node2',
+        request = 'launch',
+        cwd = vim.fn.getcwd(),
+        runtimeArgs = {'--inspect-brk', '${workspaceFolder}/node_modules/.bin/jest', '--no-coverage', '--', '${workspaceFolder}/${file}'},
+        sourceMaps = true,
+        protocol = 'inspector',
+        skipFiles = {'<node_internals>/**/*.js'},
+        console = 'integratedTerminal',
+        port = 9229,
+        outFiles = {
+            "${workspaceRoot}/dist/**/*.js"
+        }
     }
 }

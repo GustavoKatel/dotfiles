@@ -6,3 +6,5 @@ require('telescope').setup {
         layout_config = {horizontal = {width = 230, height = 60}}
     }
 }
+
+require('telescope').load_extension('dap')
