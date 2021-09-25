@@ -14,13 +14,16 @@ v.opt.mouse = "a"
 -- show line numbers
 v.opt.number = true
 -- show relative line number only when the current window is focused
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+	[[
 augroup numbertoggle
   autocmd!
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu  | set rnu   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu  | set nornu | endif
 augroup END
-]], false)
+]],
+	false
+)
 
 -- always show the status line
 v.opt.laststatus = 2
@@ -64,7 +67,7 @@ v.opt.scrolloff = 60
 v.opt.cmdheight = 2
 
 -- spell checking dictionaries, enable/disable with: set [no]spell
-v.opt.spelllang = {"en_us", "pt_br"}
+v.opt.spelllang = { "en_us", "pt_br" }
 
 -- enable the cursor line highlight
 v.opt.cursorline = true
@@ -79,8 +82,8 @@ v.opt.foldmethod = "marker"
 -- terminal overrides
 -- no line numbers on terminals
 v.autocmd("TermOpen", "*", function()
-    v.cmd.setlocal("nonumber")
-    v.cmd.setlocal("norelativenumber")
+	v.cmd.setlocal("nonumber")
+	v.cmd.setlocal("norelativenumber")
 end)
 
 -- enable window title
@@ -96,33 +99,42 @@ v.opt.signcolumn = "yes:2"
 
 v.v.g.vim_json_conceal = 0
 
-v.v.g.AutoPairsShortcutToggle = ''
+v.v.g.AutoPairsShortcutToggle = ""
 
 v.v.g.dashboard_default_executive = "telescope"
 
 -- set spell check for markdown files
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+	[[
 augroup markdownSpell
     autocmd!
     autocmd FileType markdown setlocal spell
     autocmd BufRead,BufNewFile *.md setlocal spell
 augroup END
-]], false)
+]],
+	false
+)
 
 -- set nvr as GIT_EDITOR so we can use the current nvim as editor for git
-vim.env.GIT_EDITOR = 'nvr -cc split --remote-wait'
+vim.env.GIT_EDITOR = "nvr -cc split --remote-wait"
 -- this will make sure to delete the bufer once we close the git commit/rebase/config buffer
 -- otherwise nvr will be waiting for us
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+	[[
 augroup gitutilsbuffers
     autocmd!
     autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
 augroup END
-]], false)
+]],
+	false
+)
 
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+	[[
 augroup autoresizebuffers
     autocmd!
     autocmd VimResized,VimResume * wincmd =
 augroup END
-]], false)
+]],
+	false
+)

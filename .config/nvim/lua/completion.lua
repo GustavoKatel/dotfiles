@@ -1,29 +1,33 @@
-local cmp = require 'cmp'
+local cmp = require("cmp")
 
 cmp.setup({
-    snippet = {expand = function(args) vim.fn["vsnip#anonymous"](args.body) end},
-    mapping = {['<CR>'] = cmp.mapping.confirm({select = true})},
-    sources = {{name = 'nvim_lsp'}, {name = 'nvim_lua'}, {name = 'path'}, {name = 'buffer'}, {name = 'emoji'}},
-    formatting = {
-        format = function(entry, vim_item)
-            -- fancy icons and a name of kind
-            -- local lsp_info = require("lspkind").presets.default[vim_item.kind]
+	snippet = {
+		expand = function(args)
+			vim.fn["vsnip#anonymous"](args.body)
+		end,
+	},
+	mapping = { ["<CR>"] = cmp.mapping.confirm({ select = true }) },
+	sources = { { name = "nvim_lsp" }, { name = "nvim_lua" }, { name = "path" }, { name = "buffer" }, { name = "emoji" } },
+	formatting = {
+		format = function(entry, vim_item)
+			-- fancy icons and a name of kind
+			-- local lsp_info = require("lspkind").presets.default[vim_item.kind]
 
-            local kind = ""
-            if vim.g.gonvim_running == 1 and vim_item.kind then
-                kind = "("..vim_item.kind.. ")" .. " "
-            end
+			local kind = ""
+			if vim.g.gonvim_running == 1 and vim_item.kind then
+				kind = "(" .. vim_item.kind .. ")" .. " "
+			end
 
-            -- set a name for each source
-            vim_item.menu =  kind .. ({
-                nvim_lsp = "[LSP]",
-                nvim_lua = "[Lua]",
-                path = "[Path]",
-                buffer = "[Buffer]",
-                emoji = "[Emoji]"
-            })[entry.source.name]
-            return vim_item
-        end
-    }
+			-- set a name for each source
+			vim_item.menu = kind
+				.. ({
+					nvim_lsp = "[LSP]",
+					nvim_lua = "[Lua]",
+					path = "[Path]",
+					buffer = "[Buffer]",
+					emoji = "[Emoji]",
+				})[entry.source.name]
+			return vim_item
+		end,
+	},
 })
-

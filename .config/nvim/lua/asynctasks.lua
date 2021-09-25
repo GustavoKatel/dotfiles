@@ -1,6 +1,8 @@
 local v = require("utils")
 
-v.fn["AsyncTasksRunnerFloaterm"] = function(opts) v.cmd.FloatermNew(opts.cmd) end
+v.fn["AsyncTasksRunnerFloaterm"] = function(opts)
+	v.cmd.FloatermNew(opts.cmd)
+end
 
 vim.cmd("let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})")
 vim.cmd("let g:asyncrun_runner.floaterm = function('AsyncTasksRunnerFloaterm')")

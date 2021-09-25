@@ -1,153 +1,157 @@
 local v = require("utils")
 
 -- save with ctrl-s/command-s
-v.nnoremap({"<D-s>"}, ":w<CR>")
-v.inoremap({"<D-s>"}, "<ESC>:w<CR>i")
-v.nnoremap({"<C-s>"}, ":w<CR>")
-v.inoremap({"<C-s>"}, "<ESC>:w<CR>i")
+v.nnoremap({ "<D-s>" }, ":w<CR>")
+v.inoremap({ "<D-s>" }, "<ESC>:w<CR>i")
+v.nnoremap({ "<C-s>" }, ":w<CR>")
+v.inoremap({ "<C-s>" }, "<ESC>:w<CR>i")
 
 -- vertical split with ctrl-\ | command-\
-v.nnoremap({"<D-\\>"}, ":vsplit<CR>")
-v.nnoremap({"<C-\\>"}, ":vsplit<CR>")
+v.nnoremap({ "<D-\\>" }, ":vsplit<CR>")
+v.nnoremap({ "<C-\\>" }, ":vsplit<CR>")
 
 -- ctrl/cmd-/ to toggle comment, C-_ can also be interpreted as ctrl-/
-for _, code in ipairs({"<C-_>", "<C-/>", "<D-/>"}) do
-    v.imap({code}, "<Plug>NERDCommenterInsert")
-    v.nmap({code}, "<Plug>NERDCommenterToggle<CR>")
-    v.vmap({code}, "<Plug>NERDCommenterToggle<CR>gv")
+for _, code in ipairs({ "<C-_>", "<C-/>", "<D-/>" }) do
+	v.imap({ code }, "<Plug>NERDCommenterInsert")
+	v.nmap({ code }, "<Plug>NERDCommenterToggle<CR>")
+	v.vmap({ code }, "<Plug>NERDCommenterToggle<CR>gv")
 end
 
 -- Alt-Shift-Left/Right to move to previous next position
-v.nnoremap({"<M-S-Right>"}, "<C-I>")
-v.nnoremap({"<M-S-Left>"}, "<C-O>")
+v.nnoremap({ "<M-S-Right>" }, "<C-I>")
+v.nnoremap({ "<M-S-Left>" }, "<C-O>")
 
 -- use <TAB>/arrow keys to select the popup menu
-v.inoremap({"<expr>", "<Tab>"}, 'pumvisible() ? "\\<C-n>" : "\\<Tab>"')
-v.inoremap({"<expr>", "<Down>"}, 'pumvisible() ? "\\<C-n>" : "\\<Down>"')
-v.inoremap({"<expr>", "<S-Tab>"}, 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
-v.inoremap({"<expr>", "<Up>"}, 'pumvisible() ? "\\<C-p>" : "\\<Up>"')
+v.inoremap({ "<expr>", "<Tab>" }, 'pumvisible() ? "\\<C-n>" : "\\<Tab>"')
+v.inoremap({ "<expr>", "<Down>" }, 'pumvisible() ? "\\<C-n>" : "\\<Down>"')
+v.inoremap({ "<expr>", "<S-Tab>" }, 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
+v.inoremap({ "<expr>", "<Up>" }, 'pumvisible() ? "\\<C-p>" : "\\<Up>"')
 
 -- ctrl/cmd-d kill buffer without losing split/window
-v.nnoremap({"<C-d>"}, ":BD<CR>")
-v.nnoremap({"<D-d>"}, ":BD<CR>")
+v.nnoremap({ "<C-d>" }, ":BD<CR>")
+v.nnoremap({ "<D-d>" }, ":BD<CR>")
 
 -- ctrl/cmd-q kill the current split/window
-v.nnoremap({"<C-q>"}, ":q<CR>")
-v.nnoremap({"<D-q>"}, ":q<CR>")
+v.nnoremap({ "<C-q>" }, ":q<CR>")
+v.nnoremap({ "<D-q>" }, ":q<CR>")
 
 -- toggle workspace
-v.nnoremap({"<leader>s"}, v.cmd.ToggleWorkspace)
+v.nnoremap({ "<leader>s" }, v.cmd.ToggleWorkspace)
 
 -- change focus splits
-v.nnoremap({"<silent>", "<D-Right>"}, "<c-w>l")
-v.nnoremap({"<silent>", "<C-l>"}, "<c-w>l")
+v.nnoremap({ "<silent>", "<D-Right>" }, "<c-w>l")
+v.nnoremap({ "<silent>", "<C-l>" }, "<c-w>l")
 
-v.nnoremap({"<silent>", "<D-left>"}, "<c-w>h")
-v.nnoremap({"<silent>", "<C-h>"}, "<c-w>h")
+v.nnoremap({ "<silent>", "<D-left>" }, "<c-w>h")
+v.nnoremap({ "<silent>", "<C-h>" }, "<c-w>h")
 
-v.nnoremap({"<silent>", "<D-Up>"}, "<c-w>k")
-v.nnoremap({"<silent>", "<C-k>"}, "<c-w>k")
+v.nnoremap({ "<silent>", "<D-Up>" }, "<c-w>k")
+v.nnoremap({ "<silent>", "<C-k>" }, "<c-w>k")
 
-v.nnoremap({"<silent>", "<D-Down>"}, "<c-w>j")
-v.nnoremap({"<silent>", "<C-j>"}, "<c-w>j")
+v.nnoremap({ "<silent>", "<D-Down>" }, "<c-w>j")
+v.nnoremap({ "<silent>", "<C-j>" }, "<c-w>j")
 
 for i = 1, 9, 1 do
-    for _, key in ipairs({"<D-k" .. i .. ">", "<D-" .. i .. ">"}) do
-        v.nnoremap({"<silent>", key}, ":" .. i .. "wincmd w<CR>")
-        v.tnoremap({"<silent>", key}, "<C-\\><C-N>:" .. i .. "wincmd w<CR>")
-    end
+	for _, key in ipairs({ "<D-k" .. i .. ">", "<D-" .. i .. ">" }) do
+		v.nnoremap({ "<silent>", key }, ":" .. i .. "wincmd w<CR>")
+		v.tnoremap({ "<silent>", key }, "<C-\\><C-N>:" .. i .. "wincmd w<CR>")
+	end
 
-    -- only bind this on linux, not macos
-    -- ctrl-<number>
-    if v.fn.has("macunix") == 0 then
-        for _, key in ipairs({"<C-k" .. i .. ">", "<C-" .. i .. ">"}) do
-            v.nnoremap({"<silent>", key}, ":" .. i .. "wincmd w<CR>")
-            v.tnoremap({"<silent>", key}, "<C-\\><C-N>:" .. i .. "wincmd w<CR>")
-        end
-    end
+	-- only bind this on linux, not macos
+	-- ctrl-<number>
+	if v.fn.has("macunix") == 0 then
+		for _, key in ipairs({ "<C-k" .. i .. ">", "<C-" .. i .. ">" }) do
+			v.nnoremap({ "<silent>", key }, ":" .. i .. "wincmd w<CR>")
+			v.tnoremap({ "<silent>", key }, "<C-\\><C-N>:" .. i .. "wincmd w<CR>")
+		end
+	end
 end
 
 -- insert mode ctrl/cmd+v paste from clipboard
-for _, code in ipairs({"<C-v>", "<D-v>"}) do
-    v.inoremap({"<silent>", code}, '<ESC>"+pa')
-    v.tnoremap({"<silent>", code}, '<C-\\><C-N>"+pa')
+for _, code in ipairs({ "<C-v>", "<D-v>" }) do
+	v.inoremap({ "<silent>", code }, '<ESC>"+pa')
+	v.tnoremap({ "<silent>", code }, '<C-\\><C-N>"+pa')
 end
 -- same as above, but maps ctrl+shift+v instead of ctrl+v. still uses cmd-v
-for _, code in ipairs({"<C-S-V>", "<D-v>"}) do v.cnoremap({code}, '<C-r>+') end
+for _, code in ipairs({ "<C-S-V>", "<D-v>" }) do
+	v.cnoremap({ code }, "<C-r>+")
+end
 
 -- visual mode ctrl/cmd+c copy to clipboard
-v.vnoremap({"<silent>", "<C-c>"}, '"+y')
-v.vnoremap({"<silent>", "<D-c>"}, '"+y')
+v.vnoremap({ "<silent>", "<C-c>" }, '"+y')
+v.vnoremap({ "<silent>", "<D-c>" }, '"+y')
 
 -- PageUp PageDown to navigate through tabs
-v.nnoremap({"<C-PageUp>"}, v.cmd.tabprevious)
-v.nnoremap({"<C-PageDown>"}, v.cmd.tabnext)
+v.nnoremap({ "<C-PageUp>" }, v.cmd.tabprevious)
+v.nnoremap({ "<C-PageDown>" }, v.cmd.tabnext)
 
 -- ctrl/cmd-a select all in insert and normal modes
-for _, code in ipairs({"<C-a>", "<D-a>"}) do
-    v.inoremap({code}, "<ESC>ggVG")
-    v.nnoremap({code}, "ggVG")
+for _, code in ipairs({ "<C-a>", "<D-a>" }) do
+	v.inoremap({ code }, "<ESC>ggVG")
+	v.nnoremap({ code }, "ggVG")
 end
 
 -- toggle Undotree with F4
-v.nnoremap({"<F4>"}, v.cmd.UndotreeToggle)
+v.nnoremap({ "<F4>" }, v.cmd.UndotreeToggle)
 
 -- alt-b to create a new buffer in the current split
-v.nnoremap({"<M-b>"}, v.cmd.enew)
+v.nnoremap({ "<M-b>" }, v.cmd.enew)
 
 -- ctrl/cmd-f search in current buffer
-for _, code in ipairs({"<C-f>", "<D-f>"}) do v.nnoremap({code}, "/") end
+for _, code in ipairs({ "<C-f>", "<D-f>" }) do
+	v.nnoremap({ code }, "/")
+end
 
 -- visual mode searches for the selected text
-v.vnoremap({"/"}, "y/<C-R>=escape(@\",'/\\')<CR><CR>")
-v.vnoremap({"<C-f>"}, "y/<C-R>=escape(@\",'/\\')<CR><CR>")
-v.vnoremap({"<D-f>"}, "y/<C-R>=escape(@\",'/\\')<CR><CR>")
+v.vnoremap({ "/" }, "y/<C-R>=escape(@\",'/\\')<CR><CR>")
+v.vnoremap({ "<C-f>" }, "y/<C-R>=escape(@\",'/\\')<CR><CR>")
+v.vnoremap({ "<D-f>" }, "y/<C-R>=escape(@\",'/\\')<CR><CR>")
 
 -- visual mode replace the currently selected text
-v.vnoremap({"<C-h>"}, "y:%s/<C-R>=escape(@\",'/\\')<CR>/")
-v.vnoremap({"<D-h>"}, "y:%s/<C-R>=escape(@\",'/\\')<CR>/")
+v.vnoremap({ "<C-h>" }, "y:%s/<C-R>=escape(@\",'/\\')<CR>/")
+v.vnoremap({ "<D-h>" }, "y:%s/<C-R>=escape(@\",'/\\')<CR>/")
 
 -- ctrl-enter in insert mode to create new line below
-v.inoremap({"<C-CR>"}, "<ESC>o")
+v.inoremap({ "<C-CR>" }, "<ESC>o")
 -- shift-enter in insert mode to create new line above
-v.inoremap({"<S-CR>"}, "<ESC>O")
+v.inoremap({ "<S-CR>" }, "<ESC>O")
 
 -- remove search highlight on ESC
-v.nnoremap({"<ESC>"}, v.cmd.noh)
+v.nnoremap({ "<ESC>" }, v.cmd.noh)
 
 -- fold keys
-if v.fn.has('macunix') then
-    v.nnoremap({"<D-[>"}, v.cmd.foldclose)
-    v.nnoremap({"<D-]>"}, v.cmd.foldopen)
+if v.fn.has("macunix") then
+	v.nnoremap({ "<D-[>" }, v.cmd.foldclose)
+	v.nnoremap({ "<D-]>" }, v.cmd.foldopen)
 else
-    v.nnoremap({"<C-[>"}, v.cmd.foldclose)
-    v.nnoremap({"<C-]>"}, v.cmd.foldopen)
+	v.nnoremap({ "<C-[>" }, v.cmd.foldclose)
+	v.nnoremap({ "<C-]>" }, v.cmd.foldopen)
 end
 
 -- delete current line in insert mode with shift-del
-v.inoremap({"<S-Del>"}, "<ESC>ddi")
+v.inoremap({ "<S-Del>" }, "<ESC>ddi")
 
 -- line movement
-v.nnoremap({"<M-Down>"}, ":m .+1<CR>==")
-v.nnoremap({"<M-Up>"}, ":m .-2<CR>==")
-v.inoremap({"<M-Down>"}, "<Esc>:m .+1<CR>==gi")
-v.inoremap({"<M-Up>"}, "<Esc>:m .-2<CR>==gi")
-v.vnoremap({"<M-Down>"}, ":m '>+1<CR>gv=gv")
-v.vnoremap({"<M-Up>"}, ":m '<-2<CR>gv=gv")
+v.nnoremap({ "<M-Down>" }, ":m .+1<CR>==")
+v.nnoremap({ "<M-Up>" }, ":m .-2<CR>==")
+v.inoremap({ "<M-Down>" }, "<Esc>:m .+1<CR>==gi")
+v.inoremap({ "<M-Up>" }, "<Esc>:m .-2<CR>==gi")
+v.vnoremap({ "<M-Down>" }, ":m '>+1<CR>gv=gv")
+v.vnoremap({ "<M-Up>" }, ":m '<-2<CR>gv=gv")
 
 -- duplicate line with Ctrl/cmd+Shift+D
-v.nnoremap({"<C-S-D>"}, "yyp")
-v.nnoremap({"<S-D-D>"}, "yyp")
-v.inoremap({"<C-S-D>"}, "<ESC>yypi")
-v.inoremap({"<S-D-D>"}, "<ESC>yypi")
+v.nnoremap({ "<C-S-D>" }, "yyp")
+v.nnoremap({ "<S-D-D>" }, "yyp")
+v.inoremap({ "<C-S-D>" }, "<ESC>yypi")
+v.inoremap({ "<S-D-D>" }, "<ESC>yypi")
 
 -- word movement with Alt-Left and Alt-Right
-local wordLeft = {"<M-Left>", "b"}
-local wordRight = {"<M-Right>", "w"}
+local wordLeft = { "<M-Left>", "b" }
+local wordRight = { "<M-Right>", "w" }
 
-for _, mapfunc in ipairs({v.nnoremap, v.vnoremap}) do
-    mapfunc(unpack(wordLeft))
-    mapfunc(unpack(wordRight))
+for _, mapfunc in ipairs({ v.nnoremap, v.vnoremap }) do
+	mapfunc(unpack(wordLeft))
+	mapfunc(unpack(wordRight))
 end
 v.inoremap(wordLeft[1], "<ESC>b")
 v.inoremap(wordRight[1], "<ESC>lw")
@@ -155,160 +159,190 @@ v.inoremap(wordRight[1], "<ESC>lw")
 -- easymotion/hop.nvim
 -- v.nmap("f", "<Plug>(easymotion-overwin-f2)")
 v.nnoremap("f", function()
-    print("enter 2 char pattern")
-    require('hop').hint_char2()
+	print("enter 2 char pattern")
+	require("hop").hint_char2()
 end)
-v.nnoremap("<leader>w", require('nvim-window').pick)
+v.nnoremap("<leader>w", require("nvim-window").pick)
 
 -- floaterm keybindings
-for _, code in ipairs({"<A-F12>", "<M-F12>"}) do
-    v.nnoremap({code}, v.cmd.FloatermToggle)
-    v.inoremap({code}, "<ESC>:FloatermToggle<CR>")
-    v.tnoremap({code}, "<C-\\><C-N>:FloatermToggle<CR>")
+for _, code in ipairs({ "<A-F12>", "<M-F12>" }) do
+	v.nnoremap({ code }, v.cmd.FloatermToggle)
+	v.inoremap({ code }, "<ESC>:FloatermToggle<CR>")
+	v.tnoremap({ code }, "<C-\\><C-N>:FloatermToggle<CR>")
 end
 
 -- terminal keymaps
 -- exit terminal mode with <ESC>
-v.tnoremap({"<ESC>"}, "<C-\\><C-N>")
+v.tnoremap({ "<ESC>" }, "<C-\\><C-N>")
 
 -- alt movements
-v.tnoremap({"<M-Left>"}, "<M-B>")
-v.tnoremap({"<M-Right>"}, "<M-F>")
+v.tnoremap({ "<M-Left>" }, "<M-B>")
+v.tnoremap({ "<M-Right>" }, "<M-F>")
 
 -- page up/down to move between terms
-v.tnoremap({"<C-PageDown>"}, "<C-\\><C-N>:FloatermNext<CR>")
-v.tnoremap({"<C-PageUp>"}, "<C-\\><C-N>:FloatermPrev<CR>")
+v.tnoremap({ "<C-PageDown>" }, "<C-\\><C-N>:FloatermNext<CR>")
+v.tnoremap({ "<C-PageUp>" }, "<C-\\><C-N>:FloatermPrev<CR>")
 
 -- alt-n to create a new term
-v.tnoremap({"<M-n>"}, "<C-\\><C-N>:FloatermNew<CR>")
+v.tnoremap({ "<M-n>" }, "<C-\\><C-N>:FloatermNew<CR>")
 
 -- ctrl-q to kill current term
-v.tnoremap({"<C-q>"}, "<C-\\><C-N>:FloatermKill<CR>")
+v.tnoremap({ "<C-q>" }, "<C-\\><C-N>:FloatermKill<CR>")
 
 -- alt-t to open ranger in a float terminal
-v.nnoremap({"<leader>t"}, v.cmd.Ranger)
+v.nnoremap({ "<leader>t" }, v.cmd.Ranger)
 
 -- ctrl-c will close processes in normal mode
-v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-c>"}, "i<C-c>") end)
+v.autocmd("TermOpen", "*", function()
+	v.nnoremap({ "<buffer>", "<C-c>" }, "i<C-c>")
+end)
 -- forcily close buffer without closing split BD!
-v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-d>"}, ":BD!<CR>") end)
+v.autocmd("TermOpen", "*", function()
+	v.nnoremap({ "<buffer>", "<C-d>" }, ":BD!<CR>")
+end)
 -- forcily close buffer and split
-v.autocmd("TermOpen", "*", function() v.nnoremap({"<buffer>", "<C-q>"}, ":bd!<CR>") end)
+v.autocmd("TermOpen", "*", function()
+	v.nnoremap({ "<buffer>", "<C-q>" }, ":bd!<CR>")
+end)
 -- leave insert mode before scrolling with mouse on terminal buffers
 -- TODO: this is not working 😢
-v.tnoremap({"<ScrollWheelUp>"}, "<C-\\><C-N><C-Y")
-v.tnoremap({"<ScrollWheelDown>"}, "<C-\\><C-N><C-E")
-v.tnoremap({"<2-ScrollWheelUp>"}, "<C-\\><C-N><C-Y")
-v.tnoremap({"<2-ScrollWheelDown>"}, "<C-\\><C-N><C-E")
-v.tnoremap({"<3-ScrollWheelUp>"}, "<C-\\><C-N><C-Y")
-v.tnoremap({"<3-ScrollWheelDown>"}, "<C-\\><C-N><C-E")
-v.tnoremap({"<4-ScrollWheelUp>"}, "<C-\\><C-N><C-Y")
-v.tnoremap({"<4-ScrollWheelDown>"}, "<C-\\><C-N><C-E")
+v.tnoremap({ "<ScrollWheelUp>" }, "<C-\\><C-N><C-Y")
+v.tnoremap({ "<ScrollWheelDown>" }, "<C-\\><C-N><C-E")
+v.tnoremap({ "<2-ScrollWheelUp>" }, "<C-\\><C-N><C-Y")
+v.tnoremap({ "<2-ScrollWheelDown>" }, "<C-\\><C-N><C-E")
+v.tnoremap({ "<3-ScrollWheelUp>" }, "<C-\\><C-N><C-Y")
+v.tnoremap({ "<3-ScrollWheelDown>" }, "<C-\\><C-N><C-E")
+v.tnoremap({ "<4-ScrollWheelUp>" }, "<C-\\><C-N><C-Y")
+v.tnoremap({ "<4-ScrollWheelDown>" }, "<C-\\><C-N><C-E")
 
 -- telescope files
 local function telescope_files(with_gitignored)
-    local telescope = require("telescope.builtin")
+	local telescope = require("telescope.builtin")
 
-    local cmd = {"rg", "--files", "--hidden"}
+	local cmd = { "rg", "--files", "--hidden" }
 
-    if with_gitignored then table.insert(cmd, "--no-ignore") end
+	if with_gitignored then
+		table.insert(cmd, "--no-ignore")
+	end
 
-    local cmd_args = {"-g", "!node_modules/**/*", "-g", "!venv/**/*", "-g", "!.git/**/*"}
+	local cmd_args = { "-g", "!node_modules/**/*", "-g", "!venv/**/*", "-g", "!.git/**/*" }
 
-    for _, arg in pairs(cmd_args) do table.insert(cmd, arg) end
+	for _, arg in pairs(cmd_args) do
+		table.insert(cmd, arg)
+	end
 
-    telescope.find_files({previewer = false, find_command = cmd})
+	telescope.find_files({ previewer = false, find_command = cmd })
 end
 
-for _, code in ipairs({"<C-p>", "<D-p>"}) do v.nnoremap({code}, function() telescope_files(false) end) end
+for _, code in ipairs({ "<C-p>", "<D-p>" }) do
+	v.nnoremap({ code }, function()
+		telescope_files(false)
+	end)
+end
 
 -- telescope files, but with hidden+ignored files
-for _, code in ipairs({'<M-p>', '<A-p>'}) do v.nnoremap({code}, function() telescope_files(true) end) end
+for _, code in ipairs({ "<M-p>", "<A-p>" }) do
+	v.nnoremap({ code }, function()
+		telescope_files(true)
+	end)
+end
 
 -- telescope commands
-for _, code in ipairs({"<C-S-P>", "<S-D-P>", "<D-P>"}) do
-    v.nnoremap({code}, function()
-        local telescope = require("telescope.builtin")
-        telescope.builtin()
-    end)
+for _, code in ipairs({ "<C-S-P>", "<S-D-P>", "<D-P>" }) do
+	v.nnoremap({ code }, function()
+		local telescope = require("telescope.builtin")
+		telescope.builtin()
+	end)
 end
 
 -- telescope buffers
-v.nnoremap({"<C-b>"}, function()
-    local telescope = require("telescope.builtin")
-    telescope.buffers()
+v.nnoremap({ "<C-b>" }, function()
+	local telescope = require("telescope.builtin")
+	telescope.buffers()
 end)
 --
 
 -- telescope global search
-for _, code in ipairs({"<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>"}) do
-    v.nnoremap({code}, function()
-        local rg_arguments = {}
+for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>" }) do
+	v.nnoremap({ code }, function()
+		local rg_arguments = {}
 
-        for k, arg in pairs(require('telescope.config').values.vimgrep_arguments) do rg_arguments[k] = arg end
+		for k, arg in pairs(require("telescope.config").values.vimgrep_arguments) do
+			rg_arguments[k] = arg
+		end
 
-        table.insert(rg_arguments, "--hidden")
-        table.insert(rg_arguments, "--no-ignore")
+		table.insert(rg_arguments, "--hidden")
+		table.insert(rg_arguments, "--no-ignore")
 
-        local cmd_args = {"-g", "!node_modules/**/*", "-g", "!venv/**/*", "-g", "!.git/**/*"}
+		local cmd_args = { "-g", "!node_modules/**/*", "-g", "!venv/**/*", "-g", "!.git/**/*" }
 
-        for _, arg in pairs(cmd_args) do table.insert(rg_arguments, arg) end
+		for _, arg in pairs(cmd_args) do
+			table.insert(rg_arguments, arg)
+		end
 
-        -- telescope.live_grep({ vimgrep_arguments = rg_arguments })
-        require("telescope_rg_pattern").live_grep_pattern({vimgrep_arguments = rg_arguments})
-    end)
+		-- telescope.live_grep({ vimgrep_arguments = rg_arguments })
+		require("telescope_rg_pattern").live_grep_pattern({ vimgrep_arguments = rg_arguments })
+	end)
 end
 
 -- telescope asynctasks
-for _, code in ipairs({"<M-F9>", "<A-F9>"}) do
-    v.nnoremap({code}, function()
-        local telescope = require("telescope")
-        telescope.extensions.asynctasks.all()
-    end)
+for _, code in ipairs({ "<M-F9>", "<A-F9>" }) do
+	v.nnoremap({ code }, function()
+		local telescope = require("telescope")
+		telescope.extensions.asynctasks.all()
+	end)
 end
 
 -- telescope select/change filetype
-for _, code in ipairs({"<C-S-L>", "<S-D-L>", "<D-L>"}) do
-    v.nnoremap({code}, function()
-        local telescope = require("telescope.builtin")
-        telescope.filetypes()
-    end)
+for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>" }) do
+	v.nnoremap({ code }, function()
+		local telescope = require("telescope.builtin")
+		telescope.filetypes()
+	end)
 end
 
 -- telescope vimspector
-for _, code in ipairs({"<S-F9>"}) do
-    v.nnoremap({code}, function() require('telescope').extensions.vimspector.configurations() end)
+for _, code in ipairs({ "<S-F9>" }) do
+	v.nnoremap({ code }, function()
+		require("telescope").extensions.vimspector.configurations()
+	end)
 end
 
 -- undo with ctrl/cmd-z in insert mode
-v.inoremap({"<C-z>"}, "<ESC>ui")
-v.inoremap({"<D-z>"}, "<ESC>ui")
+v.inoremap({ "<C-z>" }, "<ESC>ui")
+v.inoremap({ "<D-z>" }, "<ESC>ui")
 
 -- vim-test test nearest test
-v.nmap({"<C-F10>"}, v.cmd.TestNearest)
+v.nmap({ "<C-F10>" }, v.cmd.TestNearest)
 
 -- - and + to go back to previous position
-v.nnoremap({"<M-->"}, "<C-o>")
-v.nnoremap({"<M-KMinus>"}, "<C-o>")
-v.nnoremap({"<M-+>"}, "<C-i>")
-v.nnoremap({"<M-KPlus>"}, "<C-i>")
+v.nnoremap({ "<M-->" }, "<C-o>")
+v.nnoremap({ "<M-KMinus>" }, "<C-o>")
+v.nnoremap({ "<M-+>" }, "<C-i>")
+v.nnoremap({ "<M-KPlus>" }, "<C-i>")
 
 -- vimspector mappings
-v.nmap({"<F8>"}, "<Plug>VimspectorToggleBreakpoint")
+v.nmap({ "<F8>" }, "<Plug>VimspectorToggleBreakpoint")
 -- v.nmap({"<F1>"}, ":call vimspector#Launch()<CR>")
-v.nmap({"<F1>"}, require('telescope').extensions.vimspector.configurations)
-v.nmap({"<C-F2>"}, ":VimspectorReset<CR>:tabprevious<CR>")
+v.nmap({ "<F1>" }, require("telescope").extensions.vimspector.configurations)
+v.nmap({ "<C-F2>" }, ":VimspectorReset<CR>:tabprevious<CR>")
 local vimspector_bindings = {
-    ["<F5>"] = "<Plug>VimspectorContinue",
-    ["<F6>"] = "<Plug>VimspectorStepOut",
+	["<F5>"] = "<Plug>VimspectorContinue",
+	["<F6>"] = "<Plug>VimspectorStepOut",
 
-    ["<F9>"] = "<Plug>VimspectorStepInto",
-    ["<F10>"] = "<Plug>VimspectorStepOver"
+	["<F9>"] = "<Plug>VimspectorStepInto",
+	["<F10>"] = "<Plug>VimspectorStepOver",
 }
-v.autocmd("User", "VimspectorJumpedToFrame",
-          function() for code, cmd in pairs(vimspector_bindings) do v.nmap({code}, cmd) end end)
-v.autocmd("User", "VimspectorDebugEnded",
-          function() for code, cmd in pairs(vimspector_bindings) do pcall(v.nunmap, {code}, cmd) end end)
+v.autocmd("User", "VimspectorJumpedToFrame", function()
+	for code, cmd in pairs(vimspector_bindings) do
+		v.nmap({ code }, cmd)
+	end
+end)
+v.autocmd("User", "VimspectorDebugEnded", function()
+	for code, cmd in pairs(vimspector_bindings) do
+		pcall(v.nunmap, { code }, cmd)
+	end
+end)
 
 -- toggle sidebar
-v.nnoremap({"<F3>"}, ":SidebarNvimToggle<CR>")
+v.nnoremap({ "<F3>" }, ":SidebarNvimToggle<CR>")
