@@ -114,6 +114,7 @@ packer.startup(function()
 		}),
 		rocks = { "luatz" },
 	})
+	use({ "GustavoKatel/dap-sidebar.nvim" })
 	-- use '/Users/gustavokatel/dev/sidebar.nvim-dev'
 
 	-- neovim dev
