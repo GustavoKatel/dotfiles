@@ -301,19 +301,12 @@ for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>" }) do
 	end)
 end
 
--- telescope vimspector
-for _, code in ipairs({ "<S-F9>" }) do
-	v.nnoremap({ code }, function()
-		require("telescope").extensions.vimspector.configurations()
-	end)
-end
-
 -- undo with ctrl/cmd-z in insert mode
 v.inoremap({ "<C-z>" }, "<ESC>ui")
 v.inoremap({ "<D-z>" }, "<ESC>ui")
 
--- vim-test test nearest test
-v.nmap({ "<C-F10>" }, v.cmd.TestNearest)
+--vim-test test nearest test
+--v.nmap({ "<C-F10>" }, v.cmd.TestNearest)
 
 -- - and + to go back to previous position
 v.nnoremap({ "<M-->" }, "<C-o>")
@@ -321,28 +314,29 @@ v.nnoremap({ "<M-KMinus>" }, "<C-o>")
 v.nnoremap({ "<M-+>" }, "<C-i>")
 v.nnoremap({ "<M-KPlus>" }, "<C-i>")
 
--- vimspector mappings
-v.nmap({ "<F8>" }, "<Plug>VimspectorToggleBreakpoint")
--- v.nmap({"<F1>"}, ":call vimspector#Launch()<CR>")
-v.nmap({ "<F1>" }, require("telescope").extensions.vimspector.configurations)
-v.nmap({ "<C-F2>" }, ":VimspectorReset<CR>:tabprevious<CR>")
-local vimspector_bindings = {
-	["<F5>"] = "<Plug>VimspectorContinue",
-	["<F6>"] = "<Plug>VimspectorStepOut",
+-- dap mappings
+-- telescope
+for _, code in ipairs({ "<S-F9>" }) do
+	v.nnoremap({ code }, function()
+		require("telescope").extensions.dap.commands()
+	end)
+end
 
-	["<F9>"] = "<Plug>VimspectorStepInto",
-	["<F10>"] = "<Plug>VimspectorStepOver",
+v.nnoremap({ "<leader>b" }, require("dap").toggle_breakpoint)
+v.nnoremap({ "<leader>x" }, function()
+	require("dap").close()
+	require("dapui").close()
+end)
+local debugger_bindings = {
+	["<leader>c"] = require("dap").continue,
+	["<leader>o"] = require("dap").step_out,
+
+	["<leader>i"] = require("dap").step_into,
+	["<leader>n"] = require("dap").step_over,
 }
-v.autocmd("User", "VimspectorJumpedToFrame", function()
-	for code, cmd in pairs(vimspector_bindings) do
-		v.nmap({ code }, cmd)
-	end
-end)
-v.autocmd("User", "VimspectorDebugEnded", function()
-	for code, cmd in pairs(vimspector_bindings) do
-		pcall(v.nunmap, { code }, cmd)
-	end
-end)
+for code, cmd in pairs(debugger_bindings) do
+	v.nnoremap({ code }, cmd)
+end
 
 -- toggle sidebar
 v.nnoremap({ "<F3>" }, ":SidebarNvimToggle<CR>")

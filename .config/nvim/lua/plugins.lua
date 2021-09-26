@@ -70,7 +70,14 @@ packer.startup(function()
 	use({ "lambdalisue/nerdfont.vim" }) -- add support for nerdfont
 	use({ "kyazdani42/nvim-web-devicons" })
 	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
-	use({ "lukas-reineke/indent-blankline.nvim" })
+	use({
+		"lukas-reineke/indent-blankline.nvim",
+		config = function()
+			require("indent_blankline").setup({
+				buftype_exclude = { "terminal" },
+			})
+		end,
+	})
 	use({
 		"GustavoKatel/todo-comments.nvim",
 		requires = "nvim-lua/plenary.nvim",
