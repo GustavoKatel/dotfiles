@@ -22,7 +22,9 @@ packer.startup(function()
 	-- lsp
 	use({ "neovim/nvim-lspconfig" })
 	use({ "kabouzeid/nvim-lspinstall" })
-	use({ "glepnir/lspsaga.nvim" })
+	--use({ "glepnir/lspsaga.nvim" })
+	--use({ "tami5/lspsaga.nvim" })
+	use({ "GustavoKatel/lspsaga.nvim" })
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
