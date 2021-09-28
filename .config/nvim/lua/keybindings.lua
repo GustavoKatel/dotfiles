@@ -39,20 +39,20 @@ v.nnoremap({ "<D-q>" }, ":q<CR>")
 v.nnoremap({ "<leader>s" }, v.cmd.ToggleWorkspace)
 
 -- change focus splits
-for _, code in ipairs({"<D-Right>", "\\<Right>", "<C-l>"}) do
-    v.nnoremap({ "<silent>", code }, "<c-w>l")
+for _, code in ipairs({ "<D-Right>", "\\<Right>", "<C-l>" }) do
+	v.nnoremap({ "<silent>", code }, "<c-w>l")
 end
 
-for _, code in ipairs({"<D-left>", "\\<Left>", "<C-h>"}) do
-    v.nnoremap({ "<silent>", code }, "<c-w>h")
+for _, code in ipairs({ "<D-left>", "\\<Left>", "<C-h>" }) do
+	v.nnoremap({ "<silent>", code }, "<c-w>h")
 end
 
-for _, code in ipairs({ "<D-Up>", "\\<Up>", "<C-k>"}) do
-    v.nnoremap({ "<silent>", code }, "<c-w>k")
+for _, code in ipairs({ "<D-Up>", "\\<Up>", "<C-k>" }) do
+	v.nnoremap({ "<silent>", code }, "<c-w>k")
 end
 
-for _, code in ipairs({ "<D-Down>", "\\<Down>", "<C-j>"}) do
-    v.nnoremap({ "<silent>", code }, "<c-w>j")
+for _, code in ipairs({ "<D-Down>", "\\<Down>", "<C-j>" }) do
+	v.nnoremap({ "<silent>", code }, "<c-w>j")
 end
 
 for i = 1, 9, 1 do
@@ -252,7 +252,7 @@ for _, code in ipairs({ "<M-p>", "<A-p>" }) do
 end
 
 -- telescope commands
-for _, code in ipairs({ "<C-S-P>", "<S-D-P>", "<D-P>" }) do
+for _, code in ipairs({ "<C-S-P>", "<S-D-P>", "<D-P>", "\\p" }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope.builtin")
 		telescope.builtin()
@@ -290,7 +290,7 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>" }) do
 end
 
 -- telescope asynctasks
-for _, code in ipairs({ "<M-F9>", "<A-F9>" }) do
+for _, code in ipairs({ "\\<F9>" }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope")
 		telescope.extensions.asynctasks.all()
@@ -298,7 +298,7 @@ for _, code in ipairs({ "<M-F9>", "<A-F9>" }) do
 end
 
 -- telescope select/change filetype
-for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>" }) do
+for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", "\\l" }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope.builtin")
 		telescope.filetypes()
@@ -320,7 +320,7 @@ v.nnoremap({ "<M-KPlus>" }, "<C-i>")
 
 -- dap mappings
 -- telescope
-for _, code in ipairs({ "<S-F9>" }) do
+for _, code in ipairs({ "<F9>" }) do
 	v.nnoremap({ code }, function()
 		require("telescope").extensions.dap.commands()
 	end)
