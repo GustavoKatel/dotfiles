@@ -39,17 +39,21 @@ v.nnoremap({ "<D-q>" }, ":q<CR>")
 v.nnoremap({ "<leader>s" }, v.cmd.ToggleWorkspace)
 
 -- change focus splits
-v.nnoremap({ "<silent>", "<D-Right>" }, "<c-w>l")
-v.nnoremap({ "<silent>", "<C-l>" }, "<c-w>l")
+for _, code in ipairs({"<D-Right>", "\\<Right>", "<C-l>"}) do
+    v.nnoremap({ "<silent>", code }, "<c-w>l")
+end
 
-v.nnoremap({ "<silent>", "<D-left>" }, "<c-w>h")
-v.nnoremap({ "<silent>", "<C-h>" }, "<c-w>h")
+for _, code in ipairs({"<D-left>", "\\<Left>", "<C-h>"}) do
+    v.nnoremap({ "<silent>", code }, "<c-w>h")
+end
 
-v.nnoremap({ "<silent>", "<D-Up>" }, "<c-w>k")
-v.nnoremap({ "<silent>", "<C-k>" }, "<c-w>k")
+for _, code in ipairs({ "<D-Up>", "\\<Up>", "<C-k>"}) do
+    v.nnoremap({ "<silent>", code }, "<c-w>k")
+end
 
-v.nnoremap({ "<silent>", "<D-Down>" }, "<c-w>j")
-v.nnoremap({ "<silent>", "<C-j>" }, "<c-w>j")
+for _, code in ipairs({ "<D-Down>", "\\<Down>", "<C-j>"}) do
+    v.nnoremap({ "<silent>", code }, "<c-w>j")
+end
 
 for i = 1, 9, 1 do
 	for _, key in ipairs({ "<D-k" .. i .. ">", "<D-" .. i .. ">" }) do

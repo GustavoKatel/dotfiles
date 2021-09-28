@@ -82,7 +82,7 @@ function upload() {
 # .config
 $IS_INSTALL && $exec cp -r $DOTFILES_DIR/.config/* $TARGET/.config/
 
-config_files=( starship.toml saturn_iterm2.json goneovim )
+config_files=( starship.toml saturn_iterm2.json goneovim kitty )
 
 for file in "${config_files[@]}"; do
     $IS_BACKUP  && $exec cp -r $TARGET/.config/$file $DOTFILES_DIR/.config/
