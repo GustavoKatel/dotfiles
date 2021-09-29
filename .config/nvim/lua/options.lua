@@ -82,6 +82,7 @@ v.opt.foldmethod = "marker"
 -- terminal overrides
 -- no line numbers on terminals
 v.autocmd("TermOpen", "*", function()
+    v.cmd.IlluminationDisable()
 	v.cmd.setlocal("nonumber")
 	v.cmd.setlocal("norelativenumber")
 end)

@@ -6,6 +6,7 @@ local M = {}
 M.on_attach = function(client, bufnr, ...)
 	-- completion.on_attach(client, bufnr)
 	lsp_status.on_attach(client, bufnr, ...)
+    require 'illuminate'.on_attach(client, bufnr, ...)
 
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)

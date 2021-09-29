@@ -1,5 +1,7 @@
 local v = require("utils")
 
+local second_leader = "z"
+
 -- save with ctrl-s/command-s
 v.nnoremap({ "<D-s>" }, ":w<CR>")
 v.inoremap({ "<D-s>" }, "<ESC>:w<CR>i")
@@ -7,6 +9,7 @@ v.nnoremap({ "<C-s>" }, ":w<CR>")
 v.inoremap({ "<C-s>" }, "<ESC>:w<CR>i")
 
 -- vertical split with ctrl-\ | command-\
+-- TODO: not working in kitty
 v.nnoremap({ "<D-\\>" }, ":vsplit<CR>")
 v.nnoremap({ "<C-\\>" }, ":vsplit<CR>")
 
@@ -39,19 +42,19 @@ v.nnoremap({ "<D-q>" }, ":q<CR>")
 v.nnoremap({ "<leader>s" }, v.cmd.ToggleWorkspace)
 
 -- change focus splits
-for _, code in ipairs({ "<D-Right>", "\\<Right>", "<C-l>" }) do
+for _, code in ipairs({ "<D-Right>", second_leader.."<Right>", "<C-l>" }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>l")
 end
 
-for _, code in ipairs({ "<D-left>", "\\<Left>", "<C-h>" }) do
+for _, code in ipairs({ "<D-left>", second_leader.."<Left>", "<C-h>" }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>h")
 end
 
-for _, code in ipairs({ "<D-Up>", "\\<Up>", "<C-k>" }) do
+for _, code in ipairs({ "<D-Up>", second_leader.."<Up>", "<C-k>" }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>k")
 end
 
-for _, code in ipairs({ "<D-Down>", "\\<Down>", "<C-j>" }) do
+for _, code in ipairs({ "<D-Down>", second_leader.."<Down>", "<C-j>" }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>j")
 end
 
@@ -252,7 +255,7 @@ for _, code in ipairs({ "<M-p>", "<A-p>" }) do
 end
 
 -- telescope commands
-for _, code in ipairs({ "<C-S-P>", "<S-D-P>", "<D-P>", "\\p" }) do
+for _, code in ipairs({ "<C-S-P>", "<S-D-P>", "<D-P>", second_leader.."p" }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope.builtin")
 		telescope.builtin()
@@ -290,7 +293,7 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>" }) do
 end
 
 -- telescope asynctasks
-for _, code in ipairs({ "\\<F9>" }) do
+for _, code in ipairs({ second_leader.."<F9>" }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope")
 		telescope.extensions.asynctasks.all()
@@ -298,7 +301,7 @@ for _, code in ipairs({ "\\<F9>" }) do
 end
 
 -- telescope select/change filetype
-for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", "\\l" }) do
+for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader.."l" }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope.builtin")
 		telescope.filetypes()
