@@ -10,13 +10,12 @@ cmp.setup({
 	sources = { { name = "nvim_lsp" }, { name = "nvim_lua" }, { name = "path" }, { name = "buffer" }, { name = "emoji" } },
 	formatting = {
 		format = function(entry, vim_item)
-			-- fancy icons and a name of kind
-			-- local lsp_info = require("lspkind").presets.default[vim_item.kind]
-
 			local kind = ""
-			if vim.g.gonvim_running == 1 and vim_item.kind then
-				kind = "(" .. vim_item.kind .. ")" .. " "
-			end
+            if vim.g.gonvim_running == 1 and vim_item.kind then
+                kind = "(" .. vim_item.kind .. ")" .. " "
+            end
+
+            vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
 
 			-- set a name for each source
 			vim_item.menu = kind

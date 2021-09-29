@@ -25,6 +25,7 @@ packer.startup(function()
 	--use({ "glepnir/lspsaga.nvim" })
 	--use({ "tami5/lspsaga.nvim" })
 	use({ "GustavoKatel/lspsaga.nvim" })
+    use({ "onsails/lspkind-nvim" })
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
