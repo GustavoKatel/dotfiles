@@ -22,10 +22,13 @@ packer.startup(function()
 	-- lsp
 	use({ "neovim/nvim-lspconfig" })
 	use({ "kabouzeid/nvim-lspinstall" })
+	--{{{ lspsaga tests
 	--use({ "glepnir/lspsaga.nvim" })
 	--use({ "tami5/lspsaga.nvim" })
 	use({ "GustavoKatel/lspsaga.nvim" })
-    use({ "onsails/lspkind-nvim" })
+	--}}}
+	use({ "onsails/lspkind-nvim" })
+	use({ "ray-x/lsp_signature.nvim" })
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
@@ -39,7 +42,6 @@ packer.startup(function()
 	})
 	use({ "nvim-lua/lsp-status.nvim" })
 	-- language support
-	use({ "cespare/vim-toml" })
 	use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
 	use({ "windwp/nvim-ts-autotag" })
 	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
@@ -88,12 +90,11 @@ packer.startup(function()
 		end,
 	})
 	-- debugging & testing
-	use({ "puremourning/vimspector" }) -- debugging platform
+	--use({ "puremourning/vimspector" }) -- debugging platform
 	use({ "mfussenegger/nvim-dap" })
 	use({ "rcarriga/nvim-dap-ui" })
-	use({ "nvim-telescope/telescope-dap.nvim" })
 	use({ "Pocco81/DAPInstall.nvim" })
-	use({ "vim-test/vim-test" }) -- better support for running tests
+	--use({ "vim-test/vim-test" }) -- better support for running tests
 	-- utils
 	use({ "tpope/vim-fugitive" }) -- some git goodies
 	use({ "voldikss/vim-floaterm" }) -- floating terminal
@@ -107,7 +108,8 @@ packer.startup(function()
 	use({ "rmagatti/auto-session" })
 
 	use({ "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } } })
-	use({ "nvim-telescope/telescope-vimspector.nvim" })
+	--use({ "nvim-telescope/telescope-vimspector.nvim" })
+	use({ "nvim-telescope/telescope-dap.nvim" })
 	use({ "GustavoKatel/telescope-asynctasks.nvim" })
 
 	use({
