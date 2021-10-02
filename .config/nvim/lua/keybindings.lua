@@ -60,7 +60,7 @@ for _, code in ipairs({ "<D-Down>", "<C-j>", second_leader .. "<Down>", kitty_es
 end
 
 for i = 1, 9, 1 do
-	for _, key in ipairs({ "<D-k" .. i .. ">", "<D-" .. i .. ">" }) do
+	for _, key in ipairs({ "<D-k" .. i .. ">", "<D-" .. i .. ">", kitty_escape_leader .. "m" .. i }) do
 		v.nnoremap({ "<silent>", key }, ":" .. i .. "wincmd w<CR>")
 		v.tnoremap({ "<silent>", key }, "<C-\\><C-N>:" .. i .. "wincmd w<CR>")
 	end
