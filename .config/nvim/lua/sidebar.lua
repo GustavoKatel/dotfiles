@@ -22,6 +22,7 @@ sidebar.setup({
 		work = { "datetime", "git-status", "lsp-diagnostics", "containers", require("dap-sidebar-nvim.breakpoints") },
 	}),
 	datetime = { clocks = { { name = "Local" }, { tz = "America/Los_Angeles" }, { tz = "Etc/UTC" } } },
+	todos = { initially_closed = false },
 })
 
 v.cmd.highlight("link SidebarNvimLspDiagnosticsTotalNumber Normal")

@@ -1,6 +1,7 @@
 local v = require("utils")
 
 local second_leader = "z"
+local kitty_escape_leader = "<Char-0xff>"
 
 -- save with ctrl-s/command-s
 v.nnoremap({ "<D-s>" }, ":w<CR>")
@@ -42,19 +43,19 @@ v.nnoremap({ "<D-q>" }, ":q<CR>")
 v.nnoremap({ "<leader>s" }, v.cmd.ToggleWorkspace)
 
 -- change focus splits
-for _, code in ipairs({ "<D-Right>", second_leader .. "<Right>", "<C-l>" }) do
+for _, code in ipairs({ "<D-Right>", "<C-l>", second_leader .. "<Right>", kitty_escape_leader .. "mright" }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>l")
 end
 
-for _, code in ipairs({ "<D-left>", second_leader .. "<Left>", "<C-h>" }) do
+for _, code in ipairs({ "<D-left>", "<C-h>", second_leader .. "<Left>", kitty_escape_leader .. "mleft" }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>h")
 end
 
-for _, code in ipairs({ "<D-Up>", second_leader .. "<Up>", "<C-k>" }) do
+for _, code in ipairs({ "<D-Up>", "<C-k>", second_leader .. "<Up>", kitty_escape_leader .. "mtop" }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>k")
 end
 
-for _, code in ipairs({ "<D-Down>", second_leader .. "<Down>", "<C-j>" }) do
+for _, code in ipairs({ "<D-Down>", "<C-j>", second_leader .. "<Down>", kitty_escape_leader .. "mdown" }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>j")
 end
 
@@ -120,8 +121,10 @@ v.vnoremap({ "<D-h>" }, "y:%s/<C-R>=escape(@\",'/\\')<CR>/")
 
 -- ctrl-enter in insert mode to create new line below
 v.inoremap({ "<C-CR>" }, "<ESC>o")
+v.inoremap({ kitty_escape_leader .. "ccr" }, "<ESC>o")
 -- shift-enter in insert mode to create new line above
 v.inoremap({ "<S-CR>" }, "<ESC>O")
+v.inoremap({ kitty_escape_leader .. "scr" }, "<ESC>O")
 
 -- remove search highlight on ESC
 v.nnoremap({ "<ESC>" }, v.cmd.noh)
@@ -172,7 +175,7 @@ end)
 v.nnoremap("<leader>w", require("nvim-window").pick)
 
 -- floaterm keybindings
-for _, code in ipairs({ "<A-F12>", "<M-F12>", second_leader .. "<F12>" }) do
+for _, code in ipairs({ "<A-F12>", "<M-F12>", second_leader .. "<F12>", kitty_escape_leader .. "af12" }) do
 	v.nnoremap({ code }, v.cmd.FloatermToggle)
 	v.inoremap({ code }, "<ESC>:FloatermToggle<CR>")
 	v.tnoremap({ code }, "<C-\\><C-N>:FloatermToggle<CR>")
@@ -255,7 +258,7 @@ for _, code in ipairs({ "<M-p>", "<A-p>" }) do
 end
 
 -- telescope commands
-for _, code in ipairs({ "<C-S-P>", "<S-D-P>", "<D-P>", second_leader .. "p" }) do
+for _, code in ipairs({ "<C-S-P>", "<S-D-P>", "<D-P>", second_leader .. "p", kitty_escape_leader .. "csp" }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope.builtin")
 		telescope.builtin()
@@ -301,7 +304,7 @@ for _, code in ipairs({ second_leader .. "<F9>" }) do
 end
 
 -- telescope select/change filetype
-for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l" }) do
+for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l", kitty_escape_leader .. "csl" }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope.builtin")
 		telescope.filetypes()
