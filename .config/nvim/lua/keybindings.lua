@@ -10,9 +10,9 @@ v.nnoremap({ "<C-s>" }, ":w<CR>")
 v.inoremap({ "<C-s>" }, "<ESC>:w<CR>i")
 
 -- vertical split with ctrl-\ | command-\
--- TODO: not working in kitty
 v.nnoremap({ "<D-\\>" }, ":vsplit<CR>")
 v.nnoremap({ "<C-\\>" }, ":vsplit<CR>")
+v.nnoremap({ kitty_escape_leader .. "m\\" }, ":vsplit<CR>")
 
 -- ctrl/cmd-/ to toggle comment, C-_ can also be interpreted as ctrl-/
 for _, code in ipairs({ "<C-_>", "<C-/>", "<D-/>" }) do
@@ -175,7 +175,7 @@ end)
 v.nnoremap("<leader>w", require("nvim-window").pick)
 
 -- floaterm keybindings
-for _, code in ipairs({ "<A-F12>", "<M-F12>", second_leader .. "<F12>", kitty_escape_leader .. "af12" }) do
+for _, code in ipairs({ "<A-F12>", "<M-F12>", kitty_escape_leader .. "af12" }) do
 	v.nnoremap({ code }, v.cmd.FloatermToggle)
 	v.inoremap({ code }, "<ESC>:FloatermToggle<CR>")
 	v.tnoremap({ code }, "<C-\\><C-N>:FloatermToggle<CR>")
