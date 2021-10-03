@@ -244,7 +244,7 @@ local function telescope_files(with_gitignored)
 	telescope.find_files({ previewer = false, find_command = cmd })
 end
 
-for _, code in ipairs({ "<C-p>", "<D-p>" }) do
+for _, code in ipairs({ "<C-p>", "<D-p>", kitty_escape_leader .. "mp" }) do
 	v.nnoremap({ code }, function()
 		telescope_files(false)
 	end)
