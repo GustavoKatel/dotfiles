@@ -273,7 +273,7 @@ end)
 --
 
 -- telescope global search
-for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>" }) do
+for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", kitty_escape_leader .. "mf" }) do
 	v.nnoremap({ code }, function()
 		local rg_arguments = {}
 

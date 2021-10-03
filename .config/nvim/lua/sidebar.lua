@@ -5,6 +5,7 @@ local sidebar = require("sidebar-nvim")
 sidebar.setup({
 	open = true,
 	initial_width = 40,
+	enable_profile = false,
 	sections = user_profile.with_profile_table({
 		default = {
 			"datetime",
