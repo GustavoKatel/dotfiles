@@ -75,8 +75,6 @@ v.opt.cursorline = true
 -- show tab line
 v.opt.showtabline = 2
 
-v.cmd.hi("illuminatedWord guibg=#424242")
-
 v.opt.foldmethod = "marker"
 
 -- terminal overrides

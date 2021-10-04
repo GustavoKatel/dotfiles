@@ -1,5 +1,4 @@
 require("plugins")
-require("colorscheme")
 require("options")
 require("keybindings")
 require("asynctasks")
@@ -18,10 +17,12 @@ require("completion")
 --require("vimspector")
 require("dap_setup")
 
-require("statusline")
 require("window_picker")
 
 require("sidebar")
 require("misc")
 require("notes")
 require("folding_utils")
+
+require("colorscheme")
+require("statusline")

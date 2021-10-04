@@ -34,7 +34,7 @@ lualine.setup({
 				path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
 			},
 		},
-		lualine_x = { { lualine_custom_winnr }, "diff", "fileformat", "filetype" },
+		lualine_x = { { lualine_custom_winnr }, "fileformat", "filetype" },
 	},
 	inactive_sections = {
 		lualine_c = {
