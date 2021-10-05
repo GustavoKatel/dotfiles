@@ -9,9 +9,14 @@ local autosession = require("auto-session")
 
 -- v.v.g.workspace_dir_replace_char = "_"
 
+local function disable_ts_context()
+	require("treesitter-context").disable()
+end
+
 autosession.setup({
 	auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
 	auto_session_enabled = true,
+	pre_save_cmds = { disable_ts_context },
 	post_save_cmds = { tabs.save },
 	post_delete_cmds = { tabs.delete },
 	post_restore_cmds = { tabs.load },
