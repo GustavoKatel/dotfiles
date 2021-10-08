@@ -25,12 +25,6 @@ end
 v.nnoremap({ "<M-S-Right>" }, "<C-I>")
 v.nnoremap({ "<M-S-Left>" }, "<C-O>")
 
--- use <TAB>/arrow keys to select the popup menu
-v.inoremap({ "<expr>", "<Tab>" }, 'pumvisible() ? "\\<C-n>" : "\\<Tab>"')
-v.inoremap({ "<expr>", "<Down>" }, 'pumvisible() ? "\\<C-n>" : "\\<Down>"')
-v.inoremap({ "<expr>", "<S-Tab>" }, 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"')
-v.inoremap({ "<expr>", "<Up>" }, 'pumvisible() ? "\\<C-p>" : "\\<Up>"')
-
 -- ctrl/cmd-d kill buffer without losing split/window
 v.nnoremap({ "<C-d>" }, ":BD<CR>")
 v.nnoremap({ "<D-d>" }, ":BD<CR>")
