@@ -26,6 +26,5 @@ vim.g.onedark_disable_toggle_style = true -- By default it is false
 vim.g.onedark_disable_terminal_colors = true -- By default it is false
 require("onedark").setup()
 
-
 v.cmd.hi("illuminatedWord guibg=#424242")
 v.cmd.hi("TreesitterContext guibg=#3e4452")

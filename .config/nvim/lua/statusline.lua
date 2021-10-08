@@ -25,8 +25,8 @@ lualine.setup({
 		theme = theme,
 		-- theme = "github",
 		--theme = 'onedark',
-        section_separators = '',
-        component_separators = '|'
+		section_separators = "",
+		component_separators = "|",
 	},
 	sections = {
 		lualine_c = {

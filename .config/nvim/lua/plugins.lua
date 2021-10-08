@@ -45,7 +45,7 @@ packer.startup(function()
 	use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
 	use({ "windwp/nvim-ts-autotag" })
 	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
-    use({ "romgrk/nvim-treesitter-context" })
+	use({ "romgrk/nvim-treesitter-context" })
 	-- colorscheme
 	-- use {'tomasiser/vim-code-dark'}
 	use({ "marko-cerovac/material.nvim" })
