@@ -3,6 +3,21 @@ local v = require("utils")
 local second_leader = "z"
 local kitty_escape_leader = "<Char-0xff>"
 
+-- this is to avoid inserting weird characters (comming from kitty custom maps) in insert mode or terminal mode
+local function create_kitty_keymap(code, no_insert_mode_handler, no_terminal_mode_handler)
+	if not no_insert_mode_handler then
+		--v.inoremap({ kitty_escape_leader .. code }, "<Nop>")
+		v.inoremap({ kitty_escape_leader .. code }, "<ESC>")
+	end
+
+	if not no_terminal_mode_handler then
+		--v.inoremap({ kitty_escape_leader .. code }, "<Nop>")
+		v.tnoremap({ kitty_escape_leader .. code }, "<C-\\><C-N>")
+	end
+
+	return kitty_escape_leader .. code
+end
+
 -- save with ctrl-s/command-s
 v.nnoremap({ "<D-s>" }, ":w<CR>")
 v.inoremap({ "<D-s>" }, "<ESC>:w<CR>i")
@@ -12,7 +27,7 @@ v.inoremap({ "<C-s>" }, "<ESC>:w<CR>i")
 -- vertical split with ctrl-\ | command-\
 v.nnoremap({ "<D-\\>" }, ":vsplit<CR>")
 v.nnoremap({ "<C-\\>" }, ":vsplit<CR>")
-v.nnoremap({ kitty_escape_leader .. "m\\" }, ":vsplit<CR>")
+v.nnoremap({ create_kitty_keymap("m\\") }, ":vsplit<CR>")
 
 -- ctrl/cmd-/ to toggle comment, C-_ can also be interpreted as ctrl-/
 for _, code in ipairs({ "<C-_>", "<C-/>", "<D-/>" }) do
@@ -37,24 +52,24 @@ v.nnoremap({ "<D-q>" }, ":q<CR>")
 v.nnoremap({ "<leader>s" }, v.cmd.ToggleWorkspace)
 
 -- change focus splits
-for _, code in ipairs({ "<D-Right>", "<C-l>", second_leader .. "<Right>", kitty_escape_leader .. "mright" }) do
+for _, code in ipairs({ "<D-Right>", "<C-l>", second_leader .. "<Right>", create_kitty_keymap("mright") }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>l")
 end
 
-for _, code in ipairs({ "<D-left>", "<C-h>", second_leader .. "<Left>", kitty_escape_leader .. "mleft" }) do
+for _, code in ipairs({ "<D-left>", "<C-h>", second_leader .. "<Left>", create_kitty_keymap("mleft") }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>h")
 end
 
-for _, code in ipairs({ "<D-Up>", "<C-k>", second_leader .. "<Up>", kitty_escape_leader .. "mup" }) do
+for _, code in ipairs({ "<D-Up>", "<C-k>", second_leader .. "<Up>", create_kitty_keymap("mup") }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>k")
 end
 
-for _, code in ipairs({ "<D-Down>", "<C-j>", second_leader .. "<Down>", kitty_escape_leader .. "mdown" }) do
+for _, code in ipairs({ "<D-Down>", "<C-j>", second_leader .. "<Down>", create_kitty_keymap("mdown") }) do
 	v.nnoremap({ "<silent>", code }, "<c-w>j")
 end
 
 for i = 1, 9, 1 do
-	for _, key in ipairs({ "<D-k" .. i .. ">", "<D-" .. i .. ">", kitty_escape_leader .. "m" .. i }) do
+	for _, key in ipairs({ "<D-k" .. i .. ">", "<D-" .. i .. ">", create_kitty_keymap("m" .. i, false, true) }) do
 		v.nnoremap({ "<silent>", key }, ":" .. i .. "wincmd w<CR>")
 		v.tnoremap({ "<silent>", key }, "<C-\\><C-N>:" .. i .. "wincmd w<CR>")
 	end
@@ -115,10 +130,10 @@ v.vnoremap({ "<D-h>" }, "y:%s/<C-R>=escape(@\",'/\\')<CR>/")
 
 -- ctrl-enter in insert mode to create new line below
 v.inoremap({ "<C-CR>" }, "<ESC>o")
-v.inoremap({ kitty_escape_leader .. "ccr" }, "<ESC>o")
+v.inoremap({ create_kitty_keymap("ccr", true) }, "<ESC>o")
 -- shift-enter in insert mode to create new line above
 v.inoremap({ "<S-CR>" }, "<ESC>O")
-v.inoremap({ kitty_escape_leader .. "scr" }, "<ESC>O")
+v.inoremap({ create_kitty_keymap("scr", true) }, "<ESC>O")
 
 -- remove search highlight on ESC
 v.nnoremap({ "<ESC>" }, v.cmd.noh)
@@ -169,7 +184,7 @@ end)
 v.nnoremap("<leader>w", require("nvim-window").pick)
 
 -- floaterm keybindings
-for _, code in ipairs({ "<A-F12>", "<M-F12>", kitty_escape_leader .. "af12" }) do
+for _, code in ipairs({ "<A-F12>", "<M-F12>", create_kitty_keymap("af12", true, true) }) do
 	v.nnoremap({ code }, v.cmd.FloatermToggle)
 	v.inoremap({ code }, "<ESC>:FloatermToggle<CR>")
 	v.tnoremap({ code }, "<C-\\><C-N>:FloatermToggle<CR>")
@@ -238,7 +253,7 @@ local function telescope_files(with_gitignored)
 	telescope.find_files({ previewer = false, find_command = cmd })
 end
 
-for _, code in ipairs({ "<C-p>", "<D-p>", kitty_escape_leader .. "mp" }) do
+for _, code in ipairs({ "<C-p>", "<D-p>", create_kitty_keymap("mp") }) do
 	v.nnoremap({ code }, function()
 		telescope_files(false)
 	end)
@@ -257,8 +272,8 @@ for _, code in ipairs({
 	"<S-D-P>",
 	"<D-P>",
 	second_leader .. "p",
-	kitty_escape_leader .. "csp",
-	kitty_escape_leader .. "msp",
+	create_kitty_keymap("csp"),
+	create_kitty_keymap("msp"),
 }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope.builtin")
@@ -274,7 +289,7 @@ end)
 --
 
 -- telescope global search
-for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", kitty_escape_leader .. "mf" }) do
+for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_kitty_keymap("mf") }) do
 	v.nnoremap({ code }, function()
 		local rg_arguments = {}
 
@@ -305,7 +320,7 @@ for _, code in ipairs({ second_leader .. "<F9>" }) do
 end
 
 -- telescope select/change filetype
-for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l", kitty_escape_leader .. "csl" }) do
+for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l", create_kitty_keymap("csl") }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope.builtin")
 		telescope.filetypes()
