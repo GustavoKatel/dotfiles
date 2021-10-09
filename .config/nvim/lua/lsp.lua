@@ -15,7 +15,7 @@ local lsp_on_attach = require("lsp_on_attach")
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
 local servers = user_profile.with_profile_table({
-	default = { "efm", "lua", "typescript", "go", "cpp" },
+	default = { "efm", "lua", "typescript", "go", "cpp", "rust" },
 	work = { "efm", "lua", "typescript" },
 })
 
