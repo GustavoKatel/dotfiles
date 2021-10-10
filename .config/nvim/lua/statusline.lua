@@ -76,7 +76,7 @@ lualine.setup({
 				path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
 			},
 			--{ lualine_tab_treesitter },
-			{ gitsigns_blame },
+			--{ gitsigns_blame },
 			{ lualine_lsp_status },
 		},
 		lualine_x = {},
