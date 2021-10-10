@@ -24,8 +24,8 @@ packer.startup(function()
 	use({ "kabouzeid/nvim-lspinstall" })
 	--{{{ lspsaga tests
 	--use({ "glepnir/lspsaga.nvim" })
-	--use({ "tami5/lspsaga.nvim" })
-	use({ "GustavoKatel/lspsaga.nvim" })
+	use({ "tami5/lspsaga.nvim" })
+	--use({ "GustavoKatel/lspsaga.nvim" })
 	--}}}
 	use({ "onsails/lspkind-nvim" })
 	use({ "ray-x/lsp_signature.nvim" })
