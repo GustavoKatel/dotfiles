@@ -70,7 +70,8 @@ packer.startup(function()
 	use({ "google/vim-searchindex" }) -- better search results
 	use({ "editorconfig/editorconfig-vim" })
 	-- HUD
-	use({ "airblade/vim-gitgutter" }) -- git information in the buffer lines
+	--use({ "airblade/vim-gitgutter" }) -- git information in the buffer lines
+	use({ "lewis6991/gitsigns.nvim" })
 	use({ "ryanoasis/vim-devicons" }) -- add support for devicons
 	use({ "lambdalisue/nerdfont.vim" }) -- add support for nerdfont
 	use({ "kyazdani42/nvim-web-devicons" })

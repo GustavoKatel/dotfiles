@@ -19,6 +19,24 @@ local function lualine_lsp_status()
 	return "<no lsp>"
 end
 
+local function gitsigns_blame()
+	local blame_info = vim.b.gitsigns_blame_line_dict
+
+	if not blame_info then
+		return nil
+	end
+
+	local text
+	if blame_info.author == "Not Committed Yet" then
+		text = blame_info.author
+	else
+		local date_time
+		date_time = os.date("%Y-%m-%d", tonumber(blame_info["author_time"]))
+		text = string.format("%s, %s - %s", blame_info.author, date_time, blame_info.summary)
+	end
+	return text
+end
+
 lualine.setup({
 	options = {
 		-- theme = "codedark",
@@ -57,7 +75,8 @@ lualine.setup({
 				file_status = true, -- displays file status (readonly status, modified status)
 				path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
 			},
-			{ lualine_tab_treesitter },
+			--{ lualine_tab_treesitter },
+			{ gitsigns_blame },
 			{ lualine_lsp_status },
 		},
 		lualine_x = {},

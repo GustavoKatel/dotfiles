@@ -9,6 +9,7 @@ require("title")
 require("treesitter")
 require("workspace")
 require("telescope_setup")
+require("gitsigns_setup")
 
 require("lsp")
 require("saga")
