@@ -175,12 +175,12 @@ end
 v.inoremap(wordLeft[1], "<ESC>b")
 v.inoremap(wordRight[1], "<ESC>lw")
 
--- easymotion/hop.nvim
--- v.nmap("f", "<Plug>(easymotion-overwin-f2)")
+-- hop.nvim
 v.nnoremap("f", function()
-	print("enter 2 char pattern")
+	print("enter 2 char pattern: ")
 	require("hop").hint_char2()
 end)
+v.nnoremap("F", require("hop").hint_words)
 v.nnoremap("<leader>w", require("nvim-window").pick)
 
 -- floaterm keybindings
