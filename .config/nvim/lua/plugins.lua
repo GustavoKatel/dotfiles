@@ -73,7 +73,6 @@ packer.startup(function()
 	--use({ "airblade/vim-gitgutter" }) -- git information in the buffer lines
 	use({ "lewis6991/gitsigns.nvim" })
 	use({ "ryanoasis/vim-devicons" }) -- add support for devicons
-	use({ "lambdalisue/nerdfont.vim" }) -- add support for nerdfont
 	use({ "kyazdani42/nvim-web-devicons" })
 	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 	use({
