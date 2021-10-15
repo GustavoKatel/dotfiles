@@ -24,7 +24,8 @@ packer.startup(function()
 	use({ "kabouzeid/nvim-lspinstall" })
 	--{{{ lspsaga tests
 	--use({ "glepnir/lspsaga.nvim" })
-	use({ "tami5/lspsaga.nvim" })
+	-- TODO: this is the last commit known to work for 0.5.1, use that until migrate to 0.6 (nightly ATM)
+	use({ "tami5/lspsaga.nvim", commit = "c884214b57fea2f5f6f04e1245a3e55cc19bbe96" })
 	--use({ "GustavoKatel/lspsaga.nvim" })
 	--}}}
 	use({ "onsails/lspkind-nvim" })
