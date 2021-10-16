@@ -47,6 +47,7 @@ lualine.setup({
 		component_separators = "|",
 	},
 	sections = {
+		lualine_b = {},
 		lualine_c = {
 			{
 				"filename",

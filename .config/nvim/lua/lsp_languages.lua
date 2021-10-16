@@ -1,20 +1,20 @@
 local lsp_on_attach = require("lsp_on_attach")
 
-local eslint = {
-	lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
-	lintStdin = true,
-	lintFormats = { "%f:%l:%c: %m" },
-	lintIgnoreExitCode = true,
-	formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
-	formatStdin = true,
-}
+--local eslint = {
+--lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+--lintStdin = true,
+--lintFormats = { "%f:%l:%c: %m" },
+--lintIgnoreExitCode = true,
+--formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+--formatStdin = true,
+--}
 
 local prettier = { formatCommand = "./node_modules/.bin/prettier --stdin-filepath ${INPUT}", formatStdin = true }
 
 local lua_formatter = { formatCommand = "stylua -", formatStdin = true }
 
 local configs = {
-	lua = {
+	sumneko_lua = {
 		init_options = { codelenses = { test = true } },
 		settings = {
 			Lua = {
@@ -39,7 +39,28 @@ local configs = {
 			},
 		},
 	},
-	typescript = {
+	eslint = {
+		on_attach = function(client, bufnr, ...)
+			-- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
+			-- the resolved capabilities of the eslint server ourselves!
+			client.resolved_capabilities.document_formatting = true
+			return lsp_on_attach.on_attach(client, bufnr, ...)
+		end,
+		settings = {
+			format = { enable = true }, -- this will enable formatting
+		},
+		handlers = {
+			["eslint/probeFailed"] = function()
+				vim.notify("ESLint probe failed.", vim.log.levels.WARN)
+				return { id = nil, result = true }
+			end,
+			["eslint/noLibrary"] = function()
+				vim.notify("Unable to find ESLint library.", vim.log.levels.WARN)
+				return { id = nil, result = true }
+			end,
+		},
+	},
+	tsserver = {
 		on_attach = function(client, bufnr, ...)
 			client.resolved_capabilities.document_formatting = false
 			return lsp_on_attach.on_attach(client, bufnr, ...)
@@ -51,12 +72,12 @@ local configs = {
 			rootMarkers = { ".git/" },
 			languages = {
 				lua = { lua_formatter },
-				javascript = { eslint, prettier },
-				typescript = { eslint, prettier },
-				typescriptreact = { eslint, prettier },
-				javascriptreact = { eslint, prettier },
-				["javascript.jsx"] = { eslint, prettier },
-				["typescript.tsx"] = { eslint, prettier },
+				javascript = { prettier },
+				typescript = { prettier },
+				typescriptreact = { prettier },
+				javascriptreact = { prettier },
+				["javascript.jsx"] = { prettier },
+				["typescript.tsx"] = { prettier },
 				yaml = { prettier },
 				json = { prettier },
 				html = { prettier },

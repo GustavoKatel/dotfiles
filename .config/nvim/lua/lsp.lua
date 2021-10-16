@@ -2,8 +2,7 @@ local luv = vim.loop
 local v = require("utils")
 local user_profile = require("user_profile")
 
-local nvim_lsp = require("lspconfig")
-local lspinstall = require("lspinstall")
+local lsp_installer = require("nvim-lsp-installer")
 
 -- status in the tabline
 local lsp_status = require("lsp-status")
@@ -15,8 +14,8 @@ local lsp_on_attach = require("lsp_on_attach")
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
 local servers = user_profile.with_profile_table({
-	default = { "efm", "lua", "typescript", "go", "cpp", "rust" },
-	work = { "efm", "lua", "typescript" },
+	default = { "efm", "sumneko_lua", "tsserver", "eslint", "gopls", "clangd", "rust_analyzer", "pyright" },
+	work = { "efm", "sumneko_lua", "tsserver", "eslint" },
 })
 
 -- config that activates keymaps and enables snippet support
@@ -43,24 +42,23 @@ local function make_config(server)
 	return vim.tbl_extend("force", server_config, config)
 end
 
-local function setup_servers()
-	lspinstall.setup()
-
-	for _, lsp in ipairs(lspinstall.installed_servers()) do
-		local config = make_config(lsp)
-		nvim_lsp[lsp].setup(config)
-	end
-end
-
-setup_servers()
-
-lspinstall.post_install_hook = function()
-	setup_servers() -- reload installed servers
-end
+lsp_installer.on_server_ready(function(server)
+	local config = make_config(server.name)
+	--
+	-- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+	server:setup(config)
+	vim.cmd([[ do User LspAttachBuffers ]])
+end)
 
 v.cmd["UpdateLSP"] = function()
 	for _, lang in ipairs(servers) do
 		v.cmd.LspInstall(lang)
+	end
+end
+
+v.cmd["UninstallLSP"] = function()
+	for _, lang in ipairs(servers) do
+		v.cmd.LspUninstall(lang)
 	end
 end
 

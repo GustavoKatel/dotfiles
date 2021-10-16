@@ -21,7 +21,7 @@ packer.startup(function()
 	use({ "nvim-lua/plenary.nvim" })
 	-- lsp
 	use({ "neovim/nvim-lspconfig" })
-	use({ "kabouzeid/nvim-lspinstall" })
+	use({ "williamboman/nvim-lsp-installer" })
 	--{{{ lspsaga tests
 	--use({ "glepnir/lspsaga.nvim" })
 	-- TODO: this is the last commit known to work for 0.5.1, use that until migrate to 0.6 (nightly ATM)
