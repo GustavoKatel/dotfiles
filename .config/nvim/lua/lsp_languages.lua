@@ -49,16 +49,6 @@ local configs = {
 		settings = {
 			format = { enable = true }, -- this will enable formatting
 		},
-		handlers = {
-			["eslint/probeFailed"] = function()
-				vim.notify("ESLint probe failed.", vim.log.levels.WARN)
-				return { id = nil, result = true }
-			end,
-			["eslint/noLibrary"] = function()
-				vim.notify("Unable to find ESLint library.", vim.log.levels.WARN)
-				return { id = nil, result = true }
-			end,
-		},
 	},
 	tsserver = {
 		on_attach = function(client, bufnr, ...)

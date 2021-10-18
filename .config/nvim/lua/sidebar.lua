@@ -26,6 +26,4 @@ sidebar.setup({
 	todos = { initially_closed = true },
 })
 
---require("sidebar-nvim.builtin.git-status").icon = ""
-
 v.cmd.highlight("link SidebarNvimLspDiagnosticsTotalNumber Normal")
