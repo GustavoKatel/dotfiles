@@ -19,6 +19,15 @@ treesitter_config.setup({
 	},
 	highlight = { enable = true, custom_captures = {} },
 	autotag = { enable = true },
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "gnn",
+			node_incremental = "grn",
+			scope_incremental = "grc",
+			node_decremental = "grm",
+		},
+	},
 	textobjects = {
 		select = {
 			enable = true,
