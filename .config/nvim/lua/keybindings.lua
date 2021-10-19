@@ -103,7 +103,7 @@ v.nnoremap({ "<C-PageUp>" }, v.cmd.tabprevious)
 v.nnoremap({ "<C-PageDown>" }, v.cmd.tabnext)
 
 -- ctrl/cmd-a select all in insert and normal modes
-for _, code in ipairs({ "<C-a>", "<D-a>" }) do
+for _, code in ipairs({ "<leader>a", "<D-a>" }) do
 	v.inoremap({ code }, "<ESC>ggVG")
 	v.nnoremap({ code }, "ggVG")
 end
@@ -176,11 +176,11 @@ v.inoremap(wordLeft[1], "<ESC>b")
 v.inoremap(wordRight[1], "<ESC>lw")
 
 -- hop.nvim
-v.nnoremap("f", function()
+v.nnoremap("<leader>g", function()
 	print("enter 2 char pattern: ")
 	require("hop").hint_char2()
 end)
-v.nnoremap("F", require("hop").hint_words)
+v.nnoremap("<leader>f", require("hop").hint_words)
 v.nnoremap("<leader>w", require("nvim-window").pick)
 
 -- floaterm keybindings
