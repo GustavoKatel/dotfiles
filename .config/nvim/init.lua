@@ -17,6 +17,8 @@ require("completion")
 --require("vimspector")
 require("dap_setup")
 
+require("autopairs")
+
 require("window_picker")
 
 require("sidebar")
@@ -26,3 +28,5 @@ require("folding_utils")
 
 require("colorscheme")
 require("statusline")
+
+require("quickfix_window")

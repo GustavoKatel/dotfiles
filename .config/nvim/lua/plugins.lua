@@ -44,7 +44,7 @@ packer.startup(function()
 	use({ "nvim-lua/lsp-status.nvim" })
 	-- language support
 	use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
-	use({ "windwp/nvim-ts-autotag" })
+	use({ "windwp/nvim-ts-autotag" }) -- auto close html tags using treesitter
 	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 	use({ "romgrk/nvim-treesitter-context" })
 	-- colorscheme
@@ -55,7 +55,7 @@ packer.startup(function()
 
 	-- editting
 	use({ "preservim/nerdcommenter" }) -- toggle comment
-	use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
+    use({ "windwp/nvim-autopairs" }) -- auto close brackets, parenthesis etc
 	use({ "mg979/vim-visual-multi" }) -- multiple cursors
 	use({ "tpope/vim-surround" })
 	use({
@@ -71,8 +71,7 @@ packer.startup(function()
 	use({ "google/vim-searchindex" }) -- better search results
 	use({ "editorconfig/editorconfig-vim" })
 	-- HUD
-	--use({ "airblade/vim-gitgutter" }) -- git information in the buffer lines
-	use({ "lewis6991/gitsigns.nvim" })
+	use({ "lewis6991/gitsigns.nvim" }) -- git information in the buffer lines
 	use({ "ryanoasis/vim-devicons" }) -- add support for devicons
 	use({ "kyazdani42/nvim-web-devicons" })
 	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
