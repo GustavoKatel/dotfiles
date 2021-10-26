@@ -17,7 +17,7 @@ require("completion")
 --require("vimspector")
 require("dap_setup")
 
-require("autopairs")
+--require("autopairs")
 
 require("window_picker")
 

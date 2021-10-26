@@ -55,7 +55,7 @@ packer.startup(function()
 
 	-- editting
 	use({ "preservim/nerdcommenter" }) -- toggle comment
-    use({ "windwp/nvim-autopairs" }) -- auto close brackets, parenthesis etc
+	use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
 	use({ "mg979/vim-visual-multi" }) -- multiple cursors
 	use({ "tpope/vim-surround" })
 	use({
@@ -74,7 +74,7 @@ packer.startup(function()
 	use({ "lewis6991/gitsigns.nvim" }) -- git information in the buffer lines
 	use({ "ryanoasis/vim-devicons" }) -- add support for devicons
 	use({ "kyazdani42/nvim-web-devicons" })
-	use({ "hoob3rt/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+	use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
@@ -121,7 +121,7 @@ packer.startup(function()
 		rocks = { "luatz" },
 	})
 	use({ "GustavoKatel/dap-sidebar.nvim" })
-	-- use '/Users/gustavokatel/dev/sidebar.nvim-dev'
+	--use({ "/Users/gustavokatel/dev/dap-sidebar.nvim" })
 
 	-- neovim dev
 	use({
