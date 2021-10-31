@@ -72,7 +72,6 @@ packer.startup(function()
 	use({ "editorconfig/editorconfig-vim" })
 	-- HUD
 	use({ "lewis6991/gitsigns.nvim" }) -- git information in the buffer lines
-	use({ "ryanoasis/vim-devicons" }) -- add support for devicons
 	use({ "kyazdani42/nvim-web-devicons" })
 	use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 	use({
@@ -104,6 +103,7 @@ packer.startup(function()
 	use({ "glepnir/dashboard-nvim" })
 	use({ "skywind3000/asynctasks.vim" })
 	use({ "skywind3000/asyncrun.vim" })
+	use({ "justinmk/vim-dirvish" })
 
 	-- use {'GustavoKatel/vim-workspace'}
 	use({ "rmagatti/auto-session" })
