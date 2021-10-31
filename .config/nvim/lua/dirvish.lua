@@ -9,7 +9,7 @@ function _G.dirvish_get_icon(path)
 
 	local icon = require("nvim-web-devicons").get_icon(vim.fn.fnamemodify(path, ":p"), vim.fn.fnamemodify(path, ":e"))
 
-	return icon .. " "
+	return icon
 end
 
 vim.cmd([[
