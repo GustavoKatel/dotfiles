@@ -8,5 +8,7 @@ local white_dimmed = white_dimmed_mapping[vim.g.colors_name]
 theme.inactive.a.fg = white_dimmed
 theme.inactive.b.fg = white_dimmed
 theme.inactive.c.fg = white_dimmed
+theme.terminal = { a = { fg = colors.black, bg = colors.yellow } }
+theme.command = { a = { fg = colors.black, bg = colors.cyan } }
 
 return theme
