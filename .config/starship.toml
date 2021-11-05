@@ -43,9 +43,9 @@ format = "\\[[${symbol} ${version}( \\($virtualenv\\))]($style)\\] "
 format = "\\[[祥$duration]($style)\\] "
 
 [custom.shell_counter]
-command = "source ~/.zshrc && shell_counter"
+command = "source ~/dev/shell_recursive_counter.sh && shell_counter"
 format = "\\[[[$symbol](bold grey) $output]($style)\\] "
-when = "source ~/.zshrc && shell_counter"
+when = "source ~/dev/shell_recursive_counter.sh && shell_counter"
 shell = ["zsh", "-l"]
 symbol = ""
 style = "white"
@@ -56,22 +56,6 @@ format = "\\[[[$symbol](bold blue) $output]($style)\\] "
 when = "! [ -z $PYENV_ROOT ]"
 shell = ["zsh", "-l"]
 symbol = ""
-style = "white"
-
-[custom.nvm]
-command = "source ~/.zshrc && node -v"
-format = "\\[[[$symbol](bold yellow) $output]($style)\\] "
-when = "! [ -z $NVM_DIR ]"
-shell = ["zsh", "-l"]
-symbol = ""
-style = "white"
-
-[custom.legalist_env]
-command = "source ~/.zshrc && legalist_check_env"
-format = "\\[[$output]($style)\\] "
-when = "! [ -z $DJANGO_SETTINGS_MODULE ]"
-shell = ["zsh", "-l"]
-symbol = ""
 style = "white"
 
 [custom.rosetta_shell]
