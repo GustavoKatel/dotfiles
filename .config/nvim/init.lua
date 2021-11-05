@@ -9,7 +9,7 @@ require("treesitter")
 require("workspace")
 require("telescope_setup")
 require("git_utils")
-require("dirvish")
+--require("dirvish")
 
 require("lsp")
 require("saga")
