@@ -1,58 +1,98 @@
+local luv = vim.loop
 local v = require("utils")
+local user_profile = require("user_profile")
 
-local nvim_lsp = require 'lspconfig'
-local completion = require 'completion'
-local lspinstall = require'lspinstall'
+local lsp_installer = require("nvim-lsp-installer")
 
+-- status in the tabline
+local lsp_status = require("lsp-status")
+lsp_status.register_progress()
 
-local servers = { "python", "rust", "typescript", "go", "lua" }
+-- configs
+local configs = require("lsp_languages")
+local lsp_on_attach = require("lsp_on_attach")
 
-local function setup_servers()
-    lspinstall.setup()
+-- local servers = { "python", "rust", "typescript", "go", "lua" }
+local servers = user_profile.with_profile_table({
+	default = { "efm", "sumneko_lua", "tsserver", "eslint", "gopls", "clangd", "rust_analyzer", "pyright" },
+	work = { "efm", "sumneko_lua", "tsserver", "eslint" },
+})
 
-    for _, lsp in ipairs(lspinstall.installed_servers()) do
-        if lsp == "lua" then
-            nvim_lsp[lsp].setup {
-                on_attach = completion.on_attach,
-                init_options = {
-                    codelenses = {
-                        test = true,
-                    },
-                },
-                settings = {
-                    Lua = {
-                        runtime = {
-                            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                            version = 'LuaJIT',
-                            -- Setup your lua path
-                            path = vim.split(package.path, ';')
-                        },
-                        diagnostics = {
-                            -- Get the language server to recognize the `vim` global
-                            globals = {'vim', 'use'}
-                        },
-                        workspace = {
-                            -- Make the server aware of Neovim runtime files
-                            library = {[vim.fn.expand('$VIMRUNTIME/lua')] = true, [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
-                        }
-                    }
-                }
-            }
-        else
-            nvim_lsp[lsp].setup { on_attach = completion.on_attach }
-        end
-    end
+-- config that activates keymaps and enables snippet support
+local function make_config(server)
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+	capabilities.textDocument.completion.completionItem.resolveSupport = {
+		properties = { "documentation", "detail", "additionalTextEdits" },
+	}
+
+	local lsp_status_extension = lsp_status.extensions[server]
+	local lsp_handlers = nil
+	if lsp_status_extension then
+		lsp_handlers = lsp_status_extension.setup()
+	end
+
+	local config = { capabilities = capabilities, handlers = lsp_handlers, on_attach = lsp_on_attach.on_attach }
+
+	local server_config = configs[server] or {}
+	if server_config.on_attach ~= nil then
+		config.on_attach = server_config.on_attach
+	end
+
+	return vim.tbl_extend("force", server_config, config)
 end
 
-setup_servers()
-
-lspinstall.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+lsp_installer.on_server_ready(function(server)
+	local config = make_config(server.name)
+	--
+	-- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+	server:setup(config)
+	vim.cmd([[ do User LspAttachBuffers ]])
+end)
 
 v.cmd["UpdateLSP"] = function()
-    for _, lang in ipairs(servers) do
-        v.cmd.LspInstall(lang)
-    end
+	for _, lang in ipairs(servers) do
+		v.cmd.LspInstall(lang)
+	end
 end
+
+v.cmd["UninstallLSP"] = function()
+	for _, lang in ipairs(servers) do
+		v.cmd.LspUninstall(lang)
+	end
+end
+
+local M = {}
+
+M.cursor_hold_timer = nil
+
+-- adds a small delay before showing the line diagnostics
+M.cursor_hold = function()
+	local timeout = 500
+
+	local bufnr = 0
+	local line_nr = (vim.api.nvim_win_get_cursor(0)[1] - 1)
+
+	if M.cursor_hold_timer then
+		M.cursor_hold_timer:stop()
+		M.cursor_hold_timer:close()
+		M.cursor_hold_timer = nil
+	end
+
+	M.cursor_hold_timer = luv.new_timer()
+
+	M.cursor_hold_timer:start(
+		timeout,
+		0,
+		vim.schedule_wrap(function()
+			if M.cursor_hold_timer then
+				M.cursor_hold_timer:stop()
+				M.cursor_hold_timer:close()
+				M.cursor_hold_timer = nil
+			end
+			require("lspsaga.diagnostic").show_line_diagnostics(nil, bufnr, line_nr)
+		end)
+	)
+end
+
+return M
