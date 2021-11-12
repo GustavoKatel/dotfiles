@@ -20,7 +20,7 @@ sidebar.setup({
 			"git-status",
 			"lsp-diagnostics",
 		},
-		work = { "datetime", "git-status", "lsp-diagnostics", "containers", require("dap-sidebar-nvim.breakpoints") },
+		work = {"git-status", "lsp-diagnostics", require("dap-sidebar-nvim.breakpoints"), "files" },
 	}),
 	datetime = { clocks = { { name = "Local" }, { tz = "America/Los_Angeles" }, { tz = "Etc/UTC" } } },
 	todos = { initially_closed = true },
