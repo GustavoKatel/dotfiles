@@ -58,6 +58,8 @@ local configs = {
 	},
 	efm = {
 		init_options = { documentFormatting = true },
+		--TODO: https://github.com/neovim/nvim-lspconfig/pull/1414
+		single_file_support = true,
 		settings = {
 			rootMarkers = { ".git/" },
 			languages = {
