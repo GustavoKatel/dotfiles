@@ -104,7 +104,7 @@ v.nnoremap({ "<C-PageDown>" }, v.cmd.tabnext)
 
 -- ctrl/cmd-a select all in insert and normal modes
 for _, code in ipairs({ "<leader>a", "<D-a>" }) do
-	v.inoremap({ code }, "<ESC>ggVG")
+	--v.inoremap({ code }, "<ESC>ggVG")
 	v.nnoremap({ code }, "ggVG")
 end
 

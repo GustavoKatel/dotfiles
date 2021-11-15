@@ -7,7 +7,7 @@ sidebar.setup({
 	initial_width = 40,
 	enable_profile = false,
 	sections = user_profile.with_profile_table({
-		default = { "git-status", "lsp-diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers", "files" },
+		default = { "git-status", "lsp-diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers" },
 		test = {
 			"datetime",
 			"git-status",
