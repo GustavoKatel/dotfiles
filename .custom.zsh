@@ -32,13 +32,15 @@ function done-notify() {
 # NVM - wrappers to avoid big init delays
 function nvm_load() {
   export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 alias nl=nvm_load
+nvm_load
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # END NVM wrappers
 
 # task integration
@@ -60,6 +62,9 @@ alias rosetta_shell=$HOME/dev/apple_silicon_shims/rosetta_shell.sh
 alias mbrew="/opt/homebrew/bin/brew"
 alias ibrew="rosetta_shell /usr/local/bin/brew"
 # end homebrew
+
+bindkey "\e[1;3D" backward-word # alt(option) + <-
+bindkey "\e[1;3C" forward-word # alt(option) + ->
 
 eval $(starship init zsh)
 

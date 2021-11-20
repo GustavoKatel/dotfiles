@@ -100,8 +100,6 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source $HOME/.custom.zsh
-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/gustavokatel/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/gustavokatel/google-cloud-sdk/path.zsh.inc'; fi
@@ -111,4 +109,9 @@ if [ -f '/Users/gustavokatel/google-cloud-sdk/completion.zsh.inc' ]; then . '/Us
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-export PATH="/opt/homebrew/bin:$PATH"
+if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+fi
+
+
+source $HOME/.custom.zsh
