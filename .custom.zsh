@@ -55,6 +55,8 @@ export PATH="$HOME/go/bin/:$PATH"
 
 alias pyenv_load=$HOME/dev/pyenv_load.sh
 
+source $HOME/.poetry/env
+
 alias rosetta_shell=$HOME/dev/apple_silicon_shims/rosetta_shell.sh
 
 # homebrew

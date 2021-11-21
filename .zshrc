@@ -115,3 +115,5 @@ fi
 
 
 source $HOME/.custom.zsh
+
+export PATH="$HOME/.poetry/bin:$PATH"

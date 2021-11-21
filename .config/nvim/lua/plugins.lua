@@ -46,6 +46,7 @@ packer.startup(function()
 	use({ "windwp/nvim-ts-autotag" }) -- auto close html tags using treesitter
 	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 	use({ "romgrk/nvim-treesitter-context" })
+	use({ "cespare/vim-toml" })
 	-- colorscheme
 	-- use {'tomasiser/vim-code-dark'}
 	use({ "marko-cerovac/material.nvim" })
