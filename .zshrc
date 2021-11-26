@@ -117,3 +117,5 @@ fi
 source $HOME/.custom.zsh
 
 export PATH="$HOME/.poetry/bin:$PATH"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

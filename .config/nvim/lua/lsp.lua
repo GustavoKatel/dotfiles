@@ -90,7 +90,7 @@ M.cursor_hold = function()
 				M.cursor_hold_timer:close()
 				M.cursor_hold_timer = nil
 			end
-			require("lspsaga.diagnostic").show_line_diagnostics(nil, bufnr, line_nr)
+			require("lspsaga.diagnostic").show_line_diagnostics(nil, line_nr, bufnr)
 		end)
 	)
 end

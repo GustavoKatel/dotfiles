@@ -6,4 +6,5 @@ v.cmd["UpdateTitle"] = function()
 	vim.cmd("let &titlestring='" .. titlestring .. "'")
 end
 
+v.autocmd("VimEnter", "*", v.cmd.UpdateTitle)
 v.autocmd("DirChanged", "*", v.cmd.UpdateTitle)
