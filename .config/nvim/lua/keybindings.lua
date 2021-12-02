@@ -306,7 +306,8 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_kitty_key
 			table.insert(rg_arguments, arg)
 		end
 
-		require("telescope").extensions.live_grep_raw.live_grep_raw({ vimgrep_arguments = rg_arguments })
+		-- telescope.live_grep({ vimgrep_arguments = rg_arguments })
+		require("telescope_rg_pattern").live_grep_pattern({ vimgrep_arguments = rg_arguments })
 	end)
 end
 

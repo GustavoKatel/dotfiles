@@ -17,6 +17,8 @@ alias nv="nvim"
 
 alias nvu="/Applications/goneovim.app/Contents/MacOS/goneovim --maximized >/dev/null 2>&1 & disown"
 
+alias nr="npm run"
+
 function done-notify() {
   if [ $? -eq 0 ]; then
     RESULT="Ok"

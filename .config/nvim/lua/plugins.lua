@@ -110,7 +110,6 @@ packer.startup(function()
 	use({ "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } } })
 	--use({ "nvim-telescope/telescope-vimspector.nvim" })
 	use({ "nvim-telescope/telescope-dap.nvim" })
-    use({ "nvim-telescope/telescope-live-grep-raw.nvim" })
 	use({ "GustavoKatel/telescope-asynctasks.nvim" })
 
 	use({
