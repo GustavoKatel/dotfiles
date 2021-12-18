@@ -99,7 +99,6 @@ packer.startup(function()
 	use({ "voldikss/vim-floaterm" }) -- floating terminal
 	use({ "qpkorr/vim-bufkill" }) -- better support for killing buffers
 	use({ "mbbill/undotree" }) -- undo history on steroids
-	use({ "glepnir/dashboard-nvim" })
 	use({ "skywind3000/asynctasks.vim" })
 	use({ "skywind3000/asyncrun.vim" })
 	--use({ "justinmk/vim-dirvish" })
@@ -110,7 +109,7 @@ packer.startup(function()
 	use({ "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } } })
 	--use({ "nvim-telescope/telescope-vimspector.nvim" })
 	use({ "nvim-telescope/telescope-dap.nvim" })
-    use({ "nvim-telescope/telescope-live-grep-raw.nvim" })
+	use({ "nvim-telescope/telescope-live-grep-raw.nvim" })
 	use({ "GustavoKatel/telescope-asynctasks.nvim" })
 
 	use({
