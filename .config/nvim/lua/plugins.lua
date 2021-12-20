@@ -23,8 +23,8 @@ packer.startup(function()
 	use({ "neovim/nvim-lspconfig" })
 	use({ "williamboman/nvim-lsp-installer" })
 	--{{{ lspsaga tests
-	--use({ "tami5/lspsaga.nvim", branch = "nvim51" })
-	use({ "tami5/lspsaga.nvim" })
+	use({ "tami5/lspsaga.nvim", branch = "nvim6.0" })
+	--use({ "tami5/lspsaga.nvim" })
 	--}}}
 	use({ "onsails/lspkind-nvim" })
 	use({ "ray-x/lsp_signature.nvim" })
