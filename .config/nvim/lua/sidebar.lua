@@ -11,10 +11,10 @@ sidebar.setup({
 		test = {
 			"git",
 			"diagnostics",
-            "symbols",
-            "files",
-            "containers",
-            "todos"
+			"symbols",
+			"files",
+			"containers",
+			"todos",
 		},
 		work = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "files" },
 	}),
