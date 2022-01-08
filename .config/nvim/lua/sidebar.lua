@@ -7,13 +7,16 @@ sidebar.setup({
 	initial_width = 40,
 	enable_profile = false,
 	sections = user_profile.with_profile_table({
-		default = { "git-status", "lsp-diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers" },
+		default = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers" },
 		test = {
-			"datetime",
-			"git-status",
-			"lsp-diagnostics",
+			"git",
+			"diagnostics",
+            "symbols",
+            "files",
+            "containers",
+            "todos"
 		},
-		work = { "git-status", "lsp-diagnostics", require("dap-sidebar-nvim.breakpoints"), "files" },
+		work = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "files" },
 	}),
 	datetime = { clocks = { { name = "Local" }, { tz = "America/Los_Angeles" }, { tz = "Etc/UTC" } } },
 	todos = { initially_closed = true },

@@ -21,10 +21,12 @@ v.v.g.material_disable_terminal = true
 
 --v.cmd.colorscheme("material")
 
-vim.g.onedark_style = "warmer"
-vim.g.onedark_disable_toggle_style = true -- By default it is false
-vim.g.onedark_disable_terminal_colors = true -- By default it is false
-require("onedark").setup()
+--vim.g.onedark_disable_toggle_style = true -- By default it is false
+require("onedark").setup({
+	style = "warmer",
+	term_colors = false,
+	toggle_style_list = { "warmer" },
+})
 
 v.cmd.hi("illuminatedWord guibg=#424242")
 v.cmd.hi("TreesitterContext guibg=#3e4452")
