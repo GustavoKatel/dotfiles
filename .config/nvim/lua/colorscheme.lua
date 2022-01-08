@@ -27,6 +27,7 @@ require("onedark").setup({
 	term_colors = false,
 	toggle_style_list = { "warmer" },
 })
+require("onedark").load()
 
 v.cmd.hi("illuminatedWord guibg=#424242")
 v.cmd.hi("TreesitterContext guibg=#3e4452")
