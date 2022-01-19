@@ -45,6 +45,7 @@ packer.startup(function()
 	use({ "windwp/nvim-ts-autotag" }) -- auto close html tags using treesitter
 	use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 	use({ "romgrk/nvim-treesitter-context" })
+	use({ "haringsrob/nvim_context_vt" })
 	use({ "cespare/vim-toml" })
 	-- colorscheme
 	-- use {'tomasiser/vim-code-dark'}
@@ -122,8 +123,8 @@ packer.startup(function()
 	use({ "GustavoKatel/dap-sidebar.nvim" })
 	--use({ "/Users/gustavokatel/dev/dap-sidebar.nvim" })
 
-	user_profile.with_profile_fn("personal", use, { "/Users/gustavokatel/dev/uprofile.nvim" })
-	user_profile.with_profile_fn("work", use, { "GustavoKatel/uprofile.nvim" })
+	--user_profile.with_profile_fn("personal", use, { "/Users/gustavokatel/dev/uprofile.nvim" })
+	--user_profile.with_profile_fn("work", use, { "GustavoKatel/uprofile.nvim" })
 
 	-- neovim dev
 	use({
