@@ -1,6 +1,6 @@
 local luv = vim.loop
 local v = require("utils")
-local user_profile = require("user_profile")
+local user_profile = require("uprofile")
 
 local lsp_installer = require("nvim-lsp-installer")
 

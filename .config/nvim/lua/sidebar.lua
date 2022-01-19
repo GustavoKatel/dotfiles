@@ -1,20 +1,23 @@
 local v = require("utils")
-local user_profile = require("user_profile")
+local user_profile = require("uprofile")
 
 local sidebar = require("sidebar-nvim")
 sidebar.setup({
 	open = true,
 	initial_width = 40,
 	enable_profile = false,
+	hide_statusline = false,
+	--section_separator = { "###", "AAAAA", "BBB" },
 	sections = user_profile.with_profile_table({
 		default = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers" },
 		test = {
-			"git",
+			"buffers",
+			"todos",
 			"diagnostics",
+			"git",
 			"symbols",
 			"files",
 			"containers",
-			"todos",
 		},
 		work = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "files" },
 	}),

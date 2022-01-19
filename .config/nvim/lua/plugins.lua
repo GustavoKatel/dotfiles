@@ -11,7 +11,7 @@ end
 
 local packer = require("packer")
 
-local user_profile = require("user_profile")
+local user_profile = require("uprofile")
 
 -- Install Plugins
 packer.startup(function()
@@ -121,6 +121,9 @@ packer.startup(function()
 	})
 	use({ "GustavoKatel/dap-sidebar.nvim" })
 	--use({ "/Users/gustavokatel/dev/dap-sidebar.nvim" })
+
+	user_profile.with_profile_fn("personal", use, { "/Users/gustavokatel/dev/uprofile.nvim" })
+	user_profile.with_profile_fn("work", use, { "GustavoKatel/uprofile.nvim" })
 
 	-- neovim dev
 	use({

@@ -112,9 +112,7 @@ M.live_grep_pattern = function(opts)
 		end
 
 		return args
-	end, opts.entry_maker or make_entry.gen_from_vimgrep(
-		opts
-	), opts.max_results, opts.cwd)
+	end, opts.entry_maker or make_entry.gen_from_vimgrep(opts), opts.max_results, opts.cwd)
 
 	pickers.new(opts, {
 		prompt_title = "Live Grep (pattern: <prompt> |> <glob_pattern>)",

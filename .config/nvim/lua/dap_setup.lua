@@ -1,4 +1,4 @@
-local user_profile = require("user_profile")
+local user_profile = require("uprofile")
 local dap_install = require("dap-install")
 local dap = require("dap")
 local dap_local_project_config = require("dap_local_project_config")
@@ -7,7 +7,7 @@ require("dapui").setup()
 
 dap_install.setup({ installation_path = vim.fn.stdpath("data") .. "/dapinstall/" })
 
-user_profile.with_profile_fn("default", function()
+user_profile.with_profile_fn("personal", function()
 	dap_install.config("go", {})
 end)
 
