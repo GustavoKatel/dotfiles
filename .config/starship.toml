@@ -1,6 +1,6 @@
 [character]
 format = "[[>](dimmed white) λ ](green)"
-style_success = "green"
+success_symbol = "green"
 
 [hostname]
 ssh_only = false
@@ -32,7 +32,7 @@ format = "\\[[$symbol $version]($style)\\] "
 disabled = true
 
 [nodejs]
-symbol = ""
+symbol = ""
 format = "\\[[$symbol $version]($style)\\] "
 
 [python]
@@ -43,33 +43,25 @@ format = "\\[[${symbol} ${version}( \\($virtualenv\\))]($style)\\] "
 format = "\\[[祥$duration]($style)\\] "
 
 [custom.shell_counter]
-command = "source ~/.zshrc && shell_counter"
-format = "\\[[[$symbol](bold grey)  $output]($style)\\] "
-when = "source ~/.zshrc && shell_counter"
+command = "source ~/dev/shell_recursive_counter.sh && shell_counter"
+format = "\\[[[$symbol](bold grey) $output]($style)\\] "
+when = "source ~/dev/shell_recursive_counter.sh && shell_counter"
 shell = ["zsh", "-l"]
-symbol = ""
+symbol = ""
 style = "white"
 
 [custom.pyenv]
 command = "source ~/.zshrc && pyenv version 2>/dev/null | cut -c-5"
-format = "\\[[[$symbol](bold blue)  $output]($style)\\] "
+format = "\\[[[$symbol](bold blue) $output]($style)\\] "
 when = "! [ -z $PYENV_ROOT ]"
 shell = ["zsh", "-l"]
 symbol = ""
 style = "white"
 
-[custom.nvm]
-command = "source ~/.zshrc && node -v"
-format = "\\[[[$symbol](bold yellow)  $output]($style)\\] "
-when = "! [ -z $NVM_DIR ]"
-shell = ["zsh", "-l"]
-symbol = ""
-style = "white"
-
-[custom.legalist_env]
-command = "source ~/.zshrc && legalist_check_env"
+[custom.rosetta_shell]
+command = "echo 🌹"
 format = "\\[[$output]($style)\\] "
-when = "! [ -z $DJANGO_SETTINGS_MODULE ]"
+when = "! [ -z $ROSETTA_SHELL ]"
 shell = ["zsh", "-l"]
 symbol = ""
 style = "white"

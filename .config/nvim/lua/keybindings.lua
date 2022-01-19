@@ -19,10 +19,10 @@ local function create_kitty_keymap(code, no_insert_mode_handler, no_terminal_mod
 end
 
 -- save with ctrl-s/command-s
-v.nnoremap({ "<D-s>" }, ":w<CR>")
-v.inoremap({ "<D-s>" }, "<ESC>:w<CR>i")
-v.nnoremap({ "<C-s>" }, ":w<CR>")
-v.inoremap({ "<C-s>" }, "<ESC>:w<CR>i")
+for _, code in ipairs({ "<D-s>", "<C-s>", create_kitty_keymap("ds") }) do
+	v.nnoremap({ code }, ":w<CR>")
+	v.inoremap({ code }, "<ESC>:w<CR>i")
+end
 
 -- vertical split with ctrl-\ | command-\
 v.nnoremap({ "<D-\\>" }, ":vsplit<CR>")
