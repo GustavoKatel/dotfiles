@@ -205,17 +205,19 @@ end
 --
 -- Commands
 --
-v.cmd["TabRename"] = M.rename
-vim.cmd(":command -nargs=1 -complete=file TabNew lua require'custom_tabs'.tab_new('<args>')")
+function M.setup()
+	v.cmd["TabRename"] = M.rename
+	vim.cmd(":command -nargs=1 -complete=file TabNew lua require'custom_tabs'.tab_new('<args>')")
 
-vim.api.nvim_exec(
-	[[
+	vim.api.nvim_exec(
+		[[
 augroup custom_tabs
     autocmd!
     autocmd TabNewEntered * lua require'custom_tabs'.init_tab()
 augroup END
 ]],
-	false
-)
+		false
+	)
+end
 
 return M

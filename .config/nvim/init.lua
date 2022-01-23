@@ -31,3 +31,5 @@ require("colorscheme")
 require("statusline")
 
 require("quickfix_window")
+
+require("scratches")

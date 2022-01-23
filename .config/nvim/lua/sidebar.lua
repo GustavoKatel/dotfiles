@@ -7,7 +7,7 @@ sidebar.setup({
 	initial_width = 40,
 	enable_profile = false,
 	hide_statusline = false,
-	--section_separator = { "###", "AAAAA", "BBB" },
+	--section_separator = { "AAAAA", "BBB" },
 	sections = user_profile.with_profile_table({
 		default = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers" },
 		test = {
@@ -23,6 +23,7 @@ sidebar.setup({
 	}),
 	datetime = { clocks = { { name = "Local" }, { tz = "America/Los_Angeles" }, { tz = "Etc/UTC" } } },
 	todos = { initially_closed = true },
+	buffers = { sorting = "name" },
 })
 
 v.cmd.highlight("link SidebarNvimLspDiagnosticsTotalNumber Normal")

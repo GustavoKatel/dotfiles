@@ -81,7 +81,6 @@ lualine.setup({
 			{ lualine_lsp_status },
 		},
 		lualine_x = {},
-		-- lualine_y = {require'tabline'.tabline_tabs},
 		lualine_y = { tabs.tabline },
 		lualine_z = {},
 	},
