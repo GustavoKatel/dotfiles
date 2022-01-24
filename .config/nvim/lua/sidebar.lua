@@ -19,7 +19,7 @@ sidebar.setup({
 			"files",
 			"containers",
 		},
-		work = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "files" },
+		work = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints") },
 	}),
 	datetime = { clocks = { { name = "Local" }, { tz = "America/Los_Angeles" }, { tz = "Etc/UTC" } } },
 	todos = { initially_closed = true },
