@@ -8,6 +8,8 @@ local lsp_installer = require("nvim-lsp-installer")
 local lsp_status = require("lsp-status")
 lsp_status.register_progress()
 
+require("fidget").setup({})
+
 -- configs
 local configs = require("lsp_languages")
 local lsp_on_attach = require("lsp_on_attach")

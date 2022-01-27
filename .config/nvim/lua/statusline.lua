@@ -79,7 +79,7 @@ lualine.setup({
 			},
 			--{ lualine_tab_treesitter },
 			--{ gitsigns_blame },
-			{ lualine_lsp_status },
+			--{ lualine_lsp_status },
 		},
 		lualine_x = {},
 		lualine_y = { tabs.tabline },

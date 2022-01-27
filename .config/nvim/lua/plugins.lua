@@ -40,6 +40,7 @@ packer.startup(function()
 		},
 	})
 	use({ "nvim-lua/lsp-status.nvim" })
+	use({ "j-hui/fidget.nvim" })
 	-- language support
 	use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
 	use({ "windwp/nvim-ts-autotag" }) -- auto close html tags using treesitter
