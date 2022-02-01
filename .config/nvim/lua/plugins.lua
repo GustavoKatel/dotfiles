@@ -104,6 +104,7 @@ packer.startup(function()
 	use({ "skywind3000/asynctasks.vim" })
 	use({ "skywind3000/asyncrun.vim" })
 	--use({ "justinmk/vim-dirvish" })
+	use({ "ThePrimeagen/harpoon" })
 
 	-- use {'GustavoKatel/vim-workspace'}
 	use({ "rmagatti/auto-session" })

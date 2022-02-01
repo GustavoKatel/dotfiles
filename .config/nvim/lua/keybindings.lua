@@ -365,3 +365,11 @@ end
 
 -- toggle sidebar
 v.nnoremap({ "<F3>" }, ":SidebarNvimToggle<CR>")
+
+-- harpoon
+v.nnoremap({ "<C-M>" }, function()
+	require("harpoon.ui").toggle_quick_menu()
+end)
+v.nnoremap({ "<C-T>" }, function()
+	require("harpoon.term").gotoTerminal(1)
+end)
