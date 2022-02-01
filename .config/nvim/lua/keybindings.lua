@@ -206,7 +206,7 @@ v.tnoremap({ "<C-PageUp>" }, "<C-\\><C-N>:FloatermPrev<CR>")
 v.tnoremap({ "<M-n>" }, "<C-\\><C-N>:FloatermNew<CR>")
 
 -- ctrl-q to kill current term
-v.tnoremap({ "<C-q>" }, "<C-\\><C-N>:FloatermKill<CR>")
+--v.tnoremap({ "<C-q>" }, "<C-\\><C-N>:FloatermKill<CR>")
 
 -- alt-t to open ranger in a float terminal
 v.nnoremap({ "<leader>t" }, v.cmd.Ranger)
@@ -220,9 +220,9 @@ v.autocmd("TermOpen", "*", function()
 	v.nnoremap({ "<buffer>", "<C-d>" }, ":BD!<CR>")
 end)
 -- forcily close buffer and split
-v.autocmd("TermOpen", "*", function()
-	v.nnoremap({ "<buffer>", "<C-q>" }, ":bd!<CR>")
-end)
+--v.autocmd("TermOpen", "*", function()
+--v.nnoremap({ "<buffer>", "<C-q>" }, ":bd!<CR>")
+--end)
 -- leave insert mode before scrolling with mouse on terminal buffers
 -- TODO: this is not working 😢
 v.tnoremap({ "<ScrollWheelUp>" }, "<C-\\><C-N><C-Y")
@@ -367,9 +367,9 @@ end
 v.nnoremap({ "<F3>" }, ":SidebarNvimToggle<CR>")
 
 -- harpoon
-v.nnoremap({ "<C-M>" }, function()
-	require("harpoon.ui").toggle_quick_menu()
-end)
+--v.nnoremap({ "<C-M>" }, function()
+--require("harpoon.ui").toggle_quick_menu()
+--end)
 v.nnoremap({ "<C-T>" }, function()
 	require("harpoon.term").gotoTerminal(1)
 end)
