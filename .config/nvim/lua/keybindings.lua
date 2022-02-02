@@ -367,9 +367,20 @@ end
 v.nnoremap({ "<F3>" }, ":SidebarNvimToggle<CR>")
 
 -- harpoon
---v.nnoremap({ "<C-M>" }, function()
---require("harpoon.ui").toggle_quick_menu()
---end)
+v.nnoremap({ "<leader>h" }, function()
+	require("harpoon.ui").toggle_quick_menu()
+end)
+
+v.nnoremap({ "<leader>m" }, function()
+	require("harpoon.mark").add_file()
+end)
+
 v.nnoremap({ "<C-T>" }, function()
 	require("harpoon.term").gotoTerminal(1)
 end)
+
+for i = 1, 4, 1 do
+	v.nnoremap({ "<leader>" .. i }, function()
+		require("harpoon.ui").nav_file(i)
+	end)
+end
