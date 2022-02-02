@@ -26,8 +26,10 @@ require("onedark").setup({
 	style = "warmer",
 	term_colors = false,
 	toggle_style_list = { "warmer" },
+	toggle_style_key = "<leader>ts",
 })
 require("onedark").load()
+vim.api.nvim_del_keymap("n", "<leader>ts")
 
 v.cmd.hi("illuminatedWord guibg=#424242")
 v.cmd.hi("TreesitterContext guibg=#3e4452")
