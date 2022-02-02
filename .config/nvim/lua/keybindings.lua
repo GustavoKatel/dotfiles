@@ -103,7 +103,7 @@ v.nnoremap({ "<C-PageUp>" }, v.cmd.tabprevious)
 v.nnoremap({ "<C-PageDown>" }, v.cmd.tabnext)
 
 -- ctrl/cmd-a select all in insert and normal modes
-for _, code in ipairs({ "<leader>a", "<D-a>" }) do
+for _, code in ipairs({ "<C-a>", "<D-a>" }) do
 	--v.inoremap({ code }, "<ESC>ggVG")
 	v.nnoremap({ code }, "ggVG")
 end
@@ -209,7 +209,7 @@ v.tnoremap({ "<M-n>" }, "<C-\\><C-N>:FloatermNew<CR>")
 --v.tnoremap({ "<C-q>" }, "<C-\\><C-N>:FloatermKill<CR>")
 
 -- alt-t to open ranger in a float terminal
-v.nnoremap({ "<leader>t" }, v.cmd.Ranger)
+v.nnoremap({ "<C-T>" }, v.cmd.Ranger)
 
 -- ctrl-c will close processes in normal mode
 v.autocmd("TermOpen", "*", function()
@@ -371,11 +371,11 @@ v.nnoremap({ "<leader>h" }, function()
 	require("harpoon.ui").toggle_quick_menu()
 end)
 
-v.nnoremap({ "<leader>m" }, function()
+v.nnoremap({ "<leader>a" }, function()
 	require("harpoon.mark").add_file()
 end)
 
-v.nnoremap({ "<C-T>" }, function()
+v.nnoremap({ "<leader>t" }, function()
 	require("harpoon.term").gotoTerminal(1)
 end)
 
