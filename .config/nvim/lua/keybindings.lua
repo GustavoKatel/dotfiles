@@ -48,6 +48,9 @@ v.nnoremap({ "<D-d>" }, ":BD<CR>")
 v.nnoremap({ "<C-q>" }, ":q<CR>")
 v.nnoremap({ "<D-q>" }, ":q<CR>")
 
+-- Increment numbers with C-z. Decrement with C-x
+v.nmap({ "<C-z>" }, "<C-a>")
+
 -- toggle workspace
 v.nnoremap({ "<leader>s" }, v.cmd.ToggleWorkspace)
 
