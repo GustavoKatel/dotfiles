@@ -69,7 +69,7 @@ lualine.setup({
 		lualine_x = { { lualine_custom_winnr }, "location" },
 	},
 	tabline = {
-		lualine_a = {},
+		lualine_a = { tabs.tabline },
 		lualine_b = { "branch" },
 		lualine_c = {
 			{
@@ -82,7 +82,7 @@ lualine.setup({
 			--{ lualine_lsp_status },
 		},
 		lualine_x = {},
-		lualine_y = { tabs.tabline },
+		lualine_y = {},
 		lualine_z = {},
 	},
 })
