@@ -32,7 +32,7 @@ M.on_attach = function(client, bufnr, ...)
 
 	buf_set_keymap("n", "<F6>", '<Cmd>lua require("lspsaga.codeaction").code_action()<CR>', opts)
 
-	buf_set_keymap("n", "<F7>", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+	buf_set_keymap("n", "<F7>", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
 	buf_set_keymap("n", "K", '<Cmd>lua require("lspsaga.hover").render_hover_doc()<CR>', opts)
 	buf_set_keymap("n", "<C-k>", '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>', opts)
@@ -40,8 +40,8 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 
 	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	buf_set_keymap("n", "[d", "<cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_prev()<CR>", opts)
-	buf_set_keymap("n", "]d", "<cmd>lua require('lspsaga.diagnostic').lsp_jump_diagnostic_next()<CR>", opts)
+	buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+	buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
 	-- Set some keybinds conditional on server capabilities
 	if client.resolved_capabilities.document_formatting then

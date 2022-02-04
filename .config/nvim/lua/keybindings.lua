@@ -103,7 +103,7 @@ v.nnoremap({ "<C-PageUp>" }, v.cmd.tabprevious)
 v.nnoremap({ "<C-PageDown>" }, v.cmd.tabnext)
 
 -- ctrl/cmd-a select all in insert and normal modes
-for _, code in ipairs({ "<C-a>", "<D-a>" }) do
+for _, code in ipairs({ "<D-a>", create_kitty_keymap("da", true, true) }) do
 	--v.inoremap({ code }, "<ESC>ggVG")
 	v.nnoremap({ code }, "ggVG")
 end
