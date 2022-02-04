@@ -8,17 +8,17 @@ function shell_counter() {
   if [ -n "$TMUX" ]; then
       # tmux adds one extra session
       # starship adds one extra session too
-      ignore_value=2
+      ignore_value=$(($ignore_value+1))
   fi
 
   if [ -n "$KITTY_PID" ]; then
       # kitty adds one extra session too
-      ignore_value=1
-
-      # nvim terminals when inside kitty
-      if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-          ignore_value=2
-      fi
+      ignore_value=$(($ignore_value+1))
+  fi
+  
+  # nvim terminals when inside kitty
+  if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+      ignore_value=$(($ignore_value+1))
   fi
 
   counter=$(($SHELL_RECURSIVE_COUNTER-$ignore_value))
