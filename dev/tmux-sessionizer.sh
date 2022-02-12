@@ -4,7 +4,7 @@
 
 dev_folder=~/dev
 
-selected=$(find $dev_folder -mindepth 1 -maxdepth 1 -type d | fzf)
+selected=$(find $dev_folder "$dev_folder/runlet" -mindepth 1 -maxdepth 1 -type d | fzf)
 
 if [[ -z $selected ]]; then
     exit 0
