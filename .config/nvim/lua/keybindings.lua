@@ -270,14 +270,16 @@ for _, code in ipairs({ "<M-p>", "<A-p>" }) do
 end
 
 -- telescope commands
-for _, code in ipairs({
-	"<C-S-P>",
-	"<S-D-P>",
-	"<D-P>",
-	second_leader .. "p",
-	create_kitty_keymap("csp"),
-	create_kitty_keymap("msp"),
-}) do
+for _, code in
+	ipairs({
+		"<C-S-P>",
+		"<S-D-P>",
+		"<D-P>",
+		second_leader .. "p",
+		create_kitty_keymap("csp"),
+		create_kitty_keymap("msp"),
+	})
+do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope.builtin")
 		telescope.builtin()
@@ -314,7 +316,7 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_kitty_key
 end
 
 -- telescope asynctasks
-for _, code in ipairs({ second_leader .. "<F9>" }) do
+for _, code in ipairs({ "<C-F9>" }) do
 	v.nnoremap({ code }, function()
 		local telescope = require("telescope")
 		telescope.extensions.asynctasks.all()
