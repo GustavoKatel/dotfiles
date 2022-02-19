@@ -76,6 +76,11 @@ local configs = {
 			},
 		},
 	},
+	gopls = {
+		settings = { gopls = {
+			buildFlags = { "-tags=runlet_integration_tests" },
+		} },
+	},
 }
 
 return configs
