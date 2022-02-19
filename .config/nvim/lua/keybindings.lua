@@ -123,7 +123,6 @@ for _, code in ipairs({ "<C-f>", "<D-f>" }) do
 end
 
 -- visual mode searches for the selected text
-v.vnoremap({ "/" }, "y/<C-R>=escape(@\",'/\\')<CR><CR>")
 v.vnoremap({ "<C-f>" }, "y/<C-R>=escape(@\",'/\\')<CR><CR>")
 v.vnoremap({ "<D-f>" }, "y/<C-R>=escape(@\",'/\\')<CR><CR>")
 
