@@ -281,7 +281,7 @@ for _, map in ipairs(mappings) do
 			local esc = "<ESC>"
 
 			if no_esc then
-				esc = ""
+				esc = "<cmd>"
 			end
 
 			vim.cmd(":" .. map .. " " .. key .. " " .. esc .. ":call v:lua." .. fn_name .. "()<CR>")

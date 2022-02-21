@@ -389,3 +389,35 @@ for i = 1, 4, 1 do
 		require("harpoon.ui").nav_file(i)
 	end)
 end
+
+local function snip_map(code_tbl, fn)
+	v.inoremap(code_tbl, fn, true)
+	v.snoremap(code_tbl, fn, true)
+end
+
+-- <c-k> is my expansion key
+-- this will expand the current item or jump to the next item within the snippet.
+snip_map({ "<silent>", "<c-k>" }, function()
+	local ls = require("luasnip")
+	if ls.expand_or_jumpable() then
+		ls.expand_or_jump()
+	end
+end)
+
+-- <c-j> is my jump backwards key.
+-- this always moves to the previous item within the snippet
+snip_map({ "<silent>", "<c-j>" }, function()
+	local ls = require("luasnip")
+	if ls.jumpable(-1) then
+		ls.jump(-1)
+	end
+end)
+
+-- <c-l> is selecting within a list of options.
+-- advance choice node forward
+v.inoremap({ "<silent>", "<c-l>" }, function()
+	local ls = require("luasnip")
+	if ls.choice_active() then
+		ls.change_choice(1)
+	end
+end, true)
