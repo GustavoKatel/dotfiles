@@ -78,4 +78,5 @@ require("nvim_context_vt").setup({
 	-- Override default virtual text prefix
 	-- Default: '-->'
 	prefix = "  -->",
+	disable_ft = { "markdown", "yaml", "json" },
 })
