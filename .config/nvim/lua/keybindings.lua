@@ -414,9 +414,9 @@ end)
 
 -- <c-l> is selecting within a list of options.
 -- advance choice node forward
-v.inoremap({ "<silent>", "<c-l>" }, function()
+snip_map({ "<silent>", "<c-l>" }, function()
 	local ls = require("luasnip")
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end
-end, true)
+end)
