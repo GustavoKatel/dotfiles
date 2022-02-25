@@ -420,3 +420,26 @@ snip_map({ "<silent>", "<c-l>" }, function()
 		ls.change_choice(1)
 	end
 end)
+
+-- C-i toggle booleans true <-> false
+v.nnoremap({ "<C-i>" }, function()
+	local word = vim.fn.expand("<cword>")
+
+	local word_mapping = {
+		["true"] = "false",
+		["True"] = "False",
+		["on"] = "off",
+	}
+
+	word_mapping = vim.tbl_add_reverse_lookup(word_mapping)
+
+	local new_word = word_mapping[word]
+
+	if not new_word then
+		return
+	end
+
+	local cmd = "normal ciw" .. new_word
+
+	vim.cmd(cmd)
+end)
