@@ -55,7 +55,7 @@ nvm_load
 # END NVM wrappers
 
 # task integration
-source $HOME/dev/task.sh
+#source $HOME/dev/task.sh
 
 source $HOME/dev/shell_recursive_counter.sh
 
