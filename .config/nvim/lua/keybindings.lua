@@ -389,14 +389,13 @@ for i = 1, 4, 1 do
 	end)
 end
 
-local function snip_map(code_tbl, fn)
-	v.inoremap(code_tbl, fn, true)
-	v.snoremap(code_tbl, fn, true)
+local function snip_map(lhs, fn)
+	vim.keymap.set({ "i", "s" }, lhs, fn, { silent = true })
 end
 
 -- <c-k> is my expansion key
 -- this will expand the current item or jump to the next item within the snippet.
-snip_map({ "<silent>", "<c-k>" }, function()
+snip_map("<c-k>", function()
 	local ls = require("luasnip")
 	if ls.expand_or_jumpable() then
 		ls.expand_or_jump()
@@ -405,7 +404,7 @@ end)
 
 -- <c-j> is my jump backwards key.
 -- this always moves to the previous item within the snippet
-snip_map({ "<silent>", "<c-j>" }, function()
+snip_map("<c-j>", function()
 	local ls = require("luasnip")
 	if ls.jumpable(-1) then
 		ls.jump(-1)
@@ -414,7 +413,7 @@ end)
 
 -- <c-l> is selecting within a list of options.
 -- advance choice node forward
-snip_map({ "<silent>", "<c-l>" }, function()
+snip_map("<c-l>", function()
 	local ls = require("luasnip")
 	if ls.choice_active() then
 		ls.change_choice(1)
@@ -422,7 +421,7 @@ snip_map({ "<silent>", "<c-l>" }, function()
 end)
 
 -- C-i toggle booleans true <-> false
-v.nnoremap({ "<C-i>" }, function()
+vim.keymap.set("n", "<C-i>", function()
 	local word = vim.fn.expand("<cword>")
 
 	local word_mapping = {
