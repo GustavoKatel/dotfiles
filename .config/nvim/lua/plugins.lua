@@ -23,8 +23,8 @@ packer.startup(function()
 	use({ "neovim/nvim-lspconfig" })
 	use({ "williamboman/nvim-lsp-installer" })
 	--{{{ lspsaga tests
-	use({ "tami5/lspsaga.nvim", branch = "nvim6.0" })
-	--use({ "tami5/lspsaga.nvim" })
+	--use({ "tami5/lspsaga.nvim", branch = "nvim6.0" })
+	use({ "tami5/lspsaga.nvim" })
 	--}}}
 	use({ "onsails/lspkind-nvim" })
 	use({ "ray-x/lsp_signature.nvim" })
@@ -67,7 +67,6 @@ packer.startup(function()
 			require("hop").setup({})
 		end,
 	})
-	use({ "https://gitlab.com/yorickpeterse/nvim-window.git" })
 	use({ "RRethy/vim-illuminate" }) -- hightlight same word across buffer
 	use({ "google/vim-searchindex" }) -- better search results
 	use({ "editorconfig/editorconfig-vim" })

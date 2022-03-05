@@ -205,7 +205,7 @@ end
 --
 -- Commands
 --
-function M.setup()
+function M.__DEPRECATED__setup()
 	v.cmd["TabRename"] = M.rename
 	vim.cmd(":command -nargs=1 -complete=file TabNew lua require'custom_tabs'.tab_new('<args>')")
 
