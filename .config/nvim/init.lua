@@ -21,7 +21,7 @@ require("dap_setup")
 
 --require("autopairs")
 
-require("window_picker")
+--require("window_picker")
 
 require("sidebar")
 require("misc")
