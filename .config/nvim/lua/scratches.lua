@@ -3,13 +3,11 @@ local v = require("utils")
 
 local M = {}
 
-function M.open_scratch_tab()
-	v.cmd.tabnew("term://" .. vim.fn.getcwd() .. "//" .. vim.env.SHELL)
-	v.cmd.tabmove(0)
+function M.open_scratch_file()
 	vim.api.nvim_command("!mkdir -p .scratches")
-	v.cmd.vsplit(".scratches/notes.md")
+	vim.api.nvim_command("vsplit .scratches/notes.md")
 end
 
-v.cmd["ScratchOpen"] = M.open_scratch_tab
+vim.api.nvim_add_user_command("ScratchOpenNotes", M.open_scratch_file, {})
 
 return M

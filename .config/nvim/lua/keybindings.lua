@@ -91,7 +91,7 @@ end
 
 -- insert mode ctrl/cmd+v paste from clipboard
 for _, code in ipairs({ "<C-v>", "<D-v>" }) do
-	vim.keymap.set({ "n" }, code, '<ESC>"+pa', { silent = true })
+	vim.keymap.set({ "i" }, code, '<ESC>"+pa', { silent = true })
 	vim.keymap.set({ "t" }, code, '<C-\\><C-N>"+pa', { silent = true })
 end
 -- same as above, but maps ctrl+shift+v instead of ctrl+v. still uses cmd-v
