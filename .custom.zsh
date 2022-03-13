@@ -1,4 +1,5 @@
 
+export GPG_TTY=$(tty)
 
 alias q="exit"
 

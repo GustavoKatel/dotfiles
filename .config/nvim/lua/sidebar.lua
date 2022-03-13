@@ -23,7 +23,7 @@ sidebar.setup({
 	}),
 	datetime = { clocks = { { name = "Local" }, { tz = "America/Los_Angeles" }, { tz = "Etc/UTC" } } },
 	todos = { initially_closed = true },
-	buffers = { sorting = "name" },
+	buffers = { sorting = "name", show_numbers = true },
 })
 
 v.cmd.highlight("link SidebarNvimLspDiagnosticsTotalNumber Normal")
