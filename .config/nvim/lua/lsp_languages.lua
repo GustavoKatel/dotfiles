@@ -14,6 +14,18 @@ local prettier = { formatCommand = "./node_modules/.bin/prettier --stdin-filepat
 local lua_formatter = { formatCommand = "stylua -", formatStdin = true }
 
 local configs = {
+	yamlls = {
+		settings = {
+			yaml = {
+				format = false,
+				schemas = {
+					["https://json.schemastore.org/github-workflow.json"] = {
+						"/.github/workflows/*",
+					},
+				},
+			},
+		},
+	},
 	sumneko_lua = {
 		init_options = { codelenses = { test = true } },
 		settings = {

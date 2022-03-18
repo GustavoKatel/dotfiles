@@ -77,6 +77,9 @@ v.opt.showtabline = 2
 
 v.opt.foldmethod = "marker"
 
+-- quickfix window will use last window to open files
+vim.opt.switchbuf:append("uselast")
+
 -- terminal overrides
 -- no line numbers on terminals
 v.autocmd("TermOpen", "*", function()
