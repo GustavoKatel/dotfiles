@@ -53,8 +53,10 @@ vim.keymap.set({ "n" }, "<D-q>", ":q<CR>")
 -- Increment numbers with C-z. Decrement with C-x
 vim.keymap.set({ "n" }, "<C-z>", "<C-a>", { remap = true })
 
--- toggle workspace
-vim.keymap.set({ "n" }, "<leader>s", "<cmd>ToggleWorkspace<cr>")
+-- open scratch file in a floating window
+vim.keymap.set({ "n" }, "<leader>s", function()
+	require("scratches").open_scratch_file_floating()
+end)
 
 -- change focus splits
 for _, code in ipairs({ "<D-Right>", "<C-l>", second_leader .. "<Right>", create_kitty_keymap("mright") }) do
