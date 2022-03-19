@@ -13,12 +13,14 @@ function M.open_scratch_file()
 end
 vim.api.nvim_add_user_command("ScratchOpenSplit", M.open_scratch_file, {})
 
-function M.open_scratch_file_floating()
-	local width = 100
-	local height = 30
+function M.open_scratch_file_floating(opts)
+	opts = vim.tbl_deep_extend("force", { percentWidth = 0.8, percentHeight = 0.8 }, opts or {})
 
 	-- Get the current UI
 	local ui = vim.api.nvim_list_uis()[1]
+
+	local width = math.floor(ui.width * opts.percentWidth)
+	local height = math.floor(ui.height * opts.percentHeight)
 
 	-- Create the floating window
 	local opts = {
