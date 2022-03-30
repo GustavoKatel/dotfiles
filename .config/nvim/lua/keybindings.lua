@@ -378,12 +378,15 @@ vim.keymap.set({ "n" }, "<leader>h", function()
 	require("harpoon.ui").toggle_quick_menu()
 end)
 
-vim.keymap.set({ "n" }, "<leader>a", function()
+vim.keymap.set({ "n" }, "<leader>ha", function()
 	require("harpoon.mark").add_file()
 end)
 
 vim.keymap.set({ "n" }, "<leader>t", function()
 	require("harpoon.term").gotoTerminal(1)
+end)
+vim.keymap.set({ "n" }, "<leader>ht", function()
+	require("harpoon.cmd-ui").toggle_quick_menu() -- shows the commands menu
 end)
 
 for i = 1, 4, 1 do

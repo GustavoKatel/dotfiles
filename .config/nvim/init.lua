@@ -23,6 +23,8 @@ require("dap_setup")
 
 --require("window_picker")
 
+require("harpoon_setup")
+
 require("sidebar")
 require("misc")
 require("notes")
