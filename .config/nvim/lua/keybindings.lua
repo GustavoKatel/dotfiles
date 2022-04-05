@@ -307,6 +307,13 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_kitty_key
 	end)
 end
 
+-- telescope lsp symbols
+for _, code in ipairs({ "<D-g>", "<C-g>", create_kitty_keymap("dg") }) do
+	vim.keymap.set({ "n" }, code, function()
+		require("telescope.builtin").lsp_dynamic_workspace_symbols()
+	end)
+end
+
 -- telescope asynctasks
 for _, code in ipairs({ "<C-F9>" }) do
 	vim.keymap.set({ "n" }, code, function()
