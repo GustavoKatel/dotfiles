@@ -15,7 +15,7 @@ function M.open_scratch_file()
 	vim.api.nvim_command("!mkdir -p .scratches")
 	vim.api.nvim_command("vsplit " .. M.get_scratch_filename())
 end
-vim.api.nvim_add_user_command("ScratchOpenSplit", M.open_scratch_file, {})
+vim.api.nvim_create_user_command("ScratchOpenSplit", M.open_scratch_file, {})
 
 function M.open_scratch_file_floating(opts)
 	if M._state.last_floating_window ~= nil then
@@ -60,6 +60,6 @@ function M.open_scratch_file_floating(opts)
 		end, { buffer = bufnr })
 	end
 end
-vim.api.nvim_add_user_command("ScratchOpenFloat", M.open_scratch_file_floating, {})
+vim.api.nvim_create_user_command("ScratchOpenFloat", M.open_scratch_file_floating, {})
 
 return M
