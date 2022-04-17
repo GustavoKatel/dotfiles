@@ -262,16 +262,14 @@ for _, code in ipairs({ "<M-p>", "<A-p>" }) do
 end
 
 -- telescope commands
-for _, code in
-	ipairs({
-		"<C-S-P>",
-		"<S-D-P>",
-		"<D-P>",
-		second_leader .. "p",
-		create_kitty_keymap("csp"),
-		create_kitty_keymap("msp"),
-	})
-do
+for _, code in ipairs({
+	"<C-S-P>",
+	"<S-D-P>",
+	"<D-P>",
+	second_leader .. "p",
+	create_kitty_keymap("csp"),
+	create_kitty_keymap("msp"),
+}) do
 	vim.keymap.set({ "n" }, code, function()
 		local telescope = require("telescope.builtin")
 		telescope.builtin()
@@ -338,10 +336,10 @@ vim.keymap.set({ "i" }, "<D-z>", "<ESC>ui")
 --v.nmap({ "<C-F10>" }, v.cmd.TestNearest)
 
 -- - and + to go back to previous position
-vim.keymap.set({ "n" }, "<M-->", "<C-o>")
-vim.keymap.set({ "n" }, "<M-KMinus>", "<C-o>")
-vim.keymap.set({ "n" }, "<M-+>", "<C-i>")
-vim.keymap.set({ "n" }, "<M-KPlus>", "<C-i>")
+--vim.keymap.set({ "n" }, "<M-->", "<C-o>")
+--vim.keymap.set({ "n" }, "<M-KMinus>", "<C-o>")
+--vim.keymap.set({ "n" }, "<M-+>", "<C-i>")
+--vim.keymap.set({ "n" }, "<M-KPlus>", "<C-i>")
 
 -- dap mappings
 -- telescope
@@ -434,7 +432,7 @@ snip_map("<c-l>", function()
 end)
 
 -- C-i toggle booleans true <-> false
-vim.keymap.set("n", "<C-i>", function()
+vim.keymap.set("n", "<C-e>", function()
 	local word = vim.fn.expand("<cword>")
 
 	local word_mapping = {
