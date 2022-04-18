@@ -75,6 +75,8 @@ require("treesitter-context").setup({
 })
 
 require("nvim_context_vt").setup({
+	-- TODO: enable again after fixing issues
+	enabled = false,
 	-- Override default virtual text prefix
 	-- Default: '-->'
 	prefix = "  -->",

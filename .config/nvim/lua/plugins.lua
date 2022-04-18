@@ -27,7 +27,8 @@ packer.startup({
 		--use({ "tami5/lspsaga.nvim", branch = "nvim6.0" })
 		use({ "tami5/lspsaga.nvim" })
 		--}}}
-		use({ "onsails/lspkind-nvim" })
+		-- TODO: remove this pin
+		use({ "onsails/lspkind-nvim", commit = "93e98a0c900327ce7e9be1cbf24aebbe7170e375" })
 		use({ "ray-x/lsp_signature.nvim" })
 		use({
 			"hrsh7th/nvim-cmp",
