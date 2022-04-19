@@ -17,7 +17,7 @@ require("completion")
 require("snips")
 -- require("coc")
 --require("vimspector")
-require("dap_setup")
+--require("dap_setup")
 
 --require("autopairs")
 
