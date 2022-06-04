@@ -1,5 +1,4 @@
 -- Bootstrap packer
--- name: 'runlet',,
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
@@ -59,7 +58,7 @@ packer.startup({
 
 		-- editting
 		use({ "preservim/nerdcommenter" }) -- toggle comment
-		--use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
+		use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
 		use({ "mg979/vim-visual-multi" }) -- multiple cursors
 		use({ "tpope/vim-surround" })
 		use({
