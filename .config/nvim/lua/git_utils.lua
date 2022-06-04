@@ -1,5 +1,3 @@
-local v = require("utils")
-
 -- Previously using "airblade/vim-gitgutter", but giving this a try
 require("gitsigns").setup({
 	numhl = true,
@@ -12,7 +10,7 @@ require("gitsigns").setup({
 local M = {}
 
 function M.tab_diff_split()
-	v.cmd.tabnew("%")
+	vim.cmd("tabnew %")
 	vim.cmd("Gvdiffsplit!")
 end
 

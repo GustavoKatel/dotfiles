@@ -1,4 +1,5 @@
 -- Bootstrap packer
+-- name: 'runlet',,
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
@@ -15,8 +16,7 @@ local user_profile = require("uprofile")
 
 -- Install Plugins
 packer.startup({
-	function()
-		local use = use or use
+	function(use)
 		use({ "wbthomason/packer.nvim" }) -- updates package manager
 		-- libs
 		use({ "nvim-lua/plenary.nvim" })
@@ -27,8 +27,6 @@ packer.startup({
 		--use({ "tami5/lspsaga.nvim", branch = "nvim6.0" })
 		use({ "tami5/lspsaga.nvim" })
 		--}}}
-		-- TODO: remove this pin
-		--use({ "onsails/lspkind-nvim", commit = "93e98a0c900327ce7e9be1cbf24aebbe7170e375" })
 		use({ "onsails/lspkind-nvim" })
 		use({ "ray-x/lsp_signature.nvim" })
 		use({
@@ -48,17 +46,20 @@ packer.startup({
 		use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
 		use({ "windwp/nvim-ts-autotag" }) -- auto close html tags using treesitter
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
-		--use({ "romgrk/nvim-treesitter-context" })
-		use({ "lewis6991/nvim-treesitter-context" }) -- this is an active fork
+		use({ "nvim-treesitter/nvim-treesitter-context" })
 		use({ "haringsrob/nvim_context_vt" })
 		use({ "cespare/vim-toml" })
 		-- colorscheme
 		-- use {'tomasiser/vim-code-dark'}
 		use({ "navarasu/onedark.nvim" })
+		use({
+			"catppuccin/nvim",
+			as = "catppuccin",
+		})
 
 		-- editting
 		use({ "preservim/nerdcommenter" }) -- toggle comment
-		use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
+		--use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
 		use({ "mg979/vim-visual-multi" }) -- multiple cursors
 		use({ "tpope/vim-surround" })
 		use({
@@ -92,6 +93,7 @@ packer.startup({
 			end,
 		})
 		use({ "L3MON4D3/LuaSnip" })
+		use({ "stevearc/dressing.nvim" })
 		-- debugging & testing
 		--use({ "puremourning/vimspector" }) -- debugging platform
 		use({ "mfussenegger/nvim-dap" })

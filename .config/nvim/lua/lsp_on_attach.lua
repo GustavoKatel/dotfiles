@@ -1,6 +1,13 @@
+local v = require("utils")
+
 local lsp_status = require("lsp-status")
 
 local M = {}
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	-- Use a sharp border with `FloatBorder` highlights
+	border = "single",
+})
 
 -- keymaps
 M.on_attach = function(client, bufnr, ...)
@@ -21,7 +28,7 @@ M.on_attach = function(client, bufnr, ...)
 	-- Mappings.
 	local opts = { noremap = true, silent = true }
 
-	buf_set_keymap("n", "<F2>", '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
+	buf_set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
 	buf_set_keymap("n", "<F12>", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	buf_set_keymap("n", "<S-F12>", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -30,12 +37,12 @@ M.on_attach = function(client, bufnr, ...)
 
 	buf_set_keymap("n", "<F5>", "<Cmd>lua vim.lsp.codelens.run()<CR>", opts)
 
-	buf_set_keymap("n", "<F6>", '<Cmd>lua require("lspsaga.codeaction").code_action()<CR>', opts)
+	buf_set_keymap("n", "<F6>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
 	buf_set_keymap("n", "<F7>", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
-	buf_set_keymap("n", "K", '<Cmd>lua require("lspsaga.hover").render_hover_doc()<CR>', opts)
-	buf_set_keymap("n", "<C-k>", '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>', opts)
+	buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
 	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 
@@ -45,39 +52,53 @@ M.on_attach = function(client, bufnr, ...)
 
 	-- Set some keybinds conditional on server capabilities
 	if client.resolved_capabilities.document_formatting then
-		vim.api.nvim_exec(
-			[[
-    augroup lsp_formatting
-    autocmd! * <buffer>
-    autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()
-    augroup END
-    ]],
-			false
-		)
-		-- elseif client.resolved_capabilities.document_range_formatting then
-		-- buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+		v.create_autocommands({
+			group = { name = "lsp_formatting" },
+			buffer = bufnr,
+			cmds = {
+				{
+					events = { "BufWritePre" },
+					def = {
+						callback = function()
+							vim.lsp.buf.formatting_seq_sync()
+						end,
+					},
+				},
+			},
+		})
 	end
 
-	vim.api.nvim_exec(
-		[[
-    augroup lsp_line_diagnostic
-    autocmd! * <buffer>
-    autocmd CursorHold <buffer> lua require'lsp'.cursor_hold()
-    augroup END
-    ]],
-		false
-	)
+	v.create_autocommands({
+		group = { name = "lsp_line_diagnostic" },
+		buffer = bufnr,
+		cmds = {
+			{
+				events = "CursorHold",
+				def = {
+					callback = function()
+						require("lsp").cursor_hold()
+					end,
+				},
+			},
+		},
+	})
 
 	if client.resolved_capabilities.code_lens then
-		vim.api.nvim_exec(
-			[[
-    augroup lsp_codelens
-    autocmd! * <buffer>
-    autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()
-    augroup END
-    ]],
-			false
-		)
+		v.create_autocommands({
+			group = { name = "lsp_codelens" },
+			buffer = bufnr,
+			cmds = {
+				{
+					events = { "BufEnter", "CursorHold", "InsertLeave" },
+					def = {
+
+						callback = function()
+							vim.lsp.codelens.refresh()
+						end,
+					},
+				},
+			},
+		})
 	end
 end
 

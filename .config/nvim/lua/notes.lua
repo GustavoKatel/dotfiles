@@ -1,3 +1,4 @@
+-- TODO: remoe utils support
 local v = require("utils")
 
 local NotesFolder = vim.fn.expand("~/code_notes")

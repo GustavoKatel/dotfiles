@@ -1,142 +1,136 @@
-local v = require("utils")
-
-v.opt.encoding = "UTF-8"
+vim.opt.encoding = "UTF-8"
 
 -- set leader to ,
-v.v.g.mapleader = ","
+vim.g.mapleader = ","
 
 -- Required for operations modifying multiple buffers like rename.
-v.opt.hidden = true
+vim.opt.hidden = true
 
 -- enable mouse support 😛
-v.opt.mouse = "a"
+vim.opt.mouse = "a"
 
 -- show line numbers
-v.opt.number = true
+vim.opt.number = true
 -- show relative line number only when the current window is focused
-vim.api.nvim_exec(
-	[[
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu  | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu  | set nornu | endif
-augroup END
-]],
-	false
+vim.api.nvim_create_augroup("numbertoggle", { clear = true })
+vim.api.nvim_create_autocmd(
+	{ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" },
+	{ group = "numbertoggle", command = "if &nu  | set rnu   | endif" }
+)
+vim.api.nvim_create_autocmd(
+	{ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" },
+	{ group = "numbertoggle", command = "if &nu  | set nornu | endif" }
 )
 
 -- always show the status line
-v.opt.laststatus = 2
+vim.opt.laststatus = 2
 
 -- disable swap files
-v.opt.swapfile = true
+vim.opt.swapfile = true
 
 -- show invisible chars
-v.opt.listchars = [[tab:▸ ,eol:¬,trail:⋅,extends:❯,precedes:❮]]
-v.opt.showbreak = "↪"
-v.opt.list = true
+vim.opt.listchars = [[tab:▸ ,eol:¬,trail:⋅,extends:❯,precedes:❮]]
+vim.opt.showbreak = "↪"
+vim.opt.list = true
 
 -- show existing tab with 4 spaces width
-v.opt.tabstop = 4
+vim.opt.tabstop = 4
 -- when identing with '>', use 5 spaces width
-v.opt.shiftwidth = 4
+vim.opt.shiftwidth = 4
 
 -- use spaces instead of tab
-v.opt.expandtab = true
+vim.opt.expandtab = true
 
-v.cmd.syntax("on")
+vim.cmd("syntax on")
 
 -- gitgutter update time - this also controls .swp write delay, but since we have it disabled on line 23, this does not matter
-v.opt.updatetime = 100
+vim.opt.updatetime = 100
 
-v.opt.termguicolors = true
-v.v.g.t_Co = 256 -- Support 256 colors
+vim.opt.termguicolors = true
+vim.g.t_Co = 256 -- Support 256 colors
 
 -- splits window below of the focused one
-v.opt.splitbelow = true
+vim.opt.splitbelow = true
 -- splits window on the right
-v.opt.splitright = true
+vim.opt.splitright = true
 
 -- incremental subnstitute + preview
-v.opt.inccommand = "split"
+vim.opt.inccommand = "split"
+
+-- when searching use smartcase
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 -- always keep at least 60 lines on the screen
-v.opt.scrolloff = 60
+vim.opt.scrolloff = 60
 
 -- give more space displaying messages in the command line
-v.opt.cmdheight = 2
+vim.opt.cmdheight = 2
 
 -- spell checking dictionaries, enable/disable with: set [no]spell
-v.opt.spelllang = { "en_us", "pt_br" }
+vim.opt.spelllang = { "en_us", "pt_br" }
 
 -- enable the cursor line highlight
-v.opt.cursorline = true
+vim.opt.cursorline = true
 
--- show tab line
-v.opt.showtabline = 2
+vim.opt.showtabline = 2
 
-v.opt.foldmethod = "marker"
+vim.opt.foldmethod = "marker"
 
 -- quickfix window will use last window to open files
 vim.opt.switchbuf:append("uselast")
 
 -- terminal overrides
 -- no line numbers on terminals
-v.autocmd("TermOpen", "*", function()
-	v.cmd.IlluminationDisable()
-	v.cmd.setlocal("nonumber")
-	v.cmd.setlocal("norelativenumber")
-end)
+vim.api.nvim_create_augroup("term_open_config", { clear = true })
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = "term_open_config",
+	callback = function()
+		vim.cmd("IlluminationDisable")
+		vim.cmd("setlocal nonumber")
+		vim.cmd("setlocal norelativenumber")
+	end,
+})
 
 -- enable window title
-v.opt.title = true
+vim.opt.title = true
 
 -- Set completeopt to have a better completion experience
-v.opt.completeopt = "menuone,noinsert,noselect"
+vim.opt.completeopt = "menuone,noinsert,noselect"
 
 -- Avoid showing message extra message when using completion
-v.opt.shortmess = v.opt.shortmess .. "c"
+vim.opt.shortmess:append({ c = true })
 
-v.opt.signcolumn = "yes:2"
+vim.opt.signcolumn = "yes:2"
 
-v.v.g.vim_json_conceal = 0
+vim.g.vim_json_conceal = 0
 
-v.v.g.AutoPairsShortcutToggle = ""
+vim.g.AutoPairsShortcutToggle = ""
 
-v.v.g.dashboard_default_executive = "telescope"
+vim.g.dashboard_default_executive = "telescope"
 
 -- set spell check for markdown files
-vim.api.nvim_exec(
-	[[
-augroup markdownSpell
-    autocmd!
-    autocmd FileType markdown setlocal spell
-    autocmd BufRead,BufNewFile *.md setlocal spell
-augroup END
-]],
-	false
+vim.api.nvim_create_augroup("markdown_config", { clear = true })
+vim.api.nvim_create_autocmd("FileType", { group = "markdown_config", pattern = "markdown", command = "setlocal spell" })
+vim.api.nvim_create_autocmd(
+	{ "BufRead", "BufNewFile" },
+	{ group = "markdown_config", pattern = "*.md", command = "setlocal spell" }
 )
 
 -- set nvr as GIT_EDITOR so we can use the current nvim as editor for git
 vim.env.GIT_EDITOR = "nvr -cc split --remote-wait"
+
 -- this will make sure to delete the bufer once we close the git commit/rebase/config buffer
 -- otherwise nvr will be waiting for us
-vim.api.nvim_exec(
-	[[
-augroup gitutilsbuffers
-    autocmd!
-    autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
-augroup END
-]],
-	false
-)
+vim.api.nvim_create_augroup("gitutilsbuffers", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	group = "gitutilsbuffers",
+	pattern = { "gitcommit", "gitrebase", "gitconfig" },
+	command = "set bufhidden=delete",
+})
 
-vim.api.nvim_exec(
-	[[
-augroup autoresizebuffers
-    autocmd!
-    autocmd VimResized,VimResume * wincmd =
-augroup END
-]],
-	false
-)
+vim.api.nvim_create_augroup("autoresizebuffers", { clear = true })
+vim.api.nvim_create_autocmd({ "VimResized", "VimResume" }, {
+	group = "autoresizebuffers",
+	command = "wincmd =",
+})

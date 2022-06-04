@@ -102,11 +102,14 @@ done
 
 # ---------------------------
 # standalone files
-rc_files=( .tmux.conf .vimrc .zshrc .custom.zsh)
+rc_files=( .tmux.conf .vimrc .zshrc .custom.zsh .tmux/catppuccin.conf)
 
 for file in "${rc_files[@]}"; do
-    $IS_INSTALL && $exec cp $DOTFILES_DIR/$file $TARGET
-    $IS_BACKUP  && $exec cp $TARGET/$file $DOTFILES_DIR/
+    $IS_INSTALL && $exec mkdir -p $TARGET/$(dirname $file)
+    $IS_INSTALL && $exec cp $DOTFILES_DIR/$file $TARGET/$file
+
+    $IS_BACKUP  && $exec mkdir -p $DOTFILES_DIR/$(dirname $file)
+    $IS_BACKUP  && $exec cp $TARGET/$file $DOTFILES_DIR/$file
 done
 
 # ---------------------------

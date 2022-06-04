@@ -1,6 +1,4 @@
-local v = require("utils")
-
-v.v.g.dirvish_mode = 1
+vim.g.dirvish_mode = 1
 
 function _G.dirvish_get_icon(path)
 	if path:sub(-1) == "/" then

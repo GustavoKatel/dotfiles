@@ -1,4 +1,3 @@
-local v = require("utils")
 local logging = require("logging")
 local async = require("plenary.async")
 
@@ -173,8 +172,8 @@ function M.load()
 end
 
 function M.tab_new(filename)
-	v.cmd.tablast()
-	v.cmd.tabnew(filename)
+	vim.cmd("tablast")
+	vim.cmd("tabnew " .. filename)
 end
 
 function M.get_tab_id(tabnr)
@@ -196,7 +195,7 @@ function M.init_tab(tabnr)
 	vim.api.nvim_tabpage_set_var(tabnr, tab_id_var_name, tab_id)
 
 	if M.is_loaded then
-		v.cmd.tabmove()
+		vim.cmd("tabmove")
 	end
 
 	return tab_id
@@ -206,7 +205,8 @@ end
 -- Commands
 --
 function M.__DEPRECATED__setup()
-	v.cmd["TabRename"] = M.rename
+	-- TODO: convert to nvim_create_user_command
+	--v.cmd["TabRename"] = M.rename
 	vim.cmd(":command -nargs=1 -complete=file TabNew lua require'custom_tabs'.tab_new('<args>')")
 
 	vim.api.nvim_exec(

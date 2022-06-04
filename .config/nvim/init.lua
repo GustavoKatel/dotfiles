@@ -26,8 +26,7 @@ require("snips")
 require("harpoon_setup")
 
 require("sidebar")
-require("misc")
-require("notes")
+--require("notes")
 require("folding_utils")
 
 require("colorscheme")
