@@ -24,6 +24,7 @@ sidebar.setup({
 	datetime = { clocks = { { name = "Local" }, { tz = "America/Los_Angeles" }, { tz = "Etc/UTC" } } },
 	todos = { initially_closed = true },
 	buffers = { sorting = "name" },
+	files = {},
 })
 
 v.cmd.highlight("link SidebarNvimLspDiagnosticsTotalNumber Normal")

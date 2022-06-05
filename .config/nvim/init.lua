@@ -1,4 +1,5 @@
 require("plugins")
+require("helpers")
 require("options")
 require("keybindings")
 require("asynctasks")
