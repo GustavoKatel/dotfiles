@@ -22,6 +22,7 @@ local configs = {
 					["https://json.schemastore.org/github-workflow.json"] = {
 						"/.github/workflows/*",
 					},
+					["ignore"] = "templats/.github/workflows/*",
 				},
 			},
 		},
