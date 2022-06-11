@@ -15,6 +15,7 @@ local lua_formatter = { formatCommand = "stylua -", formatStdin = true }
 
 local configs = {
 	yamlls = {
+		cmd = { "node", "/Users/gustavokatel/dev/yaml-language-server/bin/yaml-language-server", "--stdio" },
 		settings = {
 			yaml = {
 				format = false,
@@ -22,8 +23,8 @@ local configs = {
 					["https://json.schemastore.org/github-workflow.json"] = {
 						"/.github/workflows/*",
 					},
-					["ignore"] = "templats/.github/workflows/*",
 				},
+				ignorePatterns = { "/templates/**/*" },
 			},
 		},
 	},
@@ -60,7 +61,10 @@ local configs = {
 		on_attach = function(client, bufnr, ...)
 			-- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
 			-- the resolved capabilities of the eslint server ourselves!
-			client.resolved_capabilities.document_formatting = true
+			-- TODO: remove this when 0.8 is out
+			if vim.fn.has("nvim-0.8") == 0 then
+				client.resolved_capabilities.document_formatting = true
+			end
 			return lsp_on_attach.on_attach(client, bufnr, ...)
 		end,
 		settings = {
@@ -69,7 +73,14 @@ local configs = {
 	},
 	tsserver = {
 		on_attach = function(client, bufnr, ...)
-			client.resolved_capabilities.document_formatting = false
+			-- TODO: remove this after 0.8
+			-- or see if it's possible to disable in the tsserver configs 🤷
+			if vim.fn.has("nvim-0.8") == 1 then
+				client.server_capabilities.documentFormattingProvider = false
+				client.server_capabilities.documentRangeFormattingProvider = false
+			else
+				client.resolved_capabilities.document_formatting = false
+			end
 			return lsp_on_attach.on_attach(client, bufnr, ...)
 		end,
 	},

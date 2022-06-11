@@ -75,8 +75,6 @@ vim.opt.cursorline = true
 
 vim.opt.showtabline = 2
 
-vim.opt.foldmethod = "marker"
-
 -- quickfix window will use last window to open files
 vim.opt.switchbuf:append("uselast")
 

@@ -17,8 +17,11 @@ local lsp_on_attach = require("lsp_on_attach")
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
 local servers = user_profile.with_profile_table({
 	default = { "efm", "sumneko_lua", "tsserver", "eslint", "gopls", "clangd", "rust_analyzer", "pyright" },
+	--default = { "efm", "sumneko_lua", "tsserver", "eslint", "gopls", "clangd", "rust_analyzer", "pyright" },
 	work = { "efm", "sumneko_lua", "tsserver", "eslint" },
 })
+
+vim.lsp.set_log_level("debug")
 
 -- config that activates keymaps and enables snippet support
 local function make_config(server)

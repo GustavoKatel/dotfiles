@@ -51,7 +51,15 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
 	-- Set some keybinds conditional on server capabilities
-	if client.resolved_capabilities.document_formatting then
+	-- TODO: remove resolved_capabilities when 0.8 is out
+	local has_formatting = false
+	if vim.fn.has("nvim-0.8") == 1 then
+		has_formatting = client.server_capabilities.documentFormattingProvider
+	else
+		has_formatting = client.resolved_capabilities.document_formatting
+	end
+
+	if has_formatting then
 		v.create_autocommands({
 			group = { name = "lsp_formatting" },
 			buffer = bufnr,
@@ -83,7 +91,15 @@ M.on_attach = function(client, bufnr, ...)
 		},
 	})
 
-	if client.resolved_capabilities.code_lens then
+	local has_code_lens = false
+
+	if vim.fn.has("nvim-0.8") == 1 then
+		has_code_lens = client.server_capabilities.codeLensProvider
+	else
+		has_code_lens = client.resolved_capabilities.code_lens
+	end
+
+	if has_code_lens then
 		v.create_autocommands({
 			group = { name = "lsp_codelens" },
 			buffer = bufnr,

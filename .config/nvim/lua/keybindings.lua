@@ -148,6 +148,9 @@ vim.keymap.set({ "n" }, "<ESC>", ":noh<cr>")
 if vim.fn.has("macunix") then
 	vim.keymap.set({ "n" }, "<D-[>", "<cmd>foldclose<cr>")
 	vim.keymap.set({ "n" }, "<D-]>", "<cmd>foldopen<cr>")
+
+	vim.keymap.set({ "n" }, "<M-[>", "<cmd>foldclose<cr>")
+	vim.keymap.set({ "n" }, "<M-]>", "<cmd>foldopen<cr>")
 else
 	vim.keymap.set({ "n" }, "<C-[>", "<cmd>foldclose<cr>")
 	vim.keymap.set({ "n" }, "<C-]>", "<cmd>foldopen<cr>")
@@ -301,7 +304,7 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_kitty_key
 			table.insert(rg_arguments, arg)
 		end
 
-		require("telescope").extensions.live_grep_raw.live_grep_raw({ vimgrep_arguments = rg_arguments })
+		require("telescope").extensions.live_grep_args.live_grep_args({ vimgrep_arguments = rg_arguments })
 	end)
 end
 
@@ -452,4 +455,29 @@ vim.keymap.set("n", "<C-e>", function()
 	local cmd = "normal ciw" .. new_word
 
 	vim.cmd(cmd)
+end)
+
+-- refactoring stuff
+vim.keymap.set("v", "<leader>rr", function()
+	require("telescope").extensions.refactoring.refactors()
+end)
+
+-- add debug print calls
+vim.keymap.set("n", "<leader>rp", function()
+	require("refactoring").debug.printf({ below = false })
+end)
+
+-- Print var
+-- In normal mode it selects the word under the cursor
+vim.keymap.set("v", "<leader>rv", function()
+	require("refactoring").debug.print_var({})
+end)
+vim.keymap.set("n", "<leader>rv", function()
+	vim.cmd("normal viw")
+	require("refactoring").debug.print_var({})
+end)
+
+-- Cleanup function: this remap should be made in normal mode
+vim.keymap.set("n", "<leader>rc", function()
+	require("refactoring").debug.cleanup({})
 end)

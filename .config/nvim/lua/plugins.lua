@@ -48,6 +48,7 @@ packer.startup({
 		use({ "nvim-treesitter/nvim-treesitter-context" })
 		use({ "haringsrob/nvim_context_vt" })
 		use({ "cespare/vim-toml" })
+		use({ "ThePrimeagen/refactoring.nvim" })
 		-- colorscheme
 		-- use {'tomasiser/vim-code-dark'}
 		use({ "navarasu/onedark.nvim" })
@@ -116,7 +117,7 @@ packer.startup({
 		use({ "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } } })
 		--use({ "nvim-telescope/telescope-vimspector.nvim" })
 		use({ "nvim-telescope/telescope-dap.nvim" })
-		use({ "nvim-telescope/telescope-live-grep-raw.nvim" })
+		use({ "nvim-telescope/telescope-live-grep-args.nvim" })
 		use({ "GustavoKatel/telescope-asynctasks.nvim" })
 
 		use({
@@ -144,7 +145,7 @@ packer.startup({
 	end,
 	config = {
 		display = {
-			open_fn = require("packer.util").float,
+			--open_fn = require("packer.util").float,
 		},
 	},
 })
