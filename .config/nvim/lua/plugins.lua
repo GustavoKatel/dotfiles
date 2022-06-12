@@ -22,6 +22,7 @@ packer.startup({
 		-- lsp
 		use({ "neovim/nvim-lspconfig" })
 		use({ "williamboman/nvim-lsp-installer" })
+		use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
 		--{{{ lspsaga tests
 		--use({ "tami5/lspsaga.nvim", branch = "nvim6.0" })
 		use({ "tami5/lspsaga.nvim" })
@@ -145,7 +146,7 @@ packer.startup({
 	end,
 	config = {
 		display = {
-			--open_fn = require("packer.util").float,
+			open_fn = require("packer.util").float,
 		},
 	},
 })

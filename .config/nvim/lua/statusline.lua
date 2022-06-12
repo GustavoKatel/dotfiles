@@ -23,7 +23,7 @@ local function gitsigns_blame()
 	local blame_info = vim.b.gitsigns_blame_line_dict
 
 	if not blame_info then
-		return nil
+		return "No blame info"
 	end
 
 	local text
@@ -35,6 +35,14 @@ local function gitsigns_blame()
 		text = string.format("%s, %s - %s", blame_info.author, date_time, blame_info.summary)
 	end
 	return text
+end
+
+local function notes_count()
+	if vim.fn.filereadable(".scratches/notes.md") == 1 then
+		return " "
+	end
+
+	return ""
 end
 
 lualine.setup({
@@ -72,11 +80,12 @@ lualine.setup({
 		lualine_a = { tabs.tabline },
 		lualine_b = { "branch" },
 		lualine_c = {
-			{
-				"filename",
-				file_status = true, -- displays file status (readonly status, modified status)
-				path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
-			},
+			notes_count,
+			--{
+			--"filename",
+			--file_status = true, -- displays file status (readonly status, modified status)
+			--path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
+			--},
 			--{ lualine_tab_treesitter },
 			--{ gitsigns_blame },
 			--{ lualine_lsp_status },

@@ -38,6 +38,7 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "<F5>", "<Cmd>lua vim.lsp.codelens.run()<CR>", opts)
 
 	buf_set_keymap("n", "<F6>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	buf_set_keymap("v", "<F6>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
 	buf_set_keymap("n", "<F7>", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 

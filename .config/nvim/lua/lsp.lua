@@ -16,9 +16,17 @@ local lsp_on_attach = require("lsp_on_attach")
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
 local servers = user_profile.with_profile_table({
-	default = { "efm", "sumneko_lua", "tsserver", "eslint", "gopls", "clangd", "rust_analyzer", "pyright" },
+	default = { "sumneko_lua", "tsserver", "eslint", "gopls", "clangd", "rust_analyzer", "pyright", "yamlls" },
 	--default = { "efm", "sumneko_lua", "tsserver", "eslint", "gopls", "clangd", "rust_analyzer", "pyright" },
-	work = { "efm", "sumneko_lua", "tsserver", "eslint" },
+	work = { "sumneko_lua", "tsserver", "eslint", "yamlls" },
+})
+
+require("null-ls").setup({
+	sources = {
+		require("null-ls").builtins.formatting.stylua,
+		require("null-ls").builtins.formatting.prettier,
+		require("null-ls").builtins.code_actions.refactoring,
+	},
 })
 
 vim.lsp.set_log_level("debug")

@@ -15,16 +15,9 @@ local lua_formatter = { formatCommand = "stylua -", formatStdin = true }
 
 local configs = {
 	yamlls = {
-		cmd = { "node", "/Users/gustavokatel/dev/yaml-language-server/bin/yaml-language-server", "--stdio" },
 		settings = {
 			yaml = {
 				format = false,
-				schemas = {
-					["https://json.schemastore.org/github-workflow.json"] = {
-						"/.github/workflows/*",
-					},
-				},
-				ignorePatterns = { "/templates/**/*" },
 			},
 		},
 	},
