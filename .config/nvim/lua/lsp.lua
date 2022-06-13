@@ -8,7 +8,14 @@ local lsp_installer = require("nvim-lsp-installer")
 local lsp_status = require("lsp-status")
 lsp_status.register_progress()
 
-require("fidget").setup({})
+require("fidget").setup({
+	sources = {
+		["null-ls"] = {
+			-- null-ls creates a progress bar everytime the cursor moves bc of "code_actions" sources, which is very annoying
+			ignore = true,
+		},
+	},
+})
 
 -- configs
 local configs = require("lsp_languages")
