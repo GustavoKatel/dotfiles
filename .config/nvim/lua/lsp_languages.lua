@@ -14,13 +14,6 @@ local prettier = { formatCommand = "./node_modules/.bin/prettier --stdin-filepat
 local lua_formatter = { formatCommand = "stylua -", formatStdin = true }
 
 local configs = {
-	yamlls = {
-		settings = {
-			yaml = {
-				format = false,
-			},
-		},
-	},
 	sumneko_lua = {
 		init_options = { codelenses = { test = true } },
 		settings = {
