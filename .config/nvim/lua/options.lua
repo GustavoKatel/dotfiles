@@ -78,6 +78,8 @@ vim.opt.showtabline = 2
 -- quickfix window will use last window to open files
 vim.opt.switchbuf:append("uselast")
 
+vim.opt.undofile = true
+
 -- terminal overrides
 -- no line numbers on terminals
 vim.api.nvim_create_augroup("term_open_config", { clear = true })
