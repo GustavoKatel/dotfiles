@@ -57,6 +57,7 @@ packer.startup({
 			"catppuccin/nvim",
 			as = "catppuccin",
 		})
+		use({ "rebelot/kanagawa.nvim" })
 
 		-- editting
 		use({ "preservim/nerdcommenter" }) -- toggle comment

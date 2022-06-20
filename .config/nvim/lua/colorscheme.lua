@@ -50,15 +50,17 @@ catppuccin.setup({
 	},
 })
 vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
-vim.cmd([[colorscheme catppuccin]])
+--vim.cmd([[colorscheme catppuccin]])
 
-local colors = require("catppuccin.api.colors").get_colors() -- fetch colors with API
-catppuccin.remap({
-	--illuminatedWord = { bg = colors.lavender },
-	--illuminatedCurWord = { bg = colors.lavender },
-})
-v.cmd.hi("TreesitterContext guibg=" .. colors.surface0)
+--local colors = require("catppuccin.api.colors").get_colors() -- fetch colors with API
+--catppuccin.remap({
+----illuminatedWord = { bg = colors.lavender },
+----illuminatedCurWord = { bg = colors.lavender },
+--})
+--v.cmd.hi("TreesitterContext guibg=" .. colors.surface0)
 
-for _, hl in ipairs({ "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }) do
-	v.cmd.hi(hl .. " guibg=" .. colors.surface0 .. " gui=underline")
-end
+--for _, hl in ipairs({ "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }) do
+--v.cmd.hi(hl .. " guibg=" .. colors.surface0 .. " gui=underline")
+--end
+
+vim.cmd("colorscheme kanagawa")

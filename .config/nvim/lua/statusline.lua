@@ -48,7 +48,7 @@ end
 lualine.setup({
 	options = {
 		-- theme = "codedark",
-		theme = theme,
+		--theme = theme,
 		-- theme = "github",
 		--theme = 'onedark',
 		section_separators = "",
