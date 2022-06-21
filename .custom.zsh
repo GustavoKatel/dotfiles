@@ -73,5 +73,7 @@ alias pyenv_load=$HOME/dev/pyenv_load.sh
 bindkey "\e[1;3D" backward-word # alt(option) + <-
 bindkey "\e[1;3C" forward-word # alt(option) + ->
 
+[ -f $HOME/.custom_work.zsh ] && source $HOME/.custom_work.zsh
+
 eval $(starship init zsh)
 
