@@ -18,6 +18,8 @@ alias nv="nvim"
 
 alias nvu="/Applications/goneovim.app/Contents/MacOS/goneovim --maximized >/dev/null 2>&1 & disown"
 
+alias k="kubectl"
+
 alias nr="npm run"
 alias pnr="pnpm run"
 
@@ -67,16 +69,6 @@ alias ea="exa -lh --git --icons"
 export PATH="$HOME/go/bin/:$PATH"
 
 alias pyenv_load=$HOME/dev/pyenv_load.sh
-
-source $HOME/.poetry/env
-
-alias rosetta_shell=$HOME/dev/apple_silicon_shims/rosetta_shell.sh
-
-# homebrew
-#alias brew=$HOME/dev/apple_silicon_shims/brew.sh
-alias mbrew="/opt/homebrew/bin/brew"
-alias ibrew="rosetta_shell /usr/local/bin/brew"
-# end homebrew
 
 bindkey "\e[1;3D" backward-word # alt(option) + <-
 bindkey "\e[1;3C" forward-word # alt(option) + ->
