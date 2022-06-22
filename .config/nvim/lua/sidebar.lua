@@ -1,8 +1,4 @@
-local v = require("utils")
 local user_profile = require("uprofile")
-
-local git_section = require("sidebar-nvim.builtin.git")
-git_section.bindings["a"] = git_section.bindings["s"]
 
 local sidebar = require("sidebar-nvim")
 
@@ -29,12 +25,10 @@ sidebar.setup({
 			"files",
 			"containers",
 		},
-		work = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints") },
+		work = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers" },
 	}),
 	datetime = { clocks = { { name = "Local" }, { tz = "America/Los_Angeles" }, { tz = "Etc/UTC" } } },
 	todos = { initially_closed = true },
 	buffers = { sorting = "name", ignore_not_loaded = true },
 	files = { follow = false },
 })
-
-v.cmd.highlight("link SidebarNvimLspDiagnosticsTotalNumber Normal")
