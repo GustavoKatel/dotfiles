@@ -1,6 +1,5 @@
 local v = require("custom/utils")
 local lualine = require("lualine")
-local theme = require("custom/statusline_theme")
 local tabs = require("custom/custom_tabs")
 
 local function lualine_custom_winnr()

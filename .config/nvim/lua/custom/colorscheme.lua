@@ -42,25 +42,4 @@ if vim.g.colors_name == "onedark" then
 	v.cmd.hi("LspSagaDiagnosticTruncateLine guifg=" .. colors.cyan)
 end
 
-local catppuccin = require("catppuccin")
-catppuccin.setup({
-	integrations = {
-		lsp_trouble = true,
-		lsp_saga = true,
-	},
-})
-vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
---vim.cmd([[colorscheme catppuccin]])
-
---local colors = require("catppuccin.api.colors").get_colors() -- fetch colors with API
---catppuccin.remap({
-----illuminatedWord = { bg = colors.lavender },
-----illuminatedCurWord = { bg = colors.lavender },
---})
---v.cmd.hi("TreesitterContext guibg=" .. colors.surface0)
-
---for _, hl in ipairs({ "LspReferenceText", "LspReferenceRead", "LspReferenceWrite" }) do
---v.cmd.hi(hl .. " guibg=" .. colors.surface0 .. " gui=underline")
---end
-
 vim.cmd("colorscheme kanagawa")
