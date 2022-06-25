@@ -393,13 +393,19 @@ end)
 vim.keymap.set({ "n" }, "<leader>t", function()
 	require("harpoon.term").gotoTerminal(1)
 end)
-vim.keymap.set({ "n" }, "<leader>ht", function()
-	require("harpoon.cmd-ui").toggle_quick_menu() -- shows the commands menu
-end)
 
 for i = 1, 4, 1 do
 	vim.keymap.set({ "n" }, "<leader>" .. i, function()
 		require("harpoon.ui").nav_file(i)
+	end)
+end
+vim.keymap.set({ "n" }, "<leader>hc", function()
+	require("harpoon.cmd-ui").toggle_quick_menu() -- shows the commands menu
+end)
+for i = 1, 4, 1 do
+	vim.keymap.set({ "n" }, "<leader>hc" .. i, function()
+        require("harpoon.term").sendCommand(1, i)           -- sends command 1 to term 1
+        require("harpoon.term").sendCommand(1, "\n")
 	end)
 end
 
