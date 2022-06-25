@@ -1,4 +1,4 @@
-local v = require("utils")
+local v = require("custom/utils")
 
 local lsp_status = require("lsp-status")
 
@@ -86,7 +86,7 @@ M.on_attach = function(client, bufnr, ...)
 				events = "CursorHold",
 				def = {
 					callback = function()
-						require("lsp").cursor_hold()
+						require("custom/lsp").cursor_hold()
 					end,
 				},
 			},

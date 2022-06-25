@@ -1,4 +1,4 @@
-local logging = require("logging")
+local logging = require("custom/logging")
 local async = require("plenary.async")
 
 local M = {

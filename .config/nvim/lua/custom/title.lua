@@ -1,4 +1,4 @@
-local v = require("utils")
+local v = require("custom/utils")
 
 v.cmd["UpdateTitle"] = function()
 	local titlestring = v.fn.fnamemodify(v.fn.getcwd(), ":t") .. " - NVIM"

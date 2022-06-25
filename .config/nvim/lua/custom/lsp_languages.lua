@@ -1,4 +1,4 @@
-local lsp_on_attach = require("lsp_on_attach")
+local lsp_on_attach = require("custom/lsp_on_attach")
 
 --local eslint = {
 --lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",

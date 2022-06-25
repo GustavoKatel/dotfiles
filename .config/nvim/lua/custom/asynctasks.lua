@@ -1,5 +1,5 @@
 -- TODO: remove utils support
-local v = require("utils")
+local v = require("custom/utils")
 
 v.fn["AsyncTasksRunnerFloaterm"] = function(opts)
 	v.cmd.FloatermNew(opts.cmd)

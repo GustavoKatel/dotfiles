@@ -11,7 +11,7 @@ end
 
 local packer = require("packer")
 
-local user_profile = require("uprofile")
+local user_profile = require("custom/uprofile")
 
 -- Install Plugins
 packer.startup({
@@ -53,16 +53,11 @@ packer.startup({
 		-- colorscheme
 		-- use {'tomasiser/vim-code-dark'}
 		use({ "navarasu/onedark.nvim" })
-		use({
-			"catppuccin/nvim",
-			as = "catppuccin",
-		})
 		use({ "rebelot/kanagawa.nvim" })
 
 		-- editting
 		use({ "preservim/nerdcommenter" }) -- toggle comment
 		use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
-		use({ "mg979/vim-visual-multi" }) -- multiple cursors
 		use({ "tpope/vim-surround" })
 		use({
 			"phaazon/hop.nvim",
@@ -102,7 +97,6 @@ packer.startup({
 		use({ "rcarriga/nvim-dap-ui" })
 		--TODO: author renamed the plugin and module, this is breaking
 		--use({ "Pocco81/DAPInstall.nvim", commit = "24923c3819a450a772bb8f675926d530e829665f", module = "dap-install" })
-		--use({ "vim-test/vim-test" }) -- better support for running tests
 		-- utils
 		use({ "tpope/vim-fugitive" }) -- some git goodies
 		use({ "voldikss/vim-floaterm" }) -- floating terminal
@@ -112,11 +106,9 @@ packer.startup({
 		use({ "skywind3000/asyncrun.vim" })
 		use({ "ThePrimeagen/harpoon" })
 
-		-- use {'GustavoKatel/vim-workspace'}
 		use({ "rmagatti/auto-session" })
 
 		use({ "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } } })
-		--use({ "nvim-telescope/telescope-vimspector.nvim" })
 		use({ "nvim-telescope/telescope-dap.nvim" })
 		use({ "nvim-telescope/telescope-live-grep-args.nvim" })
 		use({ "GustavoKatel/telescope-asynctasks.nvim" })

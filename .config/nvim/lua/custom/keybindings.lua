@@ -55,7 +55,7 @@ vim.keymap.set({ "n" }, "<C-z>", "<C-a>", { remap = true })
 
 -- open scratch file in a floating window
 vim.keymap.set({ "n" }, "<leader>s", function()
-	require("scratches").open_scratch_file_floating()
+	require("custom/scratches").open_scratch_file_floating()
 end)
 
 -- change focus splits

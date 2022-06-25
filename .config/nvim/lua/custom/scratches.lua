@@ -1,5 +1,4 @@
 -- some helpers to manage scratches
-local v = require("utils")
 
 local M = {
 	_state = {

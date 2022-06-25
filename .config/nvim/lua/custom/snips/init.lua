@@ -31,7 +31,7 @@ ls.config.set_config({
 local snippets = {}
 
 -- auto load snippets in ft folder
-for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/snips/ft/*.lua", true)) do
+for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/custom/snips/ft/*.lua", true)) do
 	local ft = vim.fn.fnamemodify(ft_path, ":t:r")
 	snippets[ft] = loadfile(ft_path)()
 	--print(vim.inspect(loadfile(ft_path)()))
