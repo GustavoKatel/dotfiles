@@ -6,8 +6,8 @@ v.fn["AsyncTasksRunnerFloaterm"] = function(opts)
 end
 
 v.fn["AsyncTasksRunnerHarpoon"] = function(opts)
-	require("harpoon.term").sendCommand(1, opts.cmd .. "\n")
-	require("harpoon.term").gotoTerminal(1)
+	require("harpoon.term").sendCommand(1, opts.cmd)
+	--require("harpoon.term").gotoTerminal(1)
 end
 
 vim.cmd("let g:asyncrun_runner = get(g:, 'asyncrun_runner', {})")
