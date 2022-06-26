@@ -15,6 +15,7 @@ treesitter_config.setup({
 		"tsx",
 		"html",
 		"markdown",
+		"markdown_inline",
 	},
 	highlight = { enable = true, custom_captures = {} },
 	autotag = { enable = true },
