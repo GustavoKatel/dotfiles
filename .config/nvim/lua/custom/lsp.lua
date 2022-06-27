@@ -110,6 +110,7 @@ M.cursor_hold = function()
 
 			vim.diagnostic.open_float({
 				border = "rounded",
+				focusable = false,
 				prefix = function(_, i)
 					return i .. ". "
 				end,
