@@ -11,7 +11,6 @@ require("custom/telescope_setup")
 require("custom/git_utils")
 
 require("custom/lsp")
-require("custom/saga")
 require("custom/completion")
 require("custom/snips")
 require("custom/refactoring_setup")

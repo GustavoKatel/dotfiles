@@ -34,12 +34,4 @@ v.v.g.material_disable_terminal = true
 --v.cmd.hi("illuminatedWord guibg=#424242")
 --v.cmd.hi("TreesitterContext guibg=#3e4452")
 
-if vim.g.colors_name == "onedark" then
-	local colors = require("onedark.colors")
-	v.cmd.hi("LspSagaRenameBorder guifg=" .. colors.green)
-	v.cmd.hi("LspSagaDiagnosticBorder guifg=" .. colors.purple)
-	v.cmd.hi("LspSagaDiagnosticHeader guifg=" .. colors.cyan)
-	v.cmd.hi("LspSagaDiagnosticTruncateLine guifg=" .. colors.cyan)
-end
-
 vim.cmd("colorscheme kanagawa")

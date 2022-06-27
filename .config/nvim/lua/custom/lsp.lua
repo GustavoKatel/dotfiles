@@ -90,9 +90,6 @@ M.cursor_hold_timer = nil
 M.cursor_hold = function()
 	local timeout = 500
 
-	local bufnr = 0
-	local line_nr = (vim.api.nvim_win_get_cursor(0)[1] - 1)
-
 	if M.cursor_hold_timer then
 		M.cursor_hold_timer:stop()
 		M.cursor_hold_timer:close()
@@ -110,7 +107,13 @@ M.cursor_hold = function()
 				M.cursor_hold_timer:close()
 				M.cursor_hold_timer = nil
 			end
-			require("lspsaga.diagnostic").show_line_diagnostics(nil, line_nr, bufnr)
+
+			vim.diagnostic.open_float({
+				border = "rounded",
+				prefix = function(_, i)
+					return i .. ". "
+				end,
+			})
 		end)
 	)
 end
