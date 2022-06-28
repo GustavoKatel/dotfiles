@@ -44,7 +44,7 @@ function M.open_scratch_file_floating(opts)
 	local winnr = vim.api.nvim_open_win(0, true, win_opts)
 	M._state.last_floating_window = winnr
 
-	vim.api.nvim_command("edit " .. M.get_scratch_filename())
+	vim.api.nvim_command("edit! " .. M.get_scratch_filename())
 
 	local bufnr = vim.api.nvim_get_current_buf()
 
@@ -53,7 +53,7 @@ function M.open_scratch_file_floating(opts)
 	for _, key in ipairs(closing_keys) do
 		vim.keymap.set({ "n" }, key, function()
 			vim.api.nvim_command(":silent !mkdir -p .scratches")
-			vim.api.nvim_command(":w")
+			vim.api.nvim_command(":w!")
 			vim.api.nvim_win_close(0, false)
 			M._state.last_floating_window = nil
 		end, { buffer = bufnr })
