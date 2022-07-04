@@ -18,11 +18,7 @@ packer.startup({
 	function(use)
 		use({ "wbthomason/packer.nvim" }) -- updates package manager
 		-- libs
-		use(user_profile.with_profile_table({
-			default = "/Users/gustavokatel/dev/plenary.nvim",
-			--work = "nvim-lua/plenary.nvim",
-			work = { "GustavoKatel/plenary.nvim", branch = "condvar-table-remove" },
-		}))
+		use({ "nvim-lua/plenary.nvim" })
 
 		-- lsp
 		use({ "neovim/nvim-lspconfig" })
