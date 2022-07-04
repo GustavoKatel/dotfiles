@@ -217,13 +217,25 @@ vim.keymap.set({ "t" }, "<M-n>", "<C-\\><C-N>:FloatermNew<CR>")
 -- alt-t to open ranger in a float terminal
 vim.keymap.set({ "n" }, "<C-T>", "<cmd>Ranger<cr>")
 
--- ctrl-c will close processes in normal mode
 vim.api.nvim_create_augroup("KeyMapsTermOpen", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
 	group = "KeyMapsTermOpen",
 	callback = function()
+		-- ctrl-c will close processes in normal mode
 		vim.keymap.set({ "n" }, "<C-c>", "i<C-c>", { buffer = true })
 		vim.keymap.set({ "n" }, "<C-d>", ":BD!<CR>", { buffer = true })
+	end,
+})
+
+vim.api.nvim_create_augroup("KeyMapsTermClose", { clear = true })
+vim.api.nvim_create_autocmd("TermClose", {
+	group = "KeyMapsTermClose",
+	callback = function(event)
+		-- <CR> on a finished terminal will not close the window, instead it will open the prev buffer
+		vim.keymap.set({ "n", "t" }, "<CR>", function()
+			vim.cmd("bprev")
+			vim.cmd("bdelete! " .. event.buf)
+		end, { buffer = event.buf })
 	end,
 })
 
