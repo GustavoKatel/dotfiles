@@ -80,6 +80,7 @@ lualine.setup({
 		lualine_b = { "branch" },
 		lualine_c = {
 			notes_count,
+			require("tasks.statusline.running")(),
 			--{
 			--"filename",
 			--file_status = true, -- displays file status (readonly status, modified status)

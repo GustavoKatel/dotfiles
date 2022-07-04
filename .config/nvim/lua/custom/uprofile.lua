@@ -31,6 +31,10 @@ end
 -- @param fn function to execute
 -- @return any|nil return fn(...) or nil if the profile is not active
 function M.with_profile_fn(profile_name, fn, ...)
+	if profile_name == "default" then
+		profile_name = M.config.default_profile
+	end
+
 	if profile_name ~= "any" and profile_name ~= M.get_active_profile() then
 		return nil
 	end

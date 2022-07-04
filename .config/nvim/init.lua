@@ -27,3 +27,5 @@ require("custom/statusline")
 require("custom/quickfix_window")
 
 require("custom/scratches")
+
+require("custom/tasks")

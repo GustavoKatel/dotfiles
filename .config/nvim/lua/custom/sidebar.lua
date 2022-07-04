@@ -2,6 +2,8 @@ local user_profile = require("custom/uprofile")
 
 local sidebar = require("sidebar-nvim")
 
+local tasks_section = require("sidebar-nvim.sections.tasks")
+
 sidebar.setup({
 	open = true,
 	initial_width = 40,
@@ -15,7 +17,7 @@ sidebar.setup({
 	--return { "-----" }
 	--end,
 	sections = user_profile.with_profile_table({
-		default = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers" },
+		default = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers", tasks_section },
 		test = {
 			"buffers",
 			"todos",
@@ -25,7 +27,7 @@ sidebar.setup({
 			"files",
 			"containers",
 		},
-		work = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers" },
+		work = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers", tasks_section },
 	}),
 	datetime = { clocks = { { name = "Local" }, { tz = "America/Los_Angeles" }, { tz = "Etc/UTC" } } },
 	todos = { initially_closed = true },

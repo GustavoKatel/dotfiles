@@ -18,11 +18,16 @@ packer.startup({
 	function(use)
 		use({ "wbthomason/packer.nvim" }) -- updates package manager
 		-- libs
-		use({ "nvim-lua/plenary.nvim" })
+		use(user_profile.with_profile_table({
+			default = "/Users/gustavokatel/dev/plenary.nvim",
+			--work = "nvim-lua/plenary.nvim",
+			work = { "GustavoKatel/plenary.nvim", branch = "condvar-table-remove" },
+		}))
+
 		-- lsp
 		use({ "neovim/nvim-lspconfig" })
 		use({ "williamboman/nvim-lsp-installer" })
-		use({ "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } })
+		use({ "jose-elias-alvarez/null-ls.nvim" })
 		use({ "onsails/lspkind-nvim" })
 		use({ "ray-x/lsp_signature.nvim" })
 		use({
@@ -80,7 +85,6 @@ packer.startup({
 		})
 		use({
 			"folke/todo-comments.nvim",
-			requires = "nvim-lua/plenary.nvim",
 			config = function()
 				require("todo-comments").setup({})
 			end,
@@ -104,7 +108,7 @@ packer.startup({
 
 		use({ "rmagatti/auto-session" })
 
-		use({ "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } } })
+		use({ "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" } } })
 		use({ "nvim-telescope/telescope-dap.nvim" })
 		use({ "nvim-telescope/telescope-live-grep-args.nvim" })
 		use({ "GustavoKatel/telescope-asynctasks.nvim" })
@@ -130,6 +134,13 @@ packer.startup({
 				"Verbose", -- view verbose output in preview window.
 				"Time", -- measure how long it takes to run some stuff.
 			},
+		})
+
+		use({
+			user_profile.with_profile_table({
+				default = "/Users/gustavokatel/dev/tasks.nvim",
+				work = "GustavoKatel/tasks.nvim",
+			}),
 		})
 	end,
 	config = {
