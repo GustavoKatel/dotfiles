@@ -315,13 +315,15 @@ for _, code in ipairs({ "<D-g>", "<C-g>", create_kitty_keymap("dg") }) do
 	end)
 end
 
--- telescope asynctasks
-for _, code in ipairs({ "<C-F9>" }) do
-	vim.keymap.set({ "n" }, code, function()
-		local telescope = require("telescope")
-		telescope.extensions.asynctasks.all()
-	end)
-end
+-- telescope tasks
+vim.keymap.set({ "n" }, "<F9>", function()
+	local telescope = require("telescope")
+	telescope.extensions.tasks.specs()
+end)
+vim.keymap.set({ "n" }, "<C-F9>", function()
+	local telescope = require("telescope")
+	telescope.extensions.tasks.running()
+end)
 
 -- telescope select/change filetype
 for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l", create_kitty_keymap("csl") }) do
@@ -346,11 +348,12 @@ vim.keymap.set({ "i" }, "<D-z>", "<ESC>ui")
 
 -- dap mappings
 -- telescope
-for _, code in ipairs({ "<F9>" }) do
-	vim.keymap.set({ "n" }, code, function()
-		require("telescope").extensions.dap.commands()
-	end)
-end
+-- TODO: move this to tasks.nvim
+--for _, code in ipairs({ "<F9>" }) do
+--vim.keymap.set({ "n" }, code, function()
+--require("telescope").extensions.dap.commands()
+--end)
+--end
 
 vim.keymap.set({ "n" }, "<leader>b", function()
 	require("dap").toggle_breakpoint()
