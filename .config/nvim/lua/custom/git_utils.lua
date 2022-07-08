@@ -13,6 +13,6 @@ function M.tab_diff_split()
 	vim.cmd("Gvdiffsplit!")
 end
 
-vim.cmd("command! GitTabDiff lua require'git_utils'.tab_diff_split()")
+vim.cmd("command! GitTabDiff lua require'custom.git_utils'.tab_diff_split()")
 
 return M
