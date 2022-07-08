@@ -345,6 +345,9 @@ vim.keymap.set({ "n" }, "<C-F9>", function()
 	local telescope = require("telescope")
 	telescope.extensions.tasks.running()
 end)
+vim.keymap.set({ "n" }, "<S-F9>", function()
+	require("tasks").run_last()
+end)
 
 -- telescope select/change filetype
 for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l", create_kitty_keymap("csl") }) do

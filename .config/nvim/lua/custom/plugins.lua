@@ -56,6 +56,7 @@ packer.startup({
 		use({ "preservim/nerdcommenter" }) -- toggle comment
 		use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
 		use({ "tpope/vim-surround" })
+		use({ "tpope/vim-abolish" })
 		use({
 			"phaazon/hop.nvim",
 			as = "hop",
