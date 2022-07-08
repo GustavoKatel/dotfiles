@@ -1,32 +1,32 @@
 local user_profile = require("custom/uprofile")
-local dap_install = require("dap-install")
+--local dap_install = require("dap-install")
 local dap = require("dap")
 local dap_local_project_config = require("custom/dap_local_project_config")
 
 require("dapui").setup()
 
-dap_install.setup({ installation_path = vim.fn.stdpath("data") .. "/dapinstall/" })
+--dap_install.setup({ installation_path = vim.fn.stdpath("data") .. "/dapinstall/" })
 
 user_profile.with_profile_fn("personal", function()
-	dap_install.config("go", {})
+	--dap_install.config("go", {})
 end)
 
 dap.set_log_level("TRACE")
 
-dap_install.config("jsnode", {
-	configurations = {
-		{
-			name = "${file}",
-			type = "node2",
-			request = "launch",
-			program = "${workspaceFolder}/${file}",
-			cwd = vim.fn.getcwd(),
-			sourceMaps = true,
-			protocol = "inspector",
-			console = "integratedTerminal",
-		},
-	},
-})
+--dap_install.config("jsnode", {
+--configurations = {
+--{
+--name = "${file}",
+--type = "node2",
+--request = "launch",
+--program = "${workspaceFolder}/${file}",
+--cwd = vim.fn.getcwd(),
+--sourceMaps = true,
+--protocol = "inspector",
+--console = "integratedTerminal",
+--},
+--},
+--})
 
 dap.configurations.typescript = {
 	{

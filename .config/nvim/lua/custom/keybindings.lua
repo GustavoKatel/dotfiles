@@ -231,11 +231,20 @@ vim.api.nvim_create_augroup("KeyMapsTermClose", { clear = true })
 vim.api.nvim_create_autocmd("TermClose", {
 	group = "KeyMapsTermClose",
 	callback = function(event)
-		-- <CR> on a finished terminal will not close the window, instead it will open the prev buffer
-		vim.keymap.set({ "n", "t" }, "<CR>", function()
-			vim.cmd("bprev")
-			vim.cmd("bdelete! " .. event.buf)
-		end, { buffer = event.buf })
+		-- <keys> on a finished terminal will not close the window, instead it will open the prev buffer
+		local keys = { "<CR>", "<C-c>" }
+		for _, key in ipairs(keys) do
+			vim.keymap.set({ "n", "t" }, key, function()
+				vim.cmd("bprev")
+				vim.cmd("bdelete! " .. event.buf)
+			end, { buffer = event.buf })
+		end
+
+		-- <keys> on finished terminal in terminal mode will not close the buffer
+		keys = { "i", "a" }
+		for _, key in ipairs(keys) do
+			vim.keymap.set({ "t" }, key, "<C-\\><C-N>", { buffer = event.buf })
+		end
 	end,
 })
 
