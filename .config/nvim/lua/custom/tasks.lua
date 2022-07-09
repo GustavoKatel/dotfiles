@@ -7,8 +7,6 @@ local Source = require("tasks.lib.source")
 
 local runner_builtin = require("tasks.runners.builtin")
 
-require("telescope").load_extension("tasks")
-
 tasks.setup({
 	sources = {
 		npm = source_npm,
@@ -25,7 +23,7 @@ tasks.setup({
 				},
 
 				term_sleep = {
-					cmd = "sleep 10",
+					cmd = "sleep 60",
 				},
 
 				wait_stop = {

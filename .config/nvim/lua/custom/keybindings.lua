@@ -232,7 +232,7 @@ vim.api.nvim_create_autocmd("TermClose", {
 	group = "KeyMapsTermClose",
 	callback = function(event)
 		-- <keys> on a finished terminal will not close the window, instead it will open the prev buffer
-		local keys = { "<CR>", "<C-c>" }
+		local keys = { "<CR>", "<C-c>", "<C-d>" }
 		for _, key in ipairs(keys) do
 			vim.keymap.set({ "n", "t" }, key, function()
 				vim.cmd("bprev")
