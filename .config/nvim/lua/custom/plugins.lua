@@ -133,12 +133,10 @@ packer.startup({
 			},
 		})
 
-		use({
-			user_profile.with_profile_table({
-				default = "/Users/gustavokatel/dev/tasks.nvim",
-				work = "GustavoKatel/tasks.nvim",
-			}),
-		})
+		use(user_profile.with_profile_table({
+			default = { "/Users/gustavokatel/dev/tasks.nvim" },
+			work = { "GustavoKatel/tasks.nvim", branch = "sources-overhaul" },
+		}))
 	end,
 	config = {
 		display = {
