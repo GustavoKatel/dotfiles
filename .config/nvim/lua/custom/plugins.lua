@@ -105,7 +105,7 @@ packer.startup({
 
 		use({ "rmagatti/auto-session" })
 
-		use({ "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" } } })
+		use({ "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/popup.nvim" } }, branch = "0.1.x" })
 		use({ "nvim-telescope/telescope-dap.nvim" })
 		use({ "nvim-telescope/telescope-live-grep-args.nvim" })
 		use({ "GustavoKatel/telescope-asynctasks.nvim" })
