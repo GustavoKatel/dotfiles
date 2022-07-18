@@ -305,7 +305,12 @@ vim.keymap.set({ "n" }, "<C-b>", function()
 	local telescope = require("telescope.builtin")
 	telescope.buffers()
 end)
---
+
+-- telescope spell suggestions
+vim.keymap.set({ "n" }, "z=", function()
+	local telescope = require("telescope.builtin")
+	telescope.spell_suggest()
+end)
 
 -- telescope global search
 for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_kitty_keymap("mf") }) do

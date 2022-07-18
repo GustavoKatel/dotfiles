@@ -89,6 +89,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.cmd("IlluminationDisable")
 		vim.cmd("setlocal nonumber")
 		vim.cmd("setlocal norelativenumber")
+		vim.cmd("setlocal nospell")
 	end,
 })
 
