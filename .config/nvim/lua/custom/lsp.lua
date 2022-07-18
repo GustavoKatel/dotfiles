@@ -22,10 +22,12 @@ local configs = require("custom/lsp_languages")
 local lsp_on_attach = require("custom/lsp_on_attach")
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
+local common_servers = { "sumneko_lua", "tsserver", "eslint", "dockerls" }
+
 local servers = user_profile.with_profile_table({
-	default = { "sumneko_lua", "tsserver", "eslint", "gopls", "clangd", "rust_analyzer", "pyright" },
+	default = vim.tbl_flatten({ common_servers, { "gopls", "clangd", "rust_analyzer", "pyright" } }),
 	--default = { "efm", "sumneko_lua", "tsserver", "eslint", "gopls", "clangd", "rust_analyzer", "pyright" },
-	work = { "sumneko_lua", "tsserver", "eslint" },
+	work = vim.tbl_flatten(common_servers),
 })
 
 require("null-ls").setup({

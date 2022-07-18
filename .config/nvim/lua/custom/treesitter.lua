@@ -16,6 +16,7 @@ treesitter_config.setup({
 		"html",
 		"markdown",
 		"markdown_inline",
+		"dockerfile",
 	},
 	highlight = { enable = true, custom_captures = {} },
 	autotag = { enable = true },
