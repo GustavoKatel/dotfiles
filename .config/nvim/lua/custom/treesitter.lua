@@ -81,3 +81,5 @@ require("nvim_context_vt").setup({
 	prefix = "  -->",
 	disable_ft = { "markdown", "yaml", "json" },
 })
+
+require("spellsitter").setup()

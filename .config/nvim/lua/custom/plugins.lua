@@ -44,6 +44,7 @@ packer.startup({
 		use({ "windwp/nvim-ts-autotag" }) -- auto close html tags using treesitter
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 		use({ "nvim-treesitter/nvim-treesitter-context" })
+		use({ "lewis6991/spellsitter.nvim" })
 		use({ "haringsrob/nvim_context_vt" })
 		use({ "cespare/vim-toml" })
 		use({ "ThePrimeagen/refactoring.nvim" })

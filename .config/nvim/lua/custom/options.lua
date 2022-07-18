@@ -109,13 +109,15 @@ vim.g.AutoPairsShortcutToggle = ""
 
 vim.g.dashboard_default_executive = "telescope"
 
+-- set spell everywhere, this works fine because of spellsitter in ./treesitter.lua
+vim.opt.spell = true
 -- set spell check for markdown files
-vim.api.nvim_create_augroup("markdown_config", { clear = true })
-vim.api.nvim_create_autocmd("FileType", { group = "markdown_config", pattern = "markdown", command = "setlocal spell" })
-vim.api.nvim_create_autocmd(
-	{ "BufRead", "BufNewFile" },
-	{ group = "markdown_config", pattern = "*.md", command = "setlocal spell" }
-)
+--vim.api.nvim_create_augroup("markdown_config", { clear = true })
+--vim.api.nvim_create_autocmd("FileType", { group = "markdown_config", pattern = "markdown", command = "setlocal spell" })
+--vim.api.nvim_create_autocmd(
+--{ "BufRead", "BufNewFile" },
+--{ group = "markdown_config", pattern = "*.md", command = "setlocal spell" }
+--)
 
 -- set nvr as GIT_EDITOR so we can use the current nvim as editor for git
 vim.env.GIT_EDITOR = "nvr -cc split --remote-wait"
