@@ -1,0 +1,8 @@
+Artifactory
+Dockerfile
+package.json
+package-lock.json
+npmrc
+npm
+ci
+src
