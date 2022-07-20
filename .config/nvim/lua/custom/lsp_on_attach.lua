@@ -1,7 +1,5 @@
 local v = require("custom/utils")
 
-local lsp_status = require("lsp-status")
-
 local M = {}
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -12,7 +10,6 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 -- keymaps
 M.on_attach = function(client, bufnr, ...)
 	-- completion.on_attach(client, bufnr)
-	lsp_status.on_attach(client, bufnr, ...)
 	require("illuminate").on_attach(client, bufnr, ...)
 	require("lsp_signature").on_attach({
 		bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -52,31 +49,20 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 	buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
-	-- Set some keybinds conditional on server capabilities
-	-- TODO: remove resolved_capabilities when 0.8 is out
-	local has_formatting = false
-	if vim.fn.has("nvim-0.8") == 1 then
-		has_formatting = client.server_capabilities.documentFormattingProvider
-	else
-		has_formatting = client.resolved_capabilities.document_formatting
-	end
-
-	if has_formatting then
-		v.create_autocommands({
-			group = { name = "lsp_formatting" },
-			buffer = bufnr,
-			cmds = {
-				{
-					events = { "BufWritePre" },
-					def = {
-						callback = function()
-							vim.lsp.buf.formatting_seq_sync()
-						end,
-					},
+	v.create_autocommands({
+		group = { name = "lsp_formatting" },
+		buffer = bufnr,
+		cmds = {
+			{
+				events = { "BufWritePre" },
+				def = {
+					callback = function()
+						vim.lsp.buf.formatting_seq_sync()
+					end,
 				},
 			},
-		})
-	end
+		},
+	})
 
 	v.create_autocommands({
 		group = { name = "lsp_line_diagnostic" },

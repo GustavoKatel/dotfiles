@@ -70,24 +70,9 @@ local configs = {
 			return lsp_on_attach.on_attach(client, bufnr, ...)
 		end,
 	},
-	efm = {
-		init_options = { documentFormatting = true },
-		--TODO: https://github.com/neovim/nvim-lspconfig/pull/1414
-		single_file_support = true,
-		settings = {
-			rootMarkers = { ".git/" },
-			languages = {
-				lua = { lua_formatter },
-				javascript = { prettier },
-				typescript = { prettier },
-				typescriptreact = { prettier },
-				javascriptreact = { prettier },
-				["javascript.jsx"] = { prettier },
-				["typescript.tsx"] = { prettier },
-				yaml = { prettier },
-				json = { prettier },
-				html = { prettier },
-			},
+	jsonls = {
+		init_options = {
+			provideFormatter = false,
 		},
 	},
 	gopls = {

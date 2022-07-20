@@ -10,14 +10,6 @@ local function lualine_tab_treesitter()
 	return require("nvim-treesitter").statusline(200)
 end
 
-local function lualine_lsp_status()
-	if #vim.lsp.buf_get_clients() > 0 then
-		return require("lsp-status").status()
-	end
-
-	return "<no lsp>"
-end
-
 local function gitsigns_blame()
 	local blame_info = vim.b.gitsigns_blame_line_dict
 

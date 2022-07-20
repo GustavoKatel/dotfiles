@@ -1,12 +1,9 @@
 local luv = vim.loop
 local v = require("custom/utils")
 local user_profile = require("custom/uprofile")
+local lspconfig = require("lspconfig")
 
 local lsp_installer = require("nvim-lsp-installer")
-
--- status in the tabline
-local lsp_status = require("lsp-status")
-lsp_status.register_progress()
 
 require("fidget").setup({
 	sources = {
@@ -22,11 +19,10 @@ local configs = require("custom/lsp_languages")
 local lsp_on_attach = require("custom/lsp_on_attach")
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
-local common_servers = { "sumneko_lua", "tsserver", "eslint", "dockerls" }
+local common_servers = { "sumneko_lua", "tsserver", "eslint", "dockerls", "jsonls" }
 
 local servers = user_profile.with_profile_table({
 	default = vim.tbl_flatten({ common_servers, { "gopls", "clangd", "rust_analyzer", "pyright" } }),
-	--default = { "efm", "sumneko_lua", "tsserver", "eslint", "gopls", "clangd", "rust_analyzer", "pyright" },
 	work = vim.tbl_flatten(common_servers),
 })
 
@@ -44,22 +40,21 @@ require("null-ls").setup({
 vim.lsp.set_log_level("debug")
 
 -- config that activates keymaps and enables snippet support
-local function make_config(server)
+local function make_config(server_name)
+	-- TODO: still need this?
+	--local capabilities = vim.lsp.protocol.make_client_capabilities()
+	--capabilities.textDocument.completion.completionItem.snippetSupport = true
+	--capabilities.textDocument.completion.completionItem.resolveSupport = {
+	--properties = { "documentation", "detail", "additionalTextEdits" },
+	--}
+
+	-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
-	capabilities.textDocument.completion.completionItem.resolveSupport = {
-		properties = { "documentation", "detail", "additionalTextEdits" },
-	}
+	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
-	local lsp_status_extension = lsp_status.extensions[server]
-	local lsp_handlers = nil
-	if lsp_status_extension then
-		lsp_handlers = lsp_status_extension.setup()
-	end
+	local config = { capabilities = capabilities, on_attach = lsp_on_attach.on_attach }
 
-	local config = { capabilities = capabilities, handlers = lsp_handlers, on_attach = lsp_on_attach.on_attach }
-
-	local server_config = configs[server] or {}
+	local server_config = configs[server_name] or {}
 	if server_config.on_attach ~= nil then
 		config.on_attach = server_config.on_attach
 	end
@@ -67,13 +62,17 @@ local function make_config(server)
 	return vim.tbl_extend("force", server_config, config)
 end
 
-lsp_installer.on_server_ready(function(server)
-	local config = make_config(server.name)
-	--
-	-- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-	server:setup(config)
-	vim.cmd([[ do User LspAttachBuffers ]])
-end)
+lsp_installer.setup()
+
+for _, server_name in ipairs(servers) do
+	local server = lspconfig[server_name]
+	if not server then
+		vim.notify("invalid lsp server: " .. server_name, vim.log.levels.ERROR)
+	else
+		local config = make_config(server_name)
+		server.setup(config)
+	end
+end
 
 v.cmd["UpdateLSP"] = function()
 	for _, lang in ipairs(servers) do

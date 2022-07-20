@@ -6,3 +6,5 @@ npmrc
 npm
 ci
 src
+sourceRoot
+eslint
