@@ -74,6 +74,21 @@ local configs = {
 		init_options = {
 			provideFormatter = false,
 		},
+		settings = {
+			json = {
+				validate = { enable = true },
+				schemas = {
+					{
+						fileMatch = { "package.json" },
+						url = "https://json.schemastore.org/package.json",
+					},
+					{
+						fileMatch = { "tsconfig.json", "tsconfig.*.json" },
+						url = "http://json.schemastore.org/tsconfig",
+					},
+				},
+			},
+		},
 	},
 	gopls = {
 		settings = { gopls = {
