@@ -2,4 +2,3 @@
 .config/nvim/plugin/packer_compiled.lua
 .config/nvim/lua/custom/private.lua
 .config/nvim/after/plugin/private.lua
-*.private.*
