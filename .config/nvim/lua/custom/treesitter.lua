@@ -6,6 +6,7 @@ treesitter_config.setup({
 		"go",
 		"lua",
 		"json",
+		"jsonc",
 		"python",
 		"yaml",
 		"bash",
