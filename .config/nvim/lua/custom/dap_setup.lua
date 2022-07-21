@@ -1,7 +1,7 @@
-local user_profile = require("custom/uprofile")
+local user_profile = require("custom.uprofile")
 --local dap_install = require("dap-install")
 local dap = require("dap")
-local dap_local_project_config = require("custom/dap_local_project_config")
+local dap_local_project_config = require("custom.dap_local_project_config")
 
 require("dapui").setup()
 

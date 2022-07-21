@@ -1,4 +1,4 @@
-local v = require("custom/utils")
+local v = require("custom.utils")
 
 -- v.cmd.colorscheme("codedark")
 v.v.g.material_style = "darker"

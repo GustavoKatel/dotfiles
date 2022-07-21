@@ -1,4 +1,4 @@
-local user_profile = require("custom/uprofile")
+local user_profile = require("custom.uprofile")
 
 local sidebar = require("sidebar-nvim")
 

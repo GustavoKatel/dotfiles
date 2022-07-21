@@ -1,6 +1,6 @@
 local luv = vim.loop
-local v = require("custom/utils")
-local user_profile = require("custom/uprofile")
+local v = require("custom.utils")
+local user_profile = require("custom.uprofile")
 local lspconfig = require("lspconfig")
 
 local lsp_installer = require("nvim-lsp-installer")
@@ -15,8 +15,8 @@ require("fidget").setup({
 })
 
 -- configs
-local configs = require("custom/lsp_languages")
-local lsp_on_attach = require("custom/lsp_on_attach")
+local configs = require("custom.lsp_languages")
+local lsp_on_attach = require("custom.lsp_on_attach")
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
 local common_servers = { "sumneko_lua", "tsserver", "eslint", "dockerls", "jsonls" }

@@ -11,7 +11,7 @@ end
 
 local packer = require("packer")
 
-local user_profile = require("custom/uprofile")
+local user_profile = require("custom.uprofile")
 
 -- Install Plugins
 packer.startup({

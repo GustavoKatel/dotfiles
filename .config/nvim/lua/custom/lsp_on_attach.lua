@@ -1,4 +1,4 @@
-local v = require("custom/utils")
+local v = require("custom.utils")
 
 local M = {}
 
@@ -72,7 +72,7 @@ M.on_attach = function(client, bufnr, ...)
 				events = "CursorHold",
 				def = {
 					callback = function()
-						require("custom/lsp").cursor_hold()
+						require("custom.lsp").cursor_hold()
 					end,
 				},
 			},
