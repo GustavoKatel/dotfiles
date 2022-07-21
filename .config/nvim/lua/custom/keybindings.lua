@@ -495,27 +495,7 @@ vim.keymap.set("n", "<C-e>", function()
 	vim.cmd(cmd)
 end)
 
--- refactoring stuff
-vim.keymap.set("v", "<leader>rr", function()
-	require("telescope").extensions.refactoring.refactors()
-end)
-
--- add debug print calls
-vim.keymap.set("n", "<leader>rp", function()
-	require("refactoring").debug.printf({ below = false })
-end)
-
--- Print var
--- In normal mode it selects the word under the cursor
-vim.keymap.set("v", "<leader>rv", function()
-	require("refactoring").debug.print_var({})
-end)
-vim.keymap.set("n", "<leader>rv", function()
-	vim.cmd("normal viw")
-	require("refactoring").debug.print_var({})
-end)
-
--- Cleanup function: this remap should be made in normal mode
-vim.keymap.set("n", "<leader>rc", function()
-	require("refactoring").debug.cleanup({})
-end)
+-- open in cwd
+vim.keymap.set("n", "<leader>dd", ":edit .<CR>")
+-- open in file dir
+vim.keymap.set("n", "<leader>df", ":edit %:h<CR>")
