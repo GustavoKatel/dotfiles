@@ -121,14 +121,11 @@ vim.keymap.set({ "n" }, "<F4>", "<cmd>UndotreeToggle<cr>")
 -- alt-b to create a new buffer in the current split
 vim.keymap.set({ "n" }, "<M-b>", "<cmd>enew<cr>")
 
--- ctrl/cmd-f search in current buffer
-for _, code in ipairs({ "<C-f>", "<D-f>" }) do
-	vim.keymap.set({ "n" }, code, "/")
-end
-
+-- in normal mode, press "?" to search for the current word under cursor, but don't jump!
+-- this sets the search register "/" to the current word
+vim.keymap.set({ "n" }, "?", ":let @/='<C-R>=expand('<cword>')<CR>' | set hls<CR>")
 -- visual mode searches for the selected text
-vim.keymap.set({ "v" }, "<C-f>", "y/<C-R>=escape(@\",'/\\')<CR><CR>")
-vim.keymap.set({ "v" }, "<D-f>", "y/<C-R>=escape(@\",'/\\')<CR><CR>")
+vim.keymap.set({ "v" }, "?", "y:let @/='<C-R>=escape(@\",'/\\')<CR>' | set hls<CR>")
 
 -- visual mode replace the currently selected text
 vim.keymap.set({ "v" }, "<C-h>", "y:%s/<C-R>=escape(@\",'/\\')<CR>/")
