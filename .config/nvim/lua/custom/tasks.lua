@@ -3,6 +3,7 @@ local tasks = require("tasks")
 local source_npm = require("tasks.sources.npm")
 local source_tasksjson = require("tasks.sources.tasksjson")
 local source_cargo = require("tasks.sources.cargo")
+local source_dap = require("tasks.sources.dap")
 local Source = require("tasks.lib.source")
 
 local runner_builtin = require("tasks.runners.builtin")
@@ -12,6 +13,7 @@ tasks.setup({
 		npm = source_npm,
 		vscode = source_tasksjson,
 		cargo = source_cargo,
+		dap = source_dap,
 		utils = Source:create({
 			specs = {
 				sleep = {
@@ -37,5 +39,9 @@ tasks.setup({
 
 	runners = {
 		builtin = runner_builtin:with({ sticky_terminal_window = true }),
+	},
+
+	logger = {
+		level = "debug",
 	},
 })

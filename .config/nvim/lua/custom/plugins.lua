@@ -71,7 +71,12 @@ packer.startup({
 		-- HUD
 		use({ "lewis6991/gitsigns.nvim" }) -- git information in the buffer lines
 		use({ "kyazdani42/nvim-web-devicons" })
-		use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+		use({
+			"nvim-lualine/lualine.nvim",
+			-- TODO: remove this after this issue is resolved: https://github.com/nvim-lualine/lualine.nvim/issues/751
+			commit = "8d956c18258bb128ecf42f95411bb26efd3a5d23",
+			requires = { "kyazdani42/nvim-web-devicons" },
+		})
 		use({
 			"lukas-reineke/indent-blankline.nvim",
 			config = function()
