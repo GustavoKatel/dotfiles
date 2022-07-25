@@ -37,7 +37,7 @@ local configs = {
 					library = {
 						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
 						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-						[vim.fn.expand("/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/")] = true,
+						[vim.fn.stdpath("config") .. "/lua"] = true,
 					},
 				},
 			},
