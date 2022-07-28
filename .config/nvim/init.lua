@@ -28,6 +28,7 @@ require("custom.quickfix_window")
 
 require("custom.scratches")
 
+require("custom.overseer")
 require("custom.tasks")
 
 require("custom.terminal")
