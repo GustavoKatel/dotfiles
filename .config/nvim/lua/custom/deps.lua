@@ -12,7 +12,13 @@ mason_lspconfig.setup({
 local common_pkgs = { "stylua" }
 
 local pkgs = user_profile.with_profile_table({
-	default = vim.tbl_flatten({ common_pkgs, { "luacheck" } }),
+	default = vim.tbl_flatten({
+		common_pkgs,
+		{
+			"luacheck",
+			"delve", -- go debugger
+		},
+	}),
 	work = vim.tbl_flatten({ common_pkgs, "actionlint" }),
 })
 

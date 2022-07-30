@@ -100,8 +100,7 @@ packer.startup({
 		--use({ "puremourning/vimspector" }) -- debugging platform
 		use({ "mfussenegger/nvim-dap" })
 		use({ "rcarriga/nvim-dap-ui" })
-		--TODO: author renamed the plugin and module, this is breaking
-		--use({ "Pocco81/DAPInstall.nvim", commit = "24923c3819a450a772bb8f675926d530e829665f", module = "dap-install" })
+
 		-- utils
 		use({ "tpope/vim-fugitive" }) -- some git goodies
 		use({ "voldikss/vim-floaterm" }) -- floating terminal
