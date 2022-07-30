@@ -1,18 +1,5 @@
 local lsp_on_attach = require("custom.lsp_on_attach")
 
---local eslint = {
---lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
---lintStdin = true,
---lintFormats = { "%f:%l:%c: %m" },
---lintIgnoreExitCode = true,
---formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
---formatStdin = true,
---}
-
-local prettier = { formatCommand = "./node_modules/.bin/prettier --stdin-filepath ${INPUT}", formatStdin = true }
-
-local lua_formatter = { formatCommand = "stylua -", formatStdin = true }
-
 local configs = {
 	sumneko_lua = {
 		init_options = { codelenses = { test = true } },

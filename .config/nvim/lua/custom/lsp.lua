@@ -3,7 +3,7 @@ local v = require("custom.utils")
 local user_profile = require("custom.uprofile")
 local lspconfig = require("lspconfig")
 
-local lsp_installer = require("nvim-lsp-installer")
+local mason_lspconfig = require("mason-lspconfig")
 
 require("fidget").setup({
 	sources = {
@@ -41,15 +41,13 @@ vim.lsp.set_log_level("debug")
 
 -- config that activates keymaps and enables snippet support
 local function make_config(server_name)
-	-- TODO: still need this?
-	--local capabilities = vim.lsp.protocol.make_client_capabilities()
-	--capabilities.textDocument.completion.completionItem.snippetSupport = true
-	--capabilities.textDocument.completion.completionItem.resolveSupport = {
-	--properties = { "documentation", "detail", "additionalTextEdits" },
-	--}
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+	capabilities.textDocument.completion.completionItem.resolveSupport = {
+		properties = { "documentation", "detail", "additionalTextEdits" },
+	}
 
 	-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 	local config = { capabilities = capabilities, on_attach = lsp_on_attach.on_attach }
@@ -62,29 +60,25 @@ local function make_config(server_name)
 	return vim.tbl_extend("force", server_config, config)
 end
 
-lsp_installer.setup()
+mason_lspconfig.setup({
+	ensure_installed = servers,
+})
 
-for _, server_name in ipairs(servers) do
-	local server = lspconfig[server_name]
-	if not server then
-		vim.notify("invalid lsp server: " .. server_name, vim.log.levels.ERROR)
-	else
+mason_lspconfig.setup_handlers({
+	-- The first entry (without a key) will be the default handler
+	-- and will be called for each installed server that doesn't have
+	-- a dedicated handler.
+	function(server_name) -- Default handler (optional)
 		local config = make_config(server_name)
-		server.setup(config)
-	end
-end
+		lspconfig[server_name].setup(config)
+	end,
 
-v.cmd["UpdateLSP"] = function()
-	for _, lang in ipairs(servers) do
-		v.cmd.LspInstall(lang)
-	end
-end
-
-v.cmd["UninstallLSP"] = function()
-	for _, lang in ipairs(servers) do
-		v.cmd.LspUninstall(lang)
-	end
-end
+	-- You can provide targeted overrides for specific servers.
+	-- For example, a handler override for the `rust_analyzer`:
+	--["rust_analyzer"] = function()
+	--require("rust-tools").setup({})
+	--end,
+})
 
 local M = {}
 

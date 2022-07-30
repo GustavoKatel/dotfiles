@@ -21,8 +21,12 @@ packer.startup({
 		use({ "nvim-lua/plenary.nvim" })
 
 		-- lsp
-		use({ "neovim/nvim-lspconfig" })
-		use({ "williamboman/nvim-lsp-installer" })
+		use({
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			"neovim/nvim-lspconfig",
+		})
+
 		use({ "jose-elias-alvarez/null-ls.nvim" })
 		use({ "onsails/lspkind-nvim" })
 		use({ "ray-x/lsp_signature.nvim" })

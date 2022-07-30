@@ -10,6 +10,7 @@ require("custom.workspace")
 require("custom.telescope_setup")
 require("custom.git_utils")
 
+require("custom.deps")
 require("custom.lsp")
 require("custom.completion")
 require("custom.snips")
