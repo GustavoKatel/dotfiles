@@ -19,6 +19,8 @@ treesitter_config.setup({
 		"markdown_inline",
 		"dockerfile",
 	},
+	-- Automatically install missing parsers when entering buffer
+	auto_install = true,
 	highlight = { enable = true, custom_captures = {} },
 	autotag = { enable = true },
 	incremental_selection = {
