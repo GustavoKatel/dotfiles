@@ -1,6 +1,5 @@
 local luv = vim.loop
 local v = require("custom.utils")
-local user_profile = require("custom.uprofile")
 local lspconfig = require("lspconfig")
 
 local mason_lspconfig = require("mason-lspconfig")
@@ -17,14 +16,6 @@ require("fidget").setup({
 -- configs
 local configs = require("custom.lsp_languages")
 local lsp_on_attach = require("custom.lsp_on_attach")
-
--- local servers = { "python", "rust", "typescript", "go", "lua" }
-local common_servers = { "sumneko_lua", "tsserver", "eslint", "dockerls", "jsonls" }
-
-local servers = user_profile.with_profile_table({
-	default = vim.tbl_flatten({ common_servers, { "gopls", "clangd", "rust_analyzer", "pyright" } }),
-	work = vim.tbl_flatten(common_servers),
-})
 
 require("null-ls").setup({
 	sources = {
@@ -59,10 +50,6 @@ local function make_config(server_name)
 
 	return vim.tbl_extend("force", server_config, config)
 end
-
-mason_lspconfig.setup({
-	ensure_installed = servers,
-})
 
 mason_lspconfig.setup_handlers({
 	-- The first entry (without a key) will be the default handler
