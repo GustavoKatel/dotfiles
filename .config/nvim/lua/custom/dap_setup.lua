@@ -1,32 +1,9 @@
-local user_profile = require("custom.uprofile")
---local dap_install = require("dap-install")
 local dap = require("dap")
 local dap_local_project_config = require("custom.dap_local_project_config")
 
 require("dapui").setup()
 
---dap_install.setup({ installation_path = vim.fn.stdpath("data") .. "/dapinstall/" })
-
-user_profile.with_profile_fn("personal", function()
-	--dap_install.config("go", {})
-end)
-
 dap.set_log_level("TRACE")
-
---dap_install.config("jsnode", {
---configurations = {
---{
---name = "${file}",
---type = "node2",
---request = "launch",
---program = "${workspaceFolder}/${file}",
---cwd = vim.fn.getcwd(),
---sourceMaps = true,
---protocol = "inspector",
---console = "integratedTerminal",
---},
---},
---})
 
 dap.configurations.typescript = {
 	{
@@ -108,15 +85,12 @@ dap.adapters.go = function(callback, config)
 			vim.schedule(function()
 				require("dap.repl").append(chunk)
 			end)
-			print(chunk)
 		end
 	end)
 	-- Wait for delve to start
 	vim.defer_fn(function()
 		callback({ type = "server", host = "127.0.0.1", port = port })
-	end, 200)
-
-	callback({ type = "server", host = "127.0.0.1", port = port })
+	end, 100)
 end
 
 dap_local_project_config.load()
