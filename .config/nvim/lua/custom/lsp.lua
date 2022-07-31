@@ -28,7 +28,7 @@ require("null-ls").setup({
 	},
 })
 
-vim.lsp.set_log_level("debug")
+--vim.lsp.set_log_level("debug")
 
 -- config that activates keymaps and enables snippet support
 local function make_config(server_name)

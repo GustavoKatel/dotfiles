@@ -3,7 +3,7 @@ local dap_local_project_config = require("custom.dap_local_project_config")
 
 require("dapui").setup()
 
-dap.set_log_level("TRACE")
+--dap.set_log_level("TRACE")
 
 dap.configurations.typescript = {
 	{
