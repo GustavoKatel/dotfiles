@@ -59,6 +59,14 @@ dap.configurations.go = {
 	},
 }
 
+dap.adapters.node2 = {
+	type = "executable",
+	command = "node-debug2-adapter", -- installed via Mason
+	args = {},
+}
+
+dap.adapters.node = dap.adapters.node2
+
 dap.adapters.go = function(callback, config)
 	local stdout = vim.loop.new_pipe(false)
 	local handle
