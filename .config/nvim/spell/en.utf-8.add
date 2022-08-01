@@ -11,3 +11,10 @@ eslint
 url
 msg
 api
+nginx
+k8s
+frontend
+dockerfiles
+args
+entrypoint
+LTS
