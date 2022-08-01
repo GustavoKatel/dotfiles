@@ -1,9 +1,8 @@
-local v = require("custom.utils")
 local lualine = require("lualine")
 local tabs = require("custom.custom_tabs")
 
 local function lualine_custom_winnr()
-	return " " .. v.fn.winnr()
+	return " " .. vim.fn.winnr()
 end
 
 local function lualine_tab_treesitter()

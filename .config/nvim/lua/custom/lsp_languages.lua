@@ -1,6 +1,10 @@
+local pasync = require("plenary.async")
+local utils = require("custom.utils")
 local lsp_on_attach = require("custom.lsp_on_attach")
 
-local configs = {
+local M = {}
+
+M.default_configs = {
 	sumneko_lua = {
 		init_options = { codelenses = { test = true } },
 		settings = {
@@ -84,4 +88,40 @@ local configs = {
 	},
 }
 
-return configs
+M.configs = vim.tbl_deep_extend("force", M.default_configs, {})
+
+function M.load_local()
+	pasync.util.block_on(function()
+		local config_data = utils.async_read_file(vim.loop.cwd() .. "/.nvim/lsp.json")
+		if config_data == nil then
+			return
+		end
+
+		vim.notify("using local lsp config", vim.log.levels.DEBUG)
+
+		local ok, config = pcall(vim.json.decode, config_data)
+		if not ok then
+			vim.notify(
+				string.format("error trying to parse json from '.nvim/lsp.json': %s", config),
+				vim.log.levels.ERROR
+			)
+			return
+		end
+
+		M.configs = vim.tbl_deep_extend("force", M.default_configs, config or {})
+	end)
+end
+
+--vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--group = vim.api.nvim_create_augroup("lsp_local_project_config_autocmds", { clear = true }),
+--desc = "reload lsp custom config",
+--pattern = ".nvim/lsp.json",
+--callback = function()
+--M.load_local(function()
+--end)
+---- NOTE: restart lsp?
+--vim.notify("local lsp loaded", vim.log.levels.DEBUG)
+--end,
+--})
+
+return M

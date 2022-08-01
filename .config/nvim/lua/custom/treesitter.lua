@@ -5,6 +5,7 @@ treesitter_config.setup({
 		"rust",
 		"go",
 		"lua",
+		"vim",
 		"json",
 		"jsonc",
 		"python",

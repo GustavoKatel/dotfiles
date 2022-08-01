@@ -1,5 +1,4 @@
 local luv = vim.loop
-local v = require("custom.utils")
 local lspconfig = require("lspconfig")
 
 local mason_lspconfig = require("mason-lspconfig")
@@ -16,6 +15,8 @@ require("fidget").setup({
 -- configs
 local configs = require("custom.lsp_languages")
 local lsp_on_attach = require("custom.lsp_on_attach")
+
+--configs.load_local()
 
 require("null-ls").setup({
 	sources = {
@@ -43,7 +44,7 @@ local function make_config(server_name)
 
 	local config = { capabilities = capabilities, on_attach = lsp_on_attach.on_attach }
 
-	local server_config = configs[server_name] or {}
+	local server_config = configs.configs[server_name] or {}
 	if server_config.on_attach ~= nil then
 		config.on_attach = server_config.on_attach
 	end

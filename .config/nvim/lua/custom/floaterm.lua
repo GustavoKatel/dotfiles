@@ -1,5 +1,1 @@
-local v = require("custom.utils")
-
-v.cmd["Ranger"] = function()
-	v.cmd.FloatermNew("ranger")
-end
+vim.api.nvim_create_user_command("Ranger", "FloatermNew ranger", {})

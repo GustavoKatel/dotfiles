@@ -1,29 +1,10 @@
 local pasync = require("plenary.async")
+local utils = require("custom.utils")
 local dap = require("dap")
 
 local M = {
 	global_config = nil,
 }
-
-local read_config_file = function(path)
-	local err, fd = pasync.uv.fs_open(path, "r", 438)
-	if err then
-		return nil
-	end
-
-	local stat
-	err, stat = pasync.uv.fs_fstat(fd)
-	assert(not err, err)
-
-	local data
-	err, data = pasync.uv.fs_read(fd, stat.size, 0)
-	assert(not err, err)
-
-	err = pasync.uv.fs_close(fd)
-	assert(not err, err)
-
-	return data
-end
 
 function M.load()
 	if not M.global_config then
@@ -31,11 +12,12 @@ function M.load()
 	end
 
 	pasync.run(function()
-		local config_data = read_config_file(vim.loop.cwd() .. "/.nvim/dap.json")
+		local config_data = utils.async_read_file(vim.loop.cwd() .. "/.nvim/dap.json")
 		if config_data == nil then
-			print("no local dap config")
 			return
 		end
+
+		vim.notify("using local dap config", vim.log.levels.DEBUG)
 
 		-- this is not really necessary, I just wanted to try :p
 		local sender, receiver = pasync.control.channel.oneshot()
@@ -67,14 +49,13 @@ function M.load()
 	end, function() end)
 end
 
-vim.api.nvim_exec(
-	[[
-augroup dap_local_project_config_autocmds
-  autocmd!
-  autocmd BufWritePost .nvim/dap.json lua require'dap_local_project_config'.load()
-augroup END
-]],
-	false
-)
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	group = vim.api.nvim_create_augroup("dap_local_project_config_autocmds", { clear = true }),
+	desc = "reload dap custom config",
+	pattern = ".nvim/dap.json",
+	callback = function()
+		M.load()
+	end,
+})
 
 return M
