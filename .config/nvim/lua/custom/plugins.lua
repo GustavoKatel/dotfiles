@@ -38,6 +38,7 @@ packer.startup({
 				"hrsh7th/cmp-path",
 				"hrsh7th/cmp-nvim-lua",
 				"hrsh7th/cmp-emoji",
+				"hrsh7th/cmp-cmdline",
 				"saadparwaiz1/cmp_luasnip",
 			},
 		})

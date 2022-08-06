@@ -22,6 +22,8 @@ cmp.setup({
 				fallback()
 			end
 		end,
+		["<PageUp>"] = cmp.mapping.scroll_docs(-4),
+		["<PageDown>"] = cmp.mapping.scroll_docs(4),
 	}),
 	sources = {
 		{ name = "nvim_lsp", group_index = 1 },
@@ -42,21 +44,59 @@ cmp.setup({
 
 			-- set a name for each source
 			vim_item.menu = kind
-				.. ({
-					nvim_lsp = "[LSP]",
-					nvim_lua = "[Lua]",
-					path = "[Path]",
-					buffer = "[Buffer]",
-					emoji = "[Emoji]",
-					luasnip = "[Snip]",
-				})[entry.source.name]
+				.. (
+					({
+						nvim_lsp = "[LSP]",
+						nvim_lua = "[Lua]",
+						path = "[Path]",
+						buffer = "[Buffer]",
+						emoji = "[Emoji]",
+						luasnip = "[Snip]",
+						cmdline = "[CMD]",
+					})[entry.source.name] or string.format("[%s]", entry.source.name)
+				)
 			return vim_item
 		end,
 	},
 	window = {
-
-		documentation = {
-			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-		},
+		documentation = cmp.config.window.bordered(),
+		completion = cmp.config.window.bordered(),
 	},
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline("/", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
+	},
+})
+
+vim.keymap.set("c", "<Tab>", function()
+	if cmp.visible() then
+		cmp.select_next_item()
+	else
+		cmp.complete()
+		cmp.select_next_item()
+	end
+end)
+
+vim.keymap.set("c", "<S-Tab>", function()
+	if cmp.visible() then
+		cmp.select_prev_item()
+	else
+		cmp.complete()
+		cmp.select_prev_item()
+	end
+end)
+cmp.setup.cmdline(":", {
+	completion = { autocomplete = false },
+	mapping = cmp.mapping.preset.cmdline({
+		["<Tab>"] = cmp.mapping.complete(),
+	}),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
 })
