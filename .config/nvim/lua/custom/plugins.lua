@@ -50,7 +50,6 @@ packer.startup({
 		use({ "lewis6991/spellsitter.nvim" })
 		use({ "haringsrob/nvim_context_vt" })
 		use({ "cespare/vim-toml" })
-		use({ "ThePrimeagen/refactoring.nvim" })
 		-- colorscheme
 		-- use {'tomasiser/vim-code-dark'}
 		use({ "navarasu/onedark.nvim" })

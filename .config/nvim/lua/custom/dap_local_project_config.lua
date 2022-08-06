@@ -17,7 +17,9 @@ function M.load()
 			return
 		end
 
-		vim.notify("using local dap config", vim.log.levels.DEBUG)
+		vim.schedule(function()
+			vim.notify("using local dap config", vim.log.levels.DEBUG)
+		end)
 
 		-- this is not really necessary, I just wanted to try :p
 		local sender, receiver = pasync.control.channel.oneshot()

@@ -97,14 +97,18 @@ function M.load_local()
 			return
 		end
 
-		vim.notify("using local lsp config", vim.log.levels.DEBUG)
+		vim.schedule(function()
+			vim.notify("using local lsp config", vim.log.levels.DEBUG)
+		end)
 
 		local ok, config = pcall(vim.json.decode, config_data)
 		if not ok then
-			vim.notify(
-				string.format("error trying to parse json from '.nvim/lsp.json': %s", config),
-				vim.log.levels.ERROR
-			)
+			vim.schedule(function()
+				vim.notify(
+					string.format("error trying to parse json from '.nvim/lsp.json': %s", config),
+					vim.log.levels.ERROR
+				)
+			end)
 			return
 		end
 

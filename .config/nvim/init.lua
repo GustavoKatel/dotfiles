@@ -14,8 +14,8 @@ require("custom.deps")
 require("custom.lsp")
 require("custom.completion")
 require("custom.snips")
-require("custom.refactoring_setup")
 require("custom.dap_setup")
+require("custom.lib_files")
 
 require("custom.harpoon_setup")
 
