@@ -24,11 +24,11 @@ cmp.setup({
 		end,
 	}),
 	sources = {
-		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp", group_index = 1 },
 		{ name = "nvim_lua" },
 		{ name = "path" },
 		{ name = "luasnip" },
-		{ name = "buffer" },
+		{ name = "buffer", priority = 1, group_index = 2 },
 		{ name = "emoji" },
 	},
 	formatting = {
