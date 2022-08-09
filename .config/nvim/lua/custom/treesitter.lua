@@ -20,6 +20,7 @@ treesitter_config.setup({
 		"markdown_inline",
 		"dockerfile",
 		"scss",
+		"sql",
 	},
 	-- Automatically install missing parsers when entering buffer
 	auto_install = true,
