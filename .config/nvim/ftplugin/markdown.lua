@@ -3,6 +3,12 @@ local function toggle_checkbox_line(line)
 		return line
 	end
 
+	-- check no match and insert [] at the beginning
+	local _, _, after = line:find("^%s*-%s*([^%[]*)")
+	if after and after ~= "" then
+		return string.format("- [] %s", after)
+	end
+
 	-- replace the first occurrence of [] or [x] (white space between [] is ignored)
 	return line:gsub("%[([%sxX]*)%]", function(match)
 		if match:find("%s*[xX]%s*") then
@@ -40,7 +46,6 @@ vim.keymap.set({ "n", "v" }, "<Space>", function()
 		line2 = vim.fn.getpos("'>")[2]
 	end
 
-	print(line1, line2)
 	toggle_checkbox(line1, line2)
 end, { buffer = 0 })
 
