@@ -45,6 +45,7 @@ packer.startup({
 		use({ "j-hui/fidget.nvim" })
 		-- language support
 		use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
+		use({ "nvim-treesitter/playground" })
 		use({ "windwp/nvim-ts-autotag" }) -- auto close html tags using treesitter
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 		use({ "nvim-treesitter/nvim-treesitter-context" })
