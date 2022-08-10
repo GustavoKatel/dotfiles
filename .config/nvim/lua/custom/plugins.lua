@@ -53,7 +53,7 @@ packer.startup({
 		use({ "cespare/vim-toml" })
 		-- colorscheme
 		-- use {'tomasiser/vim-code-dark'}
-		use({ "navarasu/onedark.nvim" })
+		--use({ "navarasu/onedark.nvim" })
 		use({ "rebelot/kanagawa.nvim" })
 
 		-- editting
