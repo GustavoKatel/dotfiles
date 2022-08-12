@@ -496,3 +496,8 @@ end)
 vim.keymap.set("n", "<leader>dd", ":edit .<CR>")
 -- open in file dir
 vim.keymap.set("n", "<leader>df", ":edit %:h<CR>")
+
+-- show neotest results
+vim.keymap.set("n", "<leader>n", function()
+	require("neotest").output.open({ enter = true })
+end)

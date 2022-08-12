@@ -42,6 +42,13 @@ neotest.setup({
 							},
 
 							{
+								title = string.format("Run test: file [%s]", adapter_id),
+								action = function()
+									neotest.run.run({ file_path, adapter = adapter_id })
+								end,
+							},
+
+							{
 								title = string.format("Run test: suite [%s]", adapter_id),
 								action = function()
 									neotest.run.run({ adapter = adapter_id, suite = true })
