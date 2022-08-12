@@ -40,6 +40,13 @@ neotest.setup({
 									neotest.run.run({ adapter = adapter_id })
 								end,
 							},
+
+							{
+								title = string.format("Run suit test [%s]", adapter_id),
+								action = function()
+									neotest.run.run({ adapter = adapter_id, suit = true })
+								end,
+							},
 						})
 					end)
 				end,
@@ -55,7 +62,7 @@ local null_ls = require("null-ls")
 
 local neotest_code_actions = {
 	method = null_ls.methods.CODE_ACTION,
-	filetypes = { "typescript", "javascript" },
+	filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact", "go" },
 	generator = {
 		async = true,
 		fn = function(params, done)
