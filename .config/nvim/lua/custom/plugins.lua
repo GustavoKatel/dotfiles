@@ -52,6 +52,18 @@ packer.startup({
 		use({ "lewis6991/spellsitter.nvim" })
 		use({ "haringsrob/nvim_context_vt" })
 		use({ "cespare/vim-toml" })
+
+		use({
+			"nvim-neotest/neotest",
+			requires = {
+				"antoinemadec/FixCursorHold.nvim",
+				-- adapters
+				"haydenmeade/neotest-jest",
+				"nvim-neotest/neotest-plenary",
+				"nvim-neotest/neotest-go",
+			},
+		})
+
 		-- colorscheme
 		-- use {'tomasiser/vim-code-dark'}
 		--use({ "navarasu/onedark.nvim" })
