@@ -35,16 +35,16 @@ neotest.setup({
 						-- tree:data().name
 						cb({
 							{
-								title = string.format("Run nearest test [%s]", adapter_id),
+								title = string.format("Run test: nearest [%s]", adapter_id),
 								action = function()
 									neotest.run.run({ adapter = adapter_id })
 								end,
 							},
 
 							{
-								title = string.format("Run suit test [%s]", adapter_id),
+								title = string.format("Run test: suite [%s]", adapter_id),
 								action = function()
-									neotest.run.run({ adapter = adapter_id, suit = true })
+									neotest.run.run({ adapter = adapter_id, suite = true })
 								end,
 							},
 						})
