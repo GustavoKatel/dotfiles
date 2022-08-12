@@ -1,6 +1,9 @@
 local neotest = require("neotest")
 
 neotest.setup({
+	icons = {
+		running = "💈",
+	},
 	status = {
 		virtual_text = true,
 		signs = false,
@@ -32,7 +35,7 @@ neotest.setup({
 							return
 						end
 
-						-- tree:data().name
+						-- Use "tree:data().name" to get the test name
 						cb({
 							{
 								title = string.format("Run test: nearest [%s]", adapter_id),
@@ -60,16 +63,13 @@ neotest.setup({
 			}
 		end,
 	},
-	icons = {
-		running = "💈",
-	},
 })
 
 local null_ls = require("null-ls")
 
 local neotest_code_actions = {
 	method = null_ls.methods.CODE_ACTION,
-	filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact", "go" },
+	filetypes = {}, -- all filetypes
 	generator = {
 		async = true,
 		fn = function(params, done)
