@@ -4,14 +4,10 @@ local kitty_escape_leader = "<Char-0xff>"
 -- this is to avoid inserting weird characters (comming from kitty custom maps) in insert mode or terminal mode
 local function create_kitty_keymap(code, no_insert_mode_handler, no_terminal_mode_handler)
 	if not no_insert_mode_handler then
-		--v.inoremap({ kitty_escape_leader .. code }, "<Nop>")
-		--v.inoremap({ kitty_escape_leader .. code }, "<ESC>")
 		vim.keymap.set({ "i" }, kitty_escape_leader .. code, "<ESC>")
 	end
 
 	if not no_terminal_mode_handler then
-		--v.inoremap({ kitty_escape_leader .. code }, "<Nop>")
-		--v.tnoremap({ kitty_escape_leader .. code }, "<C-\\><C-N>")
 		vim.keymap.set({ "t" }, kitty_escape_leader .. code, "<C-\\><C-N>")
 	end
 
@@ -20,8 +16,6 @@ end
 
 -- save with ctrl-s/command-s
 for _, code in ipairs({ "<D-s>", "<C-s>", create_kitty_keymap("ds") }) do
-	--v.nnoremap({ code }, ":w<CR>")
-	--v.inoremap({ code }, "<ESC>:w<CR>i")
 	vim.keymap.set({ "n" }, code, ":w<CR>")
 	vim.keymap.set({ "i" }, code, "<ESC>:w<CR>i")
 end
@@ -32,10 +26,16 @@ vim.keymap.set({ "n" }, "<C-\\>", ":vsplit<CR>")
 vim.keymap.set({ "n" }, create_kitty_keymap("m\\"), ":vsplit<CR>")
 
 -- ctrl/cmd-/ to toggle comment, C-_ can also be interpreted as ctrl-/
-for _, code in ipairs({ "<C-_>", "<C-/>", "<D-/>" }) do
-	vim.keymap.set({ "i" }, code, "<Plug>NERDCommenterInsert", { remap = true })
-	vim.keymap.set({ "n" }, code, "<Plug>NERDCommenterToggle<CR>", { remap = true })
-	vim.keymap.set({ "v" }, code, "<Plug>NERDCommenterToggle<CR>gv", { remap = true })
+for _, code in ipairs({ "<C-_>", "<C-/>", "<M-/>", "<D-/>" }) do
+	vim.keymap.set({ "i" }, code, "<ESC>gcci", { remap = true })
+	vim.keymap.set({ "n" }, code, "gcc", { remap = true })
+	vim.keymap.set({ "v" }, code, "gc", { remap = true })
+end
+-- ctrl/cmd-shift-/ to toggle comment block-wise
+for _, code in ipairs({ "<C-S-/>", create_kitty_keymap("cs/", true), create_kitty_keymap("ds/", true) }) do
+	vim.keymap.set({ "i" }, code, "<ESC>gbci", { remap = true })
+	vim.keymap.set({ "n" }, code, "gbc", { remap = true })
+	vim.keymap.set({ "v" }, code, "gb", { remap = true })
 end
 
 -- Alt-Shift-Left/Right to move to previous next position

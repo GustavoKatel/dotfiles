@@ -70,7 +70,12 @@ packer.startup({
 		use({ "rebelot/kanagawa.nvim" })
 
 		-- editting
-		use({ "preservim/nerdcommenter" }) -- toggle comment
+		use({
+			"numToStr/Comment.nvim",
+			config = function()
+				require("Comment").setup()
+			end,
+		})
 		use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
 		use({ "tpope/vim-surround" })
 		use({ "tpope/vim-abolish" })
