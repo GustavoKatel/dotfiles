@@ -76,8 +76,23 @@ packer.startup({
 				require("Comment").setup()
 			end,
 		})
-		use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
-		use({ "tpope/vim-surround" })
+		-- use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
+		use({
+			"windwp/nvim-autopairs", -- auto close brackets, parenthesis etc
+			config = function()
+				require("nvim-autopairs").setup({})
+			end,
+		})
+		-- use({ "tpope/vim-surround" })
+		use({
+			"kylechui/nvim-surround",
+			-- "~/dev/nvim-surround",
+			config = function()
+				require("nvim-surround").setup({
+					-- Configuration here, or leave empty to use defaults
+				})
+			end,
+		})
 		use({ "tpope/vim-abolish" })
 		use({
 			"phaazon/hop.nvim",
