@@ -1,21 +1,22 @@
 local second_leader = "z"
-local kitty_escape_leader = "<Char-0xff>"
+-- kitty and wezterm
+local special_escape_leader = "<Char-0xff>"
 
 -- this is to avoid inserting weird characters (comming from kitty custom maps) in insert mode or terminal mode
-local function create_kitty_keymap(code, no_insert_mode_handler, no_terminal_mode_handler)
+local function create_special_keymap(code, no_insert_mode_handler, no_terminal_mode_handler)
 	if not no_insert_mode_handler then
-		vim.keymap.set({ "i" }, kitty_escape_leader .. code, "<ESC>")
+		vim.keymap.set({ "i" }, special_escape_leader .. code, "<ESC>")
 	end
 
 	if not no_terminal_mode_handler then
-		vim.keymap.set({ "t" }, kitty_escape_leader .. code, "<C-\\><C-N>")
+		vim.keymap.set({ "t" }, special_escape_leader .. code, "<C-\\><C-N>")
 	end
 
-	return kitty_escape_leader .. code
+	return special_escape_leader .. code
 end
 
 -- save with ctrl-s/command-s
-for _, code in ipairs({ "<D-s>", "<C-s>", create_kitty_keymap("ds") }) do
+for _, code in ipairs({ "<D-s>", "<C-s>", create_special_keymap("ds") }) do
 	vim.keymap.set({ "n" }, code, ":w<CR>")
 	vim.keymap.set({ "i" }, code, "<ESC>:w<CR>i")
 end
@@ -23,7 +24,7 @@ end
 -- vertical split with ctrl-\ | command-\
 vim.keymap.set({ "n" }, "<D-\\>", ":vsplit<CR>")
 vim.keymap.set({ "n" }, "<C-\\>", ":vsplit<CR>")
-vim.keymap.set({ "n" }, create_kitty_keymap("m\\"), ":vsplit<CR>")
+vim.keymap.set({ "n" }, create_special_keymap("m\\"), ":vsplit<CR>")
 
 -- ctrl/cmd-/ to toggle comment, C-_ can also be interpreted as ctrl-/
 for _, code in ipairs({ "<C-_>", "<C-/>", "<M-/>", "<D-/>" }) do
@@ -32,7 +33,7 @@ for _, code in ipairs({ "<C-_>", "<C-/>", "<M-/>", "<D-/>" }) do
 	vim.keymap.set({ "v" }, code, "gc", { remap = true })
 end
 -- ctrl/cmd-shift-/ to toggle comment block-wise
-for _, code in ipairs({ "<C-S-/>", create_kitty_keymap("cs/", true), create_kitty_keymap("ds/", true) }) do
+for _, code in ipairs({ "<C-S-/>", create_special_keymap("cs/", true), create_special_keymap("ds/", true) }) do
 	vim.keymap.set({ "i" }, code, "<ESC>gbci", { remap = true })
 	vim.keymap.set({ "n" }, code, "gbc", { remap = true })
 	vim.keymap.set({ "v" }, code, "gb", { remap = true })
@@ -59,24 +60,24 @@ vim.keymap.set({ "n" }, "<leader>s", function()
 end)
 
 -- change focus splits
-for _, code in ipairs({ "<D-Right>", "<C-l>", second_leader .. "<Right>", create_kitty_keymap("mright") }) do
+for _, code in ipairs({ "<D-Right>", "<C-l>", second_leader .. "<Right>", create_special_keymap("mright") }) do
 	vim.keymap.set({ "n" }, code, "<c-w>l", { silent = true })
 end
 
-for _, code in ipairs({ "<D-left>", "<C-h>", second_leader .. "<Left>", create_kitty_keymap("mleft") }) do
+for _, code in ipairs({ "<D-left>", "<C-h>", second_leader .. "<Left>", create_special_keymap("mleft") }) do
 	vim.keymap.set({ "n" }, code, "<c-w>h", { silent = true })
 end
 
-for _, code in ipairs({ "<D-Up>", "<C-k>", second_leader .. "<Up>", create_kitty_keymap("mup") }) do
+for _, code in ipairs({ "<D-Up>", "<C-k>", second_leader .. "<Up>", create_special_keymap("mup") }) do
 	vim.keymap.set({ "n" }, code, "<c-w>k", { silent = true })
 end
 
-for _, code in ipairs({ "<D-Down>", "<C-j>", second_leader .. "<Down>", create_kitty_keymap("mdown") }) do
+for _, code in ipairs({ "<D-Down>", "<C-j>", second_leader .. "<Down>", create_special_keymap("mdown") }) do
 	vim.keymap.set({ "n" }, code, "<c-w>j", { silent = true })
 end
 
 for i = 1, 9, 1 do
-	for _, key in ipairs({ "<D-k" .. i .. ">", "<D-" .. i .. ">", create_kitty_keymap("m" .. i, false, true) }) do
+	for _, key in ipairs({ "<D-k" .. i .. ">", "<D-" .. i .. ">", create_special_keymap("m" .. i, false, true) }) do
 		vim.keymap.set({ "n" }, key, ":" .. i .. "wincmd w<CR>", { silent = true })
 		vim.keymap.set({ "t" }, key, "<C-\\><C-N>:" .. i .. "wincmd w<CR>", { silent = true })
 	end
@@ -110,7 +111,7 @@ vim.keymap.set({ "n" }, "<C-PageUp>", "<cmd>tabprevious<cr>")
 vim.keymap.set({ "n" }, "<C-PageDown>", "<cmd>tabnext<cr>")
 
 -- ctrl/cmd-a select all in insert and normal modes
-for _, code in ipairs({ "<D-a>", create_kitty_keymap("da", true, true) }) do
+for _, code in ipairs({ "<D-a>", create_special_keymap("da", true, true) }) do
 	--v.inoremap({ code }, "<ESC>ggVG")
 	vim.keymap.set({ "n" }, code, "ggVG")
 end
@@ -133,10 +134,10 @@ vim.keymap.set({ "v" }, "<D-h>", "y:%s/<C-R>=escape(@\",'/\\')<CR>/")
 
 -- ctrl-enter in insert mode to create new line below
 vim.keymap.set({ "i" }, "<C-CR>", "<ESC>o")
-vim.keymap.set({ "i" }, create_kitty_keymap("ccr", true), "<ESC>o")
+vim.keymap.set({ "i" }, create_special_keymap("ccr", true), "<ESC>o")
 -- shift-enter in insert mode to create new line above
 vim.keymap.set({ "i" }, "<S-CR>", "<ESC>O")
-vim.keymap.set({ "i" }, create_kitty_keymap("scr", true), "<ESC>O")
+vim.keymap.set({ "i" }, create_special_keymap("scr", true), "<ESC>O")
 
 -- remove search highlight on ESC
 vim.keymap.set({ "n" }, "<ESC>", ":noh<cr>")
@@ -187,7 +188,7 @@ vim.keymap.set({ "n" }, "<leader>f", function()
 end)
 
 -- floaterm keybindings
-for _, code in ipairs({ "<A-F12>", "<M-F12>", create_kitty_keymap("af12", true, true) }) do
+for _, code in ipairs({ "<A-F12>", "<M-F12>", create_special_keymap("af12", true, true) }) do
 	vim.keymap.set({ "n" }, code, "<cmd>FloatermToggle<cr>")
 	vim.keymap.set({ "i" }, code, "<ESC>:FloatermToggle<CR>")
 	vim.keymap.set({ "t" }, code, "<C-\\><C-N>:FloatermToggle<CR>")
@@ -269,7 +270,7 @@ local function telescope_files(with_gitignored)
 	telescope.find_files({ previewer = false, find_command = cmd })
 end
 
-for _, code in ipairs({ "<C-p>", "<D-p>", create_kitty_keymap("mp") }) do
+for _, code in ipairs({ "<C-p>", "<D-p>", create_special_keymap("mp") }) do
 	vim.keymap.set({ "n" }, code, function()
 		telescope_files(false)
 	end)
@@ -288,8 +289,8 @@ for _, code in ipairs({
 	"<S-D-P>",
 	"<D-P>",
 	second_leader .. "p",
-	create_kitty_keymap("csp"),
-	create_kitty_keymap("msp"),
+	create_special_keymap("csp"),
+	create_special_keymap("msp"),
 }) do
 	vim.keymap.set({ "n" }, code, function()
 		local telescope = require("telescope.builtin")
@@ -310,7 +311,7 @@ vim.keymap.set({ "n" }, "z=", function()
 end)
 
 -- telescope global search
-for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_kitty_keymap("mf") }) do
+for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_special_keymap("mf") }) do
 	vim.keymap.set({ "n" }, code, function()
 		local rg_arguments = {}
 
@@ -332,7 +333,7 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_kitty_key
 end
 
 -- telescope lsp symbols
-for _, code in ipairs({ "<D-g>", "<C-g>", create_kitty_keymap("dg") }) do
+for _, code in ipairs({ "<D-g>", "<C-g>", create_special_keymap("dg") }) do
 	vim.keymap.set({ "n" }, code, function()
 		require("telescope.builtin").lsp_dynamic_workspace_symbols()
 	end)
@@ -352,7 +353,7 @@ vim.keymap.set({ "n" }, "<S-F9>", function()
 end)
 
 -- telescope select/change filetype
-for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l", create_kitty_keymap("csl") }) do
+for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l", create_special_keymap("csl") }) do
 	vim.keymap.set({ "n" }, code, function()
 		local telescope = require("telescope.builtin")
 		telescope.filetypes()
