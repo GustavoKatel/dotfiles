@@ -19,3 +19,4 @@ args
 entrypoint
 LTS
 versioning
+gitignore
