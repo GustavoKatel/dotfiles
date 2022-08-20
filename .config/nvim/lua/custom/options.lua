@@ -86,7 +86,7 @@ vim.api.nvim_create_augroup("term_open_config", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
 	group = "term_open_config",
 	callback = function()
-		vim.cmd("IlluminationDisable")
+		require("illuminate").pause_buf()
 		vim.cmd("setlocal nonumber")
 		vim.cmd("setlocal norelativenumber")
 		vim.cmd("setlocal nospell")
