@@ -153,7 +153,7 @@ packer.startup({
 		use({
 			user_profile.with_profile_table({
 				default = "/Users/gustavokatel/dev/sidebar.nvim",
-				work = "/Users/gustavo/dev/sidebar.nvim",
+				work = "sidebar-nvim/sidebar.nvim",
 			}),
 			rocks = { "luatz" },
 		})
