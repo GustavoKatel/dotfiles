@@ -106,6 +106,8 @@ M.cursor_hold = function()
 	)
 end
 
+-- better signs in "signcolumn" for diagnostics
+
 -- diagnostics sign error
 vim.fn.sign_define(
 	"DiagnosticSignError",
