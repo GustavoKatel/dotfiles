@@ -106,4 +106,27 @@ M.cursor_hold = function()
 	)
 end
 
+-- diagnostics sign error
+vim.fn.sign_define(
+	"DiagnosticSignError",
+	{ texthl = "DiagnosticSignError", text = " ", numhl = "DiagnosticSignError" }
+)
+
+-- diagnostics sign warn
+vim.fn.sign_define("DiagnosticSignWarn", {
+	texthl = "DiagnosticSignWarn",
+	text = " ",
+	numhl = "DiagnosticSignWarn",
+})
+
+-- diagnostics sign info
+vim.fn.sign_define("DiagnosticSignInfo", { texthl = "DiagnosticSignInfo", text = " ", numhl = "DiagnosticSignInfo" })
+
+-- diagnostics sign hint
+vim.fn.sign_define("DiagnosticSignHint", {
+	texthl = "DiagnosticSignHint",
+	text = " ",
+	numhl = "DiagnosticSignHint",
+})
+
 return M

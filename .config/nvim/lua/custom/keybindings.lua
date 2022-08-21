@@ -502,3 +502,6 @@ vim.keymap.set("n", "<leader>df", ":edit %:h<CR>")
 vim.keymap.set("n", "<leader>n", function()
 	require("neotest").output.open({ enter = true })
 end)
+
+-- change inside word with ctrl+i
+vim.keymap.set("n", create_special_keymap("ci"), "ciw")
