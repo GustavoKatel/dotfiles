@@ -25,7 +25,7 @@ tasks.setup({
 				},
 
 				term_sleep = {
-					cmd = "sleep 60",
+					cmd = "echo 'sleeping...'; sleep 60",
 				},
 
 				wait_stop = {
