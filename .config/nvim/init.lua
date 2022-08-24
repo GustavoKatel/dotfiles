@@ -1,6 +1,7 @@
 require("custom.plugins")
 require("custom.helpers")
 require("custom.options")
+require("custom.filetype")
 require("custom.keybindings")
 --require("custom.asynctasks")
 require("custom.floaterm")
