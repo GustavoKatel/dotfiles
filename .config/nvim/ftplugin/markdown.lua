@@ -1,40 +1,71 @@
 -- treesitter testing
-local ts_locals = require("nvim-treesitter.locals")
 local ts_utils = require("nvim-treesitter.ts_utils")
 
 vim.treesitter.set_query(
 	"markdown",
 	"markdown_get_checkboxes",
 	[[ 
-    (list_item) @list_item
+[ 
+  ( task_list_marker_checked )
+  ( task_list_marker_unchecked )
+] @task_list_marker
    ]]
 )
 
-local function iter_children(node)
-	for c in node:iter_children() do
-		print(c:type())
-		iter_children(c)
-	end
+vim.treesitter.set_query(
+	"markdown",
+	"markdown_get_checkboxes",
+	[[ 
+(list_item
+[ 
+  ( task_list_marker_checked )
+  ( task_list_marker_unchecked )
+] @task_list_marker
+( paragraph (_) @i)
+) 
+   ]]
+)
+
+local node_replacements = {
+	["task_list_marker_checked"] = "[ ]",
+	["task_list_marker_unchecked"] = "[x]",
+}
+
+local default_replacement = "[ ]"
+
+local function create_change(node, bufnr)
+	local range = { node:range() }
+
+	local lines = vim.api.nvim_buf_get_lines(bufnr, range[1], range[3] + 1, false)
+
+	local text = lines[1]
+
+	local text_start = text:sub(1, range[2])
+	local text_end = text:sub(range[4] + 1)
+
+	return {
+		row_start = range[1],
+		row_end = range[3] + 1,
+		text = text_start .. (node_replacements[node:type()] or default_replacement) .. text_end,
+	}
 end
 
 function TSToggleCheckBox()
 	local cursor_node = ts_utils.get_node_at_cursor()
 
-	print(cursor_node:type())
-	print(cursor_node:parent())
-
-	local scope = ts_locals.get_scope_tree(cursor_node, 0)
-
-	print("children")
-
 	local query = vim.treesitter.get_query("markdown", "markdown_get_checkboxes")
 
-	for _, v in ipairs(scope) do
-		print(v:type())
-		iter_children(v)
-		--for _, node in query:iter_captures(v, 0) do
-		--print(node:type())
-		--end
+	local changes = {}
+
+	for _, node in query:iter_captures(cursor_node, 0) do
+		print(node:type())
+
+		local change = create_change(node, 0)
+		table.insert(changes, change)
+	end
+
+	for _, change in ipairs(changes) do
+		vim.api.nvim_buf_set_lines(0, change.row_start, change.row_end, false, { change.text })
 	end
 end
 --

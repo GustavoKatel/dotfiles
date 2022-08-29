@@ -26,7 +26,6 @@ require("null-ls").setup({
 		require("null-ls").builtins.diagnostics.actionlint.with({
 			dynamic_command = require("null-ls.helpers.command_resolver").from_node_modules,
 		}),
-		require("null-ls").builtins.code_actions.gitsigns,
 	},
 })
 
