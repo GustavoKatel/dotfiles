@@ -30,8 +30,15 @@ tasks.setup({
 
 				wait_stop = {
 					fn = function(ctx)
-						ctx.stop_request_receiver()
+						ctx.wait_stop_requested()
 					end,
+				},
+
+				wait_stop_chain = {
+					fn = function(ctx)
+						ctx.wait_stop_requested()
+					end,
+					dependencies = { { spec_name = "wait_stop" } },
 				},
 			},
 		}),
