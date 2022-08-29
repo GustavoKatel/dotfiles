@@ -1,5 +1,4 @@
 (
-
  ; set highlight to query
  (function_call
      name: (_) @_fn_name
@@ -13,3 +12,5 @@
  )
 
 )
+
+;; vim: set ft=query:
