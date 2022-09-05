@@ -34,3 +34,5 @@ require("custom.scratches")
 require("custom.tasks")
 
 require("custom.terminal")
+
+require("custom.paster")

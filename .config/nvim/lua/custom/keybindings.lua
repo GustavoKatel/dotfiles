@@ -505,3 +505,12 @@ end)
 
 -- change inside word with ctrl+i
 vim.keymap.set("n", create_special_keymap("ci"), "ciw")
+
+-- paste custom stuff keybindings
+vim.keymap.set({ "i", "n" }, "<C-x>s", function()
+	require("custom.paster").select_put("c", true)
+end)
+
+vim.keymap.set({ "i", "n" }, "<C-x>S", function()
+	require("custom.paster").select_put("l", true)
+end)
