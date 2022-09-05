@@ -6,7 +6,7 @@ local source_cargo = require("tasks.sources.cargo")
 local source_dap = require("tasks.sources.dap")
 local Source = require("tasks.lib.source")
 
-local runner_builtin = require("tasks.runners.builtin")
+local runner_terminal = require("tasks.runners.terminal")
 
 tasks.setup({
 	sources = {
@@ -45,7 +45,7 @@ tasks.setup({
 	},
 
 	runners = {
-		builtin = runner_builtin:with({ sticky_terminal_window = true }),
+		terminal = runner_terminal:with({ sticky_terminal_window = true }),
 	},
 
 	logger = {
