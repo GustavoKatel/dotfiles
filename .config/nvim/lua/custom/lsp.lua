@@ -24,7 +24,7 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.prettier,
 		--require("null-ls").builtins.code_actions.refactoring,
 		require("null-ls").builtins.diagnostics.actionlint.with({
-			dynamic_command = require("null-ls.helpers.command_resolver").from_node_modules,
+			dynamic_command = require("null-ls.helpers.command_resolver").from_node_modules(),
 		}),
 	},
 })
