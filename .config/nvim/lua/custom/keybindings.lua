@@ -507,10 +507,10 @@ end)
 vim.keymap.set("n", create_special_keymap("ci"), "ciw")
 
 -- paste custom stuff keybindings
-vim.keymap.set({ "i", "n" }, "<leader>x", function()
+vim.keymap.set({ "n" }, "<leader>x", function()
 	require("custom.paster").select_put("c", true)
 end)
 
-vim.keymap.set({ "i", "n" }, "<leader>X", function()
+vim.keymap.set({ "n" }, "<leader>X", function()
 	require("custom.paster").select_put("l", true)
 end)
