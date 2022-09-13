@@ -37,8 +37,6 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "<F6>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	buf_set_keymap("v", "<F6>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
-	buf_set_keymap("n", "<F7>", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-
 	buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
 	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
@@ -72,7 +70,7 @@ M.on_attach = function(client, bufnr, ...)
 				events = "CursorHold",
 				def = {
 					callback = function()
-						require("custom.lsp").cursor_hold()
+						require("custom.lsp_utils").cursor_hold()
 					end,
 				},
 			},
