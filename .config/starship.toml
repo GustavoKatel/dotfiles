@@ -1,9 +1,11 @@
+format = "$all$kubernetes$line_break$character"
+
 [character]
 format = "[[>](dimmed white) λ ](green)"
 success_symbol = "green"
 
 [hostname]
-ssh_only = false
+ssh_only = true
 format = "[$hostname ](dimmed white)"
 
 [username]
@@ -17,6 +19,7 @@ format = "\\[[$symbol$branch]($style)\\] "
 
 [package]
 format = "\\[[$symbol$version]($style)\\] "
+disabled = true
 
 [rust]
 symbol = ""
@@ -72,3 +75,9 @@ disabled = true
 [java]
 disabled = true
 
+[kubernetes]
+format = "\\[[$symbol$context]($style)\\] "
+disabled = false
+detect_folders = ["k8s"]
+[kubernetes.context_aliases]
+"arn:aws:eks:.*:cluster/\\d+_(?P<name>)_(?P<env>)_.*" = "$name.$env"
