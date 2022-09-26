@@ -18,6 +18,7 @@ local lsp_on_attach = require("custom.lsp_on_attach")
 --configs.load_local()
 
 require("null-ls").setup({
+	debug = false,
 	sources = {
 		require("null-ls").builtins.formatting.stylua,
 		require("null-ls").builtins.formatting.prettier,
