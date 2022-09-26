@@ -23,6 +23,7 @@ treesitter_config.setup({
 		"sql",
 		"query",
 		"toml",
+		"regex",
 	},
 	-- Automatically install missing parsers when entering buffer
 	auto_install = true,
