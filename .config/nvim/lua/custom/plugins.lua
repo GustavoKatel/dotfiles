@@ -107,11 +107,13 @@ packer.startup({
 		use({ "editorconfig/editorconfig-vim" })
 		-- HUD
 		use({ "lewis6991/gitsigns.nvim" }) -- git information in the buffer lines
-		use({ "kyazdani42/nvim-web-devicons" })
 		use({
-			"nvim-lualine/lualine.nvim",
-			requires = { "kyazdani42/nvim-web-devicons" },
+			"kyazdani42/nvim-web-devicons",
+			config = function()
+				require("nvim-web-devicons").setup()
+			end,
 		})
+		use({ "nvim-lualine/lualine.nvim" })
 		use({
 			"lukas-reineke/indent-blankline.nvim",
 			config = function()
@@ -124,7 +126,18 @@ packer.startup({
 		use({
 			"folke/todo-comments.nvim",
 			config = function()
-				require("todo-comments").setup({})
+				require("todo-comments").setup({
+					highlight = {
+						-- pattern or table of patterns, used for highlightng (vim regex)
+						pattern = {
+							[[.*<(KEYWORDS)\s*:]],
+							[[.*<(KEYWORDS)(\(.*\))\s*:]],
+						},
+					},
+					search = {
+						pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]], -- ripgrep regex
+					},
+				})
 			end,
 		})
 		use({ "L3MON4D3/LuaSnip" })
@@ -152,7 +165,8 @@ packer.startup({
 
 		use({
 			user_profile.with_profile_table({
-				default = "/Users/gustavokatel/dev/sidebar.nvim",
+				default = "sidebar-nvim/sidebar.nvim",
+				test = "/Users/gustavokatel/dev/sidebar.nvim",
 				work = "sidebar-nvim/sidebar.nvim",
 			}),
 			rocks = { "luatz" },
