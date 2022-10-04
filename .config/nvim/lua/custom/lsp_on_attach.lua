@@ -55,7 +55,7 @@ M.on_attach = function(client, bufnr, ...)
 				events = { "BufWritePre" },
 				def = {
 					callback = function()
-						vim.lsp.buf.formatting_seq_sync()
+						vim.lsp.buf.format()
 					end,
 				},
 			},
@@ -77,13 +77,7 @@ M.on_attach = function(client, bufnr, ...)
 		},
 	})
 
-	local has_code_lens = false
-
-	if vim.fn.has("nvim-0.8") == 1 then
-		has_code_lens = client.server_capabilities.codeLensProvider
-	else
-		has_code_lens = client.resolved_capabilities.code_lens
-	end
+	local has_code_lens = client.server_capabilities.codeLensProvider
 
 	if has_code_lens then
 		v.create_autocommands({

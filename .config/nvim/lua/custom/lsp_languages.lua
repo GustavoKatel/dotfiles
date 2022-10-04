@@ -38,10 +38,8 @@ M.default_configs = {
 		on_attach = function(client, bufnr, ...)
 			-- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
 			-- the resolved capabilities of the eslint server ourselves!
-			-- TODO: remove this when 0.8 is out
-			if vim.fn.has("nvim-0.8") == 0 then
-				client.resolved_capabilities.document_formatting = true
-			end
+			client.server_capabilities.documentFormattingProvider = true
+			client.server_capabilities.documentRangeFormattingProvider = true
 			return lsp_on_attach.on_attach(client, bufnr, ...)
 		end,
 		settings = {
@@ -50,14 +48,9 @@ M.default_configs = {
 	},
 	tsserver = {
 		on_attach = function(client, bufnr, ...)
-			-- TODO: remove this after 0.8
-			-- or see if it's possible to disable in the tsserver configs 🤷
-			if vim.fn.has("nvim-0.8") == 1 then
-				client.server_capabilities.documentFormattingProvider = false
-				client.server_capabilities.documentRangeFormattingProvider = false
-			else
-				client.resolved_capabilities.document_formatting = false
-			end
+			-- TODO: see if it's possible to disable in the tsserver configs 🤷
+			client.server_capabilities.documentFormattingProvider = false
+			client.server_capabilities.documentRangeFormattingProvider = false
 			return lsp_on_attach.on_attach(client, bufnr, ...)
 		end,
 	},
