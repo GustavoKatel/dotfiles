@@ -29,6 +29,8 @@ require("null-ls").setup({
 	},
 })
 
+require("custom.lsp_semantic_tokens").setup()
+
 --vim.lsp.set_log_level("debug")
 
 -- config that activates keymaps and enables snippet support

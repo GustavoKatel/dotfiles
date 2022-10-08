@@ -110,4 +110,3 @@ require("nvim_context_vt").setup({
 	disable_ft = { "markdown", "yaml", "json" },
 })
 
-require("spellsitter").setup()

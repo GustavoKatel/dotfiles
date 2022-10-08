@@ -43,13 +43,14 @@ packer.startup({
 			},
 		})
 		use({ "j-hui/fidget.nvim" })
+		-- TODO: do we still need this plugin after https://github.com/neovim/neovim/pull/15723 ?
+		use({ "theHamsta/nvim-semantic-tokens" })
 		-- language support
 		use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
 		use({ "nvim-treesitter/playground" })
 		use({ "windwp/nvim-ts-autotag" }) -- auto close html tags using treesitter
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 		use({ "nvim-treesitter/nvim-treesitter-context" })
-		use({ "lewis6991/spellsitter.nvim" })
 		use({ "haringsrob/nvim_context_vt" })
 		use({ "cespare/vim-toml" })
 
@@ -196,7 +197,7 @@ packer.startup({
 		display = {
 			open_fn = require("packer.util").float,
 			max_jobs = user_profile.with_profile_table({
-				default = nil,
+				default = 20,
 				work = 10,
 			}),
 		},
