@@ -38,3 +38,4 @@ treesitter
 neovim
 bind-key
 westerm
+async

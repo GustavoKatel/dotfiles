@@ -19,13 +19,19 @@ sidebar.setup({
 	sections = user_profile.with_profile_table({
 		default = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers", tasks_section },
 		test = {
-			"buffers",
-			"todos",
-			"diagnostics",
-			"git",
-			"symbols",
-			"files",
-			"containers",
+			-- default = {
+			-- 	"datetime",
+			-- 	require("sidebar-nvim.builtin.datetime"):with({
+			-- 		clocks = { { name = "C2: Local" }, { name = "C2: Local2" }, { name = "C2: Local3" } },
+			-- 	}),
+			-- },
+			-- "buffers",
+			-- "todos",
+			-- "diagnostics",
+			-- "git",
+			-- "symbols",
+			-- "files",
+			-- "containers",
 		},
 		work = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers", tasks_section },
 	}),

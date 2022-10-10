@@ -120,7 +120,7 @@ packer.startup({
 			config = function()
 				require("indent_blankline").setup({
 					buftype_exclude = { "terminal" },
-					filetype_exclude = { "lspinfo", "packer", "checkhealth", "help", "man", "mason" },
+					filetype_exclude = { "lspinfo", "packer", "checkhealth", "help", "man", "mason", "SidebarNvim" },
 				})
 			end,
 		})
