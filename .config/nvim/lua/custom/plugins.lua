@@ -43,13 +43,14 @@ packer.startup({
 			},
 		})
 		use({ "j-hui/fidget.nvim" })
+		-- TODO: do we still need this plugin after https://github.com/neovim/neovim/pull/15723 ?
+		use({ "theHamsta/nvim-semantic-tokens" })
 		-- language support
 		use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
 		use({ "nvim-treesitter/playground" })
 		use({ "windwp/nvim-ts-autotag" }) -- auto close html tags using treesitter
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 		use({ "nvim-treesitter/nvim-treesitter-context" })
-		use({ "lewis6991/spellsitter.nvim" })
 		use({ "haringsrob/nvim_context_vt" })
 		use({ "cespare/vim-toml" })
 
@@ -107,24 +108,37 @@ packer.startup({
 		use({ "editorconfig/editorconfig-vim" })
 		-- HUD
 		use({ "lewis6991/gitsigns.nvim" }) -- git information in the buffer lines
-		use({ "kyazdani42/nvim-web-devicons" })
 		use({
-			"nvim-lualine/lualine.nvim",
-			requires = { "kyazdani42/nvim-web-devicons" },
+			"kyazdani42/nvim-web-devicons",
+			config = function()
+				require("nvim-web-devicons").setup()
+			end,
 		})
+		use({ "nvim-lualine/lualine.nvim" })
 		use({
 			"lukas-reineke/indent-blankline.nvim",
 			config = function()
 				require("indent_blankline").setup({
 					buftype_exclude = { "terminal" },
-					filetype_exclude = { "lspinfo", "packer", "checkhealth", "help", "man", "mason" },
+					filetype_exclude = { "lspinfo", "packer", "checkhealth", "help", "man", "mason", "SidebarNvim" },
 				})
 			end,
 		})
 		use({
 			"folke/todo-comments.nvim",
 			config = function()
-				require("todo-comments").setup({})
+				require("todo-comments").setup({
+					highlight = {
+						-- pattern or table of patterns, used for highlightng (vim regex)
+						pattern = {
+							[[.*<(KEYWORDS)\s*:]],
+							[[.*<(KEYWORDS)(\(.*\))\s*:]],
+						},
+					},
+					search = {
+						pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]], -- ripgrep regex
+					},
+				})
 			end,
 		})
 		use({ "L3MON4D3/LuaSnip" })
@@ -152,7 +166,8 @@ packer.startup({
 
 		use({
 			user_profile.with_profile_table({
-				default = "/Users/gustavokatel/dev/sidebar.nvim",
+				default = "sidebar-nvim/sidebar.nvim",
+				test = "/Users/gustavokatel/dev/sidebar.nvim",
 				work = "sidebar-nvim/sidebar.nvim",
 				jupiter = "sidebar-nvim/sidebar.nvim",
 			}),
@@ -183,6 +198,10 @@ packer.startup({
 	config = {
 		display = {
 			open_fn = require("packer.util").float,
+			max_jobs = user_profile.with_profile_table({
+				default = 20,
+				work = 10,
+			}),
 		},
 	},
 })

@@ -9,7 +9,7 @@ mason_lspconfig.setup({
 	--ensure_installed = servers,
 })
 
-local common_pkgs = { "stylua", "node-debug2-adapter" }
+local common_pkgs = { "stylua", "node-debug2-adapter", "actionlint" }
 
 local pkgs = user_profile.with_profile_table({
 	default = vim.tbl_flatten({
@@ -19,14 +19,14 @@ local pkgs = user_profile.with_profile_table({
 			"delve", -- go debugger
 		},
 	}),
-	work = vim.tbl_flatten({ common_pkgs, "actionlint" }),
+	work = vim.tbl_flatten({ common_pkgs }),
 })
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
 local common_servers = { "sumneko_lua", "tsserver", "eslint", "dockerls", "jsonls", "bashls" }
 
 local servers = user_profile.with_profile_table({
-	default = vim.tbl_flatten({ common_servers, { "gopls", "clangd", "rust_analyzer", "pyright" } }),
+	default = vim.tbl_flatten({ common_servers, { "gopls", "clangd", "rust_analyzer", "pyright", "taplo" } }),
 	work = vim.tbl_flatten(common_servers),
 })
 

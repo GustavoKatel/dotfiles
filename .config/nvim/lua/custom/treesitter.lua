@@ -22,6 +22,8 @@ treesitter_config.setup({
 		"scss",
 		"sql",
 		"query",
+		"toml",
+		"regex",
 	},
 	-- Automatically install missing parsers when entering buffer
 	auto_install = true,
@@ -108,4 +110,3 @@ require("nvim_context_vt").setup({
 	disable_ft = { "markdown", "yaml", "json" },
 })
 
-require("spellsitter").setup()

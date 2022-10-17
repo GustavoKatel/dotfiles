@@ -17,6 +17,7 @@ M.on_attach = function(client, bufnr, ...)
 			border = "single",
 		},
 	}, bufnr)
+	require("custom.lsp_semantic_tokens").on_attach(client, bufnr)
 
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -37,8 +38,6 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "<F6>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	buf_set_keymap("v", "<F6>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
-	buf_set_keymap("n", "<F7>", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-
 	buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
 	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 
@@ -57,7 +56,7 @@ M.on_attach = function(client, bufnr, ...)
 				events = { "BufWritePre" },
 				def = {
 					callback = function()
-						vim.lsp.buf.formatting_seq_sync()
+						vim.lsp.buf.format()
 					end,
 				},
 			},
@@ -72,20 +71,14 @@ M.on_attach = function(client, bufnr, ...)
 				events = "CursorHold",
 				def = {
 					callback = function()
-						require("custom.lsp").cursor_hold()
+						require("custom.lsp_utils").cursor_hold()
 					end,
 				},
 			},
 		},
 	})
 
-	local has_code_lens = false
-
-	if vim.fn.has("nvim-0.8") == 1 then
-		has_code_lens = client.server_capabilities.codeLensProvider
-	else
-		has_code_lens = client.resolved_capabilities.code_lens
-	end
+	local has_code_lens = client.server_capabilities.codeLensProvider
 
 	if has_code_lens then
 		v.create_autocommands({

@@ -1,9 +1,12 @@
+format = "$all$kubernetes$line_break$character"
+
 [character]
-format = "[[>](dimmed white) λ ](green)"
-success_symbol = "green"
+format = "[>](dimmed white)$symbol"
+success_symbol = "[ λ ](green)"
+error_symbol = "[ λ ](red)"
 
 [hostname]
-ssh_only = false
+ssh_only = true
 format = "[$hostname ](dimmed white)"
 
 [username]
@@ -11,12 +14,14 @@ show_always = false
 
 [directory]
 style = "bold white"
+format = "> [$path]($style)[$read_only]($read_only_style) "
 
 [git_branch]
 format = "\\[[$symbol$branch]($style)\\] "
 
 [package]
 format = "\\[[$symbol$version]($style)\\] "
+disabled = true
 
 [rust]
 symbol = ""
@@ -42,6 +47,19 @@ format = "\\[[${symbol} ${version}( \\($virtualenv\\))]($style)\\] "
 [cmd_duration]
 format = "\\[[祥$duration]($style)\\] "
 
+[gcloud]
+disabled = true
+
+[java]
+disabled = true
+
+[kubernetes]
+format = "\\[[$symbol$context]($style)\\] "
+disabled = false
+detect_folders = ["k8s"]
+[kubernetes.context_aliases]
+"arn:aws:eks:.*:cluster/\\d+_(?P<name>)_(?P<env>)_.*" = "$name.$env"
+
 [custom.shell_counter]
 command = "source ~/dev/shell_recursive_counter.sh && shell_counter"
 format = "\\[[[$symbol](bold grey) $output]($style)\\] "
@@ -65,10 +83,4 @@ when = "! [ -z $ROSETTA_SHELL ]"
 shell = ["zsh", "-l"]
 symbol = ""
 style = "white"
-
-[gcloud]
-disabled = true
-
-[java]
-disabled = true
 
