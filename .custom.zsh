@@ -74,6 +74,7 @@ bindkey "\e[1;3D" backward-word # alt(option) + <-
 bindkey "\e[1;3C" forward-word # alt(option) + ->
 
 [ -f $HOME/.custom_work.zsh ] && source $HOME/.custom_work.zsh
+[ -f $HOME/.custom_home.zsh ] && source $HOME/.custom_home.zsh
 
 eval $(starship init zsh)
 

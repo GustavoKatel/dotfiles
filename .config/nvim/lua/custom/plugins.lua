@@ -154,6 +154,7 @@ packer.startup({
 			user_profile.with_profile_table({
 				default = "/Users/gustavokatel/dev/sidebar.nvim",
 				work = "sidebar-nvim/sidebar.nvim",
+				jupiter = "sidebar-nvim/sidebar.nvim",
 			}),
 			rocks = { "luatz" },
 		})
@@ -176,6 +177,7 @@ packer.startup({
 		use(user_profile.with_profile_table({
 			default = { "/Users/gustavokatel/dev/tasks.nvim" },
 			work = { "GustavoKatel/tasks.nvim", branch = "sources-overhaul" },
+			jupiter = { "GustavoKatel/tasks.nvim", branch = "sources-overhaul" },
 		}))
 	end,
 	config = {
