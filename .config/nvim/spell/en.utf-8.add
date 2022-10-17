@@ -39,3 +39,6 @@ neovim
 bind-key
 westerm
 async
+TODOs
+NOTEs
+in-memory

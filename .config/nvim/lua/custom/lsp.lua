@@ -35,14 +35,8 @@ require("custom.lsp_semantic_tokens").setup()
 
 -- config that activates keymaps and enables snippet support
 local function make_config(server_name)
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
-	capabilities.textDocument.completion.completionItem.resolveSupport = {
-		properties = { "documentation", "detail", "additionalTextEdits" },
-	}
-
 	-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
-	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 	local config = { capabilities = capabilities, on_attach = lsp_on_attach.on_attach }
 
