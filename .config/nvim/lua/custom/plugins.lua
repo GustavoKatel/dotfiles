@@ -149,7 +149,7 @@ packer.startup({
 		use({ "rcarriga/nvim-dap-ui" })
 
 		-- utils
-		use({ "tpope/vim-fugitive" }) -- some git goodies
+		use({ "tpope/vim-fugitive", requires = { { "tpope/vim-rhubarb" } } }) -- some git goodies
 		use({ "voldikss/vim-floaterm" }) -- floating terminal
 		use({ "qpkorr/vim-bufkill" }) -- better support for killing buffers
 		use({ "mbbill/undotree" }) -- undo history on steroids
