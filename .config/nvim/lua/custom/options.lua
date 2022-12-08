@@ -80,6 +80,10 @@ vim.opt.switchbuf:append("uselast")
 
 vim.opt.undofile = true
 
+-- remove manually created folds
+-- TODO: it's buggy and I'm not even using folds, why?
+vim.opt.sessionoptions:remove("folds")
+
 -- terminal overrides
 -- no line numbers on terminals
 vim.api.nvim_create_augroup("term_open_config", { clear = true })
