@@ -43,7 +43,7 @@ packer.startup({
 			},
 		})
 		use({ "j-hui/fidget.nvim" })
-		-- TODO: do we still need this plugin after https://github.com/neovim/neovim/pull/15723 ?
+		-- TODO: do we still need this plugin after https://github.com/neovim/neovim/pull/21100
 		use({ "theHamsta/nvim-semantic-tokens" })
 		-- language support
 		use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
