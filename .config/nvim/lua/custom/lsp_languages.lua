@@ -83,42 +83,18 @@ M.default_configs = {
 
 M.configs = vim.tbl_deep_extend("force", M.default_configs, {})
 
-function M.load_local()
-	pasync.util.block_on(function()
-		local config_data = utils.async_read_file(vim.loop.cwd() .. "/.nvim/lsp.json")
-		if config_data == nil then
-			return
-		end
+-- TODO: need to make sure that the timing of the load is correct
+function M.load_local(project)
+	local project_lsp = project.lsp
 
-		vim.schedule(function()
-			vim.notify("using local lsp config", vim.log.levels.DEBUG)
-		end)
-
-		local ok, config = pcall(vim.json.decode, config_data)
-		if not ok then
-			vim.schedule(function()
-				vim.notify(
-					string.format("error trying to parse json from '.nvim/lsp.json': %s", config),
-					vim.log.levels.ERROR
-				)
-			end)
-			return
-		end
-
-		M.configs = vim.tbl_deep_extend("force", M.default_configs, config or {})
-	end)
+	-- M.configs = vim.tbl_deep_extend("force", M.default_configs, project_lsp)
+	if project_lsp then
+		vim.notify_once("found local lsp config, but they are not applied. TODO!", vim.log.levels.DEBUG)
+	end
 end
 
---vim.api.nvim_create_autocmd({ "BufWritePost" }, {
---group = vim.api.nvim_create_augroup("lsp_local_project_config_autocmds", { clear = true }),
---desc = "reload lsp custom config",
---pattern = ".nvim/lsp.json",
---callback = function()
---M.load_local(function()
---end)
----- NOTE: restart lsp?
---vim.notify("local lsp loaded", vim.log.levels.DEBUG)
---end,
---})
+require("custom.project").register_on_load_handler(function(project)
+	M.load_local(project)
+end)
 
 return M

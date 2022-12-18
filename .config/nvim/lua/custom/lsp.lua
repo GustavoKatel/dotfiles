@@ -15,8 +15,6 @@ require("fidget").setup({
 local configs = require("custom.lsp_languages")
 local lsp_on_attach = require("custom.lsp_on_attach")
 
---configs.load_local()
-
 require("null-ls").setup({
 	debug = false,
 	sources = {

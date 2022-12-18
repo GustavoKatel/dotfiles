@@ -1,4 +1,5 @@
 -- some helpers to manage scratches
+local project = require("custom.project")
 
 local default_opts = {
 	repo = "git@github.com:GustavoKatel/.scratches.git",
@@ -29,6 +30,9 @@ function M.setup(opts)
 				args = { "clone", M._opts.repo, M._opts.location },
 				cwd = vim.fn.getcwd(),
 				env = vim.env,
+				on_start = function()
+					vim.notify("cloning remote scratches repo", vim.log.levels.INFO)
+				end,
 				on_exit = function(j, code)
 					local notify = vim.schedule_wrap(vim.notify)
 
@@ -53,23 +57,30 @@ end
 
 function M.setup_local_folder()
 	if M._opts.sync_upstream then
-		local upstream_folder_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+		local project_name = project.current.name
 
-		upstream_folder_name = M._opts.location .. "/" .. upstream_folder_name
+		local scratch_folder = (project.current.scratches or {}).folder or (M._opts.location .. "/" .. project_name)
+		scratch_folder = vim.fn.expand(scratch_folder)
 
-		vim.api.nvim_command(":!mkdir -p " .. upstream_folder_name)
+		local remote_exists = vim.fn.isdirectory(scratch_folder) == 1
+		local local_exists = vim.fn.isdirectory(".scratches") == 1
 
-		-- already exists, copy content over
-		if vim.fn.isdirectory(".scratches") then
-			vim.api.nvim_command(":!cp -r .scratches/* " .. upstream_folder_name .. "/")
-			vim.api.nvim_command(":!rm -rf .scratches")
+		if not remote_exists then
+			vim.api.nvim_command(":!mkdir -p " .. scratch_folder)
+
+			-- local exists, apply migration
+			if local_exists then
+				vim.notify("scratches migration: starting", vim.log.levels.INFO)
+				vim.api.nvim_command(":!cp -r .scratches/* " .. scratch_folder .. "/")
+				vim.api.nvim_command(":!rm -rf .scratches")
+				vim.notify("scratches migration: done", vim.log.levels.INFO)
+			end
 		end
 
-		vim.api.nvim_command(":!ln -s " .. upstream_folder_name .. " .scratches")
-		return
+		if not local_exists then
+			vim.api.nvim_command(":!ln -s " .. scratch_folder .. " .scratches")
+		end
 	end
-
-	vim.api.nvim_command(":silent !mkdir -p .scratches")
 end
 
 function M.open_scratch_file_floating(opts)
@@ -117,25 +128,29 @@ function M.open_scratch_file_floating(opts)
 	end
 end
 
-function M.sync()
+function M.sync(opts)
 	if not M._opts.sync_upstream then
 		vim.notify("sync not enabled", vim.log.levels.INFO)
 		return
 	end
 
-	-- this is done in a terminal to allow git inputs
-	local function wrap_command(cmd)
-		return "split term://" .. M._opts.location .. "//" .. cmd
+	if opts.fargs[1] == "terminal" then
+		vim.cmd.split("term://" .. M._opts.location .. "//" .. vim.env.SHELL)
+		return
 	end
 
-	-- vim.api.nvim_command(wrap_command("git add . && git commit -am 'sync' && git pull && git push"))
-	-- TODO: automate this
-	-- vim.api.nvim_command(wrap_command("sleep 3; git add . && git commit -am 'sync'"))
-	vim.cmd.split("term://" .. M._opts.location .. "//" .. vim.env.SHELL)
+	vim.cmd.split("term://" .. M._opts.location .. "//git add . && git commit -am sync && git pull && git push")
 end
 
 vim.api.nvim_create_user_command("ScratchOpenFloat", M.open_scratch_file_floating, {})
-vim.api.nvim_create_user_command("ScratchSync", M.sync, {})
+vim.api.nvim_create_user_command("ScratchSync", M.sync, {
+	nargs = "?",
+	desc = "Syncronize local scratches",
+	complete = function()
+		-- return completion candidates as a list-like table
+		return { "terminal" }
+	end,
+})
 
 M.setup()
 

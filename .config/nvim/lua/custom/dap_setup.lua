@@ -100,5 +100,3 @@ dap.adapters.go = function(callback, config)
 		callback({ type = "server", host = "127.0.0.1", port = port })
 	end, 100)
 end
-
-dap_local_project_config.load()
