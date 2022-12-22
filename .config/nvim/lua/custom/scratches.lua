@@ -139,7 +139,7 @@ function M.sync(opts)
 		return
 	end
 
-	vim.cmd.split("term://" .. M._opts.location .. "//git add . && git commit -am sync && git pull && git push")
+	vim.cmd.split("term://" .. M._opts.location .. "//git add . && git commit -am sync; git pull && git push")
 end
 
 vim.api.nvim_create_user_command("ScratchOpenFloat", M.open_scratch_file_floating, {})

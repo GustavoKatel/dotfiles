@@ -25,6 +25,7 @@ packer.startup({
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
+			"folke/neodev.nvim",
 		})
 
 		use({ "jose-elias-alvarez/null-ls.nvim" })
@@ -105,7 +106,8 @@ packer.startup({
 		})
 		use({ "RRethy/vim-illuminate" }) -- hightlight same word across buffer
 		use({ "google/vim-searchindex" }) -- better search results
-		use({ "editorconfig/editorconfig-vim" })
+		use({ "tpope/vim-sleuth" }) -- Detect tabstop and shiftwidth automatically
+		-- use({ "editorconfig/editorconfig-vim" })
 		-- HUD
 		use({ "lewis6991/gitsigns.nvim" }) -- git information in the buffer lines
 		use({

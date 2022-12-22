@@ -60,6 +60,17 @@ mason_lspconfig.setup_handlers({
 	--["rust_analyzer"] = function()
 	--require("rust-tools").setup({})
 	--end,
+
+	sumneko_lua = function()
+		-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+		require("neodev").setup({
+			-- add any options here, or leave empty to use the default settings
+		})
+
+		local server_name = "sumneko_lua"
+		local config = make_config(server_name)
+		lspconfig[server_name].setup(config)
+	end,
 })
 
 -- better signs in "signcolumn" for diagnostics
