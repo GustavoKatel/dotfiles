@@ -5,7 +5,10 @@ local sidebar = require("sidebar-nvim")
 local tasks_section = require("sidebar-nvim.sections.tasks")
 
 sidebar.setup({
-	open = true,
+	open = user_profile.with_profile_table({
+		default = true,
+		jupiter = false,
+	}),
 	initial_width = 40,
 	enable_profile = false,
 	hide_statusline = false,

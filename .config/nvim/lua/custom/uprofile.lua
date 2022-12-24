@@ -51,7 +51,7 @@ function M.with_profile_table(tbl)
 
 	local ret = tbl[active_profile]
 
-	if not ret then
+	if ret == nil then
 		return tbl["default"]
 	end
 
