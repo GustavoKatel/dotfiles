@@ -171,7 +171,10 @@ packer.startup({
 				work = "sidebar-nvim/sidebar.nvim",
 				jupiter = "sidebar-nvim/sidebar.nvim",
 			}),
-			rocks = { "luatz" },
+			rocks = user_profile.with_profile_table({
+				default = { "luatz" },
+				jupiter = {},
+			}),
 		})
 		use({ "GustavoKatel/dap-sidebar.nvim" })
 		--use({ "/Users/gustavokatel/dev/dap-sidebar.nvim" })
@@ -201,6 +204,7 @@ packer.startup({
 			max_jobs = user_profile.with_profile_table({
 				default = 20,
 				work = 10,
+				jupiter = 10,
 			}),
 		},
 	},
