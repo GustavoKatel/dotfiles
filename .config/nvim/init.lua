@@ -36,3 +36,5 @@ require("custom.tasks")
 require("custom.terminal")
 
 require("custom.paster")
+
+require("custom.project").setup()

@@ -25,6 +25,7 @@ packer.startup({
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
+			"folke/neodev.nvim",
 		})
 
 		use({ "jose-elias-alvarez/null-ls.nvim" })
@@ -43,7 +44,7 @@ packer.startup({
 			},
 		})
 		use({ "j-hui/fidget.nvim" })
-		-- TODO: do we still need this plugin after https://github.com/neovim/neovim/pull/15723 ?
+		-- TODO: do we still need this plugin after https://github.com/neovim/neovim/pull/21100
 		use({ "theHamsta/nvim-semantic-tokens" })
 		-- language support
 		use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
@@ -105,7 +106,8 @@ packer.startup({
 		})
 		use({ "RRethy/vim-illuminate" }) -- hightlight same word across buffer
 		use({ "google/vim-searchindex" }) -- better search results
-		use({ "editorconfig/editorconfig-vim" })
+		use({ "tpope/vim-sleuth" }) -- Detect tabstop and shiftwidth automatically
+		-- use({ "editorconfig/editorconfig-vim" })
 		-- HUD
 		use({ "lewis6991/gitsigns.nvim" }) -- git information in the buffer lines
 		use({
@@ -149,7 +151,7 @@ packer.startup({
 		use({ "rcarriga/nvim-dap-ui" })
 
 		-- utils
-		use({ "tpope/vim-fugitive" }) -- some git goodies
+		use({ "tpope/vim-fugitive", requires = { { "tpope/vim-rhubarb" } } }) -- some git goodies
 		use({ "voldikss/vim-floaterm" }) -- floating terminal
 		use({ "qpkorr/vim-bufkill" }) -- better support for killing buffers
 		use({ "mbbill/undotree" }) -- undo history on steroids

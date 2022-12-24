@@ -1,3 +1,5 @@
+;; extends
+
 (
  ; set highlight to query
  (function_call
