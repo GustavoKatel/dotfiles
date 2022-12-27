@@ -360,6 +360,12 @@ for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l", cre
 	end)
 end
 
+-- telescope help_tags with f1
+vim.keymap.set({ "n" }, "<F1>", function()
+	local telescope = require("telescope.builtin")
+	telescope.help_tags()
+end)
+
 -- undo with ctrl/cmd-z in insert mode
 vim.keymap.set({ "i" }, "<C-z>", "<ESC>ui")
 vim.keymap.set({ "i" }, "<D-z>", "<ESC>ui")
