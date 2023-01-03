@@ -2,7 +2,7 @@
 
 # based on https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/bin/tmux-sessionizer
 
-selected=$(find ~/dev ~/dev/runlet -mindepth 0 -maxdepth 1 -type d | fzf)
+selected=$(find ~/dev ~/dev/runlet ~/Development -mindepth 0 -maxdepth 1 -type d | fzf)
 
 if [[ -z $selected ]]; then
     exit 0
