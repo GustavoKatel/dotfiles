@@ -12,14 +12,14 @@ vim.opt.mouse = "a"
 -- show line numbers
 vim.opt.number = true
 -- show relative line number only when the current window is focused
-vim.api.nvim_create_augroup("numbertoggle", { clear = true })
+local group = vim.api.nvim_create_augroup("numbertoggle", { clear = true })
 vim.api.nvim_create_autocmd(
 	{ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" },
-	{ group = "numbertoggle", command = "if &nu  | set rnu   | endif" }
+	{ group = group, command = "if &nu  | set rnu   | endif" }
 )
 vim.api.nvim_create_autocmd(
 	{ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" },
-	{ group = "numbertoggle", command = "if &nu  | set nornu | endif" }
+	{ group = group, command = "if &nu  | set nornu | endif" }
 )
 
 -- always show the status line
