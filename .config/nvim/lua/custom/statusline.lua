@@ -53,8 +53,10 @@ lualine.setup({
 				path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
 			},
 			"diagnostics",
+			"diff",
 		},
 		lualine_x = { { lualine_custom_winnr }, "fileformat", "filetype" },
+		lualine_y = {},
 	},
 	inactive_sections = {
 		lualine_c = {
