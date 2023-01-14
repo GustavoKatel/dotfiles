@@ -1,5 +1,3 @@
-local pasync = require("plenary.async")
-local utils = require("custom.utils")
 local lsp_on_attach = require("custom.lsp_on_attach")
 
 local M = {}
