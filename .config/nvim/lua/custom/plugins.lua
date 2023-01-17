@@ -206,7 +206,7 @@ packer.startup({
 			open_fn = require("packer.util").float,
 			max_jobs = user_profile.with_profile_table({
 				default = 20,
-				work = 10,
+				work = 5,
 				jupiter = 10,
 			}),
 		},
