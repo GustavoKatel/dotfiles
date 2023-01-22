@@ -1,4 +1,6 @@
--- Bootstrap packer
+-- vim:foldlevel=0:
+
+-- {{{ Bootstrap packer
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
@@ -8,6 +10,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	execute("!mkdir -p " .. install_path)
 	execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
 end
+-- }}}
 
 local packer = require("packer")
 
@@ -20,7 +23,7 @@ packer.startup({
 		-- libs
 		use({ "nvim-lua/plenary.nvim" })
 
-		-- lsp
+		-- {{{ lsp
 		use({
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -46,7 +49,9 @@ packer.startup({
 		use({ "j-hui/fidget.nvim" })
 		-- TODO: do we still need this plugin after https://github.com/neovim/neovim/pull/21100
 		use({ "theHamsta/nvim-semantic-tokens" })
-		-- language support
+		-- }}}
+
+		-- {{{ language support
 		use({ "nvim-treesitter/nvim-treesitter" }) -- semantic highlight
 		use({ "nvim-treesitter/playground" })
 		use({ "windwp/nvim-ts-autotag" }) -- auto close html tags using treesitter
@@ -54,6 +59,14 @@ packer.startup({
 		use({ "nvim-treesitter/nvim-treesitter-context" })
 		use({ "haringsrob/nvim_context_vt" })
 		use({ "cespare/vim-toml" })
+
+		-- markdown improved headers colors and visuals
+		use({
+			"lukas-reineke/headlines.nvim",
+			config = function()
+				require("headlines").setup()
+			end,
+		})
 
 		use({
 			"nvim-neotest/neotest",
@@ -65,27 +78,27 @@ packer.startup({
 				"nvim-neotest/neotest-go",
 			},
 		})
+		-- }}}
 
-		-- colorscheme
+		-- {{{ colorscheme
 		-- use {'tomasiser/vim-code-dark'}
 		--use({ "navarasu/onedark.nvim" })
 		use({ "rebelot/kanagawa.nvim" })
+		-- }}}
 
-		-- editting
+		-- {{{ editting
 		use({
 			"numToStr/Comment.nvim",
 			config = function()
 				require("Comment").setup()
 			end,
 		})
-		-- use({ "jiangmiao/auto-pairs" }) -- auto close brackets, parenthesis etc
 		use({
 			"windwp/nvim-autopairs", -- auto close brackets, parenthesis etc
 			config = function()
 				require("nvim-autopairs").setup({})
 			end,
 		})
-		-- use({ "tpope/vim-surround" })
 		use({
 			"kylechui/nvim-surround",
 			-- "~/dev/nvim-surround",
@@ -107,8 +120,9 @@ packer.startup({
 		use({ "RRethy/vim-illuminate" }) -- hightlight same word across buffer
 		use({ "google/vim-searchindex" }) -- better search results
 		use({ "tpope/vim-sleuth" }) -- Detect tabstop and shiftwidth automatically
-		-- use({ "editorconfig/editorconfig-vim" })
-		-- HUD
+		-- }}}
+
+		-- {{{ HUD
 		use({ "lewis6991/gitsigns.nvim" }) -- git information in the buffer lines
 		use({
 			"kyazdani42/nvim-web-devicons",
@@ -146,12 +160,14 @@ packer.startup({
 		})
 		use({ "L3MON4D3/LuaSnip" })
 		use({ "stevearc/dressing.nvim" })
-		-- debugging & testing
-		--use({ "puremourning/vimspector" }) -- debugging platform
+		-- }}}
+
+		-- {{{ debugging & testing
 		use({ "mfussenegger/nvim-dap" })
 		use({ "rcarriga/nvim-dap-ui" })
+		-- }}}
 
-		-- utils
+		-- {{{ utils
 		use({ "tpope/vim-fugitive", requires = { { "tpope/vim-rhubarb" } } }) -- some git goodies
 		use({ "voldikss/vim-floaterm" }) -- floating terminal
 		use({ "qpkorr/vim-bufkill" }) -- better support for killing buffers
@@ -166,7 +182,9 @@ packer.startup({
 		use({ "nvim-telescope/telescope-dap.nvim" })
 		use({ "nvim-telescope/telescope-live-grep-args.nvim" })
 		use({ "GustavoKatel/telescope-asynctasks.nvim" })
+		-- }}}
 
+		-- {{{ sidebar
 		use({
 			user_profile.with_profile_table({
 				default = "sidebar-nvim/sidebar.nvim",
@@ -184,8 +202,9 @@ packer.startup({
 
 		--user_profile.with_profile_fn("personal", use, { "/Users/gustavokatel/dev/uprofile.nvim" })
 		--user_profile.with_profile_fn("work", use, { "GustavoKatel/uprofile.nvim" })
+		-- }}}
 
-		-- neovim dev
+		-- {{{ neovim dev
 		use({
 			"tpope/vim-scriptease",
 			cmd = {
@@ -194,6 +213,7 @@ packer.startup({
 				"Time", -- measure how long it takes to run some stuff.
 			},
 		})
+		-- }}}
 
 		use(user_profile.with_profile_table({
 			default = { "/Users/gustavokatel/dev/tasks.nvim" },
