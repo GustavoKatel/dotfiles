@@ -129,7 +129,7 @@ packer.startup({
 			},
 			config = function()
 				vim.g["fern#renderer"] = "nvim-web-devicons"
-				vim.g["g:fern#scheme#file#show_absolute_path_on_root_label"] = 1
+				vim.g["fern#scheme#file#show_absolute_path_on_root_label"] = 1
 			end,
 		})
 		-- }}}
