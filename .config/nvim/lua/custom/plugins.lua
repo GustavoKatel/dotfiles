@@ -120,12 +120,24 @@ packer.startup({
 		use({ "RRethy/vim-illuminate" }) -- hightlight same word across buffer
 		use({ "google/vim-searchindex" }) -- better search results
 		use({ "tpope/vim-sleuth" }) -- Detect tabstop and shiftwidth automatically
+
+		use({
+			"lambdalisue/fern.vim",
+			requires = {
+				"lambdalisue/fern-git-status.vim",
+				"TheLeoP/fern-renderer-web-devicons.nvim",
+			},
+			config = function()
+				vim.g["fern#renderer"] = "nvim-web-devicons"
+				vim.g["g:fern#scheme#file#show_absolute_path_on_root_label"] = 1
+			end,
+		})
 		-- }}}
 
 		-- {{{ HUD
 		use({ "lewis6991/gitsigns.nvim" }) -- git information in the buffer lines
 		use({
-			"kyazdani42/nvim-web-devicons",
+			"nvim-tree/nvim-web-devicons",
 			config = function()
 				require("nvim-web-devicons").setup()
 			end,
