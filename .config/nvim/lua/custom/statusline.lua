@@ -53,7 +53,14 @@ lualine.setup({
 				path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
 			},
 			"diagnostics",
-			"diff",
+			-- "diff",
+			{
+				"diff",
+				source = function()
+					-- this is faster!
+					return vim.b.gitsigns_status_dict or {}
+				end,
+			},
 		},
 		lualine_x = { { lualine_custom_winnr }, "fileformat", "filetype" },
 		lualine_y = {},

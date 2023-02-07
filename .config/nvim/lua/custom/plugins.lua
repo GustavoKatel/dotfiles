@@ -124,7 +124,6 @@ packer.startup({
 		use({
 			"lambdalisue/fern.vim",
 			requires = {
-				"lambdalisue/fern-git-status.vim",
 				"TheLeoP/fern-renderer-web-devicons.nvim",
 			},
 			config = function()
@@ -176,7 +175,7 @@ packer.startup({
 
 		-- {{{ debugging & testing
 		use({ "mfussenegger/nvim-dap" })
-		use({ "rcarriga/nvim-dap-ui" })
+		-- use({ "rcarriga/nvim-dap-ui" })
 		-- }}}
 
 		-- {{{ utils
@@ -238,7 +237,7 @@ packer.startup({
 			open_fn = require("packer.util").float,
 			max_jobs = user_profile.with_profile_table({
 				default = 20,
-				work = 5,
+				work = 2,
 				jupiter = 10,
 			}),
 		},
