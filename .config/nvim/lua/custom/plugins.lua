@@ -196,10 +196,10 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ sidebar
-		user_profile.with_profile_table({
-			default = { "sidebar-nvim/sidebar.nvim" },
-			test = { dir = "/Users/gustavokatel/dev/sidebar.nvim" },
-		}),
+	user_profile.with_profile_table({
+		default = { "sidebar-nvim/sidebar.nvim" },
+		test = { dir = "/Users/gustavokatel/dev/sidebar.nvim" },
+	}),
 
 	{ "GustavoKatel/dap-sidebar.nvim" },
 	--{ dir = "/Users/gustavokatel/dev/dap-sidebar.nvim" },
@@ -224,6 +224,5 @@ require("lazy").setup({
 		work = { "GustavoKatel/tasks.nvim", branch = "sources-overhaul" },
 		jupiter = { "GustavoKatel/tasks.nvim", branch = "sources-overhaul" },
 	}),
-	config = {
-	},
+	config = {},
 })
