@@ -19,7 +19,6 @@ local user_profile = require("custom.uprofile")
 
 -- Install Plugins
 require("lazy").setup({
-	{ "wbthomason/packer.nvim" }, -- updates package manager
 	-- libs
 	{ "nvim-lua/plenary.nvim" },
 
