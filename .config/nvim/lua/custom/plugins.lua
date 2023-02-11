@@ -223,5 +223,7 @@ require("lazy").setup({
 		work = { "GustavoKatel/tasks.nvim", branch = "sources-overhaul" },
 		jupiter = { "GustavoKatel/tasks.nvim", branch = "sources-overhaul" },
 	}),
-	config = {},
+	config = {
+		ui = { border = "solid" },
+	},
 })
