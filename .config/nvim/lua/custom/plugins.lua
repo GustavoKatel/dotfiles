@@ -218,6 +218,16 @@ require("lazy").setup({
 	},
 	-- }}}
 
+	-- {{{ misc
+	{
+		"giusgad/pets.nvim",
+		dependencies = { "MunifTanjim/nui.nvim", "edluffy/hologram.nvim" },
+		config = function()
+			require("pets").setup({})
+		end,
+	},
+	-- }}}
+
 	user_profile.with_profile_table({
 		default = { dir = "/Users/gustavokatel/dev/tasks.nvim" },
 		work = { "GustavoKatel/tasks.nvim", branch = "sources-overhaul" },

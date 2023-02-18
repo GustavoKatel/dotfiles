@@ -142,17 +142,15 @@ vim.keymap.set({ "i" }, create_special_keymap("scr", true), "<ESC>O")
 -- remove search highlight on ESC
 vim.keymap.set({ "n" }, "<ESC>", ":noh<cr>")
 
--- fold keys
-if vim.fn.has("macunix") then
-	vim.keymap.set({ "n" }, "<D-[>", "<cmd>foldclose<cr>")
-	vim.keymap.set({ "n" }, "<D-]>", "<cmd>foldopen<cr>")
-
-	vim.keymap.set({ "n" }, "<M-[>", "<cmd>foldclose<cr>")
-	vim.keymap.set({ "n" }, "<M-]>", "<cmd>foldopen<cr>")
-else
-	vim.keymap.set({ "n" }, "<C-[>", "<cmd>foldclose<cr>")
-	vim.keymap.set({ "n" }, "<C-]>", "<cmd>foldopen<cr>")
+-- {{{ fold keys
+for _, key in ipairs({ "<D-[>", "<M-[>", "<C-[>", create_special_keymap("m[") }) do
+	vim.keymap.set({ "n" }, key, "<cmd>foldclose<cr>")
 end
+
+for _, key in ipairs({ "<D-]>", "<M-]>", "<C-]>", create_special_keymap("m]") }) do
+	vim.keymap.set({ "n" }, key, "<cmd>foldopen<cr>")
+end
+-- }}}
 
 -- delete current line in insert mode with shift-del
 vim.keymap.set({ "i" }, "<S-Del>", "<ESC>ddi")
@@ -402,7 +400,6 @@ local debugger_bindings = {
 	["<leader>o"] = function()
 		require("dap").step_out()
 	end,
-
 	["<leader>i"] = function()
 		require("dap").step_into()
 	end,

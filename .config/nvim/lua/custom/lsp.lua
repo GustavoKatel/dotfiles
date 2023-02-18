@@ -54,20 +54,19 @@ mason_lspconfig.setup_handlers({
 		local config = make_config(server_name)
 		lspconfig[server_name].setup(config)
 	end,
-
 	-- You can provide targeted overrides for specific servers.
 	-- For example, a handler override for the `rust_analyzer`:
 	--["rust_analyzer"] = function()
 	--require("rust-tools").setup({})
 	--end,
 
-	sumneko_lua = function()
+	lua_ls = function()
 		-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-		require("neodev").setup({
-			-- add any options here, or leave empty to use the default settings
-		})
+		-- require("neodev").setup({
+		-- 	-- add any options here, or leave empty to use the default settings
+		-- })
 
-		local server_name = "sumneko_lua"
+		local server_name = "lua_ls"
 		local config = make_config(server_name)
 		lspconfig[server_name].setup(config)
 	end,

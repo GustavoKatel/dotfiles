@@ -3,7 +3,7 @@ local lsp_on_attach = require("custom.lsp_on_attach")
 local M = {}
 
 M.default_configs = {
-	sumneko_lua = {
+	lua_ls = {
 		init_options = { codelenses = { test = true } },
 		settings = {
 			Lua = {
