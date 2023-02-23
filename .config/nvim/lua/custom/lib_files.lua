@@ -15,5 +15,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	callback = function()
 		vim.bo.readonly = true
 		vim.bo.modifiable = false
+		vim.bo.bufhidden = "wipe"
 	end,
 })
