@@ -77,6 +77,8 @@ require("lazy").setup({
 			"nvim-neotest/neotest-go",
 		},
 	},
+
+	{ "github/copilot.vim" },
 	-- }}}
 
 	-- {{{ colorscheme

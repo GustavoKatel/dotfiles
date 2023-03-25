@@ -548,3 +548,5 @@ end)
 vim.keymap.set({ "n" }, "<S-F8>", function()
 	toggle_quickfix(false)
 end)
+
+vim.keymap.set({ "i" }, "<C-j>", "copilot#Accept('\\<CR>')", { silent = true, script = true, expr = true })
