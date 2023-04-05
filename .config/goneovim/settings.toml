@@ -4,13 +4,13 @@
 BorderlessWindow = false
 
 
-FontFamily = "JetBrainsMono Nerd Font Mono"
+FontFamily = "JetBrainsMono Nerd Font"
 FontSize = 12
 
-ExtCmdline   = false
+ExtCmdline = false
 ExtPopupmenu = true
-ExtTabline   = false
-ExtMessages  = false
+ExtTabline = false
+ExtMessages = false
 
 
 # Animates the scrolling behavior of Neovim when the scroll command is entered.
