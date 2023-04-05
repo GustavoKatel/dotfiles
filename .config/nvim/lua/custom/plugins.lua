@@ -194,6 +194,7 @@ require("lazy").setup({
 	{ "nvim-telescope/telescope-dap.nvim" },
 	{ "nvim-telescope/telescope-live-grep-args.nvim" },
 	{ "GustavoKatel/telescope-asynctasks.nvim" },
+	{ "nvim-telescope/telescope-github.nvim" },
 	-- }}}
 
 	-- {{{ sidebar
