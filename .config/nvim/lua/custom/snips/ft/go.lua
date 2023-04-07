@@ -15,7 +15,7 @@ local ts_utils = require("nvim-treesitter.ts_utils")
 
 local get_node_text = vim.treesitter.get_node_text
 
-vim.treesitter.set_query(
+vim.treesitter.query.set_query(
 	"go",
 	"LuaSnip_Result",
 	[[

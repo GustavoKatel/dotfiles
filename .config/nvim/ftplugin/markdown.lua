@@ -1,7 +1,7 @@
 -- treesitter testing
 local ts_utils = require("nvim-treesitter.ts_utils")
 
-vim.treesitter.set_query(
+vim.treesitter.query.set_query(
 	"markdown",
 	"markdown_get_checkboxes",
 	[[ 
@@ -12,7 +12,7 @@ vim.treesitter.set_query(
    ]]
 )
 
-vim.treesitter.set_query(
+vim.treesitter.query.set_query(
 	"markdown",
 	"markdown_get_checkboxes",
 	[[ 
