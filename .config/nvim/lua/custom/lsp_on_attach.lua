@@ -17,7 +17,6 @@ M.on_attach = function(client, bufnr, ...)
 			border = "single",
 		},
 	}, bufnr)
-	require("custom.lsp_semantic_tokens").on_attach(client, bufnr)
 
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)

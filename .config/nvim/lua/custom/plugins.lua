@@ -46,8 +46,6 @@ require("lazy").setup({
 		},
 	},
 	{ "j-hui/fidget.nvim" },
-	-- TODO: do we still need this plugin after https://github.com/neovim/neovim/pull/21100
-	{ "theHamsta/nvim-semantic-tokens" },
 	-- }}}
 
 	-- {{{ language support

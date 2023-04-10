@@ -4,7 +4,7 @@
  ; set highlight to query
  (function_call
      name: (_) @_fn_name
-     (#eq? @_fn_name "vim.treesitter.query.set_query")
+     (#eq? @_fn_name "vim.treesitter.query.set")
      arguments: (_ 
          (_)
          (_)
