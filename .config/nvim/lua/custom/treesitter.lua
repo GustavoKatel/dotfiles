@@ -24,6 +24,7 @@ treesitter_config.setup({
 		"query",
 		"toml",
 		"regex",
+		"vimdoc",
 	},
 	-- Automatically install missing parsers when entering buffer
 	auto_install = true,
@@ -109,4 +110,3 @@ require("nvim_context_vt").setup({
 	prefix = "  -->",
 	disable_ft = { "markdown", "yaml", "json" },
 })
-
