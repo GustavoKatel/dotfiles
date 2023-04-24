@@ -265,7 +265,9 @@ local function telescope_files(with_gitignored)
 		table.insert(cmd, arg)
 	end
 
-	telescope.find_files({ previewer = false, find_command = cmd })
+	telescope.find_files({ --[[ previewer = false, ]]
+		find_command = cmd,
+	})
 end
 
 for _, code in ipairs({ "<C-p>", "<D-p>", create_special_keymap("mp") }) do
