@@ -38,3 +38,5 @@ require("custom.terminal")
 require("custom.paster")
 
 require("custom.project").setup()
+
+require("custom.file_browser")

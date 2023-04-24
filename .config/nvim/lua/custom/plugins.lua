@@ -120,16 +120,7 @@ require("lazy").setup({
 	{ "google/vim-searchindex" }, -- better search results
 	{ "tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
 
-	{
-		"lambdalisue/fern.vim",
-		dependencies = {
-			"TheLeoP/fern-renderer-web-devicons.nvim",
-		},
-		config = function()
-			vim.g["fern#renderer"] = "nvim-web-devicons"
-			vim.g["fern#scheme#file#show_absolute_path_on_root_label"] = 1
-		end,
-	},
+	{ "stevearc/oil.nvim" },
 	-- }}}
 
 	-- {{{ HUD
@@ -146,7 +137,16 @@ require("lazy").setup({
 		config = function()
 			require("indent_blankline").setup({
 				buftype_exclude = { "terminal" },
-				filetype_exclude = { "lspinfo", "packer", "checkhealth", "help", "man", "mason", "SidebarNvim" },
+				filetype_exclude = {
+					"lspinfo",
+					"packer",
+					"checkhealth",
+					"help",
+					"man",
+					"mason",
+					"SidebarNvim",
+					"oil_preview",
+				},
 				show_current_context = true,
 			})
 		end,
