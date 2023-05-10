@@ -259,7 +259,7 @@ local function telescope_files(with_gitignored)
 		table.insert(cmd, "--no-ignore")
 	end
 
-	local cmd_args = { "-g", "!node_modules/**/*", "-g", "!venv/**/*", "-g", "!.git/**/*" }
+	local cmd_args = { "-g", "!node_modules/**/*", "-g", "!venv/**/*", "-g", "!.git/**/*", "-g", "!dist/**/*" }
 
 	for _, arg in pairs(cmd_args) do
 		table.insert(cmd, arg)

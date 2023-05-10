@@ -126,6 +126,13 @@ require("lazy").setup({
 	-- {{{ HUD
 	{ "lewis6991/gitsigns.nvim" }, -- git information in the buffer lines
 	{
+		"lewis6991/satellite.nvim",
+		config = function()
+			require("satellite").setup()
+			vim.cmd("highlight! link ScrollView CursorColumn")
+		end,
+	},
+	{
 		"nvim-tree/nvim-web-devicons",
 		config = function()
 			require("nvim-web-devicons").setup()
