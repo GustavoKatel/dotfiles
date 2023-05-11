@@ -432,8 +432,8 @@ for i = 1, 4, 1 do
 end
 
 vim.keymap.set({ "n" }, "<leader>t", function()
-	--require("harpoon.term").gotoTerminal(1)
-	require("custom.terminal").init_or_attach()
+	require("harpoon.term").gotoTerminal(1)
+	-- require("custom.terminal").init_or_attach()
 end)
 vim.keymap.set({ "n" }, "<leader>hc", function()
 	require("harpoon.cmd-ui").toggle_quick_menu() -- shows the commands menu
