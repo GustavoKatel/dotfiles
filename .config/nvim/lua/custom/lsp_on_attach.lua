@@ -11,6 +11,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 M.on_attach = function(client, bufnr, ...)
 	-- completion.on_attach(client, bufnr)
 	require("illuminate").on_attach(client, bufnr, ...)
+	require("lsp-inlayhints").on_attach(client, bufnr, ...)
 	-- require("lsp_signature").on_attach({
 	-- 	bind = true, -- This is mandatory, otherwise border config won't get registered.
 	-- 	handler_opts = {

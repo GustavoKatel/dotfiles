@@ -46,6 +46,7 @@ require("lazy").setup({
 		},
 	},
 	{ "j-hui/fidget.nvim" },
+	{ "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },
 	-- }}}
 
 	-- {{{ language support
