@@ -7,6 +7,10 @@ M.default_configs = {
 		init_options = { codelenses = { test = true } },
 		settings = {
 			Lua = {
+				hint = {
+					enable = true,
+				},
+
 				format = {
 					-- Use stylua instead
 					enable = false,
