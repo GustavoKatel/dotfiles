@@ -25,6 +25,7 @@ treesitter_config.setup({
 		"toml",
 		"regex",
 		"vimdoc",
+		"http",
 	},
 	-- Automatically install missing parsers when entering buffer
 	auto_install = true,

@@ -578,3 +578,7 @@ vim.keymap.set(
 	"copilot#Accept('\\<CR>')",
 	{ silent = true, script = true, expr = true, replace_keycodes = false }
 )
+
+-- rest.nvim
+vim.keymap.set({ "n" }, "<leader>rr", "<Plug>RestNvim")
+vim.keymap.set({ "n" }, "<leader>rp", "<Plug>RestNvimPreview")

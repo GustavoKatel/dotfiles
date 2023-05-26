@@ -40,3 +40,5 @@ require("custom.paster")
 require("custom.project").setup()
 
 require("custom.file_browser")
+
+require("custom.rest_nvim")

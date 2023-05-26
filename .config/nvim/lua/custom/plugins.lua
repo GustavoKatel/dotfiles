@@ -228,6 +228,7 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ misc
+	{ "rest-nvim/rest.nvim" },
 	-- }}}
 
 	user_profile.with_profile_table({
