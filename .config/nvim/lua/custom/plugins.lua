@@ -66,16 +66,16 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"antoinemadec/FixCursorHold.nvim",
-			-- adapters
-			"haydenmeade/neotest-jest",
-			"nvim-neotest/neotest-plenary",
-			"nvim-neotest/neotest-go",
-		},
-	},
+	-- {
+	-- 	"nvim-neotest/neotest",
+	-- 	dependencies = {
+	-- 		"antoinemadec/FixCursorHold.nvim",
+	-- 		-- adapters
+	-- 		"haydenmeade/neotest-jest",
+	-- 		"nvim-neotest/neotest-plenary",
+	-- 		"nvim-neotest/neotest-go",
+	-- 	},
+	-- },
 
 	{ "github/copilot.vim" },
 	-- }}}
