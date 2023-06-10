@@ -45,7 +45,7 @@ require("lazy").setup({
 			"saadparwaiz1/cmp_luasnip",
 		},
 	},
-	{ "j-hui/fidget.nvim" },
+	{ "j-hui/fidget.nvim", tag = "legacy" },
 	{ "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },
 	-- }}}
 
