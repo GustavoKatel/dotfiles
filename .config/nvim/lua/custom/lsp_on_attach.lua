@@ -19,12 +19,15 @@ M.on_attach = function(client, bufnr, ...)
 	-- 	},
 	-- }, bufnr)
 
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
+	local function buf_set_keymap(mode, lhs, rhs, opts)
+		-- vim.api.nvim_buf_set_keymap(bufnr, ...)
+		opts = opts or {}
+		opts.buffer = bufnr
+		vim.keymap.set(mode, lhs, rhs, opts)
 	end
 
 	-- Mappings.
-	local opts = { noremap = true, silent = true }
+	local opts = { silent = true }
 
 	buf_set_keymap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
@@ -38,7 +41,10 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "<F6>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	buf_set_keymap("v", "<F6>", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 
-	buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	-- buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	buf_set_keymap("n", "K", function()
+		vim.lsp.buf.hover()
+	end, opts)
 	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	buf_set_keymap("n", "<leader>k", "<cmd>lua require('custom.lsp_utils').cursor_hold(true)<CR>", opts)
 
@@ -73,6 +79,14 @@ M.on_attach = function(client, bufnr, ...)
 				def = {
 					callback = function()
 						require("custom.lsp_utils").cursor_hold()
+					end,
+				},
+			},
+			{
+				events = "CursorMoved",
+				def = {
+					callback = function()
+						require("custom.lsp_utils").cursor_moved()
 					end,
 				},
 			},

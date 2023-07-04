@@ -47,6 +47,7 @@
   "rest.nvim": { "branch": "main", "commit": "aea7c64bdff1073beed9bd7fddb60cce7796d7ff" },
   "satellite.nvim": { "branch": "main", "commit": "de3b6e70d033a0ddc2d2040fd9e0af76ad16c63e" },
   "sidebar.nvim": { "branch": "main", "commit": "990ce5f562c9125283ccac5473235b1a56fea6dc" },
+  "tasks.nvim": { "branch": "sources-overhaul", "commit": "8b137d14db3bd0ae65a81b2e42ba4ce35a17b14e" },
   "telescope-asynctasks.nvim": { "branch": "main", "commit": "065300fb0a8ba6a1c81991da1873c73e136dcdc0" },
   "telescope-dap.nvim": { "branch": "master", "commit": "313d2ea12ae59a1ca51b62bf01fc941a983d9c9c" },
   "telescope-github.nvim": { "branch": "master", "commit": "ee95c509901c3357679e9f2f9eaac3561c811736" },
