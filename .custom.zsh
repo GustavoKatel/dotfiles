@@ -67,8 +67,11 @@ alias ee=exa
 alias ea="exa -lh --git --icons"
 
 export PATH="$HOME/go/bin/:$PATH"
+export PATH="$PATH:$HOME/.local/share/containers/podman-desktop/extensions-storage/podman-desktop.compose/bin"
 
 alias pyenv_load=$HOME/dev/pyenv_load.sh
+
+#### Bindings
 
 bindkey "\e[1;3D" backward-word # alt(option) + <-
 bindkey "\e[1;3C" forward-word # alt(option) + ->
