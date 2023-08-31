@@ -77,7 +77,7 @@ require("lazy").setup({
 	-- 	},
 	-- },
 
-	{ "github/copilot.vim" },
+	-- { "github/copilot.vim" },
 	-- }}}
 
 	-- {{{ colorscheme
