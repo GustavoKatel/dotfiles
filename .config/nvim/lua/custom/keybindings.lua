@@ -519,9 +519,9 @@ vim.keymap.set("n", "<C-e>", function()
 end)
 
 -- open in cwd
-vim.keymap.set("n", "<leader>dd", ":edit .<CR>")
+vim.keymap.set("n", "<leader>dd", ":Oil .<CR>")
 -- open in file dir
-vim.keymap.set("n", "<leader>df", ":edit %:h<CR>")
+vim.keymap.set("n", "<leader>df", ":Oil %:h<CR>")
 
 -- show neotest results
 vim.keymap.set("n", "<leader>n", function()
