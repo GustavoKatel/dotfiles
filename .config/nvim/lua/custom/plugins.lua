@@ -47,6 +47,15 @@ require("lazy").setup({
 	},
 	{ "j-hui/fidget.nvim", tag = "legacy" },
 	{ "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },
+	{
+		"stevearc/aerial.nvim",
+		opts = {},
+		-- Optional dependencies
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
 	-- }}}
 
 	-- {{{ language support

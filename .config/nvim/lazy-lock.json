@@ -1,6 +1,7 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
   "LuaSnip": { "branch": "master", "commit": "480b032f6708573334f4437d3f83307d143f1a72" },
+  "aerial.nvim": { "branch": "master", "commit": "63ec2bfc3d9b8ce1fd943fff14781504d8ee250e" },
   "asyncrun.vim": { "branch": "master", "commit": "61cc3081963a12048e00e89f8cedc8bd1cb83b8c" },
   "asynctasks.vim": { "branch": "master", "commit": "7b77b195a4297d3e4c9dde01c20aa6be17e3fcf3" },
   "auto-session": { "branch": "main", "commit": "3eb26b949e1b90798e84926848551046e2eb0721" },
