@@ -145,19 +145,25 @@ require("lazy").setup({
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
-			require("indent_blankline").setup({
-				buftype_exclude = { "terminal" },
-				filetype_exclude = {
-					"lspinfo",
-					"packer",
-					"checkhealth",
-					"help",
-					"man",
-					"mason",
-					"SidebarNvim",
-					"oil_preview",
+			-- https://github.com/lukas-reineke/indent-blankline.nvim/issues/665#issuecomment-1745192076
+			local config = require("ibl.config").default_config
+			require("ibl").setup({
+				indent = { tab_char = config.indent.char },
+				scope = { enabled = true },
+				exclude = {
+					buftypes = { "terminal" },
+					filetypes = {
+						"lspinfo",
+						"packer",
+						"checkhealth",
+						"help",
+						"man",
+						"mason",
+						"SidebarNvim",
+						"oil_preview",
+					},
 				},
-				show_current_context = true,
+				-- show_current_context = true,
 			})
 		end,
 	},
