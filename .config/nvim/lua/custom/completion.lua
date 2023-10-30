@@ -7,6 +7,7 @@ cmp.setup({
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
+		["<Char-0xff>aspace"] = cmp.mapping.complete(), -- show completion suggestions
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = function(fallback)
 			if cmp.visible() then
