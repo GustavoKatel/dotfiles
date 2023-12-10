@@ -108,9 +108,20 @@ M.default_configs = {
 		},
 	},
 	gopls = {
-		settings = { gopls = {
-			buildFlags = { "-tags=runlet_integration_tests" },
-		} },
+		settings = {
+			gopls = {
+				buildFlags = { "-tags=runlet_integration_tests" },
+				hints = {
+					assignVariableTypes = true,
+					compositeLiteralFields = true,
+					compositeLiteralTypes = false,
+					constantValues = true,
+					functionTypeParameters = true,
+					parameterNames = true,
+					rangeVariableTypes = true,
+				},
+			},
+		},
 	},
 }
 
