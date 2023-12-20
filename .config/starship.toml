@@ -56,7 +56,7 @@ disabled = true
 [kubernetes]
 format = "\\[[$symbol$context]($style)\\] "
 disabled = false
-detect_folders = ["k8s"]
+detect_folders = []
 [kubernetes.context_aliases]
 "arn:aws:eks:.*:cluster/\\d+_(?P<name>)_(?P<env>)_.*" = "$name.$env"
 

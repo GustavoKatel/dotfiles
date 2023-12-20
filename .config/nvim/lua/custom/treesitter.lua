@@ -25,6 +25,7 @@ treesitter_config.setup({
 		"toml",
 		"regex",
 		"vimdoc",
+		"http",
 	},
 	-- Automatically install missing parsers when entering buffer
 	auto_install = true,
@@ -33,10 +34,10 @@ treesitter_config.setup({
 	incremental_selection = {
 		enable = true,
 		keymaps = {
-			init_selection = "gnn",
-			node_incremental = "grn",
+			init_selection = "<leader>l",
+			node_incremental = "<leader>l",
 			scope_incremental = "grc",
-			node_decremental = "grm",
+			node_decremental = "<leader>p",
 		},
 	},
 	textobjects = {

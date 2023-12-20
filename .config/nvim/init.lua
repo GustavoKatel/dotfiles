@@ -16,7 +16,7 @@ require("custom.lsp")
 require("custom.completion")
 require("custom.snips")
 require("custom.dap_setup")
-require("custom.neotest")
+-- require("custom.neotest")
 require("custom.lib_files")
 
 require("custom.harpoon_setup")
@@ -40,3 +40,5 @@ require("custom.paster")
 require("custom.project").setup()
 
 require("custom.file_browser")
+
+require("custom.rest_nvim")

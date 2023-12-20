@@ -94,3 +94,6 @@ vim.fn.sign_define("DiagnosticSignHint", {
 	text = " ",
 	numhl = "DiagnosticSignHint",
 })
+
+require("lsp-inlayhints").setup()
+vim.cmd.highlight({ args = { "link", "LspInlayHint", "Comment" }, bang = true })

@@ -58,6 +58,7 @@
         "/Users/gustavokatel/.local/share/nvim/site/pack/packer/start/telescope.nvim",
         "/Users/gustavokatel/.local/share/nvim/site/pack/packer/start/todo-comments.nvim",
         "/Users/gustavokatel/.local/share/nvim/site/pack/packer/start/vim-illuminate",
-        "${3rd}/luassert/library"
+        "${3rd}/luassert/library",
+        "/Users/gustavo/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/0b80bc45"
     ]
 }

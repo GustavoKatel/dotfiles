@@ -22,7 +22,7 @@ for _, code in ipairs({ "<D-s>", "<C-s>", create_special_keymap("ds") }) do
 end
 
 -- vertical split with ctrl-\ | command-\
-vim.keymap.set({ "n" }, "<D-\\>", ":vsplit<CR>")
+vim.keymap.set({ "n" }, "<D-Bslash>", ":vsplit<CR>")
 vim.keymap.set({ "n" }, "<C-\\>", ":vsplit<CR>")
 vim.keymap.set({ "n" }, create_special_keymap("m\\"), ":vsplit<CR>")
 
@@ -186,7 +186,7 @@ vim.keymap.set({ "n" }, "<leader>f", function()
 end)
 
 -- floaterm keybindings
-for _, code in ipairs({ "<A-F12>", "<M-F12>", create_special_keymap("af12", true, true) }) do
+for _, code in ipairs({ "<A-F12>", "<M-F12>", "<F60>", create_special_keymap("af12", true, true) }) do
 	vim.keymap.set({ "n" }, code, "<cmd>FloatermToggle<cr>")
 	vim.keymap.set({ "i" }, code, "<ESC>:FloatermToggle<CR>")
 	vim.keymap.set({ "t" }, code, "<C-\\><C-N>:FloatermToggle<CR>")
@@ -259,11 +259,22 @@ local function telescope_files(with_gitignored)
 		table.insert(cmd, "--no-ignore")
 	end
 
-	local cmd_args = { "-g", "!node_modules/**/*", "-g", "!venv/**/*", "-g", "!.git/**/*", "-g", "!dist/**/*" }
+	local cmd_args = {
+		"-g",
+		"!node_modules/**/*",
+		"-g",
+		"!venv/**/*",
+		"-g",
+		"!.git/**/*",
+		"-g",
+		"!dist/**/*",
+	}
 
 	for _, arg in pairs(cmd_args) do
 		table.insert(cmd, arg)
 	end
+
+	print(vim.inspect(cmd))
 
 	telescope.find_files({ --[[ previewer = false, ]]
 		find_command = cmd,
@@ -286,7 +297,7 @@ end
 -- telescope commands
 for _, code in ipairs({
 	"<C-S-P>",
-	"<S-D-P>",
+	"<S-D-p>",
 	"<D-P>",
 	second_leader .. "p",
 	create_special_keymap("csp"),
@@ -311,7 +322,7 @@ vim.keymap.set({ "n" }, "z=", function()
 end)
 
 -- telescope global search
-for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_special_keymap("mf") }) do
+for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-f>", create_special_keymap("mf") }) do
 	vim.keymap.set({ "n" }, code, function()
 		local rg_arguments = {}
 
@@ -322,7 +333,16 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-F>", create_special_k
 		table.insert(rg_arguments, "--hidden")
 		table.insert(rg_arguments, "--no-ignore")
 
-		local cmd_args = { "-g", "!node_modules/**/*", "-g", "!venv/**/*", "-g", "!.git/**/*" }
+		local cmd_args = {
+			"-g",
+			"!node_modules/**/*",
+			"-g",
+			"!venv/**/*",
+			"-g",
+			"!.git/**/*",
+			"-g",
+			"!dist/**/*",
+		}
 
 		for _, arg in pairs(cmd_args) do
 			table.insert(rg_arguments, arg)
@@ -499,9 +519,9 @@ vim.keymap.set("n", "<C-e>", function()
 end)
 
 -- open in cwd
-vim.keymap.set("n", "<leader>dd", ":edit .<CR>")
+vim.keymap.set("n", "<leader>dd", ":Oil .<CR>")
 -- open in file dir
-vim.keymap.set("n", "<leader>df", ":edit %:h<CR>")
+vim.keymap.set("n", "<leader>df", ":Oil %:h<CR>")
 
 -- show neotest results
 vim.keymap.set("n", "<leader>n", function()
@@ -558,3 +578,10 @@ vim.keymap.set(
 	"copilot#Accept('\\<CR>')",
 	{ silent = true, script = true, expr = true, replace_keycodes = false }
 )
+
+-- rest.nvim
+vim.keymap.set({ "n" }, "<leader>rr", "<Plug>RestNvim")
+vim.keymap.set({ "n" }, "<leader>rp", "<Plug>RestNvimPreview")
+
+-- Code navigation
+vim.keymap.set("n", "<F10>", "<cmd>AerialToggle!<CR>", { desc = "AerialToggle: Toggle code outline" })

@@ -7,6 +7,10 @@ M.default_configs = {
 		init_options = { codelenses = { test = true } },
 		settings = {
 			Lua = {
+				hint = {
+					enable = true,
+				},
+
 				format = {
 					-- Use stylua instead
 					enable = false,
@@ -56,6 +60,32 @@ M.default_configs = {
 			client.server_capabilities.documentRangeFormattingProvider = false
 			return lsp_on_attach.on_attach(client, bufnr, ...)
 		end,
+		settings = {
+			typescript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+			javascript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+		},
 	},
 	jsonls = {
 		init_options = {
@@ -78,9 +108,20 @@ M.default_configs = {
 		},
 	},
 	gopls = {
-		settings = { gopls = {
-			buildFlags = { "-tags=runlet_integration_tests" },
-		} },
+		settings = {
+			gopls = {
+				buildFlags = { "-tags=runlet_integration_tests" },
+				hints = {
+					assignVariableTypes = true,
+					compositeLiteralFields = true,
+					compositeLiteralTypes = false,
+					constantValues = true,
+					functionTypeParameters = true,
+					parameterNames = true,
+					rangeVariableTypes = true,
+				},
+			},
+		},
 	},
 }
 

@@ -43,6 +43,7 @@ sidebar.setup({
 	todos = { initially_closed = true },
 	buffers = { sorting = "name", ignore_not_loaded = true },
 	files = { follow = false },
+	containers = { use_podman = true },
 
 	views = {
 		default = {

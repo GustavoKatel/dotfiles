@@ -32,7 +32,7 @@ require("lazy").setup({
 
 	{ "jose-elias-alvarez/null-ls.nvim" },
 	{ "onsails/lspkind-nvim" },
-	{ "ray-x/lsp_signature.nvim" },
+	-- { "ray-x/lsp_signature.nvim" },
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
@@ -45,7 +45,17 @@ require("lazy").setup({
 			"saadparwaiz1/cmp_luasnip",
 		},
 	},
-	{ "j-hui/fidget.nvim" },
+	{ "j-hui/fidget.nvim", tag = "legacy" },
+	{ "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },
+	{
+		"stevearc/aerial.nvim",
+		opts = {},
+		-- Optional dependencies
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
 	-- }}}
 
 	-- {{{ language support
@@ -65,18 +75,18 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"antoinemadec/FixCursorHold.nvim",
-			-- adapters
-			"haydenmeade/neotest-jest",
-			"nvim-neotest/neotest-plenary",
-			"nvim-neotest/neotest-go",
-		},
-	},
+	-- {
+	-- 	"nvim-neotest/neotest",
+	-- 	dependencies = {
+	-- 		"antoinemadec/FixCursorHold.nvim",
+	-- 		-- adapters
+	-- 		"haydenmeade/neotest-jest",
+	-- 		"nvim-neotest/neotest-plenary",
+	-- 		"nvim-neotest/neotest-go",
+	-- 	},
+	-- },
 
-	{ "github/copilot.vim" },
+	-- { "github/copilot.vim" },
 	-- }}}
 
 	-- {{{ colorscheme
@@ -126,13 +136,6 @@ require("lazy").setup({
 	-- {{{ HUD
 	{ "lewis6991/gitsigns.nvim" }, -- git information in the buffer lines
 	{
-		"lewis6991/satellite.nvim",
-		config = function()
-			require("satellite").setup()
-			vim.cmd("highlight! link ScrollView CursorColumn")
-		end,
-	},
-	{
 		"nvim-tree/nvim-web-devicons",
 		config = function()
 			require("nvim-web-devicons").setup()
@@ -142,19 +145,25 @@ require("lazy").setup({
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
-			require("indent_blankline").setup({
-				buftype_exclude = { "terminal" },
-				filetype_exclude = {
-					"lspinfo",
-					"packer",
-					"checkhealth",
-					"help",
-					"man",
-					"mason",
-					"SidebarNvim",
-					"oil_preview",
+			-- https://github.com/lukas-reineke/indent-blankline.nvim/issues/665#issuecomment-1745192076
+			local config = require("ibl.config").default_config
+			require("ibl").setup({
+				indent = { tab_char = config.indent.char },
+				scope = { enabled = true },
+				exclude = {
+					buftypes = { "terminal" },
+					filetypes = {
+						"lspinfo",
+						"packer",
+						"checkhealth",
+						"help",
+						"man",
+						"mason",
+						"SidebarNvim",
+						"oil_preview",
+					},
 				},
-				show_current_context = true,
+				-- show_current_context = true,
 			})
 		end,
 	},
@@ -227,6 +236,7 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ misc
+	{ "rest-nvim/rest.nvim" },
 	-- }}}
 
 	user_profile.with_profile_table({
