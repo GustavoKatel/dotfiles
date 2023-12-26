@@ -31,6 +31,10 @@ local servers = user_profile.with_profile_table({
 		{ "gopls", "clangd", "rust_analyzer", "pyright", "taplo", "ansiblels" },
 	}),
 	work = vim.tbl_flatten(common_servers),
+	jupiter = vim.tbl_flatten({
+		common_servers,
+		{ "gopls", "clangd", "rust_analyzer", "pyright", "taplo", "ansiblels" },
+	}),
 })
 
 vim.api.nvim_create_user_command("DepsInstall", function()
