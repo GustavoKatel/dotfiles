@@ -113,5 +113,5 @@ bindkey '\e[Z' reverse-menu-complete
 [ -f $HOME/.custom_work.zsh ] && source $HOME/.custom_work.zsh
 [ -f $HOME/.custom_home.zsh ] && source $HOME/.custom_home.zsh
 
-eval $(starship init zsh)
+eval "$(starship init zsh)"
 
