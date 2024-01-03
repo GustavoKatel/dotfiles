@@ -12,12 +12,13 @@ M.on_attach = function(client, bufnr, ...)
 	-- completion.on_attach(client, bufnr)
 	require("illuminate").on_attach(client, bufnr, ...)
 	require("lsp-inlayhints").on_attach(client, bufnr, ...)
-	-- require("lsp_signature").on_attach({
-	-- 	bind = true, -- This is mandatory, otherwise border config won't get registered.
-	-- 	handler_opts = {
-	-- 		border = "single",
-	-- 	},
-	-- }, bufnr)
+	require("lsp_signature").on_attach({
+		bind = true, -- This is mandatory, otherwise border config won't get registered.
+		handler_opts = {
+			border = "single",
+		},
+		hint_prefix = "󰊕 ",
+	}, bufnr)
 
 	local function buf_set_keymap(mode, lhs, rhs, opts)
 		-- vim.api.nvim_buf_set_keymap(bufnr, ...)

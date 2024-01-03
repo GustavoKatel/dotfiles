@@ -32,7 +32,7 @@ require("lazy").setup({
 
 	{ "jose-elias-alvarez/null-ls.nvim" },
 	{ "onsails/lspkind-nvim" },
-	-- { "ray-x/lsp_signature.nvim" },
+	{ "ray-x/lsp_signature.nvim" },
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
