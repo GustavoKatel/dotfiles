@@ -21,6 +21,11 @@ function shell_counter() {
       ignore_value=$(($ignore_value+1))
   fi
 
+  # nvim terminals when inside kitty
+  if [ -n "$NVIM" ]; then
+      ignore_value=$(($ignore_value+1))
+  fi
+
   counter=$(($SHELL_RECURSIVE_COUNTER-$ignore_value))
 
   test $counter -le 1 && exit 1;

@@ -60,6 +60,9 @@ detect_folders = []
 [kubernetes.context_aliases]
 "arn:aws:eks:.*:cluster/\\d+_(?P<name>)_(?P<env>)_.*" = "$name.$env"
 
+[docker_context]
+disabled = true
+
 [custom.shell_counter]
 command = "source ~/dev/shell_recursive_counter.sh && shell_counter"
 format = "\\[[[$symbol](bold grey) $output]($style)\\] "
