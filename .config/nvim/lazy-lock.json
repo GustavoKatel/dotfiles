@@ -1,6 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
-  "LuaSnip": { "branch": "master", "commit": "82108e7e31cc6fc223cc5df5cae6d89f70bb199f" },
+  "LuaSnip": { "branch": "master", "commit": "2dbef19461198630b3d7c39f414d09fb07d1fdd2" },
   "aerial.nvim": { "branch": "master", "commit": "8ccc18055ba855affec5c251e615b92595ac2dba" },
   "asyncrun.vim": { "branch": "master", "commit": "61cc3081963a12048e00e89f8cedc8bd1cb83b8c" },
   "asynctasks.vim": { "branch": "master", "commit": "851da4282ffb2ce3d5e4c2f70d2d09da7839d48f" },
@@ -51,7 +51,6 @@
   "rest.nvim": { "branch": "main", "commit": "84e81a19ab24ccf05c9233d34d4dfce61c233abe" },
   "sidebar.nvim": { "branch": "main", "commit": "990ce5f562c9125283ccac5473235b1a56fea6dc" },
   "statuscol.nvim": { "branch": "main", "commit": "3b629754420919575a9e5758027d6e1831dbf2aa" },
-  "tasks.nvim": { "branch": "sources-overhaul", "commit": "8b137d14db3bd0ae65a81b2e42ba4ce35a17b14e" },
   "telescope-asynctasks.nvim": { "branch": "main", "commit": "065300fb0a8ba6a1c81991da1873c73e136dcdc0" },
   "telescope-dap.nvim": { "branch": "master", "commit": "8c88d9716c91eaef1cdea13cb9390d8ef447dbfe" },
   "telescope-github.nvim": { "branch": "master", "commit": "ee95c509901c3357679e9f2f9eaac3561c811736" },
