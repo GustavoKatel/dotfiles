@@ -30,6 +30,7 @@ vim.opt.swapfile = true
 
 -- show invisible chars
 vim.opt.listchars = [[tab:▸ ,eol:¬,trail:⋅,extends:❯,precedes:❮]]
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.opt.showbreak = "↪"
 vim.opt.list = true
 

@@ -74,6 +74,15 @@ require("lazy").setup({
 			require("headlines").setup()
 		end,
 	},
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && yarn install",
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
+	},
 
 	-- {
 	-- 	"nvim-neotest/neotest",
@@ -186,6 +195,29 @@ require("lazy").setup({
 	},
 	{ "L3MON4D3/LuaSnip" },
 	{ "stevearc/dressing.nvim" },
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = {
+			"kevinhwang91/promise-async",
+		},
+	},
+	{
+		"luukvbaal/statuscol.nvim",
+		config = function()
+			local builtin = require("statuscol.builtin")
+			require("statuscol").setup({
+				segments = {
+					{ text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+					{ text = { "%s" }, click = "v:lua.ScSa" },
+					{
+						text = { builtin.lnumfunc, " " },
+						condition = { true, builtin.not_empty },
+						click = "v:lua.ScLa",
+					},
+				},
+			})
+		end,
+	},
 	-- }}}
 
 	-- {{{ debugging & testing

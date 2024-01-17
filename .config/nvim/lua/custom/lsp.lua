@@ -33,6 +33,10 @@ require("null-ls").setup({
 local function make_config(server_name)
 	-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	capabilities.textDocument.foldingRange = vim.tbl_extend("force", capabilities.textDocument.foldingRange or {}, {
+		dynamicRegistration = false,
+		lineFoldingOnly = true,
+	})
 
 	local config = { capabilities = capabilities, on_attach = lsp_on_attach.on_attach }
 
