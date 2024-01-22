@@ -37,9 +37,8 @@ require("ufo").setup({
 	fold_virt_text_handler = virtual_text_handler,
 })
 
--- vim.api.nvim_create_augroup("custom_fold_marker", { clear = true })
--- vim.api.nvim_create_autocmd("FileType", {
--- 	group = "custom_fold_marker",
--- 	pattern = { "vim", "viml", "lua" },
--- 	command = "setlocal foldmethod=marker | setlocal foldmarker={{{,}}} | setlocal foldlevel=200",
--- })
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("custom_fold_marker", { clear = true }),
+	pattern = { "vim", "viml", "lua" },
+	command = "setlocal foldmethod=marker | setlocal foldmarker={{{,}}} | setlocal foldlevel=200",
+})
