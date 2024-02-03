@@ -1,0 +1,7 @@
+.git
+.gitignore
+
+backup.sh
+install.sh
+sync.sh
+README.md
