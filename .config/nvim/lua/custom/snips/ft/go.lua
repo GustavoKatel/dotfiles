@@ -35,8 +35,8 @@ local transform = function(text, info)
 			info.index = info.index + 1
 
 			return c(info.index, {
-				t(string.format('errors.Wrap(%s, "%s")', info.err_name, info.func_name)),
 				t(info.err_name),
+				t(string.format('fmt.Errorf("%%w", %s)', info.err_name)),
 			})
 		else
 			return t("err")
