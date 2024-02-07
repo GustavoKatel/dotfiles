@@ -29,6 +29,7 @@ require("kanagawa").setup({
 			["@markup.environment.name"] = { link = "@text.environment.name" },
 			["@markup.link.url"] = { link = "Special" },
 			["@markup.link.label"] = { link = "Identifier" },
+			["@comment.todo"] = { link = "@text.todo" },
 			["@comment.note"] = { link = "@text.note" },
 			["@comment.warning"] = { link = "@text.warning" },
 			["@comment.danger"] = { link = "@text.danger" },
