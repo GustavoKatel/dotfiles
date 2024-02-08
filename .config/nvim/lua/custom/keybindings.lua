@@ -390,15 +390,6 @@ end)
 vim.keymap.set({ "i" }, "<C-z>", "<ESC>ui")
 vim.keymap.set({ "i" }, "<D-z>", "<ESC>ui")
 
---vim-test test nearest test
---v.nmap({ "<C-F10>" }, v.cmd.TestNearest)
-
--- - and + to go back to previous position
---vim.keymap.set({ "n" }, "<M-->", "<C-o>")
---vim.keymap.set({ "n" }, "<M-KMinus>", "<C-o>")
---vim.keymap.set({ "n" }, "<M-+>", "<C-i>")
---vim.keymap.set({ "n" }, "<M-KPlus>", "<C-i>")
-
 -- dap mappings
 -- telescope
 -- TODO: move this to tasks.nvim
@@ -410,27 +401,39 @@ vim.keymap.set({ "i" }, "<D-z>", "<ESC>ui")
 
 vim.keymap.set({ "n" }, "<leader>b", function()
 	require("dap").toggle_breakpoint()
-end)
+end, { desc = "[dap] Add breakpoint" })
 vim.keymap.set({ "n" }, "<leader>x", function()
 	require("dap").close()
 	require("dapui").close()
-end)
+end, { desc = "[dap] Close dap and dap-ui" })
 local debugger_bindings = {
-	["<leader>c"] = function()
-		require("dap").continue()
-	end,
-	["<leader>o"] = function()
-		require("dap").step_out()
-	end,
-	["<leader>i"] = function()
-		require("dap").step_into()
-	end,
-	["<leader>n"] = function()
-		require("dap").step_over()
-	end,
+	["<leader>c"] = {
+		fn = function()
+			require("dap").continue()
+		end,
+		desc = "[dap] Continue",
+	},
+	["<leader>o"] = {
+		fn = function()
+			require("dap").step_out()
+		end,
+		desc = "[dap] Step Out",
+	},
+	["<leader>i"] = {
+		fn = function()
+			require("dap").step_into()
+		end,
+		desc = "[dap] Step Into",
+	},
+	["<leader>n"] = {
+		fn = function()
+			require("dap").step_over()
+		end,
+		desc = "[dap] Step Over",
+	},
 }
-for code, cmd in pairs(debugger_bindings) do
-	vim.keymap.set({ "n" }, code, cmd)
+for code, mapping in pairs(debugger_bindings) do
+	vim.keymap.set({ "n" }, code, mapping.fn, { desc = mapping.desc })
 end
 
 -- toggle sidebar
@@ -522,11 +525,6 @@ end)
 vim.keymap.set("n", "<leader>dd", ":Oil .<CR>")
 -- open in file dir
 vim.keymap.set("n", "<leader>df", ":Oil %:h<CR>")
-
--- show neotest results
-vim.keymap.set("n", "<leader>n", function()
-	require("neotest").output.open({ enter = true })
-end)
 
 -- change inside word with ctrl+i
 vim.keymap.set("n", create_special_keymap("ci"), "ciw")

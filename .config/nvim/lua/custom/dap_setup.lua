@@ -67,6 +67,7 @@ dap.adapters.node2 = {
 
 dap.adapters.node = dap.adapters.node2
 
+-- NOTE: this is now part of go.nvim
 -- dap.adapters.go = function(callback, config)
 -- 	local stdout = vim.loop.new_pipe(false)
 -- 	local handle
