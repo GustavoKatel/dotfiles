@@ -85,6 +85,7 @@ vim.opt.undofile = true
 -- TODO: it's buggy and I'm not even using folds, why?
 -- vim.opt.sessionoptions:remove("folds")
 vim.opt.sessionoptions:remove("help")
+vim.opt.sessionoptions:remove("terminal")
 
 -- terminal overrides
 -- no line numbers on terminals

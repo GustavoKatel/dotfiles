@@ -115,5 +115,10 @@ bindkey '\e[Z' reverse-menu-complete
 
 export PATH="/Users/gustavokatel/.rd/bin:$PATH"
 
+eval "$(goenv init -)"
+
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+
 eval "$(starship init zsh)"
 

@@ -11,7 +11,6 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 M.on_attach = function(client, bufnr, ...)
 	-- completion.on_attach(client, bufnr)
 	require("illuminate").on_attach(client, bufnr, ...)
-	require("lsp-inlayhints").on_attach(client, bufnr, ...)
 	require("lsp_signature").on_attach({
 		bind = true, -- This is mandatory, otherwise border config won't get registered.
 		handler_opts = {
@@ -94,7 +93,7 @@ M.on_attach = function(client, bufnr, ...)
 		},
 	})
 
-	local has_code_lens = client.server_capabilities.codeLensProvider
+	local has_code_lens = not vim.tbl_isempty(client.server_capabilities.codeLensProvider)
 
 	if has_code_lens then
 		v.create_autocommands({
@@ -112,6 +111,10 @@ M.on_attach = function(client, bufnr, ...)
 				},
 			},
 		})
+	end
+
+	if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+		vim.lsp.inlay_hint.enable(bufnr, true)
 	end
 end
 

@@ -120,6 +120,9 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
+unalias grep
+export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/gustavo/.rd/bin:$PATH"
+export PATH="/Users/gustavokatel/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

@@ -17,6 +17,7 @@ local pkgs = user_profile.with_profile_table({
 		{
 			"luacheck",
 			"delve", -- go debugger
+			"golangci-lint",
 		},
 	}),
 	work = vim.tbl_flatten({ common_pkgs }),
