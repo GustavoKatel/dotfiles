@@ -105,7 +105,7 @@ M.on_attach = function(client, bufnr, ...)
 					def = {
 
 						callback = function()
-							vim.lsp.codelens.refresh()
+							vim.lsp.codelens.refresh({ bufnr = 0 })
 						end,
 					},
 				},
@@ -113,7 +113,8 @@ M.on_attach = function(client, bufnr, ...)
 		})
 	end
 
-	if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+	local has_inlay_hints = not vim.tbl_isempty(client.server_capabilities.inlayHintProvider)
+	if has_inlay_hints and vim.lsp.inlay_hint then
 		vim.lsp.inlay_hint.enable(bufnr, true)
 	end
 end

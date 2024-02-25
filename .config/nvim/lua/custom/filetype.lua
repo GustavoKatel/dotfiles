@@ -13,3 +13,10 @@ vim.filetype.add({
 		[".env.*"] = "sh",
 	},
 })
+
+-- Containerfile to use dockerfile ft
+vim.filetype.add({
+	extension = {
+		Containerfile = "dockerfile",
+	},
+})

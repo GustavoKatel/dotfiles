@@ -29,7 +29,7 @@ local common_servers = { "lua_ls", "tsserver", "eslint", "dockerls", "jsonls", "
 local servers = user_profile.with_profile_table({
 	default = vim.tbl_flatten({
 		common_servers,
-		{ "gopls", "clangd", "rust_analyzer", "pyright", "taplo", "ansiblels" },
+		{ "gopls", "clangd", "rust_analyzer", "pyright" },
 	}),
 	work = vim.tbl_flatten(common_servers),
 	jupiter = vim.tbl_flatten({
