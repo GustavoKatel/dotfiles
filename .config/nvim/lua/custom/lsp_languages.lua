@@ -1,4 +1,4 @@
-local lsp_on_attach = require("custom.lsp_on_attach")
+-- local lsp_on_attach = require("custom.lsp_on_attach")
 
 local M = {}
 

@@ -7,6 +7,16 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	border = "single",
 })
 
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("custom_lsp_attach", { clear = true }),
+	desc = "LspAttach common callback",
+	callback = function(args)
+		local bufnr = args.buf
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		M.on_attach(client, bufnr)
+	end,
+})
+
 -- keymaps
 M.on_attach = function(client, bufnr, ...)
 	-- completion.on_attach(client, bufnr)

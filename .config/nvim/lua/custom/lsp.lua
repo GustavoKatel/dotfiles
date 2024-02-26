@@ -13,7 +13,6 @@ require("fidget").setup({
 
 -- configs
 local configs = require("custom.lsp_languages")
-local lsp_on_attach = require("custom.lsp_on_attach")
 
 require("null-ls").setup({
 	debug = false,
@@ -38,12 +37,9 @@ local function make_config(server_name)
 		lineFoldingOnly = true,
 	})
 
-	local config = { capabilities = capabilities, on_attach = lsp_on_attach.on_attach }
+	local config = { capabilities = capabilities }
 
 	local server_config = configs.configs[server_name] or {}
-	if server_config.on_attach ~= nil then
-		config.on_attach = server_config.on_attach
-	end
 
 	return vim.tbl_extend("force", server_config, config)
 end
