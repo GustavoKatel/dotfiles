@@ -103,7 +103,7 @@ M.on_attach = function(client, bufnr, ...)
 		},
 	})
 
-	local has_code_lens = not vim.tbl_isempty(client.server_capabilities.codeLensProvider)
+	local has_code_lens = not vim.tbl_isempty(client.server_capabilities.codeLensProvider or {})
 
 	if has_code_lens then
 		v.create_autocommands({
@@ -123,7 +123,7 @@ M.on_attach = function(client, bufnr, ...)
 		})
 	end
 
-	local has_inlay_hints = not vim.tbl_isempty(client.server_capabilities.inlayHintProvider)
+	local has_inlay_hints = not vim.tbl_isempty(client.server_capabilities.inlayHintProvider or {})
 	if has_inlay_hints and vim.lsp.inlay_hint then
 		vim.lsp.inlay_hint.enable(bufnr, true)
 	end

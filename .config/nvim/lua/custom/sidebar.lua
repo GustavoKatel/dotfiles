@@ -2,8 +2,7 @@ local user_profile = require("custom.uprofile")
 
 local sidebar = require("sidebar-nvim")
 
-local tasks_section = require("sidebar-nvim.sections.tasks")
--- local tasks_section = {}
+-- local tasks_section = require("sidebar-nvim.sections.tasks")
 
 sidebar.setup({
 	open = user_profile.with_profile_table({
@@ -21,7 +20,7 @@ sidebar.setup({
 	--return { "-----" }
 	--end,
 	sections = user_profile.with_profile_table({
-		default = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints"), "containers", tasks_section },
+		default = { "git", "diagnostics", require("dap-sidebar-nvim.breakpoints") },
 		test = {
 			-- default = {
 			-- 	"datetime",

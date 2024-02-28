@@ -31,7 +31,7 @@ require("custom.quickfix_window")
 
 require("custom.scratches")
 
-require("custom.tasks")
+-- require("custom.tasks")
 
 require("custom.terminal")
 

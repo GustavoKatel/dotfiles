@@ -13,6 +13,7 @@ require("fidget").setup({
 
 -- configs
 local configs = require("custom.lsp_languages")
+require("custom.lsp_on_attach")
 
 require("null-ls").setup({
 	debug = false,
