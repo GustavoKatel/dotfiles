@@ -255,8 +255,6 @@ require("lazy").setup({
 	{ "voldikss/vim-floaterm" }, -- floating terminal
 	{ "qpkorr/vim-bufkill" }, -- better support for killing buffers
 	{ "mbbill/undotree" }, -- undo history on steroids
-	{ "skywind3000/asynctasks.vim" },
-	{ "skywind3000/asyncrun.vim" },
 	{ "ThePrimeagen/harpoon" },
 
 	{ "rmagatti/auto-session" },
@@ -264,8 +262,11 @@ require("lazy").setup({
 	{ "nvim-telescope/telescope.nvim", dependencies = { { "nvim-lua/popup.nvim" } }, branch = "0.1.x" },
 	{ "nvim-telescope/telescope-dap.nvim" },
 	{ "nvim-telescope/telescope-live-grep-args.nvim" },
-	{ "GustavoKatel/telescope-asynctasks.nvim" },
 	{ "nvim-telescope/telescope-github.nvim" },
+	{
+		"stevearc/overseer.nvim",
+		opts = require("custom.overseer"),
+	},
 	-- }}}
 
 	-- {{{ sidebar
@@ -292,7 +293,7 @@ require("lazy").setup({
 	},
 	-- }}}
 
-	-- {{ AI
+	-- {{{ AI
 	{
 		"huynle/ogpt.nvim",
 		event = "VeryLazy",
@@ -419,17 +420,12 @@ require("lazy").setup({
 			},
 		},
 	},
-	-- }}
+	-- }}}
 
 	-- {{{ misc
 	{ "rest-nvim/rest.nvim" },
 	-- }}}
 
-	-- user_profile.with_profile_table({
-	-- 	default = { dir = "/Users/gustavokatel/dev/tasks.nvim" },
-	-- 	work = { "GustavoKatel/tasks.nvim", branch = "sources-overhaul" },
-	-- 	jupiter = { "GustavoKatel/tasks.nvim", branch = "sources-overhaul" },
-	-- }),
 	config = {
 		ui = { border = "solid" },
 	},

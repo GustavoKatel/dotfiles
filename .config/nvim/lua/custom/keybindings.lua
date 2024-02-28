@@ -361,16 +361,32 @@ end
 
 -- telescope tasks
 vim.keymap.set({ "n" }, "<F9>", function()
-	local telescope = require("telescope")
-	telescope.extensions.tasks.specs()
+	local overseer = require("overseer")
+	-- Run a task and immediately open the floating window
+	overseer.run_template({}, function(task)
+		if task then
+			overseer.run_action(task, "open float")
+		end
+	end)
 end)
-vim.keymap.set({ "n" }, "<C-F9>", function()
-	local telescope = require("telescope")
-	telescope.extensions.tasks.running()
-end)
-vim.keymap.set({ "n" }, "<S-F9>", function()
-	require("tasks").run_last()
-end)
+for _, code in ipairs({ "<S-F9>", "<F21>" }) do
+	vim.keymap.set({ "n" }, code, function()
+		local overseer = require("overseer")
+		local tasks = overseer.list_tasks({ recent_first = true })
+		if vim.tbl_isempty(tasks) then
+			vim.notify("No tasks found", vim.log.levels.WARN)
+		else
+			overseer.run_action(tasks[1], "restart")
+			overseer.run_action(tasks[1], "open float")
+		end
+	end)
+end
+for _, code in ipairs({ "<C-F9>", "<F33>" }) do
+	vim.keymap.set({ "n" }, code, function()
+		local overseer = require("overseer")
+		overseer.toggle()
+	end)
+end
 
 -- telescope select/change filetype
 for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l", create_special_keymap("csl") }) do
