@@ -21,18 +21,6 @@ return {
 		},
 	},
 	actions = {
-		do_complete_code = {
-			type = "popup",
-			template = "Code:\n```{{{filetype}}}\n{{{input}}}\n```\n\nCompleted Code:\n```{{{filetype}}}",
-			strategy = "display",
-			params = {
-				model = "coder",
-				stop = {
-					"```",
-				},
-			},
-		},
-
 		quick_question = {
 			type = "popup",
 			args = {
@@ -67,7 +55,7 @@ return {
 		},
 
 		optimize_code = {
-			type = "popup",
+			type = "edit",
 			system = "You are a helpful coding assistant. Complete the given prompt.",
 			template = "Optimize the code below, following these instructions:\n\n{{{instruction}}}.\n\nCode:\n```{{{filetype}}}\n{{{input}}}\n```\n\nOptimized version:\n```{{{filetype}}}",
 			strategy = "edit_code",
