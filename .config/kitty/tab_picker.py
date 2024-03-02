@@ -6,7 +6,7 @@ from kittens.tui.handler import result_handler
 import subprocess
 import sys
 
-FOLDERS_TO_SEARCH = [ "~/dev", "~/Development" ]
+FOLDERS_TO_SEARCH = [ "~/dev" ]
 
 def main(args: List[str]):
     command = [ "fd", "--type", "d", "--max-depth", "1", "''" ]
