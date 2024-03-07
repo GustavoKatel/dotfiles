@@ -69,9 +69,8 @@ require("lazy").setup({
 	-- markdown improved headers colors and visuals
 	{
 		"lukas-reineke/headlines.nvim",
-		config = function()
-			require("headlines").setup()
-		end,
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		config = true, -- or `opts = {}`
 	},
 	{
 		"iamcco/markdown-preview.nvim",

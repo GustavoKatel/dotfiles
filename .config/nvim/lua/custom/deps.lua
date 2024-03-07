@@ -9,7 +9,7 @@ mason_lspconfig.setup({
 	--ensure_installed = servers,
 })
 
-local common_pkgs = { "stylua", "node-debug2-adapter", "actionlint" }
+local common_pkgs = { "stylua", "node-debug2-adapter", "actionlint", "yamllint" }
 
 local pkgs = user_profile.with_profile_table({
 	default = vim.tbl_flatten({

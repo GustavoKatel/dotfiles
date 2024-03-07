@@ -115,7 +115,7 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 unalias grep
-export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+export PATH="/opt/homebrew/opt/grep/libexec/gnubin:/usr/local/opt/grep/libexec/gnubin/:$PATH"
 
 
 export NVM_DIR="$HOME/.nvm"
