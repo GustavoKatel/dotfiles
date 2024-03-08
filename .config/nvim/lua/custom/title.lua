@@ -1,5 +1,6 @@
 local function update_title()
-	local titlestring = vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " - NVIM"
+	local parent_folder = vim.fn.fnamemodify(vim.fn.fnamemodify(vim.fn.getcwd(), ":h"), ":t")
+	local titlestring = parent_folder .. "/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " - NVIM"
 
 	vim.cmd("let &titlestring='" .. titlestring .. "'")
 end
