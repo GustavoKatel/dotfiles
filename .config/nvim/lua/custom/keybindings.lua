@@ -418,10 +418,16 @@ vim.keymap.set({ "i" }, "<D-z>", "<ESC>ui")
 vim.keymap.set({ "n" }, "<leader>b", function()
 	require("dap").toggle_breakpoint()
 end, { desc = "[dap] Add breakpoint" })
+
 vim.keymap.set({ "n" }, "<leader>x", function()
 	require("dap").close()
 	require("dapui").close()
 end, { desc = "[dap] Close dap and dap-ui" })
+vim.api.nvim_create_user_command("DapClose", function()
+	require("dap").close()
+	require("dapui").close()
+end, { desc = "[dap] Close dap and dap-ui" })
+
 local debugger_bindings = {
 	["<leader>c"] = {
 		fn = function()
