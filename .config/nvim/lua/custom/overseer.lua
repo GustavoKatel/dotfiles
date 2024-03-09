@@ -1,4 +1,4 @@
-return {
+local opts = {
 	log = {
 		{
 			type = "file",
@@ -7,3 +7,5 @@ return {
 		},
 	},
 }
+
+return opts
