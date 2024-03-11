@@ -32,10 +32,10 @@ def handle_result(args: List[str], selected_folder: str, target_window_id: int, 
     w = boss.window_id_map.get(target_window_id)
     if w is not None and selected_folder:
 
-        tab = get_tab_if_is_open(boss, selected_folder)
-        if tab:
-            boss.set_active_tab(tab)
-            return
+        # tab = get_tab_if_is_open(boss, selected_folder)
+        # if tab:
+        #     boss.set_active_tab(tab)
+        #     return
 
         boss.call_remote_control(w, ('launch', '--type', 'tab', '--cwd='+selected_folder))
 
