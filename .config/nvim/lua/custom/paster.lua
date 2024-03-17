@@ -4,6 +4,10 @@ M.inputs = {
 	git_branch = function()
 		return vim.fn.systemlist("git branch --show-current")
 	end,
+
+	git_branch_default = function()
+		return vim.fn.systemlist("git remote show origin | grep 'HEAD branch' | cut -d' ' -f5")
+	end,
 }
 
 function M.put(input_name, put_type, after)

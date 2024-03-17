@@ -129,8 +129,8 @@ vim.keymap.set({ "n" }, "?", ":let @/='<C-R>=expand('<cword>')<CR>' | set hls<CR
 vim.keymap.set({ "v" }, "?", "y:let @/='<C-R>=escape(@\",'/\\')<CR>' | set hls<CR>")
 
 -- visual mode replace the currently selected text
-vim.keymap.set({ "v" }, "<C-h>", "y:%s/<C-R>=escape(@\",'/\\')<CR>/")
-vim.keymap.set({ "v" }, "<D-h>", "y:%s/<C-R>=escape(@\",'/\\')<CR>/")
+vim.keymap.set({ "v" }, "<C-h>", 'y:%s#<C-R>=@"<CR>#')
+vim.keymap.set({ "v" }, "<D-h>", 'y:%s#<C-R>=@"<CR>#')
 
 -- ctrl-enter in insert mode to create new line below
 vim.keymap.set({ "i" }, "<C-CR>", "<ESC>o")

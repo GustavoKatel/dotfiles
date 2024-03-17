@@ -35,29 +35,6 @@ function done-notify() {
 # FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# NVM - wrappers to avoid big init delays
-function nvm_load() {
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-}
-alias nl=nvm_load
-nvm_load
-
-#function ssh() {
-    #if [ "$TERM"=="xterm-kitty" ]; then
-        ##kitty +kitten ssh $*
-        #TERM="xterm-256color" ssh $*
-    #else
-        #ssh $*
-    #fi
-#}
-
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# END NVM wrappers
-
 # task integration
 #source $HOME/dev/task.sh
 
@@ -68,8 +45,6 @@ alias ea="exa -lh --git --icons"
 
 export PATH="$HOME/go/bin/:$PATH"
 export PATH="$PATH:$HOME/.local/share/containers/podman-desktop/extensions-storage/podman-desktop.compose/bin"
-
-alias pyenv_load=$HOME/dev/pyenv_load.sh
 
 #### Bindings
 

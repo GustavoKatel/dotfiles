@@ -1,5 +1,30 @@
 local neotest = require("neotest")
 
+local M = {
+	current_test_tree = nil, -- { tree = nil, adapter_id = nil },
+	current_seq_id = 0,
+}
+
+-- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+-- 	group = vim.api.nvim_create_augroup("neotest_custom_utils", { clear = true }),
+-- 	callback = function()
+-- 		M.current_test_tree = nil
+-- 		M.current_seq_id = (M.current_seq_id + 1) % 1000
+--
+-- 		local this_id = M.current_seq_id
+--
+-- 		local file_path = vim.api.nvim_buf_get_name(0)
+-- 		local row = vim.api.nvim_win_get_cursor(0)[1]
+--
+-- 		neotest.null_ls_consumer._async_tree_load(file_path, row, this_id, function(tree_data)
+-- 			if this_id == M.current_seq_id then
+-- 				-- P({ this_id = this_id, current_seq_id = M.current_seq_id, tree_data = tree_data })
+-- 				M.current_test_tree = tree_data
+-- 			end
+-- 		end)
+-- 	end,
+-- })
+
 neotest.setup({
 	icons = {
 		running = "💈",
@@ -27,8 +52,30 @@ neotest.setup({
 		overseer = require("neotest.consumers.overseer"),
 		null_ls_consumer = function(client)
 			return {
+				_async_tree_load = function(file_path, row, id, cb)
+					local tree, adapter_id = client:get_nearest(file_path, row, { id = id })
+
+					P({ file_path = file_path, row = row, id = id, tree = tree, adapter_id = adapter_id, empty = false })
+
+					if tree == nil or adapter_id == nil then
+						cb(nil)
+						return
+					end
+
+					cb({ tree = tree, adapter_id = adapter_id, file_path = file_path, row = row })
+				end,
 				get_code_actions = function(file_path, row, cb)
 					require("neotest.async").run(function()
+						-- TODO: This is a WIP
+						-- local tree, adapter_id
+						--
+						-- if M.current_test_tree then
+						-- 	tree = M.current_test_tree.tree
+						-- 	adapter_id = M.current_test_tree.adapter_id
+						-- else
+						-- 	tree, adapter_id = client:get_nearest(file_path, row, nil)
+						-- end
+
 						local tree, adapter_id = client:get_nearest(file_path, row, nil)
 
 						if tree == nil or adapter_id == nil then
