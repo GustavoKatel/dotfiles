@@ -599,9 +599,5 @@ vim.keymap.set(
 	{ silent = true, script = true, expr = true, replace_keycodes = false }
 )
 
--- rest.nvim
-vim.keymap.set({ "n" }, "<leader>rr", "<Plug>RestNvim")
-vim.keymap.set({ "n" }, "<leader>rp", "<Plug>RestNvimPreview")
-
 -- Code navigation
 vim.keymap.set("n", "<F10>", "<cmd>AerialToggle!<CR>", { desc = "AerialToggle: Toggle code outline" })

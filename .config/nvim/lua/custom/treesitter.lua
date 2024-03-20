@@ -26,6 +26,8 @@ treesitter_config.setup({
 		"regex",
 		"vimdoc",
 		"http",
+		"xml",
+		"graphql",
 	},
 	-- Automatically install missing parsers when entering buffer
 	auto_install = true,

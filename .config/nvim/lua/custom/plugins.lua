@@ -107,6 +107,7 @@ require("lazy").setup({
 		"nvim-neotest/neotest",
 		dependencies = {
 			"antoinemadec/FixCursorHold.nvim",
+			"nvim-neotest/nvim-nio",
 			-- adapters
 			"haydenmeade/neotest-jest",
 			"nvim-neotest/neotest-plenary",
@@ -295,7 +296,21 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ misc
-	{ "rest-nvim/rest.nvim" },
+	{
+		"vhyrro/luarocks.nvim",
+		branch = "go-away-python",
+		config = function()
+			require("luarocks").setup({})
+		end,
+	},
+	{
+		"rest-nvim/rest.nvim",
+		ft = "http",
+		dependencies = { "luarocks.nvim" },
+		config = function()
+			require("rest-nvim").setup(require("custom.rest_nvim"))
+		end,
+	},
 	-- }}}
 
 	config = {

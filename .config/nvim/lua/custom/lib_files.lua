@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		"*/.cargo/registry/src/*",
 		"*/.rustup/toolchains/*",
 		"*/go/pkg/mod/*",
+		"~/.goenv/versions/1.21.8/pkg/mod/*",
 	},
 	desc = "make library files read-only and non-modifiable",
 	callback = function()
