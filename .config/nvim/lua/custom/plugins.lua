@@ -111,7 +111,8 @@ require("lazy").setup({
 			-- adapters
 			"haydenmeade/neotest-jest",
 			"nvim-neotest/neotest-plenary",
-			"nvim-neotest/neotest-go",
+			-- "nvim-neotest/neotest-go",
+			{ dir = "~/dev/neotest-go" },
 		},
 	},
 
@@ -296,21 +297,6 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ misc
-	{
-		"vhyrro/luarocks.nvim",
-		branch = "go-away-python",
-		config = function()
-			require("luarocks").setup({})
-		end,
-	},
-	{
-		"rest-nvim/rest.nvim",
-		ft = "http",
-		dependencies = { "luarocks.nvim" },
-		config = function()
-			require("rest-nvim").setup(require("custom.rest_nvim"))
-		end,
-	},
 	-- }}}
 
 	config = {

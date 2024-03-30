@@ -368,7 +368,8 @@ vim.keymap.set({ "n" }, "<F9>", function()
 			overseer.run_action(task, "open float")
 		end
 	end)
-end)
+end, { desc = "Run a task and immediately open the floating window" })
+
 for _, code in ipairs({ "<S-F9>", "<F21>" }) do
 	vim.keymap.set({ "n" }, code, function()
 		local overseer = require("overseer")
@@ -379,13 +380,26 @@ for _, code in ipairs({ "<S-F9>", "<F21>" }) do
 			overseer.run_action(tasks[1], "restart")
 			overseer.run_action(tasks[1], "open float")
 		end
-	end)
+	end, { desc = "Restart last task" })
 end
+
+for _, code in ipairs({ "<D-F9>" }) do
+	vim.keymap.set({ "n" }, code, function()
+		local overseer = require("overseer")
+		local tasks = overseer.list_tasks({ recent_first = true })
+		if vim.tbl_isempty(tasks) then
+			vim.notify("No tasks found", vim.log.levels.WARN)
+		else
+			overseer.run_action(tasks[1], "open float")
+		end
+	end, { desc = "Open output of the last task" })
+end
+
 for _, code in ipairs({ "<C-F9>", "<F33>" }) do
 	vim.keymap.set({ "n" }, code, function()
 		local overseer = require("overseer")
 		overseer.toggle()
-	end)
+	end, { desc = "Toggle the task list" })
 end
 
 -- telescope select/change filetype
@@ -419,10 +433,15 @@ vim.keymap.set({ "n" }, "<leader>b", function()
 	require("dap").toggle_breakpoint()
 end, { desc = "[dap] Add breakpoint" })
 
-vim.keymap.set({ "n" }, "<leader>x", function()
-	require("dap").close()
-	require("dapui").close()
-end, { desc = "[dap] Close dap and dap-ui" })
+vim.keymap.set({ "n" }, "<leader>B", function()
+	vim.ui.input({ promot = "Breakpoint condition: " }, function(input)
+		require("dap").toggle_breakpoint(input)
+	end)
+end, { desc = "[dap] Add conditional breakpoint" })
+
+vim.keymap.set({ "n" }, "<leader>a", function()
+	require("dapui").toggle()
+end, { desc = "[dap-ui] toggle" })
 vim.api.nvim_create_user_command("DapClose", function()
 	require("dap").close()
 	require("dapui").close()
@@ -563,7 +582,7 @@ end)
 -- sets diagnostics to loclist
 vim.keymap.set({ "n" }, "<F7>", function()
 	vim.diagnostic.setloclist()
-end)
+end, { desc = "Set diagnostics to loclist" })
 
 local function toggle_quickfix(focus)
 	local ids = vim.fn.getqflist({ ["winid"] = true })
@@ -584,12 +603,12 @@ end
 -- toggle quickfix with <F8>
 vim.keymap.set({ "n" }, "<F8>", function()
 	toggle_quickfix(true)
-end)
+end, { desc = "Toggle quickfix" })
 
 -- toggle quickfix with <S-F8> but do not focus!
 vim.keymap.set({ "n" }, "<S-F8>", function()
 	toggle_quickfix(false)
-end)
+end, { desc = "Toggle quickfix without focusing" })
 
 -- copilot
 vim.keymap.set(
@@ -601,3 +620,11 @@ vim.keymap.set(
 
 -- Code navigation
 vim.keymap.set("n", "<F10>", "<cmd>AerialToggle!<CR>", { desc = "AerialToggle: Toggle code outline" })
+
+vim.keymap.set("n", "]g", function()
+	require("gitsigns").next_hunk({ preview = true })
+end, { desc = "Next git hunk" })
+
+vim.keymap.set("n", "[g", function()
+	require("gitsigns").prev_hunk({ preview = true })
+end, { desc = "Prev git hunk" })

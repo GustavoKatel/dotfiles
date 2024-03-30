@@ -109,13 +109,14 @@ neotest.setup({
 							{
 								title = string.format(
 									"Debug test: nearest [%s]",
-									vim.bo.filetype == "go" and "dap-go" or adapter_id
+									-- vim.bo.filetype == "go" and "dap-go" or adapter_id
+									adapter_id
 								),
 								action = function()
-									if vim.bo.filetype == "go" then
-										require("dap-go").debug_test()
-										return
-									end
+									-- if vim.bo.filetype == "go" then
+									-- 	require("dap-go").debug_test()
+									-- 	return
+									-- end
 									neotest.run.run({ adapter = adapter_id, strategy = "dap" })
 								end,
 							},
@@ -123,20 +124,21 @@ neotest.setup({
 							{
 								title = string.format(
 									"Debug test: file [%s]",
-									vim.bo.filetype == "go" and "dap-go" or adapter_id
+									-- vim.bo.filetype == "go" and "dap-go" or adapter_id
+									adapter_id
 								),
 								action = function()
-									if vim.bo.filetype == "go" then
-										require("dap").run({
-											type = "go",
-											name = "Debug test file",
-											request = "launch",
-											mode = "test",
-											program = "${file}",
-											buildFlags = require("dap-go").test_buildflags,
-										})
-										return
-									end
+									-- if vim.bo.filetype == "go" then
+									-- 	require("dap").run({
+									-- 		type = "go",
+									-- 		name = "Debug test file",
+									-- 		request = "launch",
+									-- 		mode = "test",
+									-- 		program = "${file}",
+									-- 		buildFlags = require("dap-go").test_buildflags,
+									-- 	})
+									-- 	return
+									-- end
 
 									neotest.run.run({ file_path, adapter = adapter_id, strategy = "dap" })
 								end,
@@ -145,20 +147,21 @@ neotest.setup({
 							{
 								title = string.format(
 									"Debug test: suite [%s]",
-									vim.bo.filetype == "go" and "dap-go" or adapter_id
+									-- vim.bo.filetype == "go" and "dap-go" or adapter_id
+									adapter_id
 								),
 								action = function()
-									if vim.bo.filetype == "go" then
-										require("dap").run({
-											type = "go",
-											name = "Debug test (go.mod)",
-											request = "launch",
-											mode = "test",
-											program = "./${relativeFileDirname}",
-											buildFlags = require("dap-go").test_buildflags,
-										})
-										return
-									end
+									-- if vim.bo.filetype == "go" then
+									-- 	require("dap").run({
+									-- 		type = "go",
+									-- 		name = "Debug test (go.mod)",
+									-- 		request = "launch",
+									-- 		mode = "test",
+									-- 		program = "./${relativeFileDirname}",
+									-- 		buildFlags = require("dap-go").test_buildflags,
+									-- 	})
+									-- 	return
+									-- end
 
 									neotest.run.run({ adapter = adapter_id, suite = true, strategy = "dap" })
 								end,

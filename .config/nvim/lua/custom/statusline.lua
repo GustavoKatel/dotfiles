@@ -80,7 +80,13 @@ lualine.setup({
 		lualine_b = { "branch" },
 		lualine_c = {
 			notes_count,
-			{ "overseer", label = " " },
+			{
+				"overseer",
+				label = " ",
+				symbols = {
+					[require("overseer").STATUS.RUNNING] = "󰑮 ",
+				},
+			},
 			-- require("tasks.statusline.running")(),
 			--{
 			--"filename",

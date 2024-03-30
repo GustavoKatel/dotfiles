@@ -22,6 +22,10 @@ end
 
 function M.select_put(put_type, after)
 	vim.ui.select(vim.tbl_keys(M.inputs), { prompt = "Select input:" }, function(input_name)
+		if input_name == nil or input_name == "" then
+			return
+		end
+
 		M.put(input_name, put_type, after)
 	end)
 end

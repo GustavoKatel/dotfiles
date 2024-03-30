@@ -60,15 +60,12 @@ local function create_nvim_key_bind(key, mods, code)
 end
 
 local nvim_mappings = {
-	create_nvim_key_bind("Enter", "SHIFT", "scr"),
-	create_nvim_key_bind("Enter", "CTRL", "ccr"),
-
 	create_nvim_key_bind("p", "CTRL|SHIFT", "csp"),
 	create_nvim_key_bind("l", "CTRL|SHIFT", "csl"),
 
-	create_nvim_key_bind("p", "SUPER", "mp"),
-	create_nvim_key_bind("p", "SUPER|SHIFT", "msp"),
-	create_nvim_key_bind("f", "SUPER", "mf"),
+	-- create_nvim_key_bind("p", "SUPER", "mp"),
+	-- create_nvim_key_bind("p", "SUPER|SHIFT", "msp"),
+	-- create_nvim_key_bind("f", "SUPER", "mf"),
 
 	create_nvim_key_bind("RightArrow", "SUPER", "mright"),
 	create_nvim_key_bind("LeftArrow", "SUPER", "mleft"),
@@ -97,10 +94,12 @@ return {
 	-- term = "screen-256color",
 	use_ime = true,
 
+	enable_kitty_keyboard = true,
+
 	----------------
 	-- Appearance --
 	----------------
-	window_background_opacity = 0.9,
+	window_background_opacity = 1.0,
 
 	font = wezterm.font({
 		family = "JetBrainsMono Nerd Font",
@@ -243,10 +242,36 @@ return {
 			mods = "LEADER",
 			action = act.SwitchToWorkspace({
 				name = "dots",
-				spawn = {
-					args = { "/opt/homebrew/bin/nvim" },
-					cwd = wezterm.home_dir .. "/.config/nvim",
-				},
+				-- spawn = {
+				-- 	args = { "/opt/homebrew/bin/nvim" },
+				-- 	cwd = wezterm.home_dir .. "/.config/nvim",
+				-- },
+			}),
+		},
+
+		-- Create a new workspace with a custom name
+		{
+			key = "s",
+			mods = "LEADER",
+			action = act.PromptInputLine({
+				description = wezterm.format({
+					{ Attribute = { Intensity = "Bold" } },
+					{ Foreground = { AnsiColor = "Fuchsia" } },
+					{ Text = "Enter name for new workspace" },
+				}),
+				action = wezterm.action_callback(function(window, pane, line)
+					-- line will be `nil` if they hit escape without entering anything
+					-- An empty string if they just hit enter
+					-- Or the actual line of text they wrote
+					if line then
+						window:perform_action(
+							act.SwitchToWorkspace({
+								name = line,
+							}),
+							pane
+						)
+					end
+				end),
 			}),
 		},
 
