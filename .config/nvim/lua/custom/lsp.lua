@@ -76,7 +76,7 @@ mason_lspconfig.setup_handlers({
 -- diagnostics sign error
 vim.fn.sign_define(
 	"DiagnosticSignError",
-	{ texthl = "DiagnosticSignError", text = " ", numhl = "DiagnosticSignError" }
+	{ texthl = "DiagnosticSignError", text = " ", numhl = "DiagnosticSignError" }
 )
 
 -- diagnostics sign warn
@@ -92,6 +92,6 @@ vim.fn.sign_define("DiagnosticSignInfo", { texthl = "DiagnosticSignInfo", text =
 -- diagnostics sign hint
 vim.fn.sign_define("DiagnosticSignHint", {
 	texthl = "DiagnosticSignHint",
-	text = " ",
+	text = " ",
 	numhl = "DiagnosticSignHint",
 })

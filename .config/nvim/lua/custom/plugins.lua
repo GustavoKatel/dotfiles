@@ -161,6 +161,8 @@ require("lazy").setup({
 	{ "tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
 
 	{ "stevearc/oil.nvim" },
+
+	{ "kevinhwang91/nvim-bqf" },
 	-- }}}
 
 	-- {{{ HUD
@@ -215,7 +217,7 @@ require("lazy").setup({
 		end,
 	},
 	{ "L3MON4D3/LuaSnip" },
-	{ "stevearc/dressing.nvim" },
+	{ "stevearc/dressing.nvim", opts = {} },
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = {

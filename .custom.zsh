@@ -33,7 +33,7 @@ function done-notify() {
 }
 
 # FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(fzf --zsh)"
 
 # task integration
 #source $HOME/dev/task.sh

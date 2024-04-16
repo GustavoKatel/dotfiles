@@ -227,6 +227,10 @@ vim.api.nvim_create_augroup("KeyMapsTermClose", { clear = true })
 vim.api.nvim_create_autocmd("TermClose", {
 	group = "KeyMapsTermClose",
 	callback = function(event)
+		if not vim.api.nvim_buf_is_valid(event.buf) then
+			return
+		end
+
 		-- <keys> on a finished terminal will not close the window, instead it will open the prev buffer
 		local keys = { "<CR>", "<C-c>", "<C-d>" }
 		for _, key in ipairs(keys) do
@@ -579,11 +583,6 @@ vim.keymap.set({ "n" }, "<leader>X", function()
 	require("custom.paster").select_put("l", true)
 end)
 
--- sets diagnostics to loclist
-vim.keymap.set({ "n" }, "<F7>", function()
-	vim.diagnostic.setloclist()
-end, { desc = "Set diagnostics to loclist" })
-
 local function toggle_quickfix(focus)
 	local ids = vim.fn.getqflist({ ["winid"] = true })
 
@@ -599,6 +598,15 @@ local function toggle_quickfix(focus)
 		vim.api.nvim_set_current_win(winnr)
 	end
 end
+
+-- sets diagnostics to qflist
+vim.keymap.set({ "n" }, "<F7>", function()
+	vim.diagnostic.setqflist({
+		open = false,
+		severity = vim.diagnostic.severity.HINT,
+	})
+	toggle_quickfix(true)
+end, { desc = "Set diagnostics to loclist" })
 
 -- toggle quickfix with <F8>
 vim.keymap.set({ "n" }, "<F8>", function()
