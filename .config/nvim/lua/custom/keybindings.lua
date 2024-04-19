@@ -601,11 +601,12 @@ end
 
 -- sets diagnostics to qflist
 vim.keymap.set({ "n" }, "<F7>", function()
-	vim.diagnostic.setqflist({
-		open = false,
-		severity = vim.diagnostic.severity.HINT,
-	})
-	toggle_quickfix(true)
+	-- vim.diagnostic.setqflist({
+	-- 	open = false,
+	-- 	severity = vim.diagnostic.severity.HINT,
+	-- })
+	-- toggle_quickfix(true)
+	require("trouble").toggle({ mode = "diagnostics", focus = true, auto_preview = false })
 end, { desc = "Set diagnostics to loclist" })
 
 -- toggle quickfix with <F8>

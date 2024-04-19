@@ -125,7 +125,7 @@ M.on_attach = function(client, bufnr, ...)
 
 	local has_inlay_hints = not vim.tbl_isempty(client.server_capabilities.inlayHintProvider or {})
 	if has_inlay_hints and vim.lsp.inlay_hint then
-		vim.lsp.inlay_hint.enable(bufnr, true)
+		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 	end
 end
 

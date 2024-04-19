@@ -55,6 +55,17 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons",
 		},
 	},
+
+	{
+		"folke/trouble.nvim",
+		branch = "dev",
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+			-- group = true, -- group results by file
+		},
+	},
 	-- }}}
 
 	-- {{{ language support
