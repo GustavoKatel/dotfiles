@@ -89,7 +89,7 @@ bindkey '\e[Z' reverse-menu-complete
 [ -f $HOME/.custom_home.zsh ] && source $HOME/.custom_home.zsh
 [ -f $HOME/.custom_private.zsh ] && source $HOME/.custom_private.zsh
 
-export PATH="$HOME/.rd/bin:$PATH"
+# export PATH="$HOME/.rd/bin:$PATH"
 
 eval "$(goenv init -)"
 
