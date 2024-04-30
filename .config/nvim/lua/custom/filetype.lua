@@ -20,3 +20,10 @@ vim.filetype.add({
 		Containerfile = "dockerfile",
 	},
 })
+
+-- coffeescript
+vim.filetype.add({
+	extension = {
+		coffee = "coffee",
+	},
+})

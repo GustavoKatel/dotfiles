@@ -85,6 +85,15 @@ treesitter_config.setup({
 				["[P"] = "@parameter.outer",
 			},
 		},
+		swap = {
+			enable = true,
+			swap_next = {
+				["<leader>k"] = "@parameter.inner",
+			},
+			swap_previous = {
+				["<leader>K"] = "@parameter.inner",
+			},
+		},
 	},
 
 	playground = {

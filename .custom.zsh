@@ -92,6 +92,7 @@ bindkey '\e[Z' reverse-menu-complete
 # export PATH="$HOME/.rd/bin:$PATH"
 
 eval "$(goenv init -)"
+eval "$(rbenv init - zsh)"
 
 export PATH="$GOROOT/bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
