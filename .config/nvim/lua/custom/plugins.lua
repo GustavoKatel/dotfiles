@@ -122,8 +122,8 @@ require("lazy").setup({
 			-- adapters
 			"haydenmeade/neotest-jest",
 			"nvim-neotest/neotest-plenary",
-			-- "nvim-neotest/neotest-go",
-			{ dir = "~/dev/neotest-go" },
+			"nvim-neotest/neotest-go",
+			-- { dir = "~/dev/neotest-go" },
 		},
 	},
 
