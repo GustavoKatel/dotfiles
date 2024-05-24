@@ -547,13 +547,16 @@ end)
 vim.keymap.set("n", "<C-e>", function()
 	local word = vim.fn.expand("<cword>")
 
-	local word_mapping = {
-		["true"] = "false",
-		["True"] = "False",
-		["on"] = "off",
-	}
+	local word_mapping = {}
 
-	word_mapping = vim.tbl_add_reverse_lookup(word_mapping)
+	local function add_mapping(key, value)
+		word_mapping[key] = value
+		word_mapping[value] = key
+	end
+
+	add_mapping("true", "false")
+	add_mapping("True", "False")
+	add_mapping("on", "off")
 
 	local new_word = word_mapping[word]
 
