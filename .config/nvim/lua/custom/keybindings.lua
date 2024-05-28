@@ -572,7 +572,7 @@ end)
 -- open in cwd
 vim.keymap.set("n", "<leader>dd", ":Oil .<CR>")
 -- open in file dir
-vim.keymap.set("n", "<leader>df", ":Oil %:h<CR>")
+vim.keymap.set("n", "<leader>df", ":Oil<CR>")
 
 -- change inside word with ctrl+i
 vim.keymap.set("n", create_special_keymap("ci"), "ciw")
