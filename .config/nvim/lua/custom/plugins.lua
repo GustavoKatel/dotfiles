@@ -30,6 +30,24 @@ require("lazy").setup({
 		"folke/neodev.nvim",
 	},
 
+	{
+		"dnlhc/glance.nvim",
+		opts = function()
+			return {
+				detached = true,
+				border = {
+					enable = false, -- Show window borders. Only horizontal borders allowed
+				},
+				mappings = {
+					list = {
+						["<C-q>"] = false,
+						["<C-s>"] = require("glance").actions.quickfix,
+					},
+				},
+			}
+		end,
+	},
+
 	{ "nvimtools/none-ls.nvim" },
 	{ "onsails/lspkind-nvim" },
 	{ "ray-x/lsp_signature.nvim" },
