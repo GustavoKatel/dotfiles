@@ -40,7 +40,9 @@ neotest.setup({
 	},
 	adapters = {
 		require("neotest-plenary"),
-		require("neotest-go"),
+		require("neotest-go")({
+			recursive_run = true,
+		}),
 		require("neotest-jest")({
 			jestCommand = "npm run test --",
 		}),

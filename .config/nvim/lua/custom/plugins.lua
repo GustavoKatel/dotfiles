@@ -34,7 +34,9 @@ require("lazy").setup({
 		"dnlhc/glance.nvim",
 		opts = function()
 			return {
-				detached = true,
+				detached = function(winid)
+					return vim.api.nvim_win_get_width(winid) < 100
+				end,
 				border = {
 					enable = false, -- Show window borders. Only horizontal borders allowed
 				},
