@@ -60,11 +60,6 @@ mason_lspconfig.setup_handlers({
 	--end,
 
 	lua_ls = function()
-		-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-		-- require("neodev").setup({
-		-- 	-- add any options here, or leave empty to use the default settings
-		-- })
-
 		local server_name = "lua_ls"
 		local config = make_config(server_name)
 		lspconfig[server_name].setup(config)

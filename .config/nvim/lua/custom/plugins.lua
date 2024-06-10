@@ -27,7 +27,6 @@ require("lazy").setup({
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
-		"folke/neodev.nvim",
 	},
 
 	{
@@ -78,7 +77,6 @@ require("lazy").setup({
 
 	{
 		"folke/trouble.nvim",
-		branch = "dev",
 		opts = {
 			-- your configuration comes here
 			-- or leave it empty to use the default settings
@@ -148,6 +146,19 @@ require("lazy").setup({
 	},
 
 	{ "github/copilot.vim" },
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		branch = "canary",
+		dependencies = {
+			{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+			{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+		},
+		opts = {
+			debug = true, -- Enable debugging
+			-- See Configuration section for rest
+		},
+		-- See Commands section for default commands if you want to lazy load on them
+	},
 	-- }}}
 
 	-- {{{ colorscheme

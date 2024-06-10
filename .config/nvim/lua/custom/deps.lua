@@ -23,12 +23,13 @@ local pkgs = user_profile.with_profile_table({
 })
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
-local common_servers = { "lua_ls", "tsserver", "eslint", "dockerls", "jsonls", "bashls", "cssls", "rubocop" }
+local common_servers =
+	{ "lua_ls", "tsserver", "eslint", "dockerls", "jsonls", "bashls", "cssls", "rubocop", "elixir-ls" }
 
 local servers = user_profile.with_profile_table({
 	default = vim.tbl_flatten({
 		common_servers,
-		{ "gopls", "clangd", "rust_analyzer", "pyright", "golangci-lint-langserver" },
+		{ "gopls", "clangd", "rust_analyzer", "pyright", "golangci-lint-langserver", "terraform-ls" },
 	}),
 	work = vim.tbl_flatten(common_servers),
 	jupiter = vim.tbl_flatten({
