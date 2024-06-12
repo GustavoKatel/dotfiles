@@ -14,7 +14,14 @@ alias du-sort="du -h . | sort -h -r"
 
 alias st="git status"
 
-alias nv="nvim"
+# alias nv="nvim"
+function nv() {
+  if [ -z "${NVIM}" ]; then
+      nvim $*
+  else
+    nvr $*
+  fi
+}
 
 alias nvu="/Applications/goneovim.app/Contents/MacOS/goneovim --maximized >/dev/null 2>&1 & disown"
 
