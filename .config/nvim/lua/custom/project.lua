@@ -43,13 +43,17 @@ M.default_opts = {
 	logger_level = vim.log.levels.WARN,
 }
 
+local function get_default_config()
+	return { name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t") }
+end
+
 function M.setup(opts)
 	M._opts = vim.tbl_extend("force", {}, M.default_opts, opts or {})
 
 	M.setup_logger()
 
 	-- set initial project metadata, it's overriden later if local file exists
-	M.current = { name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t") }
+	M.current = get_default_config()
 
 	if M._opts.auto_create then
 		if vim.fn.filereadable(vim.fn.expand(M._opts.local_folder_name .. "/project.json")) ~= 1 then
@@ -71,6 +75,18 @@ function M.setup_logger()
 	end
 end
 
+function M.get_all_project_files()
+	local local_files = vim.fs.find(M._opts.local_folder_name, { type = "directory" })
+	local files = vim.fs.find(M._opts.local_folder_name, { type = "directory", limit = math.huge, upward = true })
+	local all_files = vim.tbl_extend("force", local_files, files)
+
+	all_files = vim.tbl_map(function(file_path)
+		return M.get_local_filename(file_path)
+	end, all_files)
+
+	return all_files
+end
+
 function M.setup_auto_load()
 	local group = vim.api.nvim_create_augroup("project_nvim", { clear = true })
 
@@ -82,43 +98,59 @@ function M.setup_auto_load()
 		end,
 	})
 
-	vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-		group = group,
-		desc = "reload local project configuration after save",
-		pattern = M._opts.local_folder_name .. "project.json",
-		callback = function()
-			M.load()
-		end,
-	})
+	local project_files = M.get_all_project_files()
+	if #project_files > 0 then
+		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+			group = group,
+			desc = "reload local project configuration after save",
+			pattern = project_files,
+			callback = function()
+				M.load()
+			end,
+		})
+	end
 end
 
-function M.get_local_filename()
-	return M._opts.local_folder_name .. "/project.json"
+function M.get_local_filename(folder_name)
+	return folder_name .. "/project.json"
 end
 
 function M.load()
 	pasync.run(function()
-		local err, fd = pasync.uv.fs_open(M.get_local_filename(), "r", 438)
-		if err then
-			logger.info("could not open file: %s", err)
-			return nil
+		local all_files = M.get_all_project_files()
+
+		local current_config = get_default_config()
+
+		for i = 1, #all_files do
+			local current_file = all_files[#all_files + 1 - i]
+
+			local err, fd = pasync.uv.fs_open(current_file, "r", 438)
+			if not err then
+				local stat
+				err, stat = pasync.uv.fs_fstat(fd)
+				assert(not err, err)
+
+				local data
+				err, data = pasync.uv.fs_read(fd, stat.size, 0)
+				assert(not err, err)
+
+				err = pasync.uv.fs_close(fd)
+				assert(not err, err)
+
+				local ok, project = pcall(vim.json.decode, data)
+				assert(
+					ok,
+					"failed to parse json from file: "
+						.. current_file
+						.. "/project.json ERROR: "
+						.. (type(project) == "table" and vim.inspect(project) or project)
+				)
+
+				current_config = vim.tbl_extend("force", current_config, project)
+			end
 		end
 
-		local stat
-		err, stat = pasync.uv.fs_fstat(fd)
-		assert(not err, err)
-
-		local data
-		err, data = pasync.uv.fs_read(fd, stat.size, 0)
-		assert(not err, err)
-
-		err = pasync.uv.fs_close(fd)
-		assert(not err, err)
-
-		local ok, project = pcall(vim.json.decode, data)
-		assert(ok, project)
-
-		M.current = project or {}
+		M.current = current_config
 
 		M.dispatch_on_load_event()
 

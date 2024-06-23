@@ -40,10 +40,7 @@ cmp.setup({
 	},
 	formatting = {
 		format = function(entry, vim_item)
-			local kind = ""
-			if vim.g.gonvim_running == 1 and vim_item.kind then
-				kind = "(" .. vim_item.kind .. ")" .. " "
-			end
+			local kind = vim_item.kind or ""
 
 			vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
 
@@ -58,6 +55,7 @@ cmp.setup({
 						emoji = "[Emoji]",
 						luasnip = "[Snip]",
 						cmdline = "[CMD]",
+						["vim-dadbod-completion"] = "[DB]",
 					})[entry.source.name] or string.format("[%s]", entry.source.name)
 				)
 			return vim_item
@@ -66,6 +64,14 @@ cmp.setup({
 	window = {
 		documentation = cmp.config.window.bordered(),
 		completion = cmp.config.window.bordered(),
+	},
+})
+
+-- Setup up vim-dadbod
+cmp.setup.filetype({ "sql" }, {
+	sources = {
+		{ name = "vim-dadbod-completion" },
+		{ name = "buffer" },
 	},
 })
 

@@ -66,12 +66,14 @@ require("lazy").setup({
 	},
 	{ "j-hui/fidget.nvim", tag = "legacy" },
 	{
-		"stevearc/aerial.nvim",
-		opts = {},
-		-- Optional dependencies
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons",
+		"hedyhli/outline.nvim",
+		lazy = true,
+		cmd = { "Outline", "OutlineOpen" },
+		opts = {
+			symbol_folding = {
+				-- Depth past which nodes will be folded by default. Set to false to unfold all on open.
+				autofold_depth = 5,
+			},
 		},
 	},
 
@@ -314,19 +316,58 @@ require("lazy").setup({
 		"stevearc/overseer.nvim",
 		opts = require("custom.overseer"),
 	},
+
+	{
+		"kristijanhusak/vim-dadbod-ui",
+		dependencies = {
+			{ "tpope/vim-dadbod", lazy = true },
+			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+		},
+		cmd = {
+			"DBUI",
+			"DBUIToggle",
+			"DBUIClose",
+			"DBUIAddConnection",
+			"DBUIFindBuffer",
+		},
+		init = function()
+			-- Your DBUI configuration
+			vim.g.db_ui_use_nerd_fonts = 1
+			vim.g.db_ui_execute_on_save = 0
+		end,
+	},
 	-- }}}
 
 	-- {{{ sidebar
-	user_profile.with_profile_table({
-		default = { "sidebar-nvim/sidebar.nvim" },
-		test = { dir = "/Users/gustavokatel/dev/sidebar.nvim" },
-	}),
-
-	{ "GustavoKatel/dap-sidebar.nvim" },
+	-- user_profile.with_profile_table({
+	-- 	default = { "sidebar-nvim/sidebar.nvim" },
+	-- 	test = { dir = "/Users/gustavokatel/dev/sidebar.nvim" },
+	-- }),
+	--
+	-- { "GustavoKatel/dap-sidebar.nvim" },
 	--{ dir = "/Users/gustavokatel/dev/dap-sidebar.nvim" },
 
 	--user_profile.with_profile_fn("personal", use, { dir = "/Users/gustavokatel/dev/uprofile.nvim" })
 	--user_profile.with_profile_fn("work", use, { "GustavoKatel/uprofile.nvim" })
+	{
+		"folke/edgy.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.opt.splitkeep = "screen"
+		end,
+		opts = require("custom.plugins.edgy"),
+	},
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+		},
+		opts = require("custom.plugins.neo-tree"),
+	},
 	-- }}}
 
 	-- {{{ neovim dev

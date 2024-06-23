@@ -21,7 +21,7 @@ require("custom.lib_files")
 
 require("custom.harpoon_setup")
 
-require("custom.sidebar")
+-- require("custom.sidebar")
 require("custom.folding_utils")
 
 require("custom.colorscheme")
@@ -37,6 +37,7 @@ require("custom.terminal")
 
 require("custom.paster")
 
+require("custom.dbs_local_project_config")
 require("custom.project").setup()
 
 require("custom.file_browser")

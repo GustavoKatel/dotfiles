@@ -89,7 +89,7 @@ M.default_configs = {
 	},
 	jsonls = {
 		init_options = {
-			provideFormatter = false,
+			provideFormatter = true,
 		},
 		settings = {
 			json = {
@@ -97,11 +97,15 @@ M.default_configs = {
 				schemas = {
 					{
 						fileMatch = { "package.json" },
-						url = "https://json.schemastore.org/package.json",
+						uri = "https://json.schemastore.org/package.json",
 					},
 					{
 						fileMatch = { "tsconfig.json", "tsconfig.*.json" },
-						url = "http://json.schemastore.org/tsconfig",
+						uri = "http://json.schemastore.org/tsconfig",
+					},
+					{
+						fileMatch = { "**/*/.nvim/project.json" },
+						uri = "file://" .. vim.fn.stdpath("config") .. "/schemas/project.json",
 					},
 				},
 			},

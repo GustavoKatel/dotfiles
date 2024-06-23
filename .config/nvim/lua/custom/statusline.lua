@@ -43,6 +43,9 @@ lualine.setup({
 		--theme = 'onedark',
 		section_separators = "",
 		component_separators = "|",
+		disabled_filetypes = { -- Filetypes to disable lualine for.
+			statusline = { "Outline", "neo-tree", "dbui" }, -- only ignores the ft for statusline.
+		},
 	},
 	sections = {
 		lualine_b = {},

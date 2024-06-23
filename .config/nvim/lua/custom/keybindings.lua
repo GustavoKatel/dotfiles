@@ -482,7 +482,10 @@ for code, mapping in pairs(debugger_bindings) do
 end
 
 -- toggle sidebar
-vim.keymap.set({ "n" }, "<F3>", ":SidebarNvimToggle<CR>")
+-- vim.keymap.set({ "n" }, "<F3>", ":SidebarNvimToggle<CR>")
+vim.keymap.set({ "n" }, "<F3>", function()
+	require("edgy").toggle()
+end)
 
 -- harpoon
 vim.keymap.set({ "n" }, "<leader>h", function()
@@ -631,7 +634,9 @@ vim.keymap.set(
 )
 
 -- Code navigation
-vim.keymap.set("n", "<F10>", "<cmd>AerialToggle!<CR>", { desc = "AerialToggle: Toggle code outline" })
+vim.keymap.set("n", "<F10>", function()
+	require("outline").toggle({ focus_outline = false })
+end, { desc = "AerialToggle: Toggle code outline" })
 
 vim.keymap.set("n", "]g", function()
 	require("gitsigns").next_hunk({ preview = true })
