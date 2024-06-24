@@ -285,6 +285,12 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{
+		"rcarriga/nvim-notify",
+		config = function()
+			vim.notify = require("notify")
+		end,
+	},
 	-- }}}
 
 	-- {{{ debugging & testing
@@ -330,10 +336,12 @@ require("lazy").setup({
 			"DBUIAddConnection",
 			"DBUIFindBuffer",
 		},
+		ft = { "sql" },
 		init = function()
 			-- Your DBUI configuration
 			vim.g.db_ui_use_nerd_fonts = 1
 			vim.g.db_ui_execute_on_save = 0
+			vim.g.db_ui_use_nvim_notify = 1
 		end,
 	},
 	-- }}}
