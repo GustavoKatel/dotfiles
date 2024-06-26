@@ -52,6 +52,8 @@ function M.notify(msg, level, opts)
 	local level_str = string.format("[%s] ", M.level_to_str(level))
 	local timestamp = os.date("%H:%M:%S ")
 
+	msg = string.gsub(msg, "\n", "\t")
+
 	local line = string.format("%s%s%s", level_str, timestamp, msg)
 	vim.api.nvim_set_option_value("modifiable", true, { buf = bufnr })
 	vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, { line })

@@ -337,6 +337,7 @@ require("lazy").setup({
 			vim.g.db_ui_use_nvim_notify = 1
 		end,
 	},
+	{ "Vigemus/iron.nvim" },
 	-- }}}
 
 	-- {{{ sidebar

@@ -22,6 +22,7 @@
   "headlines.nvim": { "branch": "master", "commit": "618ef1b2502c565c82254ef7d5b04402194d9ce3" },
   "hop": { "branch": "master", "commit": "1a1eceafe54b5081eae4cb91c723abd1d450f34b" },
   "indent-blankline.nvim": { "branch": "master", "commit": "4288ce8128a52650e401dda42fd7651a6038f262" },
+  "iron.nvim": { "branch": "master", "commit": "c993d018d11829528b0fe91eb9ba412e453071ea" },
   "kanagawa.nvim": { "branch": "master", "commit": "7735b2147ee6d223e43287044caa4fb070bdfa3d" },
   "lazy.nvim": { "branch": "main", "commit": "0eb46e781666d2a5b288b671813f65b00896fff9" },
   "lsp_signature.nvim": { "branch": "master", "commit": "a38da0a61c172bb59e34befc12efe48359884793" },

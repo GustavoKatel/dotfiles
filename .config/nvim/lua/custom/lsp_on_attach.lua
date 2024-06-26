@@ -89,14 +89,14 @@ M.on_attach = function(client, bufnr, ...)
 		end,
 	})
 
-	local has_code_lens = not vim.tbl_isempty(client.server_capabilities.codeLensProvider or {})
+	local has_code_lens = not not client.server_capabilities.codeLensProvider
 
 	if has_code_lens then
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
 			group = vim.api.nvim_create_augroup("lsp_codelens", { clear = true }),
 			buffer = bufnr,
 			callback = function()
-				vim.lsp.codelens.refresh({ bufnr = 0 })
+				vim.lsp.codelens.refresh({ bufnr = bufnr })
 			end,
 		})
 	end
@@ -108,9 +108,9 @@ M.on_attach = function(client, bufnr, ...)
 		group = document_highlight_group,
 		buffer = bufnr,
 		callback = function()
-			if client.supports_method('textDocument/documentHighlight') then
+			if client.supports_method("textDocument/documentHighlight") then
 				vim.lsp.buf.document_highlight()
-            end
+			end
 		end,
 	})
 	vim.api.nvim_create_autocmd({ "CursorMoved" }, {

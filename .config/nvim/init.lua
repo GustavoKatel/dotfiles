@@ -44,3 +44,7 @@ require("custom.project").setup()
 require("custom.file_browser")
 
 require("custom.remote_ui_helpers")
+
+require("custom.go_utils")
+
+require("custom.iron_repl")
