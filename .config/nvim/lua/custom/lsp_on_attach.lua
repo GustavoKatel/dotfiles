@@ -1,5 +1,3 @@
-local v = require("custom.utils")
-
 local M = {}
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -20,7 +18,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- keymaps
 M.on_attach = function(client, bufnr, ...)
 	-- completion.on_attach(client, bufnr)
-	require("illuminate").on_attach(client, bufnr, ...)
 	require("lsp_signature").on_attach({
 		bind = true, -- This is mandatory, otherwise border config won't get registered.
 		handler_opts = {
@@ -68,65 +65,61 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 	buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
-	v.create_autocommands({
-		group = { name = "lsp_formatting" },
+	vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+		group = vim.api.nvim_create_augroup("lsp_formatting", { clear = true }),
 		buffer = bufnr,
-		cmds = {
-			{
-				events = { "BufWritePre" },
-				def = {
-					callback = function()
-						vim.lsp.buf.format()
-					end,
-				},
-			},
-		},
+		callback = function()
+			vim.lsp.buf.format()
+		end,
 	})
 
-	v.create_autocommands({
-		group = { name = "lsp_line_diagnostic" },
+	local lsp_line_diagnostic_group = vim.api.nvim_create_augroup("lsp_line_diagnostic", { clear = true })
+	vim.api.nvim_create_autocmd({ "CursorHold" }, {
+		group = lsp_line_diagnostic_group,
 		buffer = bufnr,
-		cmds = {
-			{
-				events = "CursorHold",
-				def = {
-					callback = function()
-						require("custom.lsp_utils").cursor_hold()
-					end,
-				},
-			},
-			{
-				events = "CursorMoved",
-				def = {
-					callback = function()
-						require("custom.lsp_utils").cursor_moved()
-					end,
-				},
-			},
-		},
+		callback = function()
+			require("custom.lsp_utils").cursor_hold()
+		end,
+	})
+	vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+		group = lsp_line_diagnostic_group,
+		buffer = bufnr,
+		callback = function()
+			require("custom.lsp_utils").cursor_moved()
+		end,
 	})
 
 	local has_code_lens = not vim.tbl_isempty(client.server_capabilities.codeLensProvider or {})
 
 	if has_code_lens then
-		v.create_autocommands({
-			group = { name = "lsp_codelens" },
+		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+			group = vim.api.nvim_create_augroup("lsp_codelens", { clear = true }),
 			buffer = bufnr,
-			cmds = {
-				{
-					events = { "BufEnter", "CursorHold", "InsertLeave" },
-					def = {
-
-						callback = function()
-							vim.lsp.codelens.refresh({ bufnr = 0 })
-						end,
-					},
-				},
-			},
+			callback = function()
+				vim.lsp.codelens.refresh({ bufnr = 0 })
+			end,
 		})
 	end
 
 	vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+
+	local document_highlight_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+	vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+		group = document_highlight_group,
+		buffer = bufnr,
+		callback = function()
+			if client.supports_method('textDocument/documentHighlight') then
+				vim.lsp.buf.document_highlight()
+            end
+		end,
+	})
+	vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+		group = document_highlight_group,
+		buffer = bufnr,
+		callback = function()
+			vim.lsp.buf.clear_references()
+		end,
+	})
 end
 
 return M

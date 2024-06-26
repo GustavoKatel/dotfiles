@@ -1,5 +1,3 @@
-local pasync = require("plenary.async")
-local utils = require("custom.utils")
 local dap = require("dap")
 
 local M = {

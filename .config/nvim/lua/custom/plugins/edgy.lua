@@ -42,6 +42,18 @@ return {
 			open = "Neotree position=right git_status",
 		},
 		{
+			title = "Notifications",
+			ft = "notifications",
+			pinned = true,
+			open = function()
+				require("custom.notify").open()
+			end,
+			wo = {
+				number = false,
+				relativenumber = false,
+			}
+		},
+		{
 			title = "Neo-Tree Buffers",
 			ft = "neo-tree",
 			filter = function(buf)

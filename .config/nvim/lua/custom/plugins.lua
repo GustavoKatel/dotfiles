@@ -200,7 +200,6 @@ require("lazy").setup({
 			require("hop").setup({})
 		end,
 	},
-	{ "RRethy/vim-illuminate" }, -- hightlight same word across buffer
 	{ "google/vim-searchindex" }, -- better search results
 	{ "tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
 
@@ -283,12 +282,6 @@ require("lazy").setup({
 					},
 				},
 			})
-		end,
-	},
-	{
-		"rcarriga/nvim-notify",
-		config = function()
-			vim.notify = require("notify")
 		end,
 	},
 	-- }}}
