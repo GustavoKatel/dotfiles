@@ -68,6 +68,11 @@ function M.notify(msg, level, opts)
 		#level_str + #timestamp - 1
 	)
 
+	local windows = vim.fn.win_findbuf(M.bufnr)
+	for _, winnr in ipairs(windows) do
+		vim.api.nvim_win_set_cursor(winnr, { vim.api.nvim_buf_line_count(bufnr), 0 })
+	end
+
 	M.original_notify(msg, level, opts)
 end
 
