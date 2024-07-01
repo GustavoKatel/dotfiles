@@ -69,7 +69,7 @@ M.on_attach = function(client, bufnr, ...)
 		group = vim.api.nvim_create_augroup("lsp_formatting", { clear = true }),
 		buffer = bufnr,
 		callback = function()
-			vim.lsp.buf.format()
+			vim.lsp.buf.format({ bufnr = bufnr })
 		end,
 	})
 

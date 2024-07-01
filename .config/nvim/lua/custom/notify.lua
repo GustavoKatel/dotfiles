@@ -75,7 +75,7 @@ function M.notify(msg, level, opts)
 		vim.api.nvim_win_set_cursor(winnr, { vim.api.nvim_buf_line_count(bufnr), 0 })
 	end
 
-	M.original_notify(msg, level, opts)
+	-- M.original_notify(msg, level, opts)
 end
 
 function M.open()
