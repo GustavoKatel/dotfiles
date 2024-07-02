@@ -86,6 +86,11 @@ require("lazy").setup({
 			-- group = true, -- group results by file
 		},
 	},
+
+	{
+		"GustavoKatel/filename-ls",
+		opts = {},
+	},
 	-- }}}
 
 	-- {{{ language support
