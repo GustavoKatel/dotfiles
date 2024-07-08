@@ -343,6 +343,16 @@ require("lazy").setup({
 		end,
 	},
 	{ "Vigemus/iron.nvim" },
+	{
+		"jellydn/hurl.nvim",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		ft = "hurl",
+		opts = require("custom.plugins.hurl"),
+	},
 	-- }}}
 
 	-- {{{ sidebar
@@ -358,6 +368,7 @@ require("lazy").setup({
 	--user_profile.with_profile_fn("work", use, { "GustavoKatel/uprofile.nvim" })
 	{
 		"folke/edgy.nvim",
+		-- dir = "~/dev/edgy.nvim",
 		event = "VeryLazy",
 		init = function()
 			vim.opt.splitkeep = "screen"

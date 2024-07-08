@@ -42,22 +42,22 @@ cmp.setup({
 		format = function(entry, vim_item)
 			local kind = vim_item.kind or ""
 
-			vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+			vim_item.kind = require("lspkind").symbolic(kind, { mode = "symbol_text" }) .. " "
 
 			-- set a name for each source
-			vim_item.menu = kind
-				.. (
-					({
-						nvim_lsp = "[LSP]",
-						nvim_lua = "[Lua]",
-						path = "[Path]",
-						buffer = "[Buffer]",
-						emoji = "[Emoji]",
-						luasnip = "[Snip]",
-						cmdline = "[CMD]",
-						["vim-dadbod-completion"] = "[DB]",
-					})[entry.source.name] or string.format("[%s]", entry.source.name)
-				)
+			vim_item.menu = (
+				({
+					nvim_lsp = "[LSP]",
+					nvim_lua = "[Lua]",
+					path = "[Path]",
+					buffer = "[Buffer]",
+					emoji = "[Emoji]",
+					luasnip = "[Snip]",
+					cmdline = "[CMD]",
+					["vim-dadbod-completion"] = "[DB]",
+				})[entry.source.name] or string.format("[%s]", entry.source.name)
+			)
+
 			return vim_item
 		end,
 	},

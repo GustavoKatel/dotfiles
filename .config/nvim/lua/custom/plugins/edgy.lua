@@ -8,6 +8,9 @@ return {
 	animate = {
 		enabled = false,
 	},
+	right = {
+		{ title = "Hurl Nvim", size = { width = 0.5 }, ft = "hurl-nvim" },
+	},
 	bottom = {
 		-- toggleterm / lazyterm at the bottom with a height of 40% of the screen
 		"Trouble",
@@ -51,7 +54,7 @@ return {
 			wo = {
 				number = false,
 				relativenumber = false,
-			}
+			},
 		},
 		{
 			title = "Neo-Tree Buffers",

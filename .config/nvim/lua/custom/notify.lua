@@ -79,8 +79,10 @@ function M.notify(msg, level, opts)
 end
 
 function M.open()
-	vim.cmd.split()
-	vim.api.nvim_win_set_buf(0, M.bufnr)
+	vim.api.nvim_open_win(M.bufnr, false, {
+		split = "right",
+	})
+	vim.cmd.wincmd("=")
 end
 
 M.setup()

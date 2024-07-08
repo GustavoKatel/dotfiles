@@ -645,3 +645,5 @@ end, { desc = "Next git hunk" })
 vim.keymap.set("n", "[g", function()
 	require("gitsigns").prev_hunk({ preview = true })
 end, { desc = "Prev git hunk" })
+
+vim.keymap.set({ "n", "v" }, "<leader>r", ":IronSend<CR>", { desc = "Send to IronRepl" })
