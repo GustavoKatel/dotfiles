@@ -86,7 +86,7 @@ local nvim_mappings = {
 }
 
 for i = 0, 9 do
-	table.insert(nvim_mappings, create_nvim_key_bind(string.format(i), "SUPER", "m" .. i))
+	-- table.insert(nvim_mappings, create_nvim_key_bind(string.format(i), "SUPER", "m" .. i))
 end
 
 return {
@@ -99,14 +99,15 @@ return {
 	----------------
 	-- Appearance --
 	----------------
-	window_background_opacity = 1.0,
+	window_background_opacity = 0.7,
 
 	font = wezterm.font({
 		family = "JetBrainsMono Nerd Font",
 		-- disable ligatures
 		harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
+		weight = "DemiBold",
 	}),
-	font_size = 12.8,
+	font_size = 12.4,
 	-- disable italic?
 
 	window_padding = {
