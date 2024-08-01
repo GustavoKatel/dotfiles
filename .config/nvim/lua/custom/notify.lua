@@ -1,17 +1,27 @@
 local M = {}
 
 function M.setup()
-	M.bufnr = vim.api.nvim_create_buf(false, true)
-	vim.api.nvim_set_option_value("filetype", "notifications", {
-		buf = M.bufnr,
-	})
-
 	M.ns_id = vim.api.nvim_create_namespace("custom.notify")
 
 	M.setup_highlights()
 
 	M.original_notify = vim.notify
 	vim.notify = M.notify
+end
+
+function M.create_buffer()
+	M.bufnr = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_set_option_value("filetype", "notifications", {
+		buf = M.bufnr,
+	})
+end
+
+function M.get_buffer()
+	if not M.bufnr or not vim.api.nvim_buf_is_valid(M.bufnr) then
+		M.create_buffer()
+	end
+
+	return M.bufnr
 end
 
 function M.setup_highlights()
@@ -46,7 +56,7 @@ function M.level_to_str(level)
 end
 
 function M.notify(msg, level, opts)
-	local bufnr = M.bufnr
+	local bufnr = M.get_buffer()
 	level = level or vim.log.levels.INFO
 
 	local level_str = string.format("[%s] ", M.level_to_str(level))
@@ -59,7 +69,7 @@ function M.notify(msg, level, opts)
 	vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, { line })
 	vim.api.nvim_set_option_value("modifiable", false, { buf = bufnr })
 
-	local line_index = vim.api.nvim_buf_line_count(M.bufnr) - 1
+	local line_index = vim.api.nvim_buf_line_count(bufnr) - 1
 	vim.api.nvim_buf_add_highlight(bufnr, M.ns_id, M.level_to_highlight_group(level), line_index, 0, #level_str - 1)
 	vim.api.nvim_buf_add_highlight(
 		bufnr,
@@ -70,7 +80,7 @@ function M.notify(msg, level, opts)
 		#level_str + #timestamp - 1
 	)
 
-	local windows = vim.fn.win_findbuf(M.bufnr)
+	local windows = vim.fn.win_findbuf(bufnr)
 	for _, winnr in ipairs(windows) do
 		vim.api.nvim_win_set_cursor(winnr, { vim.api.nvim_buf_line_count(bufnr), 0 })
 	end
@@ -79,7 +89,7 @@ function M.notify(msg, level, opts)
 end
 
 function M.open()
-	vim.api.nvim_open_win(M.bufnr, false, {
+	vim.api.nvim_open_win(M.get_buffer(), false, {
 		split = "right",
 	})
 	vim.cmd.wincmd("=")
