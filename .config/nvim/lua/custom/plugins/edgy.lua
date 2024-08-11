@@ -45,6 +45,18 @@ return {
 			open = "Neotree position=right git_status",
 		},
 		{
+			title = "Docker",
+			ft = "dockerman",
+			pinned = true,
+			open = function()
+				require("custom.dockerman").open()
+			end,
+			wo = {
+				number = false,
+				relativenumber = false,
+			},
+		},
+		{
 			title = "Notifications",
 			ft = "notifications",
 			pinned = true,
