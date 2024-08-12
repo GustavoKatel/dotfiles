@@ -576,6 +576,8 @@ end)
 vim.keymap.set("n", "<leader>dd", ":Oil .<CR>")
 -- open in file dir
 vim.keymap.set("n", "<leader>df", ":Oil<CR>")
+-- open .scratches in the current folder
+vim.keymap.set("n", "<leader>ds", ":Oil .scratches<CR>")
 
 -- change inside word with ctrl+i
 vim.keymap.set("n", create_special_keymap("ci"), "ciw")

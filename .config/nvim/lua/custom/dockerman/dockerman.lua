@@ -192,19 +192,45 @@ function M.get_containers_nodes()
 
 		local parent = M._update_or_add_node(container, parent_id)
 
-		M._update_or_add_node(
-			{ text = "   Logs", id = container.id .. "/logs", action = actions.node_logs },
-			parent:get_id()
-		)
-		M._update_or_add_node(
-			{ text = "   Inspect", id = container.id .. "/inspect", action = actions.node_inspect },
-			parent:get_id()
-		)
+		M._update_or_add_node({
+			text = "   Attach",
+			id = container.id .. "/attach",
+			action = actions.container_attach,
+			container = container,
+		}, parent:get_id())
+		M._update_or_add_node({
+			text = "   Logs",
+			id = container.id .. "/logs",
+			action = actions.container_logs,
+			container = container,
+		}, parent:get_id())
+		M._update_or_add_node({
+			text = "   Inspect",
+			id = container.id .. "/inspect",
+			action = actions.container_inspect,
+			container = container,
+		}, parent:get_id())
+		M._update_or_add_node({
+			text = "   Menu",
+			id = container.id .. "/menu",
+			action = actions.container_menu,
+			container = container,
+		}, parent:get_id())
 		M._update_or_add_node({ text = " ------- ", id = container.id .. "/actions_sep" }, parent:get_id())
-		M._update_or_add_node({ text = "  " .. result.Image, id = container.id .. "/image" }, parent:get_id())
-		M._update_or_add_node({ text = " 󱤦 " .. result.Status, id = container.id .. "/status" }, parent:get_id())
 		M._update_or_add_node(
-			{ text = " 󰱓 " .. (result.Ports or "-"), id = container.id .. "/ports" },
+			{ text = " 󰻾 " .. result.ID, id = container.id .. "/id", container = container },
+			parent:get_id()
+		)
+		M._update_or_add_node(
+			{ text = "  " .. result.Image, id = container.id .. "/image", container = container },
+			parent:get_id()
+		)
+		M._update_or_add_node(
+			{ text = " 󱤦 " .. result.Status, id = container.id .. "/status", container = container },
+			parent:get_id()
+		)
+		M._update_or_add_node(
+			{ text = " 󰱓 " .. (result.Ports or "-"), id = container.id .. "/ports", container = container },
 			parent:get_id()
 		)
 	end
@@ -218,13 +244,36 @@ function M.get_volume_nodes()
 	local volumes = {}
 
 	for _, result in ipairs(results) do
+		local text = result.Name
+
+		if #text > 20 then
+			text = text:sub(1, 10) .. "..." .. text:sub(-10)
+		end
+
 		local volume = {
 			name = result.Name,
-			text = result.Name,
+			text = text,
 			id = "volume/" .. result.Name,
+			volume_id = result.Name,
 		}
 
-		M._update_or_add_node(volume, "-volumes")
+		local parent = M._update_or_add_node(volume, "-volumes")
+
+		M._update_or_add_node({
+			text = "   Inspect",
+			id = volume.id .. "/inspect",
+			action = actions.volume_inspect,
+			volume = volume,
+		}, parent:get_id())
+		M._update_or_add_node({ text = " ------- ", id = volume.id .. "/actions_sep" }, parent:get_id())
+		M._update_or_add_node(
+			{ text = " 󰻾 " .. result.Name, id = volume.id .. "/id", volume = volume },
+			parent:get_id()
+		)
+		M._update_or_add_node(
+			{ text = " 󰣳 " .. result.Size, id = volume.id .. "/size", volume = volume },
+			parent:get_id()
+		)
 	end
 
 	return volumes
@@ -236,13 +285,33 @@ function M.get_image_nodes()
 	local images = {}
 
 	for _, result in ipairs(results) do
+		local name = "  " .. result.Repository .. ":" .. result.Tag
+
 		local image = {
-			name = result.Repository,
-			text = result.Repository,
+			name = name,
+			text = name,
 			id = "image/" .. result.ID,
+			image_id = result.ID,
 		}
 
-		M._update_or_add_node(image, "-images")
+		local parent = M._update_or_add_node(image, "-images")
+
+		M._update_or_add_node({
+			text = "   Inspect",
+			id = image.id .. "/inspect",
+			action = actions.image_inspect,
+			image = image,
+		}, parent:get_id())
+		M._update_or_add_node({ text = " ------- ", id = image.id .. "/actions_sep" }, parent:get_id())
+		M._update_or_add_node({ text = " 󰻾 " .. result.ID, id = image.id .. "/id", image = image }, parent:get_id())
+		M._update_or_add_node(
+			{ text = " 󰣳 " .. result.Size, id = image.id .. "/size", image = image },
+			parent:get_id()
+		)
+		M._update_or_add_node(
+			{ text = " 󰃭 " .. result.CreatedSince, id = image.id .. "/created_since", image = image },
+			parent:get_id()
+		)
 	end
 
 	return images

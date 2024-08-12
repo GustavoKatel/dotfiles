@@ -265,7 +265,17 @@ require("lazy").setup({
 		end,
 	},
 	{ "L3MON4D3/LuaSnip" },
-	{ "stevearc/dressing.nvim", opts = {} },
+	-- override vim.ui
+	{
+		"stevearc/dressing.nvim",
+		opts = {
+			input = {
+				get_config = function(opts)
+					return opts.dressing or {}
+				end,
+			},
+		},
+	},
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = {
