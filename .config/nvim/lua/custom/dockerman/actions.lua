@@ -93,7 +93,6 @@ M.container_menu = function(node)
 	end)
 end
 
-
 M.image_inspect = function(node)
 	vim.notify("Inspecting image: " .. node.id)
 
@@ -108,6 +107,58 @@ M.volume_inspect = function(node)
 	local cmd = { "docker", "inspect", node.volume.volume_id }
 
 	dump_json_buffer_from_command(cmd, "docker-volume-inspect-" .. node.volume.volume_id)
+end
+
+M.network_inspect = function(node)
+	vim.notify("Inspecting network: " .. node.id)
+
+	local cmd = { "docker", "inspect", node.network.network_id }
+
+	dump_json_buffer_from_command(cmd, "docker-network-inspect-" .. node.network.network_id)
+end
+
+M.network_menu = function(node)
+	local options = {}
+
+	table.insert(options, { text = "Remove", args = { "network", "rm", node.network.network_id } })
+	table.insert(options, { text = "Remove (force)", args = { "network", "rm", "-f", node.network.network_id } })
+
+	vim.ui.select(options, {
+		format_item = function(item)
+			return item.text
+		end,
+	}, function(choice)
+		if choice ~= nil then
+			local args = choice.args
+
+			table.insert(args, 1, "docker")
+
+			vim.notify("Executing: " .. table.concat(args, " "))
+			vim.system(args)
+		end
+	end)
+end
+
+M.image_menu = function(node)
+	local options = {}
+
+	table.insert(options, { text = "Remove", args = { "image", "rm", node.image.image_id } })
+	table.insert(options, { text = "Remove (force)", args = { "image", "rm", "-f", node.image.image_id } })
+
+	vim.ui.select(options, {
+		format_item = function(item)
+			return item.text
+		end,
+	}, function(choice)
+		if choice ~= nil then
+			local args = choice.args
+
+			table.insert(args, 1, "docker")
+
+			vim.notify("Executing: " .. table.concat(args, " "))
+			vim.system(args)
+		end
+	end)
 end
 
 return M

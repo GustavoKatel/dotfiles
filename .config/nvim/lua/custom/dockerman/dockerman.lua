@@ -302,6 +302,12 @@ function M.get_image_nodes()
 			action = actions.image_inspect,
 			image = image,
 		}, parent:get_id())
+		M._update_or_add_node({
+			text = "   Menu",
+			id = image.id .. "/menu",
+			action = actions.image_menu,
+			image = image,
+		}, parent:get_id())
 		M._update_or_add_node({ text = " ------- ", id = image.id .. "/actions_sep" }, parent:get_id())
 		M._update_or_add_node({ text = " 󰻾 " .. result.ID, id = image.id .. "/id", image = image }, parent:get_id())
 		M._update_or_add_node(
@@ -327,9 +333,36 @@ function M.get_network_nodes()
 			name = result.Name,
 			text = result.Name,
 			id = "network/" .. result.ID,
+			network_id = result.ID,
 		}
 
-		M._update_or_add_node(network, "-networks")
+		local parent = M._update_or_add_node(network, "-networks")
+
+		M._update_or_add_node({
+			text = "   Inspect",
+			id = network.id .. "/inspect",
+			action = actions.network_inspect,
+			network = network,
+		}, parent:get_id())
+		M._update_or_add_node({
+			text = "   Menu",
+			id = network.id .. "/menu",
+			action = actions.network_menu,
+			network = network,
+		}, parent:get_id())
+		M._update_or_add_node({ text = " ------- ", id = network.id .. "/actions_sep" }, parent:get_id())
+		M._update_or_add_node(
+			{ text = " 󰻾 " .. result.ID, id = network.id .. "/id", network = network },
+			parent:get_id()
+		)
+		M._update_or_add_node(
+			{ text = " 󰩠 IPv6: " .. result.IPv6, id = network.id .. "/ipv6", network = network },
+			parent:get_id()
+		)
+		M._update_or_add_node(
+			{ text = " 󰙵 " .. result.Driver, id = network.id .. "/driver", network = network },
+			parent:get_id()
+		)
 	end
 
 	return networks
