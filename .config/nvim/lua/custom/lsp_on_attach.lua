@@ -121,6 +121,10 @@ M.on_attach = function(client, bufnr, ...)
 			vim.lsp.buf.clear_references()
 		end,
 	})
+
+	vim.api.nvim_buf_create_user_command(bufnr, "Format", function ()
+		vim.lsp.buf.format()
+	end, {})
 end
 
 return M
