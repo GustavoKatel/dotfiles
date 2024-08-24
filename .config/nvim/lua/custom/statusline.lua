@@ -65,7 +65,7 @@ lualine.setup({
 				end,
 			},
 		},
-		lualine_x = { { lualine_custom_winnr }, "fileformat", "filetype" },
+		lualine_x = { "rest", { lualine_custom_winnr }, "fileformat", "filetype" },
 		lualine_y = {},
 	},
 	inactive_sections = {

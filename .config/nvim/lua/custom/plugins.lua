@@ -104,19 +104,24 @@ require("lazy").setup({
 
 	-- markdown improved headers colors and visuals
 	{
-		"lukas-reineke/headlines.nvim",
-		dependencies = "nvim-treesitter/nvim-treesitter",
-		config = true, -- or `opts = {}`
+		"OXY2DEV/markview.nvim",
+		lazy = false, -- Recommended
+		-- ft = "markdown" -- If you decide to lazy-load anyway
+
+		dependencies = {
+			-- You will not need this if you installed the
+			-- parsers manually
+			-- Or if the parsers are in your $RUNTIMEPATH
+			"nvim-treesitter/nvim-treesitter",
+
+			"nvim-tree/nvim-web-devicons",
+		},
 	},
-	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		build = "cd app && npm install",
-		init = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-		end,
-		ft = { "markdown" },
-	},
+	-- {
+	-- 	"lukas-reineke/headlines.nvim",
+	-- 	dependencies = "nvim-treesitter/nvim-treesitter",
+	-- 	config = true, -- or `opts = {}`
+	-- },
 
 	-- user_profile.with_profile_table({
 	-- 	work = {},
@@ -362,6 +367,12 @@ require("lazy").setup({
 		},
 		ft = "hurl",
 		opts = require("custom.plugins.hurl"),
+	},
+	{
+		"rest-nvim/rest.nvim",
+		init = function()
+			vim.g.rest_nvim = {}
+		end
 	},
 	-- }}}
 

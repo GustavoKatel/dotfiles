@@ -27,10 +27,3 @@ vim.filetype.add({
 		coffee = "coffee",
 	},
 })
-
--- http files
-vim.filetype.add({
-	extension = {
-		http = "http",
-	},
-})
