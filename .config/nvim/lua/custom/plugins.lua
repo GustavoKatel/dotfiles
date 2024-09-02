@@ -219,6 +219,12 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ HUD
+	{
+		"rcarriga/nvim-notify",
+		init = function()
+			vim.notify = require("notify")
+		end,
+	},
 	{ "lewis6991/gitsigns.nvim" }, -- git information in the buffer lines
 	{
 		"nvim-tree/nvim-web-devicons",
@@ -372,7 +378,7 @@ require("lazy").setup({
 		"rest-nvim/rest.nvim",
 		init = function()
 			vim.g.rest_nvim = {}
-		end
+		end,
 	},
 	-- }}}
 
