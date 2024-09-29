@@ -216,6 +216,15 @@ require("lazy").setup({
 	{ "stevearc/oil.nvim" },
 
 	{ "kevinhwang91/nvim-bqf" },
+
+	{
+		"smjonas/live-command.nvim",
+		-- live-command supports semantic versioning via Git tags
+		-- tag = "2.*",
+		config = function()
+			require("live-command").setup()
+		end,
+	},
 	-- }}}
 
 	-- {{{ HUD
@@ -379,6 +388,10 @@ require("lazy").setup({
 		init = function()
 			vim.g.rest_nvim = {}
 		end,
+	},
+	{
+		"Ramilito/kubectl.nvim",
+		opts = require("custom.plugins.kubectl"),
 	},
 	-- }}}
 

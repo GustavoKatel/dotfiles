@@ -6,9 +6,9 @@
 -- augroup END
 -- ]])
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	group = vim.api.nvim_create_augroup("quickfixWindowSettings", { clear = true }),
-	pattern = { "qf" },
-	desc = "move quickfix window to the bottom",
-	command = "wincmd J",
-})
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+-- 	group = vim.api.nvim_create_augroup("quickfixWindowSettings", { clear = true }),
+-- 	pattern = { "qf" },
+-- 	desc = "move quickfix window to the bottom",
+-- 	command = "wincmd J",
+-- })

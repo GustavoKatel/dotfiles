@@ -106,5 +106,7 @@ export PATH="$PATH:$GOPATH/bin"
 
 . $(brew --prefix asdf)/libexec/asdf.sh
 
+. $HOME/export-esp.sh
+
 eval "$(starship init zsh)"
 

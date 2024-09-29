@@ -56,7 +56,8 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	-- buf_set_keymap("n", "<leader>k", "<cmd>lua require('custom.lsp_utils').cursor_hold(true)<CR>", opts)
 
-	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	-- buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	buf_set_keymap("n", "gi", "<cmd>Glance implementations<CR>", opts)
 
 	-- buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	-- buf_set_keymap("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
@@ -122,7 +123,7 @@ M.on_attach = function(client, bufnr, ...)
 		end,
 	})
 
-	vim.api.nvim_buf_create_user_command(bufnr, "Format", function ()
+	vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
 		vim.lsp.buf.format()
 	end, {})
 end

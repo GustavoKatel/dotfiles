@@ -128,29 +128,7 @@ function M.open_scratch_file_floating(opts)
 	end
 end
 
-function M.sync(opts)
-	if not M._opts.sync_upstream then
-		vim.notify("sync not enabled", vim.log.levels.INFO)
-		return
-	end
-
-	if opts.fargs[1] == "terminal" then
-		vim.cmd.split("term://" .. M._opts.location .. "//" .. vim.env.SHELL)
-		return
-	end
-
-	vim.cmd.split("term://" .. M._opts.location .. "//git add . && git commit -am sync; git pull && git push")
-end
-
 vim.api.nvim_create_user_command("ScratchOpenFloat", M.open_scratch_file_floating, {})
-vim.api.nvim_create_user_command("ScratchSync", M.sync, {
-	nargs = "?",
-	desc = "Syncronize local scratches",
-	complete = function()
-		-- return completion candidates as a list-like table
-		return { "terminal" }
-	end,
-})
 
 M.setup()
 

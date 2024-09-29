@@ -14,13 +14,32 @@ return {
 	bottom = {
 		-- toggleterm / lazyterm at the bottom with a height of 40% of the screen
 		"Trouble",
-		{ ft = "qf", title = "QuickFix" },
+		{
+			title = "QUICKFIX LIST",
+			filter = function(_, win)
+				return vim.fn.getwininfo(win)[1]["loclist"] ~= 1
+			end,
+			ft = "qf",
+		},
+		-- {
+		-- 	title = "LOCATION LIST",
+		-- 	filter = function(_, win)
+		-- 		return vim.fn.getwininfo(win)[1]["loclist"] == 1
+		-- 	end,
+		-- 	ft = "qf",
+		-- },
 		{
 			ft = "help",
 			size = { height = 20 },
 			-- only show help buffers
 			filter = function(buf)
 				return vim.bo[buf].buftype == "help"
+			end,
+			-- Indicate in the windbar which help file is currently open
+			title = function()
+				local bufname = vim.api.nvim_buf_get_name(0)
+				bufname = vim.fn.fnamemodify(bufname, ":t")
+				return string.format("HELP: %s", bufname)
 			end,
 		},
 		{ ft = "dbout", title = "DB Out" },

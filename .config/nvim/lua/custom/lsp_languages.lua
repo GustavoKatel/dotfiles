@@ -53,9 +53,9 @@ M.default_configs = {
 			format = { enable = true }, -- this will enable formatting
 		},
 	},
-	tsserver = {
+	vtsls = {
 		on_attach = function(client, bufnr, ...)
-			-- TODO: see if it's possible to disable in the tsserver configs 🤷
+			-- TODO: see if it's possible to disable in the vtsls configs 🤷
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false
 			return lsp_on_attach.on_attach(client, bufnr, ...)
