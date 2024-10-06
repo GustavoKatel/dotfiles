@@ -393,6 +393,10 @@ require("lazy").setup({
 		"Ramilito/kubectl.nvim",
 		opts = require("custom.plugins.kubectl"),
 	},
+	{
+		"sindrets/diffview.nvim",
+		opts = require("custom.plugins.diffview"),
+	},
 	-- }}}
 
 	-- {{{ sidebar
