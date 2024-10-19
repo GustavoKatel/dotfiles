@@ -72,8 +72,6 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions kubectl)
 
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -109,6 +107,7 @@ if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
     export PATH="/opt/homebrew/bin:$PATH"
 fi
 
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 source $HOME/.custom.zsh
 
