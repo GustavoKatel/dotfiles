@@ -181,9 +181,13 @@ vim.keymap.set({ "n" }, "<leader>g", function()
 	print("enter 2 char pattern: ")
 	require("hop").hint_char2()
 end)
-vim.keymap.set({ "n" }, "<leader>f", function()
+vim.keymap.set({ "n", "v" }, "<leader>f", function()
 	require("hop").hint_words()
 end)
+vim.keymap.set("o", "<leader>F", [[:<c-u>lua require 'tsht'.nodes()<cr>]], { silent = true, remap = true })
+vim.keymap.set({ "x" }, "<leader>F", [[:lua require 'tsht'.nodes()<cr>]], { silent = true })
+vim.keymap.set({ "n" }, "<leader>Fs", [[:lua require 'tsht'.move({ side = "start" })<cr>]], { silent = true })
+vim.keymap.set({ "n" }, "<leader>Fe", [[:lua require 'tsht'.move({ side = "end" })<cr>]], { silent = true })
 
 -- floaterm keybindings
 for _, code in ipairs({ "<A-F12>", "<M-F12>", "<F60>", create_special_keymap("af12", true, true) }) do

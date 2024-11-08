@@ -16,22 +16,42 @@ end)
 -- Equivalent to POSIX basename(3)
 -- Given "/foo/bar" returns "bar"
 -- Given "c:\\foo\\bar" returns "bar"
-function basename(s)
-	return string.gsub(s, "(.*[/\\])(.*)", "%2")
+local function basename(s)
+	-- Find the last occurrence of the path separator
+	local last_separator = s:match(".*[/\\](.*)")
+	-- If no separator is found, return the original path
+	if not last_separator then
+		return s
+	end
+	return last_separator
+end
+
+-- This function returns the suggested title for a tab.
+-- It prefers the title that was set via `tab:set_title()`
+-- or `wezterm cli set-tab-title`, but falls back to the
+-- title of the active pane in that tab.
+local function tab_title(tab_info)
+	local title = tab_info.tab_title
+	-- if the tab title is explicitly set, take that
+	if title and #title > 0 then
+		return title
+	end
+	-- Otherwise, use the title from the active pane
+	-- in that tab
+	local pane = tab_info.active_pane
+	local title = string.format(" %s: %s ", tab_info.tab_index, pane.title)
+
+	return title
 end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local pane = tab.active_pane
-	local title = string.format(" %s: %s ", tab.tab_index, basename(pane.current_working_dir))
-
-	-- local color = "navy"
-	-- if tab.is_active then
-	-- 	color = "blue"
-	-- end
-	-- return {
-	-- 	{ Background = { Color = color } },
-	-- 	{ Text = " " .. title .. " " },
-	-- }
+	local title = tab_title(tab)
+	if tab.is_active then
+		return {
+			-- { Background = { Color = 'blue' } },
+			{ Text = " " .. title .. " " },
+		}
+	end
 	return title
 end)
 
@@ -62,6 +82,7 @@ end
 local nvim_mappings = {
 	create_nvim_key_bind("p", "CTRL|SHIFT", "csp"),
 	create_nvim_key_bind("l", "CTRL|SHIFT", "csl"),
+	create_nvim_key_bind("i", "CTRL", "ci"),
 
 	create_nvim_key_bind("RightArrow", "SUPER", "mright"),
 	create_nvim_key_bind("LeftArrow", "SUPER", "mleft"),
@@ -81,18 +102,24 @@ config.use_ime = true
 
 config.enable_kitty_keyboard = true
 
+config.tab_max_width = 100
+
 ----------------
 -- Appearance --
 ----------------
-config.window_background_opacity = 0.7
+config.window_background_opacity = 0.96
 
 config.font = wezterm.font({
 	family = "JetBrainsMono Nerd Font",
 	-- disable ligatures
 	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
-	weight = "DemiBold",
+	weight = "Bold",
 })
-config.font_size = 12.4
+-- config.font_size = 12.4
+config.front_end = "OpenGL"
+config.freetype_load_target = "Light"
+config.freetype_render_target = "HorizontalLcd"
+config.cell_width = 0.9
 -- disable italic?
 
 config.window_padding = {
@@ -106,7 +133,7 @@ config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.enable_scroll_bar = false
 
-config.color_scheme = "kanagawabones"
+config.color_scheme = "Kanagawa (Gogh)"
 
 -------------
 -- Domains --
@@ -238,10 +265,10 @@ config.keys = {
 		mods = "LEADER",
 		action = act.SwitchToWorkspace({
 			name = "dots",
-			-- spawn = {
-			-- 	args = { "/opt/homebrew/bin/nvim" },
-			-- 	cwd = wezterm.home_dir .. "/.config/nvim",
-			-- },
+			spawn = {
+				-- args = { "/opt/homebrew/bin/nvim" },
+				cwd = wezterm.home_dir .. "/.config/nvim",
+			},
 		}),
 	},
 
@@ -263,6 +290,9 @@ config.keys = {
 					window:perform_action(
 						act.SwitchToWorkspace({
 							name = line,
+							spawn = {
+								cwd = wezterm.home_dir,
+							},
 						}),
 						pane
 					)
@@ -275,7 +305,7 @@ config.keys = {
 		key = "f",
 		mods = "LEADER",
 		action = wezterm.action.SpawnCommandInNewTab({
-			args = {  "fd", "--type", "d", "--max-depth", "1", "''" , "~/dev", " | fzf" },
+			args = { "~/dotfiles/dev/wez-windowizer.sh" },
 		}),
 	},
 

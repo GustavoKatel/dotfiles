@@ -47,7 +47,7 @@ M.default_configs = {
 			-- the resolved capabilities of the eslint server ourselves!
 			client.server_capabilities.documentFormattingProvider = true
 			client.server_capabilities.documentRangeFormattingProvider = true
-			return lsp_on_attach.on_attach(client, bufnr, ...)
+			-- return lsp_on_attach.on_attach(client, bufnr, ...)
 		end,
 		settings = {
 			format = { enable = true }, -- this will enable formatting
@@ -58,7 +58,7 @@ M.default_configs = {
 			-- TODO: see if it's possible to disable in the vtsls configs 🤷
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false
-			return lsp_on_attach.on_attach(client, bufnr, ...)
+			-- return lsp_on_attach.on_attach(client, bufnr, ...)
 		end,
 		settings = {
 			typescript = {

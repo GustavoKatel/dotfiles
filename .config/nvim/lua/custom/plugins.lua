@@ -210,6 +210,7 @@ require("lazy").setup({
 			require("hop").setup({})
 		end,
 	},
+	{ "mfussenegger/nvim-treehopper" },
 	{ "google/vim-searchindex" }, -- better search results
 	{ "tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
 

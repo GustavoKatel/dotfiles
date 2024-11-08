@@ -37,9 +37,9 @@ treesitter_config.setup({
 		enable = true,
 		keymaps = {
 			init_selection = "<leader>l",
-			node_incremental = "<leader>l",
+			node_incremental = "l",
 			scope_incremental = "grc",
-			node_decremental = "<leader>p",
+			node_decremental = "L",
 		},
 	},
 	textobjects = {
