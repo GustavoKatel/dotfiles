@@ -39,7 +39,7 @@ local function tab_title(tab_info)
 	-- Otherwise, use the title from the active pane
 	-- in that tab
 	local pane = tab_info.active_pane
-	local title = string.format(" %s: %s ", tab_info.tab_index, pane.title)
+	local title = string.format(" %s: %s ", tab_info.tab_index + 1, pane.title)
 
 	return title
 end
@@ -52,7 +52,10 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 			{ Text = " " .. title .. " " },
 		}
 	end
-	return title
+
+	return {
+		{ Text = title .. " | " },
+	}
 end)
 
 local function create_nvim_key_bind(key, mods, code)
@@ -120,6 +123,7 @@ config.front_end = "OpenGL"
 config.freetype_load_target = "Light"
 config.freetype_render_target = "HorizontalLcd"
 config.cell_width = 0.9
+config.max_fps = 120
 -- disable italic?
 
 config.window_padding = {
