@@ -107,6 +107,8 @@ config.enable_kitty_keyboard = true
 
 config.tab_max_width = 100
 
+config.debug_key_events = false
+
 ----------------
 -- Appearance --
 ----------------
@@ -195,6 +197,9 @@ config.disable_default_key_bindings = true
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 
 config.keys = {
+	-- LEADER-d activates the debug overlay
+	{ key = "d", mods = "LEADER", action = wezterm.action.ShowDebugOverlay },
+
 	-- create a new tab
 	{ key = "c", mods = "LEADER", action = act({ SpawnTab = "CurrentPaneDomain" }) },
 
@@ -311,6 +316,26 @@ config.keys = {
 		action = wezterm.action.SpawnCommandInNewTab({
 			args = { "~/dotfiles/dev/wez-windowizer.sh" },
 		}),
+	},
+
+	-- https://github.com/wez/wezterm/pull/5025#issuecomment-2491114061
+	{
+		key = "Delete",
+		action = wezterm.action_callback(function(win, pane)
+			local proc = pane:get_foreground_process_name()
+			if proc ~= "nvim" then
+				win:perform_action(
+					act.SendKey({
+						key = "Delete"
+					}),
+					pane
+				)
+				return
+			end
+
+			local key_code = utf8.char(0x1b) .. "[3;1~"
+			win:perform_action(act.SendString(key_code), pane)
+		end),
 	},
 
 	-- nvim custom keys
