@@ -325,7 +325,8 @@ require("lazy").setup({
 		"karb94/neoscroll.nvim",
 		config = function()
 			require("neoscroll").setup({})
-			neoscroll = require("neoscroll")
+
+			local neoscroll = require("neoscroll")
 			local keymap = {
 				["<PageUp>"] = function()
 					neoscroll.ctrl_u({ duration = 150 })
@@ -342,7 +343,13 @@ require("lazy").setup({
 	},
 	{
 		"sphamba/smear-cursor.nvim",
-		opts = {},
+		opts = {
+			-- Smear cursor when switching buffers
+			smear_between_buffers = true,
+
+			-- Smear cursor when moving within line or to neighbor lines
+			smear_between_neighbor_lines = false,
+		},
 	},
 	-- }}}
 
