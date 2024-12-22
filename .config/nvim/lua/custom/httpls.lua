@@ -36,7 +36,6 @@ function M.client_init(dispatchers)
 	return M
 end
 
-
 function M.request(method, params, callback, notify_reply_callback)
 	if M[method] ~= nil then
 		return M[method](method, params, callback, notify_reply_callback), nil
@@ -86,7 +85,7 @@ M["textDocument/codeLens"] = function(method, params, callback)
 
 	local ok, is_ignored = pcall(vim.api.nvim_buf_get_var, bufnr, "__rest_no_http_file")
 
-	if not ft or (ok and is_ignored ) then
+	if not ft or (ok and is_ignored) then
 		callback(nil, nil)
 		return true
 	end
@@ -119,7 +118,6 @@ M["textDocument/codeLens"] = function(method, params, callback)
 					arguments = {},
 				},
 			})
-
 
 			table.insert(codelenses, {
 				range = {

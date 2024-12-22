@@ -160,7 +160,7 @@ require("lazy").setup({
 	{ "github/copilot.vim" },
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
-		branch = "canary",
+		-- branch = "canary",
 		dependencies = {
 			{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
 			{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
@@ -214,7 +214,9 @@ require("lazy").setup({
 	{ "google/vim-searchindex" }, -- better search results
 	{ "tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
 
-	{ "stevearc/oil.nvim" },
+	{
+		"stevearc/oil.nvim",
+	},
 
 	{ "kevinhwang91/nvim-bqf" },
 
@@ -224,6 +226,16 @@ require("lazy").setup({
 		-- tag = "2.*",
 		config = function()
 			require("live-command").setup()
+		end,
+	},
+
+	{
+		"Wansmer/treesj",
+		keys = { "<space>m", "<space>j", "<space>s" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" }, -- if you install parsers with `nvim-treesitter`
+		config = function()
+			require("treesj").setup({--[[ your config ]]
+			})
 		end,
 	},
 	-- }}}
@@ -349,6 +361,11 @@ require("lazy").setup({
 
 			-- Smear cursor when moving within line or to neighbor lines
 			smear_between_neighbor_lines = false,
+
+			stiffness = 0.8, -- 0.6      [0, 1]
+			trailing_stiffness = 0.5, -- 0.3      [0, 1]
+			distance_stop_animating = 0.5, -- 0.1      > 0
+			hide_target_hack = false, -- true     boolean
 		},
 	},
 	-- }}}

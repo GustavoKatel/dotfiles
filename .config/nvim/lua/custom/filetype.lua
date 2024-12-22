@@ -27,3 +27,10 @@ vim.filetype.add({
 		coffee = "coffee",
 	},
 })
+
+-- psql files are plsql
+vim.filetype.add({
+	extension = {
+		psql = "plsql",
+	},
+})
