@@ -49,3 +49,5 @@ require("custom.iron_repl")
 
 -- require("custom.filenamels").setup()
 require("custom.httpls").setup()
+
+require("custom.overseer.overseer_local_project_config")

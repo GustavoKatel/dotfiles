@@ -166,7 +166,7 @@ end
 
 function M.dispatch_handlers(event, ...)
 	for _, handler in ipairs(M._handlers[event] or {}) do
-		handler(...)
+		vim.schedule_wrap(handler)(...)
 	end
 end
 

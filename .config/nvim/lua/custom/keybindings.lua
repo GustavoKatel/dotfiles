@@ -373,10 +373,20 @@ vim.keymap.set({ "n" }, "<F9>", function()
 	-- Run a task and immediately open the floating window
 	overseer.run_template({}, function(task)
 		if task then
-			overseer.run_action(task, "open float")
+			overseer.run_action(task, "open sticky")
 		end
 	end)
 end, { desc = "Run a task and immediately open the floating window" })
+
+vim.keymap.set({ "n" }, "<leader><F9>", function()
+	local overseer = require("overseer")
+	-- Run a task and immediately open the floating window
+	overseer.run_template({}, function(task)
+		if task then
+			overseer.run_action(task, "open float")
+		end
+	end)
+end, { desc = "Run a task and immediately open on the float window" })
 
 for _, code in ipairs({ "<S-F9>", "<F21>" }) do
 	vim.keymap.set({ "n" }, code, function()
@@ -386,7 +396,7 @@ for _, code in ipairs({ "<S-F9>", "<F21>" }) do
 			vim.notify("No tasks found", vim.log.levels.WARN)
 		else
 			overseer.run_action(tasks[1], "restart")
-			overseer.run_action(tasks[1], "open float")
+			overseer.run_action(tasks[1], "open sticky")
 		end
 	end, { desc = "Restart last task" })
 end
@@ -398,7 +408,7 @@ for _, code in ipairs({ "<D-F9>" }) do
 		if vim.tbl_isempty(tasks) then
 			vim.notify("No tasks found", vim.log.levels.WARN)
 		else
-			overseer.run_action(tasks[1], "open float")
+			overseer.run_action(tasks[1], "open sticky")
 		end
 	end, { desc = "Open output of the last task" })
 end
@@ -507,7 +517,7 @@ for i = 1, 4, 1 do
 end
 
 vim.keymap.set({ "n" }, "<leader>t", function()
-	require("harpoon.term").gotoTerminal(1)
+	require("custom.terminal").init_or_attach()
 	-- require("custom.terminal").init_or_attach()
 end)
 vim.keymap.set({ "n" }, "<leader>hc", function()

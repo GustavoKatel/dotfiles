@@ -114,7 +114,7 @@ M.default_configs = {
 	gopls = {
 		settings = {
 			gopls = {
-				buildFlags = { "-tags=runlet_integration_tests" },
+				buildFlags = {},
 				hints = {
 					assignVariableTypes = true,
 					compositeLiteralFields = true,
@@ -157,18 +157,52 @@ M.default_configs = {
 
 M.configs = vim.tbl_deep_extend("force", M.default_configs, {})
 
--- TODO: need to make sure that the timing of the load is correct
+-- config that activates keymaps and enables snippet support
+function M.make_config(server_name)
+	-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	capabilities.textDocument.foldingRange = vim.tbl_extend("force", capabilities.textDocument.foldingRange or {}, {
+		dynamicRegistration = false,
+		lineFoldingOnly = true,
+	})
+
+	local config = { capabilities = capabilities }
+
+	local server_config = M.configs[server_name] or {}
+
+	return vim.tbl_extend("force", server_config, config)
+end
+
 function M.load_local(project)
 	local project_lsp = project.lsp
 
 	-- M.configs = vim.tbl_deep_extend("force", M.default_configs, project_lsp)
 	if project_lsp then
-		vim.notify_once("found local lsp config, but they are not applied. TODO!", vim.log.levels.DEBUG)
+		for server_name, local_config in pairs(project_lsp) do
+			M.configs[server_name] = vim.tbl_deep_extend("force", M.configs[server_name], local_config)
+
+			local config = M.make_config(server_name)
+
+			local clients = vim.lsp.get_clients({ name = server_name })
+			for _, client in ipairs(clients) do
+				client.settings = config.settings
+				client.notify(vim.lsp.protocol.Methods.workspace_didChangeConfiguration, { settings = config.settings })
+			end
+		end
+
+		print("loaded local lsp configuration from project.nvim")
 	end
 end
 
-require("custom.project").register_on_load_handler(function(project)
-	M.load_local(project)
-end)
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("lsp_attach_local_config", { clear = true }),
+	callback = function()
+		require("custom.project").register_on_load_handler(function(project)
+			M.load_local(project)
+		end)
+
+		M.load_local(require("custom.project").current)
+	end,
+})
 
 return M

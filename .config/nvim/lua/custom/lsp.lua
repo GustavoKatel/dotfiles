@@ -27,28 +27,12 @@ require("null-ls").setup({
 
 --vim.lsp.set_log_level("debug")
 
--- config that activates keymaps and enables snippet support
-local function make_config(server_name)
-	-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
-	capabilities.textDocument.foldingRange = vim.tbl_extend("force", capabilities.textDocument.foldingRange or {}, {
-		dynamicRegistration = false,
-		lineFoldingOnly = true,
-	})
-
-	local config = { capabilities = capabilities }
-
-	local server_config = configs.configs[server_name] or {}
-
-	return vim.tbl_extend("force", server_config, config)
-end
-
 mason_lspconfig.setup_handlers({
 	-- The first entry (without a key) will be the default handler
 	-- and will be called for each installed server that doesn't have
 	-- a dedicated handler.
 	function(server_name) -- Default handler (optional)
-		local config = make_config(server_name)
+		local config = configs.make_config(server_name)
 		lspconfig[server_name].setup(config)
 	end,
 	-- You can provide targeted overrides for specific servers.
@@ -59,7 +43,7 @@ mason_lspconfig.setup_handlers({
 
 	lua_ls = function()
 		local server_name = "lua_ls"
-		local config = make_config(server_name)
+		local config = configs.make_config(server_name)
 		lspconfig[server_name].setup(config)
 	end,
 })

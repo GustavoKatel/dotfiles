@@ -27,6 +27,7 @@ require("lazy").setup({
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
+		"tamago324/nlsp-settings.nvim",
 	},
 
 	{
@@ -152,7 +153,7 @@ require("lazy").setup({
 			-- adapters
 			"haydenmeade/neotest-jest",
 			"nvim-neotest/neotest-plenary",
-			"nvim-neotest/neotest-go",
+			"fredrikaverpil/neotest-golang",
 			-- { dir = "~/dev/neotest-go" },
 		},
 	},
@@ -397,7 +398,7 @@ require("lazy").setup({
 	{ "nvim-telescope/telescope-github.nvim" },
 	{
 		"stevearc/overseer.nvim",
-		opts = require("custom.overseer"),
+		opts = require("custom.overseer.opts"),
 	},
 
 	{
