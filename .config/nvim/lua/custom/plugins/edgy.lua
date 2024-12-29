@@ -63,6 +63,12 @@ return {
 			pinned = true,
 			open = "Neotree position=right git_status",
 		},
+		{
+			title = "Task: History",
+			ft = "OverseerList",
+			pinned = true,
+			open = "OverseerOpen left",
+		},
 		-- {
 		-- 	title = "Docker",
 		-- 	ft = "dockerman",
