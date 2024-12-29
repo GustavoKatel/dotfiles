@@ -416,7 +416,7 @@ end
 for _, code in ipairs({ "<C-F9>", "<F33>" }) do
 	vim.keymap.set({ "n" }, code, function()
 		local overseer = require("overseer")
-		overseer.toggle()
+		overseer.toggle({ direction = "left" })
 	end, { desc = "Toggle the task list" })
 end
 
