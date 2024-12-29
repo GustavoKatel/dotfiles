@@ -124,6 +124,7 @@ M.default_configs = {
 					parameterNames = true,
 					rangeVariableTypes = true,
 				},
+				experimentalPostfixCompletions = true,
 				codelenses = {
 					gc_details = true,
 					generate = true,

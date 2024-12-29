@@ -542,9 +542,9 @@ snip_map("<c-k>", function()
 	end
 end)
 
--- <c-j> is my jump backwards key.
+-- <C-S-K> is my jump backwards key.
 -- this always moves to the previous item within the snippet
-snip_map("<c-j>", function()
+snip_map("<C-S-k>", function()
 	local ls = require("luasnip")
 	if ls.jumpable(-1) then
 		ls.jump(-1)

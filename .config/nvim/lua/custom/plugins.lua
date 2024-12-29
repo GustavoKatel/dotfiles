@@ -27,7 +27,6 @@ require("lazy").setup({
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
-		"tamago324/nlsp-settings.nvim",
 	},
 
 	{
@@ -298,7 +297,10 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{ "L3MON4D3/LuaSnip" },
+	{
+		"L3MON4D3/LuaSnip",
+		dependencies = { "rafamadriz/friendly-snippets" },
+	},
 	-- override vim.ui
 	{
 		"stevearc/dressing.nvim",
