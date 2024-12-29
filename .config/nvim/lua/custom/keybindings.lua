@@ -518,7 +518,6 @@ end
 
 vim.keymap.set({ "n" }, "<leader>t", function()
 	require("custom.terminal").init_or_attach()
-	-- require("custom.terminal").init_or_attach()
 end)
 vim.keymap.set({ "n" }, "<leader>hc", function()
 	require("harpoon.cmd-ui").toggle_quick_menu() -- shows the commands menu
@@ -591,7 +590,11 @@ vim.keymap.set("n", "<leader>dd", ":Oil .<CR>")
 -- open in file dir
 vim.keymap.set("n", "<leader>df", ":Oil<CR>")
 -- open .scratches in the current folder
-vim.keymap.set("n", "<leader>ds", ":Oil .scratches<CR>")
+vim.keymap.set("n", "<leader>ds", function ()
+	require("custom.scratches").setup_local_folder()
+	require("oil").open(".scratches")
+end)
+vim.keymap.set("n", "<leader>dp", ":Oil .nvim<CR>")
 
 -- change inside word with ctrl+i
 vim.keymap.set("n", create_special_keymap("ci"), "ciw")
