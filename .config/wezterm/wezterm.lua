@@ -84,6 +84,7 @@ end
 
 local nvim_mappings = {
 	create_nvim_key_bind("p", "CTRL|SHIFT", "csp"),
+	create_nvim_key_bind("p", "CMD|SHIFT", "msp"),
 	create_nvim_key_bind("l", "CTRL|SHIFT", "csl"),
 	create_nvim_key_bind("i", "CTRL", "ci"),
 
@@ -326,7 +327,7 @@ config.keys = {
 			if proc ~= "nvim" then
 				win:perform_action(
 					act.SendKey({
-						key = "Delete"
+						key = "Delete",
 					}),
 					pane
 				)
