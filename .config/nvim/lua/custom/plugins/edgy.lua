@@ -66,7 +66,7 @@ return {
 		{
 			title = "Task: History",
 			ft = "OverseerList",
-			pinned = false,
+			pinned = true,
 			open = "OverseerOpen left",
 		},
 		-- {
