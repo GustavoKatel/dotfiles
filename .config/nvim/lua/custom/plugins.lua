@@ -243,6 +243,9 @@ require("lazy").setup({
 	-- {{{ HUD
 	{
 		"rcarriga/nvim-notify",
+		opts = {
+			level = vim.log.levels.INFO
+		},
 		init = function()
 			vim.notify = require("notify")
 		end,
@@ -272,7 +275,6 @@ require("lazy").setup({
 						"help",
 						"man",
 						"mason",
-						"SidebarNvim",
 						"oil_preview",
 					},
 				},
@@ -446,15 +448,6 @@ require("lazy").setup({
 		opts = require("custom.plugins.diffview"),
 	},
 	-- }}}
-
-	-- {{{ sidebar
-	-- user_profile.with_profile_table({
-	-- 	default = { "sidebar-nvim/sidebar.nvim" },
-	-- 	test = { dir = "/Users/gustavokatel/dev/sidebar.nvim" },
-	-- }),
-	--
-	-- { "GustavoKatel/dap-sidebar.nvim" },
-	--{ dir = "/Users/gustavokatel/dev/dap-sidebar.nvim" },
 
 	--user_profile.with_profile_fn("personal", use, { dir = "/Users/gustavokatel/dev/uprofile.nvim" })
 	--user_profile.with_profile_fn("work", use, { "GustavoKatel/uprofile.nvim" })

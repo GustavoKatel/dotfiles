@@ -23,7 +23,7 @@ function M.load(project)
 		end
 	end
 
-	print("loaded dap configuration from project.nvim")
+	vim.notify("loaded dap configuration from project.nvim", vim.log.levels.DEBUG)
 end
 
 require("custom.project").register_on_load_handler(function(project)

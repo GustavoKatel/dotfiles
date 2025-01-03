@@ -5,7 +5,7 @@ function M.load(project)
 
 	vim.g.dbs = project_dbs
 
-	print("loaded dbs configuration from project.nvim")
+	vim.notify("loaded dbs configuration from project.nvim", vim.log.levels.DEBUG)
 end
 
 require("custom.project").register_on_load_handler(function(project)

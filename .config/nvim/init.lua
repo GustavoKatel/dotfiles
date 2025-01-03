@@ -22,7 +22,6 @@ require("custom.lib_files")
 
 require("custom.harpoon_setup")
 
--- require("custom.sidebar")
 require("custom.folding_utils")
 
 require("custom.colorscheme")

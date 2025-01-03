@@ -19,6 +19,12 @@ local opts = {
 		},
 	},
 
+	task_list = {
+		bindings = {
+			["<C-CR>"] = "<CMD>OverseerQuickAction open sticky<CR>",
+		},
+	},
+
 	actions = {
 		["open sticky"] = {
 			desc = "Open the task output in the <leader>t terminal",
@@ -35,7 +41,6 @@ local opts = {
 				vim.api.nvim_win_call(winnr, function()
 					task:open_output()
 				end)
-
 			end,
 		},
 	},

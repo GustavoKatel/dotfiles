@@ -496,7 +496,6 @@ for code, mapping in pairs(debugger_bindings) do
 end
 
 -- toggle sidebar
--- vim.keymap.set({ "n" }, "<F3>", ":SidebarNvimToggle<CR>")
 vim.keymap.set({ "n" }, "<F3>", function()
 	require("edgy").toggle()
 end)

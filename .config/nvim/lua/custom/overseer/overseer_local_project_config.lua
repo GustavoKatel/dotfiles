@@ -1,7 +1,7 @@
 local overseer = require("overseer")
 
 local M = {
-	current_parser = nil
+	current_parser = nil,
 }
 
 require("custom.project").register_on_load_handler(function(project)
@@ -13,6 +13,7 @@ require("custom.project").register_on_load_handler(function(project)
 
 	if project.tasks.parser then
 		M.current_parser = { parser = require(project.tasks.parser) }
+		vim.notify("loaded overseer configuration from project.nvim", vim.log.levels.DEBUG)
 	end
 end)
 
@@ -21,6 +22,6 @@ overseer.add_template_hook({}, function(task_defn, util)
 		return
 	end
 
-	local component = vim.tbl_deep_extend("force", {"on_output_parse"}, M.current_parser)
+	local component = vim.tbl_deep_extend("force", { "on_output_parse" }, M.current_parser)
 	util.add_component(task_defn, component)
 end)

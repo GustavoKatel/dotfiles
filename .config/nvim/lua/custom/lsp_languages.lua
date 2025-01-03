@@ -174,6 +174,8 @@ function M.make_config(server_name)
 	return vim.tbl_extend("force", server_config, config)
 end
 
+M.attached = false
+
 function M.load_local(project)
 	local project_lsp = project.lsp
 
@@ -191,18 +193,22 @@ function M.load_local(project)
 			end
 		end
 
-		print("loaded local lsp configuration from project.nvim")
+		vim.notify("loaded lsp configuration from project.nvim", vim.log.levels.DEBUG)
 	end
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp_attach_local_config", { clear = true }),
 	callback = function()
+		if M.attached then
+			return
+		end
+
+		M.attached = true
+
 		require("custom.project").register_on_load_handler(function(project)
 			M.load_local(project)
 		end)
-
-		M.load_local(require("custom.project").current)
 	end,
 })
 
