@@ -151,3 +151,13 @@ vim.api.nvim_create_autocmd({ "VimResized", "VimResume" }, {
 	group = "autoresizebuffers",
 	command = "wincmd =",
 })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank({
+			higroup = "IncSearch",
+			timeout = 40,
+		})
+	end,
+})
