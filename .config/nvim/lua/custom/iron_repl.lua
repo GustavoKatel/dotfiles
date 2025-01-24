@@ -11,6 +11,12 @@ iron.setup({
 				-- returns a table (see below)
 				command = { "zsh" },
 			},
+
+			bash = {
+				-- Can be a table or a function that
+				-- returns a table (see below)
+				command = { "zsh" },
+			},
 		},
 		-- How the repl window will be displayed
 		-- See below for more information
@@ -52,7 +58,7 @@ iron.setup({
 vim.api.nvim_create_user_command("IronSend", function(args)
 	local ft = vim.bo.filetype
 
-	local data = vim.api.nvim_buf_get_lines(0, args.line1-1, args.line2, false)
+	local data = vim.api.nvim_buf_get_lines(0, args.line1 - 1, args.line2, false)
 
 	-- iron.repl_for(ft)
 	iron.send(ft, data)

@@ -26,7 +26,6 @@ augroup
 autocmd
 config
 aucommand
-LspAttach
 ctx
 lsp-handler
 SemanticTokens

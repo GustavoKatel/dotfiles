@@ -51,7 +51,7 @@ require("lazy").setup({
 
 	{ "nvimtools/none-ls.nvim" },
 	{ "onsails/lspkind-nvim" },
-	{ "ray-x/lsp_signature.nvim" },
+	-- { "ray-x/lsp_signature.nvim" },
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
@@ -86,11 +86,6 @@ require("lazy").setup({
 			-- group = true, -- group results by file
 		},
 	},
-
-	{
-		"GustavoKatel/filename-ls",
-		opts = {},
-	},
 	-- }}}
 
 	-- {{{ language support
@@ -116,6 +111,8 @@ require("lazy").setup({
 
 			"nvim-tree/nvim-web-devicons",
 		},
+
+		opts = require("custom.plugins.markview"),
 	},
 	-- {
 	-- 	"lukas-reineke/headlines.nvim",
@@ -244,7 +241,7 @@ require("lazy").setup({
 	{
 		"rcarriga/nvim-notify",
 		opts = {
-			level = vim.log.levels.INFO
+			level = vim.log.levels.INFO,
 		},
 		init = function()
 			vim.notify = require("notify")

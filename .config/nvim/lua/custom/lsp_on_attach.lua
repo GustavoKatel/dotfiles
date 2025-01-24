@@ -15,16 +15,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+local function get_lsp_augroup(name, bufnr)
+	local group = vim.api.nvim_create_augroup(name, { clear = false })
+
+	vim.api.nvim_clear_autocmds({ group = group, buffer = bufnr })
+
+	return group
+end
+
 -- keymaps
 M.on_attach = function(client, bufnr, ...)
 	-- completion.on_attach(client, bufnr)
-	require("lsp_signature").on_attach({
-		bind = true, -- This is mandatory, otherwise border config won't get registered.
-		handler_opts = {
-			border = "single",
-		},
-		hint_prefix = "󰊕 ",
-	}, bufnr)
+	-- require("lsp_signature").on_attach({
+	-- 	bind = true, -- This is mandatory, otherwise border config won't get registered.
+	-- 	handler_opts = {
+	-- 		border = "single",
+	-- 	},
+	-- 	hint_prefix = "󰊕 ",
+	-- }, bufnr)
 
 	local function buf_set_keymap(mode, lhs, rhs, opts)
 		-- vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -68,14 +76,14 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 
 	vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-		group = vim.api.nvim_create_augroup("lsp_formatting", { clear = true }),
+		group = get_lsp_augroup("lsp_formatting", bufnr),
 		buffer = bufnr,
 		callback = function()
 			vim.lsp.buf.format({ bufnr = bufnr })
 		end,
 	})
 
-	local lsp_line_diagnostic_group = vim.api.nvim_create_augroup("lsp_line_diagnostic", { clear = true })
+	local lsp_line_diagnostic_group = get_lsp_augroup("lsp_line_diagnostic", bufnr)
 	vim.api.nvim_create_autocmd({ "CursorHold" }, {
 		group = lsp_line_diagnostic_group,
 		buffer = bufnr,
@@ -95,9 +103,9 @@ M.on_attach = function(client, bufnr, ...)
 
 	if has_code_lens then
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-			group = vim.api.nvim_create_augroup("lsp_codelens", { clear = true }),
+			group = get_lsp_augroup("lsp_codelens", bufnr),
 			buffer = bufnr,
-			callback = function()
+			callback = function(event)
 				vim.lsp.codelens.refresh({ bufnr = bufnr })
 			end,
 		})
@@ -105,7 +113,7 @@ M.on_attach = function(client, bufnr, ...)
 
 	vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
-	local document_highlight_group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+	local document_highlight_group = get_lsp_augroup("lsp_document_highlight", bufnr)
 	vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 		group = document_highlight_group,
 		buffer = bufnr,
