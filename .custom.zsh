@@ -104,7 +104,7 @@ eval "$(rbenv init - zsh)"
 export PATH="$GOROOT/bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
 
-. $(brew --prefix asdf)/libexec/asdf.sh
+# . $(brew --prefix asdf)/libexec/asdf.sh
 
 . $HOME/export-esp.sh
 
