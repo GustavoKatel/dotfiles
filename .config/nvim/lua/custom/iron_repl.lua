@@ -9,13 +9,15 @@ iron.setup({
 			sh = {
 				-- Can be a table or a function that
 				-- returns a table (see below)
-				command = { "zsh" },
+				command = { "zsh", "-s" },
+				format = require("iron.fts.common").bracketed_paste,
 			},
 
 			bash = {
 				-- Can be a table or a function that
 				-- returns a table (see below)
-				command = { "zsh" },
+				command = { "zsh", "-s" },
+				format = require("iron.fts.common").bracketed_paste,
 			},
 		},
 		-- How the repl window will be displayed
@@ -61,6 +63,7 @@ vim.api.nvim_create_user_command("IronSend", function(args)
 	local data = vim.api.nvim_buf_get_lines(0, args.line1 - 1, args.line2, false)
 
 	-- iron.repl_for(ft)
+	iron.focus_on(ft)
 	iron.send(ft, data)
 end, {
 	desc = "Open a repl, if in visual, send the current selection to a repl",

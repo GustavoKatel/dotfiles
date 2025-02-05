@@ -137,6 +137,9 @@ function M.load()
 				err = pasync.uv.fs_close(fd)
 				assert(not err, err)
 
+				data = vim.trim(data)
+				data = data == "" and "{}" or data
+
 				local ok, project = pcall(vim.json.decode, data)
 				assert(
 					ok,

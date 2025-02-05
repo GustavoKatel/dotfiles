@@ -53,6 +53,7 @@ return {
 			{
 				command = "ts_ls.run_code_block",
 				callback = function(arguments)
+					require("iron.core").focus_on(arguments.ft)
 					require("iron.core").send(arguments.ft, arguments.code)
 				end,
 			},
@@ -65,6 +66,7 @@ return {
 			{
 				command = "ts_ls.run_code_block",
 				callback = function(arguments)
+					require("iron.core").focus_on(arguments.ft)
 					require("iron.core").send(arguments.ft, arguments.code)
 				end,
 			},

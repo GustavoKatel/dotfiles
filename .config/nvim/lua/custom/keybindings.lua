@@ -589,11 +589,19 @@ vim.keymap.set("n", "<leader>dd", ":Oil .<CR>")
 -- open in file dir
 vim.keymap.set("n", "<leader>df", ":Oil<CR>")
 -- open .scratches in the current folder
-vim.keymap.set("n", "<leader>ds", function ()
+vim.keymap.set("n", "<leader>ds", function()
 	require("custom.scratches").setup_local_folder()
 	require("oil").open(".scratches")
 end)
-vim.keymap.set("n", "<leader>dp", ":Oil .nvim<CR>")
+vim.keymap.set("n", "<leader>dp", function()
+	local p = vim.fs.root(0, { ".nvim" })
+
+	require("oil").open(vim.fs.joinpath(p, ".nvim"))
+end)
+vim.keymap.set("n", "<leader>dP", function()
+	vim.fn.mkdir(".nvim", "p")
+	vim.cmd.edit(".nvim/project.json")
+end)
 
 -- change inside word with ctrl+i
 vim.keymap.set("n", create_special_keymap("ci"), "ciw")
