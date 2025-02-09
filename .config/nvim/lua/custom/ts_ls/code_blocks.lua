@@ -21,7 +21,8 @@ local code_block_handler = function(match, query, metadata, info)
 			end
 
 			if name == "code_fence" then
-				local row1, col1, row2, col2 = node:range() -- range of the capture
+				local row1, col1, row2, col2 =
+					vim.treesitter.get_node_range(vim.treesitter.get_range(node, info.bufnr, mt))
 
 				local lens = {
 					title = "Run code block",

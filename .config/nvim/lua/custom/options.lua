@@ -116,6 +116,8 @@ vim.g.AutoPairsShortcutToggle = ""
 
 vim.g.dashboard_default_executive = "telescope"
 
+vim.o.diffopt = "internal,filler,closeoff,linematch:60"
+
 ------------- START SPELL STUFF ---------
 -- TODO: spellsitter is checking against all string nodes, which is a lot for me
 -- refs:

@@ -149,7 +149,9 @@ require("lazy").setup({
 			-- adapters
 			"haydenmeade/neotest-jest",
 			"nvim-neotest/neotest-plenary",
-			"fredrikaverpil/neotest-golang",
+			{
+				"fredrikaverpil/neotest-golang",
+			},
 			-- { dir = "~/dev/neotest-go" },
 		},
 	},
@@ -407,6 +409,7 @@ require("lazy").setup({
 		dependencies = {
 			{ "tpope/vim-dadbod", lazy = true },
 			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+			{ "davesavic/dadbod-ui-yank", ft = { "dbout" }, lazy = true, opts = {} },
 		},
 		cmd = {
 			"DBUI",

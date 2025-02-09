@@ -197,7 +197,9 @@ function M.fetch_ts_handler(bufnr, lang, query_name, filename, range, handler)
 	end
 
 	for pattern, match, metadata in query:iter_matches(root, bufnr, start_row, end_row, { all = true }) do
-		for _, result in ipairs(handler(match, query, metadata, { filename = filename, bufnr = bufnr, ft = lang })) do
+		for _, result in
+			ipairs(handler(match, query, metadata, { filename = filename, bufnr = bufnr, ft = lang, range = range }))
+		do
 			table.insert(results, result)
 		end
 	end

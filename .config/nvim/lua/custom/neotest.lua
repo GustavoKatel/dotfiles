@@ -27,6 +27,7 @@ neotest.setup({
 			width = 180,
 		},
 	},
+	log_level = vim.log.levels.DEBUG,
 	adapters = {
 		require("neotest-plenary"),
 		require("neotest-golang")({
