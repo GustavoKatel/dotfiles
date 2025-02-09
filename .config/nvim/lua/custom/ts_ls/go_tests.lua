@@ -46,6 +46,7 @@ local custom_tests_handler = function(match, query, metadata, info)
 					start = { line = row1, character = col1 },
 					["end"] = { line = row2, character = col2 },
 				}
+				lens.command.arguments.range = lens.range
 
 				if info.range == nil or (info.range.start.line >= row1 and info.range["end"].line <= row2) then
 					table.insert(lenses, lens)
@@ -65,7 +66,7 @@ local custom_tests_handler = function(match, query, metadata, info)
 	return lenses
 end
 
-local function run_test(path, test_parent_name, test_name)
+local function run_test(path, test_parent_name, test_name, range)
 	local overseer = require("overseer")
 
 	local args = {
@@ -75,13 +76,17 @@ local function run_test(path, test_parent_name, test_name)
 		"-race",
 		vim.fs.joinpath(path, "..."),
 		"-run",
-		"^TestSuite/" .. test_parent_name .. "/" .. test_name,
+		".*/" .. test_parent_name .. "/" .. test_name,
 	}
 
 	local task = overseer.new_task({
 		cmd = { "go" },
 		args = args,
-		components = { "default" },
+		components = {
+			{ "custom.task_indicator" },
+			"default",
+		},
+		metadata = { bufnr = vim.api.nvim_get_current_buf(), range = range },
 	})
 	task:start()
 	overseer.run_action(task, "open sticky")
@@ -96,7 +101,7 @@ local function debug_test(path, test_parent_name, test_name)
 		program = path,
 		args = {
 			"-test.run",
-			"^TestSuite/" .. test_parent_name .. "/" .. test_name,
+			".*/" .. test_parent_name .. "/" .. test_name,
 		},
 	})
 end
@@ -108,7 +113,7 @@ return {
 			{
 				command = "ts_ls.custom_tests.run",
 				callback = function(arguments)
-					run_test(arguments.path, arguments.test_parent_name, arguments.test_name)
+					run_test(arguments.path, arguments.test_parent_name, arguments.test_name, arguments.range)
 				end,
 			},
 			{
@@ -126,7 +131,7 @@ return {
 			{
 				command = "ts_ls.custom_tests.run",
 				callback = function(arguments)
-					run_test(arguments.path, arguments.test_parent_name, arguments.test_name)
+					run_test(arguments.path, arguments.test_parent_name, arguments.test_name, arguments.range)
 				end,
 			},
 			{
