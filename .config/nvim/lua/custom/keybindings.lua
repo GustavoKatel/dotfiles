@@ -331,7 +331,34 @@ end)
 
 -- telescope global search
 for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-f>", create_special_keymap("mf") }) do
-	vim.keymap.set({ "n" }, code, function()
+	vim.keymap.set({ "n", "v" }, code, function()
+		local default_text = ""
+
+		local mode = vim.fn.mode()
+		if mode == "v" or mode == "V" or mode == "" then
+			-- Get the start and end positions of the selected text
+			local start_pos = vim.fn.getpos("v")
+			local end_pos = vim.fn.getpos(".")
+
+			-- Convert the positions to zero-indexed
+			local start_row = start_pos[2] - 1
+			local start_col = start_pos[3] - 1
+			local end_row = end_pos[2] - 1
+			local end_col = end_pos[3]
+
+			-- Get the selected text
+			default_text = table.concat(vim.api.nvim_buf_get_text(0, start_row, start_col, end_row, end_col, {}), "\n")
+			P({
+				default_text = default_text or "nil",
+				start_pos = start_pos,
+				end_pos = end_pos,
+				start_row = start_row,
+				start_col = start_col,
+				end_row = end_row,
+				end_col = end_col,
+			})
+		end
+
 		local rg_arguments = {}
 
 		for k, arg in pairs(require("telescope.config").values.vimgrep_arguments) do
@@ -356,7 +383,10 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-f>", create_special_k
 			table.insert(rg_arguments, arg)
 		end
 
-		require("telescope").extensions.live_grep_args.live_grep_args({ vimgrep_arguments = rg_arguments })
+		require("telescope").extensions.live_grep_args.live_grep_args({
+			vimgrep_arguments = rg_arguments,
+			default_text = default_text,
+		})
 	end)
 end
 
