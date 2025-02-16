@@ -66,13 +66,22 @@ require("lazy").setup({
 	},
 	{ "j-hui/fidget.nvim", tag = "legacy" },
 	{
-		"hedyhli/outline.nvim",
-		lazy = true,
-		cmd = { "Outline", "OutlineOpen" },
+		"bassamsdata/namu.nvim",
 		opts = {
-			symbol_folding = {
-				-- Depth past which nodes will be folded by default. Set to false to unfold all on open.
-				autofold_depth = 5,
+			-- Enable the modules you want
+			namu_symbols = {
+				enable = true,
+				options = {
+					display = {
+						mode = "icon",
+						padding = 2, -- Padding around displayed symbols
+					},
+					preview = {
+						highlight_on_move = false, -- Highlight symbols as you move
+						-- the below one is not working correctly
+						highlight_mode = "select", -- "always" | "select" (only highlight when selecting)
+					},
+				},
 			},
 		},
 	},

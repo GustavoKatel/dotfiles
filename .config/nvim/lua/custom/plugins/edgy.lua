@@ -50,11 +50,6 @@ return {
 			title = "DBUI",
 		},
 		{
-			ft = "Outline",
-			pinned = false,
-			open = "Outline",
-		},
-		{
 			title = "Neo-Tree Git",
 			ft = "neo-tree",
 			filter = function(buf)

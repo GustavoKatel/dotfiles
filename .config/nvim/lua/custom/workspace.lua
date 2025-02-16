@@ -12,10 +12,6 @@ local function disable_ts_context()
 	require("treesitter-context").disable()
 end
 
-local function close_all_outline_buffers()
-	require("outline").close()
-end
-
 local function close_dadbod_ui()
 	vim.cmd("DBUIClose")
 end
@@ -27,7 +23,7 @@ end
 autosession.setup({
 	auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
 	auto_session_enabled = true,
-	pre_save_cmds = { disable_ts_context, close_all_outline_buffers, close_dadbod_ui, close_edgy },
+	pre_save_cmds = { disable_ts_context, close_dadbod_ui, close_edgy },
 	post_save_cmds = {},
 	post_delete_cmds = {},
 	post_restore_cmds = {},

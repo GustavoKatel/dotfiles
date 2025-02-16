@@ -691,8 +691,8 @@ vim.keymap.set(
 
 -- Code navigation
 vim.keymap.set("n", "<F10>", function()
-	require("outline").toggle({ focus_outline = false })
-end, { desc = "Outline: Toggle code outline" })
+	require("namu.namu_symbols").show()
+end, { desc = "Open code outline" })
 
 vim.keymap.set("n", "]g", function()
 	require("gitsigns").next_hunk({ preview = true })

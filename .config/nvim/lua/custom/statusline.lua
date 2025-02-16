@@ -44,7 +44,7 @@ lualine.setup({
 		section_separators = "",
 		component_separators = "|",
 		disabled_filetypes = { -- Filetypes to disable lualine for.
-			statusline = { "Outline", "neo-tree", "dbui", "notifications", "dockerman", "OverseerList" }, -- only ignores the ft for statusline.
+			statusline = { "neo-tree", "dbui", "notifications", "dockerman", "OverseerList" }, -- only ignores the ft for statusline.
 		},
 	},
 	sections = {
