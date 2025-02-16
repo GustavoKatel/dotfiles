@@ -114,8 +114,6 @@ vim.g.vim_json_conceal = 0
 
 vim.g.AutoPairsShortcutToggle = ""
 
-vim.g.dashboard_default_executive = "telescope"
-
 vim.o.diffopt = "internal,filler,closeoff,linematch:60"
 
 ------------- START SPELL STUFF ---------

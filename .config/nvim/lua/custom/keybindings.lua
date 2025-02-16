@@ -257,52 +257,48 @@ vim.api.nvim_create_autocmd("TermClose", {
 --v.nnoremap({ "<buffer>", "<C-q>" }, ":bd!<CR>")
 --end)
 
--- telescope files
-local function telescope_files(with_gitignored)
-	local telescope = require("telescope.builtin")
-
-	local cmd = { "rg", "--files", "--hidden" }
-
-	if with_gitignored then
-		table.insert(cmd, "--no-ignore")
-	end
-
-	local cmd_args = {
-		"-g",
-		"!node_modules/**/*",
-		"-g",
-		"!venv/**/*",
-		"-g",
-		"!.git/**/*",
-		"-g",
-		"!dist/**/*",
+-- picker files
+local function pick_files(with_gitignored)
+	local opts = {
+		finder = "files",
+		format = "file",
+		show_empty = true,
+		ignored = false,
+		follow = false,
+		supports_live = true,
+		hidden = true,
+		exclude = {
+			"node_modules/**/*",
+			"venv/**/*",
+			".git/**/*",
+			"dist/**/*",
+		},
 	}
-
-	for _, arg in pairs(cmd_args) do
-		table.insert(cmd, arg)
+	if with_gitignored then
+		opts.ignored = true
 	end
-
-	print(vim.inspect(cmd))
-
-	telescope.find_files({ --[[ previewer = false, ]]
-		find_command = cmd,
+	require("snacks").picker.smart({
+		multi = {
+			"buffers",
+			opts,
+		},
 	})
 end
 
 for _, code in ipairs({ "<C-p>", "<D-p>", create_special_keymap("mp") }) do
 	vim.keymap.set({ "n" }, code, function()
-		telescope_files(false)
+		pick_files(false)
 	end)
 end
 
--- telescope files, but with hidden+ignored files
+-- picker files, but with hidden+ignored files
 for _, code in ipairs({ "<M-p>", "<A-p>" }) do
 	vim.keymap.set({ "n" }, code, function()
-		telescope_files(true)
+		pick_files(true)
 	end)
 end
 
--- telescope commands
+-- picker commands
 for _, code in ipairs({
 	"<C-S-P>",
 	"<S-D-p>",
@@ -312,24 +308,21 @@ for _, code in ipairs({
 	create_special_keymap("msp"),
 }) do
 	vim.keymap.set({ "n" }, code, function()
-		local telescope = require("telescope.builtin")
-		telescope.builtin()
+		require("snacks").picker()
 	end)
 end
 
--- telescope buffers
+-- picker buffers
 vim.keymap.set({ "n" }, "<C-b>", function()
-	local telescope = require("telescope.builtin")
-	telescope.buffers()
+	require("snacks").picker.buffers()
 end)
 
--- telescope spell suggestions
+-- picker spell suggestions
 vim.keymap.set({ "n" }, "z=", function()
-	local telescope = require("telescope.builtin")
-	telescope.spell_suggest()
+	require("snacks").picker.spelling()
 end)
 
--- telescope global search
+-- picker global search
 for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-f>", create_special_keymap("mf") }) do
 	vim.keymap.set({ "n", "v" }, code, function()
 		local default_text = ""
@@ -359,45 +352,28 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-f>", create_special_k
 			})
 		end
 
-		local rg_arguments = {}
-
-		for k, arg in pairs(require("telescope.config").values.vimgrep_arguments) do
-			rg_arguments[k] = arg
-		end
-
-		table.insert(rg_arguments, "--hidden")
-		table.insert(rg_arguments, "--no-ignore")
-
-		local cmd_args = {
-			"-g",
-			"!node_modules/**/*",
-			"-g",
-			"!venv/**/*",
-			"-g",
-			"!.git/**/*",
-			"-g",
-			"!dist/**/*",
-		}
-
-		for _, arg in pairs(cmd_args) do
-			table.insert(rg_arguments, arg)
-		end
-
-		require("telescope").extensions.live_grep_args.live_grep_args({
-			vimgrep_arguments = rg_arguments,
-			default_text = default_text,
+		require("snacks").picker.grep({
+			search = default_text,
+			hidden = true,
+			ignore = false,
+			exclude = {
+				"node_modules/**/*",
+				"venv/**/*",
+				".git/**/*",
+				"dist/**/*",
+			},
 		})
 	end)
 end
 
--- telescope lsp symbols
+-- picker lsp symbols
 for _, code in ipairs({ "<D-g>", "<C-g>", create_special_keymap("dg") }) do
 	vim.keymap.set({ "n" }, code, function()
-		require("telescope.builtin").lsp_dynamic_workspace_symbols()
+		require("snacks").picker.lsp_workspace_symbols()
 	end)
 end
 
--- telescope tasks
+-- tasks
 vim.keymap.set({ "n" }, "<F9>", function()
 	local overseer = require("overseer")
 	-- Run a task and immediately open the floating window
@@ -450,32 +426,28 @@ for _, code in ipairs({ "<C-F9>", "<F33>" }) do
 	end, { desc = "Toggle the task list" })
 end
 
--- telescope select/change filetype
+-- select/change filetype
 for _, code in ipairs({ "<C-S-L>", "<S-D-L>", "<D-L>", second_leader .. "l", create_special_keymap("csl") }) do
 	vim.keymap.set({ "n" }, code, function()
-		local telescope = require("telescope.builtin")
-		telescope.filetypes()
+		local fts = vim.fn.getcompletion("", "filetype")
+		vim.ui.select(fts, {
+			prompt = "Select Filetype: ",
+		}, function(choice)
+			if choice ~= nil then
+				vim.cmd("set filetype=" .. choice)
+			end
+		end)
 	end)
 end
 
--- telescope help_tags with f1
+-- picker help_tags with f1
 vim.keymap.set({ "n" }, "<F1>", function()
-	local telescope = require("telescope.builtin")
-	telescope.help_tags()
+	require("snacks").picker.help()
 end)
 
 -- undo with ctrl/cmd-z in insert mode
 vim.keymap.set({ "i" }, "<C-z>", "<ESC>ui")
 vim.keymap.set({ "i" }, "<D-z>", "<ESC>ui")
-
--- dap mappings
--- telescope
--- TODO: move this to tasks.nvim
---for _, code in ipairs({ "<F9>" }) do
---vim.keymap.set({ "n" }, code, function()
---require("telescope").extensions.dap.commands()
---end)
---end
 
 vim.keymap.set({ "n" }, "<leader>b", function()
 	require("dap").toggle_breakpoint()
@@ -691,7 +663,7 @@ vim.keymap.set(
 
 -- Code navigation
 vim.keymap.set("n", "<F10>", function()
-	require("namu.namu_symbols").show()
+	require("snacks").picker.lsp_symbols()
 end, { desc = "Open code outline" })
 
 vim.keymap.set("n", "]g", function()

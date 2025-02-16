@@ -64,30 +64,6 @@ return {
 			pinned = true,
 			open = "OverseerOpen left",
 		},
-		-- {
-		-- 	title = "Docker",
-		-- 	ft = "dockerman",
-		-- 	pinned = true,
-		-- 	open = function()
-		-- 		require("custom.dockerman").open()
-		-- 	end,
-		-- 	wo = {
-		-- 		number = false,
-		-- 		relativenumber = false,
-		-- 	},
-		-- },
-		{
-			title = "Notifications",
-			ft = "notifications",
-			pinned = true,
-			open = function()
-				require("custom.notify").open()
-			end,
-			wo = {
-				number = false,
-				relativenumber = false,
-			},
-		},
 		{
 			title = "Neo-Tree Buffers",
 			ft = "neo-tree",

@@ -68,7 +68,6 @@ M.on_attach = function(client, bufnr, ...)
 	buf_set_keymap("n", "gi", "<cmd>Glance implementations<CR>", opts)
 
 	-- buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	-- buf_set_keymap("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
 	-- buf_set_keymap("n", "gr", "<cmd>lua require('trouble').toggle('lsp_references')<CR>", opts)
 	buf_set_keymap("n", "gr", "<cmd>Glance references<CR>", opts)
 

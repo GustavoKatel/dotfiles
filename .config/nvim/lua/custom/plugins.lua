@@ -22,6 +22,13 @@ require("lazy").setup({
 	-- libs
 	{ "nvim-lua/plenary.nvim" },
 
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		opts = require("custom.plugins.snacks"),
+	},
+
 	-- {{{ lsp
 	{
 		"williamboman/mason.nvim",
@@ -65,26 +72,6 @@ require("lazy").setup({
 		},
 	},
 	{ "j-hui/fidget.nvim", tag = "legacy" },
-	{
-		"bassamsdata/namu.nvim",
-		opts = {
-			-- Enable the modules you want
-			namu_symbols = {
-				enable = true,
-				options = {
-					display = {
-						mode = "icon",
-						padding = 2, -- Padding around displayed symbols
-					},
-					preview = {
-						highlight_on_move = false, -- Highlight symbols as you move
-						-- the below one is not working correctly
-						highlight_mode = "select", -- "always" | "select" (only highlight when selecting)
-					},
-				},
-			},
-		},
-	},
 
 	{
 		"folke/trouble.nvim",
@@ -249,15 +236,6 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ HUD
-	{
-		"rcarriga/nvim-notify",
-		opts = {
-			level = vim.log.levels.INFO,
-		},
-		init = function()
-			vim.notify = require("notify")
-		end,
-	},
 	{ "lewis6991/gitsigns.nvim" }, -- git information in the buffer lines
 	{
 		"nvim-tree/nvim-web-devicons",
@@ -312,16 +290,16 @@ require("lazy").setup({
 		dependencies = { "rafamadriz/friendly-snippets" },
 	},
 	-- override vim.ui
-	{
-		"stevearc/dressing.nvim",
-		opts = {
-			input = {
-				get_config = function(opts)
-					return opts.dressing or {}
-				end,
-			},
-		},
-	},
+	-- {
+	-- 	"stevearc/dressing.nvim",
+	-- 	opts = {
+	-- 		input = {
+	-- 			get_config = function(opts)
+	-- 				return opts.dressing or {}
+	-- 			end,
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = {
@@ -404,10 +382,6 @@ require("lazy").setup({
 
 	{ "rmagatti/auto-session" },
 
-	{ "nvim-telescope/telescope.nvim", dependencies = { { "nvim-lua/popup.nvim" } }, branch = "0.1.x" },
-	{ "nvim-telescope/telescope-dap.nvim" },
-	{ "nvim-telescope/telescope-live-grep-args.nvim" },
-	{ "nvim-telescope/telescope-github.nvim" },
 	{
 		"stevearc/overseer.nvim",
 		opts = require("custom.overseer.opts"),
