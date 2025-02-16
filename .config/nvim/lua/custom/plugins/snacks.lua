@@ -19,7 +19,7 @@ return {
 			default = {
 				preset = "default",
 				layout = {
-					width = 0.7,
+					width = 0.5,
 					backdrop = false,
 				},
 			},
