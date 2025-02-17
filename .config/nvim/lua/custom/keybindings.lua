@@ -204,16 +204,6 @@ vim.keymap.set({ "t" }, "<ESC>", "<C-\\><C-N>")
 vim.keymap.set({ "t" }, "<M-Left>", "<M-B>")
 vim.keymap.set({ "t" }, "<M-Right>", "<M-F>")
 
--- page up/down to move between terms
-vim.keymap.set({ "t" }, "<C-PageDown>", "<C-\\><C-N>:FloatermNext<CR>")
-vim.keymap.set({ "t" }, "<C-PageUp>", "<C-\\><C-N>:FloatermPrev<CR>")
-
--- alt-n to create a new term
-vim.keymap.set({ "t" }, "<M-n>", "<C-\\><C-N>:FloatermNew<CR>")
-
--- ctrl-q to kill current term
---v.tnoremap({ "<C-q>" }, "<C-\\><C-N>:FloatermKill<CR>")
-
 -- alt-t to open ranger in a float terminal
 vim.keymap.set({ "n" }, "<C-T>", "<cmd>Ranger<cr>")
 

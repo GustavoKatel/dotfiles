@@ -91,13 +91,13 @@ require("lazy").setup({
 	{ "nvim-treesitter/nvim-treesitter-textobjects" },
 	{ "nvim-treesitter/nvim-treesitter-context" },
 	{ "haringsrob/nvim_context_vt" },
-	{ "cespare/vim-toml" },
+	{ "cespare/vim-toml", ft = "toml" },
 
 	-- markdown improved headers colors and visuals
 	{
 		"OXY2DEV/markview.nvim",
 		lazy = false, -- Recommended
-		-- ft = "markdown" -- If you decide to lazy-load anyway
+		-- ft = "markdown", -- If you decide to lazy-load anyway
 
 		dependencies = {
 			-- You will not need this if you installed the
@@ -110,32 +110,6 @@ require("lazy").setup({
 
 		opts = require("custom.plugins.markview"),
 	},
-	-- {
-	-- 	"lukas-reineke/headlines.nvim",
-	-- 	dependencies = "nvim-treesitter/nvim-treesitter",
-	-- 	config = true, -- or `opts = {}`
-	-- },
-
-	-- user_profile.with_profile_table({
-	-- 	work = {},
-	-- 	default = {
-	-- 		"ray-x/go.nvim",
-	-- 		dependencies = { -- optional packages
-	-- 			"ray-x/guihua.lua",
-	-- 			"neovim/nvim-lspconfig",
-	-- 			"nvim-treesitter/nvim-treesitter",
-	-- 		},
-	-- 		config = function()
-	-- 			require("go").setup({
-	-- 				dap_debug = true,
-	-- 				dap_debug_gui = true,
-	-- 			})
-	-- 		end,
-	-- 		event = { "CmdlineEnter" },
-	-- 		ft = { "go", "gomod" },
-	-- 		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-	-- 	},
-	-- }),
 
 	{
 		"nvim-neotest/neotest",
@@ -289,17 +263,6 @@ require("lazy").setup({
 		"L3MON4D3/LuaSnip",
 		dependencies = { "rafamadriz/friendly-snippets" },
 	},
-	-- override vim.ui
-	-- {
-	-- 	"stevearc/dressing.nvim",
-	-- 	opts = {
-	-- 		input = {
-	-- 			get_config = function(opts)
-	-- 				return opts.dressing or {}
-	-- 			end,
-	-- 		},
-	-- 	},
-	-- },
 	{
 		"kevinhwang91/nvim-ufo",
 		dependencies = {
@@ -375,10 +338,9 @@ require("lazy").setup({
 
 	-- {{{ utils
 	{ "tpope/vim-fugitive", dependencies = { { "tpope/vim-rhubarb" } } }, -- some git goodies
-	{ "voldikss/vim-floaterm" }, -- floating terminal
+	{ "voldikss/vim-floaterm", cmd = { "FloatermToggle" } }, -- floating terminal
 	{ "qpkorr/vim-bufkill" }, -- better support for killing buffers
 	{ "mbbill/undotree" }, -- undo history on steroids
-	{ "ThePrimeagen/harpoon" },
 
 	{ "rmagatti/auto-session" },
 
@@ -409,7 +371,13 @@ require("lazy").setup({
 			vim.g.db_ui_use_nvim_notify = 1
 		end,
 	},
-	{ "Vigemus/iron.nvim" },
+	{
+		"Vigemus/iron.nvim",
+		cmd = { "IronSend" },
+		config = function()
+			require("custom.plugins.iron_repl")
+		end,
+	},
 	{
 		"jellydn/hurl.nvim",
 		dependencies = {
@@ -422,12 +390,14 @@ require("lazy").setup({
 	},
 	{
 		"rest-nvim/rest.nvim",
+		ft = { "http" },
 		init = function()
 			vim.g.rest_nvim = {}
 		end,
 	},
 	{
 		"sindrets/diffview.nvim",
+		cmd = { "GitTabDiff" },
 		opts = require("custom.plugins.diffview"),
 	},
 	-- }}}

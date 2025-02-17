@@ -5,6 +5,9 @@ return {
 	picker = {
 		enabled = true,
 		ui_select = true,
+		jump = {
+			reuse_win = false, -- reuse an existing window if the buffer is already open
+		},
 		win = {
 			input = {
 				keys = {
