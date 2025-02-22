@@ -20,6 +20,9 @@ local handler = function(match, query, metadata, info)
 					command = {
 						title = "  Run request",
 						command = "ts_ls.request.run",
+						arguments = {
+							is_hurl = info.ft == "hurl",
+						},
 					},
 				})
 
@@ -32,6 +35,9 @@ local handler = function(match, query, metadata, info)
 					command = {
 						title = "  Copy curl",
 						command = "ts_ls.request.curl",
+						arguments = {
+							is_hurl = info.ft == "hurl",
+						},
 					},
 				})
 			end
@@ -48,7 +54,12 @@ return {
 			{
 				command = "ts_ls.request.run",
 				callback = function(arguments)
-					vim.cmd.Rest("run")
+					if arguments.is_hurl then
+						vim.cmd.HurlRunnerAt()
+						return
+					end
+					-- vim.cmd.Rest("run")
+					require("kulala").run()
 				end,
 			},
 		},
@@ -60,7 +71,12 @@ return {
 			{
 				command = "ts_ls.request.curl",
 				callback = function(arguments)
-					vim.cmd.Rest("curl", "yank")
+					if arguments.is_hurl then
+						vim.notify("Not implemented for hurl", vim.log.levels.ERROR)
+						return
+					end
+					-- vim.cmd.Rest("curl", "yank")
+					require("kulala").copy()
 				end,
 			},
 		},

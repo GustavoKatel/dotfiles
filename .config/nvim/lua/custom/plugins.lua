@@ -388,12 +388,21 @@ require("lazy").setup({
 		ft = "hurl",
 		opts = require("custom.plugins.hurl"),
 	},
+	-- {
+	-- 	"rest-nvim/rest.nvim",
+	-- 	ft = { "http" },
+	-- 	init = function()
+	-- 		vim.g.rest_nvim = {}
+	-- 	end,
+	-- },
 	{
-		"rest-nvim/rest.nvim",
+		"mistweaverco/kulala.nvim",
 		ft = { "http" },
-		init = function()
-			vim.g.rest_nvim = {}
-		end,
+		opts = {
+			-- enable winbar
+			winbar = true,
+			default_winbar_panes = { "body", "headers", "headers_body", "script_output", "stats", "verbose" },
+		},
 	},
 	{
 		"sindrets/diffview.nvim",

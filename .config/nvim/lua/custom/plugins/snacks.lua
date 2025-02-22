@@ -8,6 +8,8 @@ return {
 		jump = {
 			reuse_win = false, -- reuse an existing window if the buffer is already open
 		},
+		-- allow any window to be used as the main window
+		main = { current = true },
 		win = {
 			input = {
 				keys = {

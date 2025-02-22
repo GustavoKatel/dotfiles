@@ -23,6 +23,10 @@ function nv() {
   fi
 }
 
+function nvs() {
+  nvr --remote-send '<esc>' +"lua require(\"custom.scripts.remote_shell_to_overseer\").run(\"$*\")"
+}
+
 alias nvu="/Applications/goneovim.app/Contents/MacOS/goneovim --maximized >/dev/null 2>&1 & disown"
 
 alias k="kubectl"

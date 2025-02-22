@@ -34,3 +34,10 @@ vim.filetype.add({
 		psql = "plsql",
 	},
 })
+
+-- http files
+vim.filetype.add({
+	extension = {
+		http = "http",
+	},
+})
