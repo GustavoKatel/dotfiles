@@ -12,14 +12,16 @@ mason_lspconfig.setup({
 local common_pkgs = { "stylua", "node-debug2-adapter", "actionlint", "yamllint", "sqlfluff" }
 
 local pkgs = user_profile.with_profile_table({
-	default = vim.tbl_flatten({
+	default = vim.iter({
 		common_pkgs,
 		{
 			"luacheck",
 			"delve", -- go debugger
 		},
-	}),
-	work = vim.tbl_flatten({ common_pkgs }),
+	})
+		:flatten()
+		:totable(),
+	work = vim.iter({ common_pkgs }):flatten():totable(),
 })
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
@@ -27,15 +29,19 @@ local common_servers =
 	{ "lua_ls", "vtsls", "eslint", "dockerls", "jsonls", "bashls", "cssls", "rubocop", "elixir-ls", "zls", "ruby-lsp" }
 
 local servers = user_profile.with_profile_table({
-	default = vim.tbl_flatten({
+	default = vim.iter({
 		common_servers,
 		{ "gopls", "clangd", "rust_analyzer", "pyright", "golangci-lint-langserver", "terraform-ls" },
-	}),
-	work = vim.tbl_flatten(common_servers),
-	jupiter = vim.tbl_flatten({
+	})
+		:flatten()
+		:totable(),
+	work = vim.iter(common_servers):flatten():totable(),
+	jupiter = vim.iter({
 		common_servers,
 		{ "gopls", "clangd", "rust_analyzer", "pyright", "taplo", "ansiblels" },
-	}),
+	})
+		:flatten()
+		:totable(),
 })
 
 vim.api.nvim_create_user_command("DepsInstall", function()

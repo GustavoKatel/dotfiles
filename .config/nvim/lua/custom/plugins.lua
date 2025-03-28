@@ -38,6 +38,7 @@ require("lazy").setup({
 
 	{
 		"dnlhc/glance.nvim",
+		commit = "1a08824835d7582457b67acbe23ca33487912a5e",
 		opts = function()
 			return {
 				detached = function(winid)
@@ -322,13 +323,15 @@ require("lazy").setup({
 			hide_target_hack = false, -- true     boolean
 		},
 	},
+	{ "tzachar/highlight-undo.nvim", opts = {} },
 	-- }}}
 
 	-- {{{ debugging & testing
 	{
 		"mfussenegger/nvim-dap",
 		dependencies = {
-			"rcarriga/nvim-dap-ui",
+			{ "igorlfs/nvim-dap-view", opts = require("custom.plugins.dap-view") },
+			-- "rcarriga/nvim-dap-ui",
 			"theHamsta/nvim-dap-virtual-text",
 			-- go delve support
 			"leoluz/nvim-dap-go",

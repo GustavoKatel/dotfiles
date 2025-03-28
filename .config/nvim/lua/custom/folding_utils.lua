@@ -33,8 +33,19 @@ local virtual_text_handler = function(virtText, lnum, endLnum, width, truncate)
 	return newVirtText
 end
 
+local ftMap = {
+	sql = { "treesitter", "indent" },
+}
+
 require("ufo").setup({
 	fold_virt_text_handler = virtual_text_handler,
+	provider_selector = function(bufnr, filetype, buftype)
+		-- if you prefer treesitter provider rather than lsp,
+		-- return ftMap[filetype] or {'treesitter', 'indent'}
+		return ftMap[filetype]
+
+		-- refer to ./doc/example.lua for detail
+	end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {

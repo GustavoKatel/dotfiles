@@ -1,0 +1,4 @@
+;; extends
+
+(statement) @sql.statement
+

@@ -1,27 +1,43 @@
 local dap = require("dap")
 local dap_local_project_config = require("custom.dap_local_project_config")
 
-local dapui = require("dapui")
-dapui.setup()
+-- local dapui = require("dapui")
+-- dapui.setup()
+local dapview = require("dap-view")
 
 require("dap.ext.vscode").json_decode = require("overseer.json").decode
 require("dap.ext.vscode").load_launchjs()
 
-require("dap-go").setup()
+local widgets = require("custom.dap_widgets")
+widgets.setup()
+
+require("dap-go").setup({
+	dap_configurations = {
+		{
+			type = "go",
+			name = "Attach remote",
+			mode = "remote",
+			request = "attach",
+			port = 2345,
+		},
+	},
+})
 
 --dap.set_log_level("TRACE")
 
-dap.listeners.before.attach.dapui_config = function()
-	dapui.open()
+dap.listeners.before.attach.ui_config = function()
+	dapview.open()
+	widgets.open_all()
 end
-dap.listeners.before.launch.dapui_config = function()
-	dapui.open()
+dap.listeners.before.launch.ui_config = function()
+	dapview.open()
+	widgets.open_all()
 end
-dap.listeners.before.event_terminated.dapui_config = function()
-	-- dapui.close()
+dap.listeners.before.event_terminated.ui_config = function()
+	-- dapview.close()
 end
-dap.listeners.before.event_exited.dapui_config = function()
-	-- dapui.close()
+dap.listeners.before.event_exited.ui_config = function()
+	-- dapview.close()
 end
 
 vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "", linehl = "", numhl = "" })

@@ -1,3 +1,6 @@
 {
-    "name": "nvim-dots"
+    "name": "nvim-dots",
+    "dbs": {
+        "k8sfwd": "k8spgfwd://postgres:postgres@zod.coati-scala.ts.net/db-al?k8s_context=zod"
+    }
 }

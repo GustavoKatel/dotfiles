@@ -59,9 +59,14 @@ M.on_attach = function(client, bufnr, ...)
 
 	-- buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
 	buf_set_keymap("n", "K", function()
-		vim.lsp.buf.hover()
+		if require("dap").session() ~= nil then
+			require("dap.ui.widgets").hover(nil, { border = "rounded" })
+		end
+		vim.lsp.buf.hover({ border = "rounded" })
 	end, opts)
-	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	buf_set_keymap("n", "<C-k>", function()
+		vim.lsp.buf.signature_help({ border = "rounded" })
+	end, opts)
 	-- buf_set_keymap("n", "<leader>k", "<cmd>lua require('custom.lsp_utils').cursor_hold(true)<CR>", opts)
 
 	-- buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
@@ -117,7 +122,7 @@ M.on_attach = function(client, bufnr, ...)
 		group = document_highlight_group,
 		buffer = bufnr,
 		callback = function()
-			if client.supports_method("textDocument/documentHighlight") then
+			if client:supports_method("textDocument/documentHighlight") then
 				vim.lsp.buf.document_highlight()
 			end
 		end,

@@ -450,11 +450,15 @@ vim.keymap.set({ "n" }, "<leader>B", function()
 end, { desc = "[dap] Add conditional breakpoint" })
 
 vim.keymap.set({ "n" }, "<leader>a", function()
-	require("dapui").toggle()
+	-- require("dapui").toggle()
+	require("dap-view").toggle()
+	require("custom.dap_widgets").toggle_all()
 end, { desc = "[dap-ui] toggle" })
 vim.api.nvim_create_user_command("DapClose", function()
 	require("dap").close()
-	require("dapui").close()
+	-- require("dapui").close()
+	require("dap-view").close()
+	require("custom.dap_widgets").close_all()
 end, { desc = "[dap] Close dap and dap-ui" })
 
 local debugger_bindings = {
@@ -642,6 +646,10 @@ end, { desc = "Toggle quickfix" })
 vim.keymap.set({ "n" }, "<S-F8>", function()
 	toggle_quickfix(false)
 end, { desc = "Toggle quickfix without focusing" })
+
+-- TODO: remove after neovim 0.11
+vim.keymap.set({ "n" }, "]q", ":cnext<CR>", { desc = "Go to the next quickfix item" })
+vim.keymap.set({ "n" }, "[q", ":cprev<CR>", { desc = "Go to the previous quickfix item" })
 
 -- copilot
 vim.keymap.set(
