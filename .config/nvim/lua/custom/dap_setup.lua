@@ -25,6 +25,10 @@ require("dap-go").setup({
 
 --dap.set_log_level("TRACE")
 
+dap.listeners.after.initialize.sessions_open = function()
+	widgets.sessions.open()
+end
+
 dap.listeners.before.attach.ui_config = function()
 	dapview.open()
 	widgets.open_all()

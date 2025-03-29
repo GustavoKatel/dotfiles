@@ -3,6 +3,35 @@ local M = {}
 M.term_bufnr = nil
 M.prev_winnr = nil
 
+local ns = vim.api.nvim_create_namespace("my.terminal.prompt")
+
+local augroup = vim.api.nvim_create_augroup("term_open_config", { clear = true })
+
+-- terminal overrides
+-- no line numbers on terminals
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = augroup,
+	callback = function()
+		vim.cmd("setlocal nonumber")
+		vim.cmd("setlocal norelativenumber")
+		vim.cmd("setlocal nospell")
+	end,
+})
+
+-- vim.api.nvim_create_autocmd("TermRequest", {
+-- 	group = augroup,
+-- 	callback = function(args)
+-- 		if string.match(args.data.sequence, "^\027]133;A") then
+-- 			vim.opt.signcolumn = "yes"
+-- 			local lnum = args.data.cursor[1]
+-- 			vim.api.nvim_buf_set_extmark(args.buf, ns, lnum - 1, 0, {
+-- 				sign_text = "▶",
+-- 				sign_hl_group = "SpecialChar",
+-- 			})
+-- 		end
+-- 	end,
+-- })
+
 local function set_autocommand_to_terminal(bufnr)
 	local group = "custom_terminal_sticky"
 

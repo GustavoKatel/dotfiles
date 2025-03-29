@@ -59,7 +59,13 @@ require("lazy").setup({
 
 	{ "nvimtools/none-ls.nvim" },
 	{ "onsails/lspkind-nvim" },
-	-- { "ray-x/lsp_signature.nvim" },
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "InsertEnter",
+		opts = {
+			hint_prefix = "󰡱 ",
+		},
+	},
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {

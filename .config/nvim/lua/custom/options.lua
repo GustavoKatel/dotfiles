@@ -87,18 +87,6 @@ vim.opt.undofile = true
 vim.opt.sessionoptions:remove("help")
 vim.opt.sessionoptions:remove("terminal")
 
--- terminal overrides
--- no line numbers on terminals
-vim.api.nvim_create_augroup("term_open_config", { clear = true })
-vim.api.nvim_create_autocmd("TermOpen", {
-	group = "term_open_config",
-	callback = function()
-		vim.cmd("setlocal nonumber")
-		vim.cmd("setlocal norelativenumber")
-		vim.cmd("setlocal nospell")
-	end,
-})
-
 -- enable window title
 vim.opt.title = true
 

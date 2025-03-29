@@ -45,6 +45,7 @@ return {
 		{ ft = "dbout", title = "DB Out" },
 		{ ft = "dap-view", title = "DAP View", wo = { winbar = false } },
 		{ ft = "dap-view-term", title = "DAP View", wo = { winbar = false } },
+		{ ft = "dap-repl", title = "DAP View", wo = { winbar = false } },
 		{
 			title = "DAP Scopes",
 			ft = "",
@@ -73,7 +74,7 @@ return {
 			title = "Task: History",
 			ft = "OverseerList",
 			pinned = true,
-			open = "OverseerOpen left",
+			open = "OverseerOpen! left",
 		},
 		{
 			title = "Neo-Tree Buffers",
@@ -86,5 +87,18 @@ return {
 		},
 		-- any other neo-tree windows
 		"neo-tree",
+		{
+			title = "DAP Sessions",
+			ft = "",
+			pinned = true,
+			open = function()
+				require("custom.dap_widgets").sessions.open()
+			end,
+			filter = function(buf, win)
+				local buf_name = vim.api.nvim_buf_get_name(buf) or ""
+				buf_name = vim.fn.fnamemodify(buf_name, ":t")
+				return vim.startswith(buf_name, "dap-sessions-")
+			end,
+		},
 	},
 }

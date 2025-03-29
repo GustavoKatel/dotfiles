@@ -331,15 +331,6 @@ for _, code in ipairs({ "<C-S-F>", "<C-F>", "<S-D-F>", "<D-f>", create_special_k
 
 			-- Get the selected text
 			default_text = table.concat(vim.api.nvim_buf_get_text(0, start_row, start_col, end_row, end_col, {}), "\n")
-			P({
-				default_text = default_text or "nil",
-				start_pos = start_pos,
-				end_pos = end_pos,
-				start_row = start_row,
-				start_col = start_col,
-				end_row = end_row,
-				end_col = end_col,
-			})
 		end
 
 		require("snacks").picker.grep({
@@ -646,10 +637,6 @@ end, { desc = "Toggle quickfix" })
 vim.keymap.set({ "n" }, "<S-F8>", function()
 	toggle_quickfix(false)
 end, { desc = "Toggle quickfix without focusing" })
-
--- TODO: remove after neovim 0.11
-vim.keymap.set({ "n" }, "]q", ":cnext<CR>", { desc = "Go to the next quickfix item" })
-vim.keymap.set({ "n" }, "[q", ":cprev<CR>", { desc = "Go to the previous quickfix item" })
 
 -- copilot
 vim.keymap.set(

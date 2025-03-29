@@ -4,6 +4,7 @@ local M = {}
 
 M.setup = function()
 	M.scopes = widgets.sidebar(widgets.scopes, {}, "split")
+	M.sessions = widgets.sidebar(widgets.sessions, {}, "vsplit")
 end
 
 M.open_all = function()
