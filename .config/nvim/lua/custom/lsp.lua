@@ -48,6 +48,9 @@ mason_lspconfig.setup_handlers({
 	end,
 })
 
+-- TODO: remove after this https://github.com/williamboman/mason-lspconfig.nvim/pull/526
+require("lspconfig").postgres_lsp.setup({})
+
 -- better signs in "signcolumn" for diagnostics
 
 vim.diagnostic.config({
