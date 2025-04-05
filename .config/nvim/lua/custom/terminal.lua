@@ -18,19 +18,19 @@ vim.api.nvim_create_autocmd("TermOpen", {
 	end,
 })
 
--- vim.api.nvim_create_autocmd("TermRequest", {
--- 	group = augroup,
--- 	callback = function(args)
--- 		if string.match(args.data.sequence, "^\027]133;A") then
--- 			vim.opt.signcolumn = "yes"
--- 			local lnum = args.data.cursor[1]
--- 			vim.api.nvim_buf_set_extmark(args.buf, ns, lnum - 1, 0, {
--- 				sign_text = "▶",
--- 				sign_hl_group = "SpecialChar",
--- 			})
--- 		end
--- 	end,
--- })
+vim.api.nvim_create_autocmd("TermRequest", {
+	group = augroup,
+	callback = function(args)
+		if string.match(args.data.sequence, "^\027]133;A") then
+			vim.opt.signcolumn = "yes"
+			local lnum = args.data.cursor[1] + 1 -- prompt is 2 lines
+			vim.api.nvim_buf_set_extmark(args.buf, ns, lnum - 1, 0, {
+				sign_text = "",
+				sign_hl_group = "SpecialChar",
+			})
+		end
+	end,
+})
 
 local function set_autocommand_to_terminal(bufnr)
 	local group = "custom_terminal_sticky"

@@ -50,6 +50,7 @@ eval "$(fzf --zsh)"
 #source $HOME/dev/task.sh
 
 source $HOME/dev/shell_recursive_counter.sh
+[ -f /Applications/WezTerm.app/Contents/Resources/wezterm.sh ] && source /Applications/WezTerm.app/Contents/Resources/wezterm.sh
 
 alias ee=exa
 alias ea="exa -lh --git --icons"

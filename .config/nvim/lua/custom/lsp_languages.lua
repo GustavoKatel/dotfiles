@@ -138,19 +138,14 @@ M.default_configs = {
 		},
 	},
 	golangci_lint_ls = {
-		settings = {
-			init_options = {
-				command = {
-					"golangci-lint",
-					"run",
-					"--enable-all",
-					"--disable",
-					"lll",
-					"--out-format",
-					"json",
-					"--issues-exit-code=1",
-					"--allow-parallel-runners",
-				},
+		init_options = {
+			command = {
+				"golangci-lint",
+				"run",
+				"--out-format",
+				"json",
+				-- "--issues-exit-code=1",
+				-- "--allow-parallel-runners",
 			},
 		},
 	},

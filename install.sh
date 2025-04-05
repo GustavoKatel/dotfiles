@@ -5,4 +5,6 @@ set -e
 
 DOTFILES_DIR=$(dirname $0)
 
-$DOTFILES_DIR/sync.sh -o install $*
+cd $DOTFILES_DIR
+
+stow -v .
