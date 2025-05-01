@@ -23,6 +23,7 @@ return {
 		layouts = {
 			default = {
 				preset = "default",
+				cycle = false,
 				layout = {
 					width = 0.5,
 					backdrop = false,
@@ -32,6 +33,13 @@ return {
 				preset = "select",
 				layout = {
 					width = 0.2,
+				},
+			},
+			small = {
+				preset = "default",
+				layout = {
+					height = 0.3,
+					backdrop = false,
 				},
 			},
 		},

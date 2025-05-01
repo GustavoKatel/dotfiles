@@ -1,0 +1,6 @@
+vim.keymap.set({ "n" }, "<leader>r", function()
+	require("kulala").run()
+end, { desc = "Run Kulala request under cursor" })
+vim.keymap.set({ "v" }, "<leader>r", function()
+	require("kulala").run()
+end, { desc = "Run Kulala request under cursor" })

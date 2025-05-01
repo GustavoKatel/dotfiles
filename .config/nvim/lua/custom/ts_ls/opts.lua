@@ -15,7 +15,7 @@ return {
 	},
 	code_actions = {
 		code_blocks.code_actions,
-		requests.code_actions,
+		-- requests.code_actions,
 		filenames.code_actions,
 		gotests.code_actions,
 		sql_queries.code_lenses,

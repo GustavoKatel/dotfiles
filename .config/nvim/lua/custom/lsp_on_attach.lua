@@ -70,11 +70,19 @@ M.on_attach = function(client, bufnr, ...)
 	-- buf_set_keymap("n", "<leader>k", "<cmd>lua require('custom.lsp_utils').cursor_hold(true)<CR>", opts)
 
 	-- buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	buf_set_keymap("n", "gi", "<cmd>Glance implementations<CR>", opts)
+	buf_set_keymap("n", "gi", function()
+		require("snacks").picker.lsp_implementations({
+			layout = "small",
+		})
+	end, opts)
 
 	-- buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	-- buf_set_keymap("n", "gr", "<cmd>lua require('trouble').toggle('lsp_references')<CR>", opts)
-	buf_set_keymap("n", "gr", "<cmd>Glance references<CR>", opts)
+	buf_set_keymap("n", "gr", function()
+		require("snacks").picker.lsp_references({
+			layout = "small",
+		})
+	end, opts)
 
 	buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 	buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
@@ -117,23 +125,23 @@ M.on_attach = function(client, bufnr, ...)
 
 	vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
-	local document_highlight_group = get_lsp_augroup("lsp_document_highlight", bufnr)
-	vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-		group = document_highlight_group,
-		buffer = bufnr,
-		callback = function()
-			if client:supports_method("textDocument/documentHighlight") then
+	if client:supports_method("textDocument/documentHighlight") then
+		local document_highlight_group = get_lsp_augroup("lsp_document_highlight", bufnr)
+		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+			group = document_highlight_group,
+			buffer = bufnr,
+			callback = function()
 				vim.lsp.buf.document_highlight()
-			end
-		end,
-	})
-	vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-		group = document_highlight_group,
-		buffer = bufnr,
-		callback = function()
-			vim.lsp.buf.clear_references()
-		end,
-	})
+			end,
+		})
+		vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+			group = document_highlight_group,
+			buffer = bufnr,
+			callback = function()
+				vim.lsp.buf.clear_references()
+			end,
+		})
+	end
 
 	vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
 		vim.lsp.buf.format()

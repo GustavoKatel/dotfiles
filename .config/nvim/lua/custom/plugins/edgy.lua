@@ -8,6 +8,12 @@ return {
 	animate = {
 		enabled = false,
 	},
+	keys = {
+		-- the default action for <c-q> is to hide the window, close instead
+		["<c-q>"] = function(win)
+			win:close()
+		end,
+	},
 	right = {
 		{ title = "Hurl Nvim", size = { width = 0.5 }, ft = "hurl-nvim" },
 	},

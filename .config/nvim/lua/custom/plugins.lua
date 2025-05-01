@@ -36,27 +36,6 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 	},
 
-	{
-		"dnlhc/glance.nvim",
-		commit = "1a08824835d7582457b67acbe23ca33487912a5e",
-		opts = function()
-			return {
-				detached = function(winid)
-					return vim.api.nvim_win_get_width(winid) < 100
-				end,
-				border = {
-					enable = false, -- Show window borders. Only horizontal borders allowed
-				},
-				mappings = {
-					list = {
-						["<C-q>"] = false,
-						["<C-s>"] = require("glance").actions.quickfix,
-					},
-				},
-			}
-		end,
-	},
-
 	{ "nvimtools/none-ls.nvim" },
 	{ "onsails/lspkind-nvim" },
 	{
@@ -214,6 +193,10 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{
+		"xb-bx/editable-term.nvim",
+		config = true,
+	},
 	-- }}}
 
 	-- {{{ HUD
@@ -330,6 +313,11 @@ require("lazy").setup({
 		},
 	},
 	{ "tzachar/highlight-undo.nvim", opts = {} },
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = require("custom.plugins.which-key"),
+	},
 	-- }}}
 
 	-- {{{ debugging & testing

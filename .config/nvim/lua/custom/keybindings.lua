@@ -128,6 +128,9 @@ vim.keymap.set({ "n" }, "?", ":let @/='<C-R>=expand('<cword>')<CR>' | set hls<CR
 -- visual mode searches for the selected text
 vim.keymap.set({ "v" }, "?", "y:let @/='<C-R>=escape(@\",'/\\')<CR>' | set hls<CR>")
 
+-- search only in the current visual selection
+vim.keymap.set("x", "/", "<Esc>/\\%V")
+
 -- visual mode replace the currently selected text
 vim.keymap.set({ "v" }, "<C-h>", 'y:%s#<C-R>=@"<CR>#')
 vim.keymap.set({ "v" }, "<D-h>", 'y:%s#<C-R>=@"<CR>#')
@@ -354,6 +357,10 @@ for _, code in ipairs({ "<D-g>", "<C-g>", create_special_keymap("dg") }) do
 	end)
 end
 
+vim.keymap.set("n", "<D-m>", function()
+	require("snacks").picker.marks()
+end, { desc = "Picker marks" })
+
 -- tasks
 vim.keymap.set({ "n" }, "<F9>", function()
 	local overseer = require("overseer")
@@ -430,48 +437,56 @@ end)
 vim.keymap.set({ "i" }, "<C-z>", "<ESC>ui")
 vim.keymap.set({ "i" }, "<D-z>", "<ESC>ui")
 
-vim.keymap.set({ "n" }, "<leader>b", function()
-	require("dap").toggle_breakpoint()
-end, { desc = "[dap] Add breakpoint" })
+vim.keymap.set("n", "<space>a<space>", function()
+	-- Show hydra mode for changing windows
+	require("which-key").show({
+		keys = "<space>a",
+		loop = true, -- this will keep the popup open until you hit <esc>
+	})
+end, { desc = "Show hydra mode for debug helpers" })
 
-vim.keymap.set({ "n" }, "<leader>B", function()
-	vim.ui.input({ promot = "Breakpoint condition: " }, function(input)
-		require("dap").toggle_breakpoint(input)
-	end)
-end, { desc = "[dap] Add conditional breakpoint" })
+for _, code in ipairs({ "<leader>b", "<space>ab" }) do
+	vim.keymap.set({ "n" }, code, function()
+		require("dap").toggle_breakpoint()
+	end, { desc = "[dap] Toggle breakpoint" })
+end
 
-vim.keymap.set({ "n" }, "<leader>a", function()
-	-- require("dapui").toggle()
-	require("dap-view").toggle()
-	require("custom.dap_widgets").toggle_all()
-end, { desc = "[dap-ui] toggle" })
-vim.api.nvim_create_user_command("DapClose", function()
-	require("dap").close()
-	-- require("dapui").close()
-	require("dap-view").close()
-	require("custom.dap_widgets").close_all()
-end, { desc = "[dap] Close dap and dap-ui" })
+for _, code in ipairs({ "<leader>B", "<space>aB" }) do
+	vim.keymap.set({ "n" }, code, function()
+		vim.ui.input({ promot = "Breakpoint condition: " }, function(input)
+			require("dap").toggle_breakpoint(input)
+		end)
+	end, { desc = "[dap] Add conditional breakpoint" })
+end
+
+for _, code in ipairs({ "<leader>a", "<space>aa" }) do
+	vim.keymap.set({ "n" }, code, function()
+		-- require("dapui").toggle()
+		require("dap-view").toggle()
+		require("custom.dap_widgets").toggle_all()
+	end, { desc = "[dap-ui] toggle" })
+end
 
 local debugger_bindings = {
-	["<leader>c"] = {
+	["<space>ac"] = {
 		fn = function()
 			require("dap").continue()
 		end,
 		desc = "[dap] Continue",
 	},
-	["<leader>o"] = {
+	["<space>ao"] = {
 		fn = function()
 			require("dap").step_out()
 		end,
 		desc = "[dap] Step Out",
 	},
-	["<leader>i"] = {
+	["<space>ai"] = {
 		fn = function()
 			require("dap").step_into()
 		end,
 		desc = "[dap] Step Into",
 	},
-	["<leader>n"] = {
+	["<space>an"] = {
 		fn = function()
 			require("dap").step_over()
 		end,
@@ -660,3 +675,16 @@ vim.keymap.set("n", "[g", function()
 end, { desc = "Prev git hunk" })
 
 vim.keymap.set({ "n", "v" }, "<leader>r", ":IronSend<CR>", { desc = "Send to IronRepl" })
+
+vim.keymap.set("i", "<C-;>", "<ESC>A;")
+vim.keymap.set("i", "<C-,>", "<ESC>A,")
+vim.keymap.set("n", ";;", "A;<ESC>")
+vim.keymap.set("n", ",,", "A,<ESC>")
+
+vim.keymap.set("n", "<C-w><space>", function()
+	-- Show hydra mode for changing windows
+	require("which-key").show({
+		keys = "<c-w>",
+		loop = true, -- this will keep the popup open until you hit <esc>
+	})
+end, { desc = "Show hydra mode for window keys" })

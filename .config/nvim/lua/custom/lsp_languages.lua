@@ -138,8 +138,11 @@ M.default_configs = {
 		},
 	},
 	golangci_lint_ls = {
+		command = {},
 		init_options = {
 			command = {
+				"go",
+				"tool",
 				"golangci-lint",
 				"run",
 				"--out-format",
@@ -184,7 +187,7 @@ function M.load_local(project)
 			local clients = vim.lsp.get_clients({ name = server_name })
 			for _, client in ipairs(clients) do
 				client.settings = config.settings
-				client.notify(vim.lsp.protocol.Methods.workspace_didChangeConfiguration, { settings = config.settings })
+				client:notify(vim.lsp.protocol.Methods.workspace_didChangeConfiguration, { settings = config.settings })
 			end
 		end
 

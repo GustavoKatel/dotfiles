@@ -91,7 +91,7 @@ vim.opt.sessionoptions:remove("terminal")
 vim.opt.title = true
 
 -- Set completeopt to have a better completion experience
-vim.opt.completeopt = "menuone,noinsert,noselect"
+vim.opt.completeopt = "menuone,noinsert"
 
 -- Avoid showing message extra message when using completion
 vim.opt.shortmess:append({ c = true })

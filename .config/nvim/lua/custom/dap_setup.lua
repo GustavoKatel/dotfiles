@@ -11,6 +11,13 @@ require("dap.ext.vscode").load_launchjs()
 local widgets = require("custom.dap_widgets")
 widgets.setup()
 
+vim.api.nvim_create_user_command("DapClose", function()
+	require("dap").close()
+	-- require("dapui").close()
+	require("dap-view").close()
+	require("custom.dap_widgets").close_all()
+end, { desc = "[dap] Close dap and dap-ui" })
+
 require("dap-go").setup({
 	dap_configurations = {
 		{
