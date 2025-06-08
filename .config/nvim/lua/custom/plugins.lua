@@ -31,8 +31,8 @@ require("lazy").setup({
 
 	-- {{{ lsp
 	{
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
 	},
 
@@ -126,6 +126,7 @@ require("lazy").setup({
 		},
 		-- See Commands section for default commands if you want to lazy load on them
 	},
+	{ "b0o/schemastore.nvim" },
 	-- }}}
 
 	-- {{{ colorscheme
@@ -193,10 +194,10 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{
-		"xb-bx/editable-term.nvim",
-		config = true,
-	},
+	-- {
+	-- 	"xb-bx/editable-term.nvim",
+	-- 	config = true,
+	-- },
 	-- }}}
 
 	-- {{{ HUD

@@ -63,12 +63,12 @@ treesitter_config.setup({
 			enable = true,
 			set_jumps = true, -- whether to set jumps in the jumplist
 			goto_next_start = {
-				["]m"] = "@function.outer",
+				["]f"] = "@function.outer",
 				["]]"] = "@class.outer",
 				["]p"] = "@parameter.inner",
 			},
 			goto_next_end = {
-				["]f"] = "@function.outer",
+				["]m"] = "@function.outer",
 				["]M"] = "@function.outer",
 				["]["] = "@class.outer",
 				["]P"] = "@parameter.outer",

@@ -1,5 +1,7 @@
 return {
-	code_blocks = {
-		pad_amount = 0,
+	markdown = {
+		code_blocks = {
+			pad_amount = 0,
+		},
 	},
 }

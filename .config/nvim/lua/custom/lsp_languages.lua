@@ -2,175 +2,12 @@
 
 local M = {}
 
-M.default_configs = {
-	lua_ls = {
-		init_options = { codelenses = { test = true } },
-		settings = {
-			Lua = {
-				hint = {
-					enable = true,
-				},
-
-				format = {
-					-- Use stylua instead
-					enable = false,
-				},
-
-				completion = {
-					callSnippet = "Replace",
-				},
-
-				runtime = {
-					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-					version = "LuaJIT",
-					-- Setup your lua path
-					path = vim.split(package.path, ";"),
-				},
-				diagnostics = {
-					-- Get the language server to recognize the `vim` global
-					globals = { "vim", "use", "hs", "P" },
-				},
-				workspace = {
-					-- Make the server aware of Neovim runtime files
-					library = {
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-						-- [vim.fn.stdpath("config") .. "/lua"] = true,
-					},
-				},
-			},
-		},
-	},
-	eslint = {
-		on_attach = function(client, bufnr, ...)
-			-- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
-			-- the resolved capabilities of the eslint server ourselves!
-			client.server_capabilities.documentFormattingProvider = true
-			client.server_capabilities.documentRangeFormattingProvider = true
-			-- return lsp_on_attach.on_attach(client, bufnr, ...)
-		end,
-		settings = {
-			format = { enable = true }, -- this will enable formatting
-		},
-	},
-	vtsls = {
-		on_attach = function(client, bufnr, ...)
-			-- TODO: see if it's possible to disable in the vtsls configs 🤷
-			client.server_capabilities.documentFormattingProvider = false
-			client.server_capabilities.documentRangeFormattingProvider = false
-			-- return lsp_on_attach.on_attach(client, bufnr, ...)
-		end,
-		settings = {
-			typescript = {
-				inlayHints = {
-					includeInlayParameterNameHints = "all",
-					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-					includeInlayFunctionParameterTypeHints = true,
-					includeInlayVariableTypeHints = true,
-					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayEnumMemberValueHints = true,
-				},
-			},
-			javascript = {
-				inlayHints = {
-					includeInlayParameterNameHints = "all",
-					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-					includeInlayFunctionParameterTypeHints = true,
-					includeInlayVariableTypeHints = true,
-					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayEnumMemberValueHints = true,
-				},
-			},
-		},
-	},
-	jsonls = {
-		init_options = {
-			provideFormatter = true,
-		},
-		settings = {
-			json = {
-				validate = { enable = true },
-				schemas = {
-					{
-						fileMatch = { "package.json" },
-						uri = "https://json.schemastore.org/package.json",
-					},
-					{
-						fileMatch = { "tsconfig.json", "tsconfig.*.json" },
-						uri = "http://json.schemastore.org/tsconfig",
-					},
-					{
-						fileMatch = { "**/*/.nvim/project.json" },
-						uri = "file://" .. vim.fn.stdpath("config") .. "/schemas/project.json",
-					},
-				},
-			},
-		},
-	},
-	gopls = {
-		settings = {
-			gopls = {
-				buildFlags = {},
-				hints = {
-					assignVariableTypes = true,
-					compositeLiteralFields = true,
-					compositeLiteralTypes = true,
-					constantValues = true,
-					functionTypeParameters = true,
-					parameterNames = true,
-					rangeVariableTypes = true,
-				},
-				experimentalPostfixCompletions = true,
-				codelenses = {
-					gc_details = true,
-					generate = true,
-					regenerate_cgo = true,
-					run_govulncheck = true,
-					tidy = true,
-					upgrade_dependency = true,
-					vendor = true,
-				},
-			},
-		},
-	},
-	golangci_lint_ls = {
-		command = {},
-		init_options = {
-			command = {
-				"go",
-				"tool",
-				"golangci-lint",
-				"run",
-				"--out-format",
-				"json",
-				-- "--issues-exit-code=1",
-				-- "--allow-parallel-runners",
-			},
-		},
-	},
-}
-
-M.configs = vim.tbl_deep_extend("force", M.default_configs, {})
-
--- config that activates keymaps and enables snippet support
-function M.make_config(server_name)
-	-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
-	capabilities.textDocument.foldingRange = vim.tbl_extend("force", capabilities.textDocument.foldingRange or {}, {
-		dynamicRegistration = false,
-		lineFoldingOnly = true,
-	})
-
-	local config = { capabilities = capabilities }
-
-	local server_config = M.configs[server_name] or {}
-
-	return vim.tbl_extend("force", server_config, config)
-end
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+-- capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+vim.lsp.config("*", {
+	capabilities = capabilities,
+})
 
 M.attached = false
 
@@ -180,9 +17,10 @@ function M.load_local(project)
 	-- M.configs = vim.tbl_deep_extend("force", M.default_configs, project_lsp)
 	if project_lsp then
 		for server_name, local_config in pairs(project_lsp) do
-			M.configs[server_name] = vim.tbl_deep_extend("force", M.configs[server_name], local_config)
+			local config = vim.lsp.config[server_name] or {}
+			config = vim.tbl_deep_extend("force", config, local_config)
 
-			local config = M.make_config(server_name)
+			vim.lsp.config(server_name, config)
 
 			local clients = vim.lsp.get_clients({ name = server_name })
 			for _, client in ipairs(clients) do

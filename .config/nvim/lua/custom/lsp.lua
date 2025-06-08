@@ -12,7 +12,7 @@ require("fidget").setup({
 })
 
 -- configs
-local configs = require("custom.lsp_languages")
+require("custom.lsp_languages")
 require("custom.lsp_on_attach")
 
 require("null-ls").setup({
@@ -27,29 +27,8 @@ require("null-ls").setup({
 
 --vim.lsp.set_log_level("debug")
 
-mason_lspconfig.setup_handlers({
-	-- The first entry (without a key) will be the default handler
-	-- and will be called for each installed server that doesn't have
-	-- a dedicated handler.
-	function(server_name) -- Default handler (optional)
-		local config = configs.make_config(server_name)
-		lspconfig[server_name].setup(config)
-	end,
-	-- You can provide targeted overrides for specific servers.
-	-- For example, a handler override for the `rust_analyzer`:
-	--["rust_analyzer"] = function()
-	--require("rust-tools").setup({})
-	--end,
-
-	lua_ls = function()
-		local server_name = "lua_ls"
-		local config = configs.make_config(server_name)
-		lspconfig[server_name].setup(config)
-	end,
-})
-
 -- TODO: remove after this https://github.com/williamboman/mason-lspconfig.nvim/pull/526
-require("lspconfig").postgres_lsp.setup({})
+vim.lsp.enable("postgres_lsp")
 
 -- better signs in "signcolumn" for diagnostics
 

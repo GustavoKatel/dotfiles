@@ -21,8 +21,8 @@ local function close_edgy()
 end
 
 autosession.setup({
-	auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
-	auto_session_enabled = true,
+	root_dir = vim.fn.stdpath("data") .. "/sessions/",
+	enabled = true,
 	pre_save_cmds = { disable_ts_context, close_dadbod_ui, close_edgy },
 	post_save_cmds = {},
 	post_delete_cmds = {},
