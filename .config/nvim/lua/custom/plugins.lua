@@ -57,7 +57,7 @@ require("lazy").setup({
 			"saadparwaiz1/cmp_luasnip",
 		},
 	},
-	{ "j-hui/fidget.nvim", tag = "legacy" },
+	{ "j-hui/fidget.nvim" },
 
 	{
 		"folke/trouble.nvim",
@@ -113,18 +113,40 @@ require("lazy").setup({
 	},
 
 	{ "github/copilot.vim" },
+	-- {
+	-- 	"CopilotC-Nvim/CopilotChat.nvim",
+	-- 	-- branch = "canary",
+	-- 	dependencies = {
+	-- 		{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+	-- 		{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+	-- 	},
+	-- 	opts = {
+	-- 		debug = true, -- Enable debugging
+	-- 		-- See Configuration section for rest
+	-- 	},
+	-- 	-- See Commands section for default commands if you want to lazy load on them
+	-- },
 	{
-		"CopilotC-Nvim/CopilotChat.nvim",
-		-- branch = "canary",
+		"olimorris/codecompanion.nvim",
+		-- tag = "v16.1.0",
+		opts = require("custom.plugins.codecompanion").opts,
+		init = require("custom.plugins.codecompanion").init,
 		dependencies = {
-			{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-			{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+			"zbirenbaum/copilot.lua", -- or github/copilot.vim
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
 		},
-		opts = {
-			debug = true, -- Enable debugging
-			-- See Configuration section for rest
-		},
-		-- See Commands section for default commands if you want to lazy load on them
+	},
+	-- needed for codecompanion diffs
+	{
+		"echasnovski/mini.diff",
+		config = function()
+			local diff = require("mini.diff")
+			diff.setup({
+				-- Disabled by default
+				source = diff.gen_source.none(),
+			})
+		end,
 	},
 	{ "b0o/schemastore.nvim" },
 	-- }}}
@@ -404,7 +426,10 @@ require("lazy").setup({
 	},
 	{
 		"sindrets/diffview.nvim",
-		cmd = { "GitTabDiff" },
+		cmd = {
+			-- "GitTabDiff",
+			"DiffviewOpen",
+		},
 		opts = require("custom.plugins.diffview"),
 	},
 	-- }}}

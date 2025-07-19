@@ -688,3 +688,5 @@ vim.keymap.set("n", "<C-w><space>", function()
 		loop = true, -- this will keep the popup open until you hit <esc>
 	})
 end, { desc = "Show hydra mode for window keys" })
+
+vim.keymap.set("n", "<C-S-/>", ":CodeCompanionChat toggle<CR>", { desc = "Open Code Companion Chat" })
