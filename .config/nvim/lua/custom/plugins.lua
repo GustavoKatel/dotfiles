@@ -71,10 +71,17 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ language support
-	{ "nvim-treesitter/nvim-treesitter" }, -- semantic highlight
-	{ "nvim-treesitter/playground" },
+	-- { "nvim-treesitter/nvim-treesitter" }, -- semantic highlight
+	{
+		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
+		branch = "main",
+		build = ":TSUpdate",
+
+		dependencies = { "OXY2DEV/markview.nvim" },
+	},
 	{ "windwp/nvim-ts-autotag" }, -- auto close html tags using treesitter
-	{ "nvim-treesitter/nvim-treesitter-textobjects" },
+	{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
 	{ "nvim-treesitter/nvim-treesitter-context" },
 	{ "haringsrob/nvim_context_vt" },
 	{ "cespare/vim-toml", ft = "toml" },

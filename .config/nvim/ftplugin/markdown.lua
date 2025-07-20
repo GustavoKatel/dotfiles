@@ -1,5 +1,4 @@
 -- treesitter testing
-local ts_utils = require("nvim-treesitter.ts_utils")
 
 vim.treesitter.query.set(
 	"markdown",
@@ -51,7 +50,7 @@ local function create_change(node, bufnr)
 end
 
 function TSToggleCheckBox()
-	local cursor_node = ts_utils.get_node_at_cursor()
+	local cursor_node = vim.treesitter.get_node()
 
 	local query = vim.treesitter.get_query("markdown", "markdown_get_checkboxes")
 

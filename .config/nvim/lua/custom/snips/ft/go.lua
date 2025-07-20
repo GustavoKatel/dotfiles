@@ -1,34 +1,38 @@
+-- Adapter from https://cj.rs/blog/luasnip-and-treesitter-for-smarter-snippets/
 local ls = require("luasnip")
-local fmt = require("luasnip.extras.fmt").fmt
-local s = ls.snippet
-local c = ls.choice_node
-local t = ls.text_node
-local sn = ls.snippet_node
+local f = ls.function_node
+local s = ls.s
 local i = ls.insert_node
+local t = ls.text_node
 local d = ls.dynamic_node
-local rep = require("luasnip.extras").rep
-
--- part of this is based on https://github.com/tjdevries/config_manager/blob/8f14ab2dd6ba40645af196cc40116b55c0aca3c0/xdg_config/nvim/lua/tj/snips/ft/go.lua
-
-local ts_locals = require("nvim-treesitter.locals")
-local ts_utils = require("nvim-treesitter.ts_utils")
+local c = ls.choice_node
+local fmt = require("luasnip.extras.fmt").fmt
+local sn = ls.snippet_node
+local snippet_from_nodes = ls.sn
 
 local get_node_text = vim.treesitter.get_node_text
 
+-- Adapted from https://github.com/tjdevries/config_manager/blob/1a93f03dfe254b5332b176ae8ec926e69a5d9805/xdg_config/nvim/lua/tj/snips/ft/go.lua
+local function same(index)
+	return f(function(args)
+		return args[1]
+	end, { index })
+end
+
+-- Adapted from https://github.com/tjdevries/config_manager/blob/1a93f03dfe254b5332b176ae8ec926e69a5d9805/xdg_config/nvim/lua/tj/snips/ft/go.lua
 vim.treesitter.query.set(
 	"go",
 	"LuaSnip_Result",
-	[[
-  [
+	[[ [
     (method_declaration result: (_) @id)
     (function_declaration result: (_) @id)
     (func_literal result: (_) @id)
-  ]
-]]
+  ] ]]
 )
 
+-- Adapted from https://github.com/tjdevries/config_manager/blob/1a93f03dfe254b5332b176ae8ec926e69a5d9805/xdg_config/nvim/lua/tj/snips/ft/go.lua
 local transform = function(text, info)
-	if text == "int" then
+	if text == "int" or text == "int8" or text == "int16" or text == "int32" or text == "int64" then
 		return t("0")
 	elseif text == "error" then
 		if info then
@@ -36,13 +40,18 @@ local transform = function(text, info)
 
 			return c(info.index, {
 				t(info.err_name),
-				t(string.format('fmt.Errorf("%%w", %s)', info.err_name)),
+				sn(nil, fmt('fmt.Errorf("{}: %v", {})', { i(1), t(info.err_name) })),
+				-- Be cautious with wrapping, it makes the error part of the API of the
+				-- function, see https://go.dev/blog/go1.13-errors#whether-to-wrap
+				sn(nil, fmt('fmt.Errorf("{}: %w", {})', { i(1), t(info.err_name) })),
 			})
 		else
 			return t("err")
 		end
 	elseif text == "bool" then
-		return i(info.index, "false")
+		return t("false")
+	elseif text == "string" then
+		return t('""')
 	elseif string.find(text, "*", 1, true) then
 		return t("nil")
 	end
@@ -71,89 +80,53 @@ local handlers = {
 	end,
 }
 
+-- Adapted from https://github.com/tjdevries/config_manager/blob/1a93f03dfe254b5332b176ae8ec926e69a5d9805/xdg_config/nvim/lua/tj/snips/ft/go.lua
 local function go_result_type(info)
-	local cursor_node = ts_utils.get_node_at_cursor()
-	local scope = ts_locals.get_scope_tree(cursor_node, 0)
-
-	local function_node
-	for _, v in ipairs(scope) do
-		if v:type() == "function_declaration" or v:type() == "method_declaration" or v:type() == "func_literal" then
-			function_node = v
-			break
-		end
-	end
-
 	local query = vim.treesitter.query.get("go", "LuaSnip_Result")
-	for _, node in query:iter_captures(function_node, 0) do
-		if handlers[node:type()] then
-			return handlers[node:type()](node, info)
+
+	local root = vim.treesitter.get_parser(0, "go"):parse(true)[1]:root()
+
+	local cursor = vim.api.nvim_win_get_cursor(0)
+
+	local start_row = cursor[1] - 1
+	local end_row = start_row + 1
+
+	for _, match, metadata in query:iter_matches(root, 0, start_row, end_row, { all = true }) do
+		for id, nodes in ipairs(match) do
+			local name = query.captures[id]
+
+			for _, node in ipairs(nodes) do
+				local mt = metadata[id] -- Node level metadata
+				if handlers[node:type()] then
+					return handlers[node:type()](node, info)
+				end
+			end
 		end
 	end
 
-	return { t(info.err_name) }
+	return { t("nil") }
 end
 
+-- Adapted from https://github.com/tjdevries/config_manager/blob/1a93f03dfe254b5332b176ae8ec926e69a5d9805/xdg_config/nvim/lua/tj/snips/ft/go.lua
 local go_ret_vals = function(args)
-	local info = { index = 0, err_name = args[1][1], func_name = args[2][1] }
-	local nodes = go_result_type(info)
-	return sn(nil, nodes)
+	return snippet_from_nodes(
+		nil,
+		go_result_type({
+			index = 0,
+			err_name = args[1][1],
+			-- function_name = args[2][1],
+		})
+	)
 end
 
 return {
-	s(
-		"err",
-		fmt("if err != nil {{\n\treturn {}\n}}", {
-			c(1, {
-				t("err"),
-				sn(nil, fmt("{}, err", { i(1) })),
-			}),
-		})
-	),
-
-	s(
-		"errfn",
-		fmt("if {} := {}; {} != nil {{\n\treturn {}\n}}", {
-			i(1, "err"),
-			i(2, "fn"),
-			rep(1), -- repeat variable "err"
-			d(3, go_ret_vals, { 1, 2 }),
-			--c(2, {
-
-			--t("return err"),
-			--sn(nil, fmt("return {}, err", { i(1) })),
-			--}),
-		})
-	),
-
-	s(
-		"fn",
-		c(1, {
-			sn(
-				nil,
-				fmt("func {}({}) {} {{\n\t{}\n}}", {
-					i(1, "fn"),
-					i(2),
-					c(3, {
-						t("error"),
-						sn(nil, fmt("({}, error)", { i(1) })),
-					}),
-					i(4),
-				})
-			),
-			sn(
-				nil,
-				fmt("func ({} {}) {}({}) {} {{\n\t{}\n}}", {
-					i(1, "obj"),
-					i(2),
-					i(3, "fn"),
-					i(4),
-					c(5, {
-						t("error"),
-						sn(nil, fmt("({}, error)", { i(1) })),
-					}),
-					i(6),
-				})
-			),
-		})
-	),
+	-- Adapted from https://github.com/tjdevries/config_manager/blob/1a93f03dfe254b5332b176ae8ec926e69a5d9805/xdg_config/nvim/lua/tj/snips/ft/go.lua
+	s("iferr", {
+		t({ "if " }),
+		i(1, { "err" }),
+		t({ " != nil {", "\treturn " }),
+		d(2, go_ret_vals, { 1 }),
+		t({ "", "}" }),
+		i(0),
+	}),
 }
