@@ -690,3 +690,67 @@ vim.keymap.set("n", "<C-w><space>", function()
 end, { desc = "Show hydra mode for window keys" })
 
 vim.keymap.set("n", "<C-S-/>", ":CodeCompanionChat toggle<CR>", { desc = "Open Code Companion Chat" })
+
+---- Treesitter text objects
+for code, def in pairs({
+	-- You can use the capture groups defined in textobjects.scm
+	["af"] = { obj = "@function.outer", source = "textobjects" },
+	["if"] = { obj = "@function.inner", source = "textobjects" },
+	["ac"] = { obj = "@class.outer", source = "textobjects" },
+	["ic"] = { obj = "@class.inner", source = "textobjects" },
+	["ab"] = { obj = "@block.outer", source = "textobjects" },
+	["ib"] = { obj = "@block.inner", source = "textobjects" },
+}) do
+	vim.keymap.set({ "x", "o" }, code, function()
+		require("nvim-treesitter-textobjects.select").select_textobject(def.obj, def.source or "textobjects")
+	end)
+end
+
+for code, def in pairs({
+	["]f"] = { obj = "@function.outer" },
+	["]]"] = { obj = "@class.outer" },
+	["]p"] = { obj = "@parameter.inner" },
+}) do
+	vim.keymap.set({ "n", "x", "o" }, code, function()
+		require("nvim-treesitter-textobjects.move").goto_next_start(def.obj, def.source or "textobjects")
+	end)
+end
+
+for code, def in pairs({
+	["]m"] = { obj = "@function.outer" },
+	["]M"] = { obj = "@function.outer" },
+	["]["] = { obj = "@class.outer" },
+	["]P"] = { obj = "@parameter.outer" },
+}) do
+	vim.keymap.set({ "n", "x", "o" }, code, function()
+		require("nvim-treesitter-textobjects.move").goto_next_end(def.obj, def.source or "textobjects")
+	end)
+end
+
+for code, def in pairs({
+	["[f"] = { obj = "@function.outer" },
+	["[m"] = { obj = "@function.outer" },
+	["[["] = { obj = "@class.outer" },
+	["[p"] = { obj = "@parameter.inner" },
+}) do
+	vim.keymap.set({ "n", "x", "o" }, code, function()
+		require("nvim-treesitter-textobjects.move").goto_previous_start(def.obj, def.source or "textobjects")
+	end)
+end
+
+for code, def in pairs({
+	["[M"] = { obj = "@function.outer" },
+	["[]"] = { obj = "@class.outer" },
+	["[P"] = { obj = "@parameter.outer" },
+}) do
+	vim.keymap.set({ "n", "x", "o" }, code, function()
+		require("nvim-treesitter-textobjects.move").goto_previous_end(def.obj, def.source or "textobjects")
+	end)
+end
+
+vim.keymap.set("n", "<leader>k", function()
+	require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner")
+end)
+vim.keymap.set("n", "<leader>K", function()
+	require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner")
+end)

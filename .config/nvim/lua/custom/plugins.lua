@@ -77,7 +77,7 @@ require("lazy").setup({
 		lazy = false,
 		branch = "main",
 		build = ":TSUpdate",
-
+		priority = 1000, -- make sure this is loaded before any other plugin that depends on treesitter
 		dependencies = { "OXY2DEV/markview.nvim" },
 	},
 	{ "windwp/nvim-ts-autotag" }, -- auto close html tags using treesitter
@@ -425,11 +425,7 @@ require("lazy").setup({
 	{
 		"mistweaverco/kulala.nvim",
 		ft = { "http" },
-		opts = {
-			-- enable winbar
-			winbar = true,
-			default_winbar_panes = { "body", "headers", "headers_body", "script_output", "stats", "verbose" },
-		},
+		opts = require("custom.plugins.kulala"),
 	},
 	{
 		"sindrets/diffview.nvim",

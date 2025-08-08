@@ -5,8 +5,10 @@ local M = {}
 M.cursor_hold_timer = nil
 M.cursor_hold_waiting_for_move = false
 
+M.current_win_id = nil
+
 local function open_float_diagnostics()
-	vim.diagnostic.open_float({
+	local _, win_id = vim.diagnostic.open_float({
 		border = "rounded",
 		focusable = false,
 		source = true,
@@ -14,7 +16,20 @@ local function open_float_diagnostics()
 			return i .. ". "
 		end,
 	})
+
+	M.current_win_id = win_id
 end
+
+-- closes the diagnostics window when leaving the current window
+vim.api.nvim_create_autocmd("WinLeave", {
+	group = vim.api.nvim_create_augroup("LspDiagnosticsClose", { clear = true }),
+	callback = function()
+		if M.current_win_id and vim.api.nvim_win_is_valid(M.current_win_id) then
+			vim.api.nvim_win_close(M.current_win_id, true)
+			M.current_win_id = nil
+		end
+	end,
+})
 
 -- adds a small delay before showing the line diagnostics
 M.cursor_hold = function(is_manual)

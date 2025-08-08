@@ -39,11 +39,11 @@ local transform = function(text, info)
 			info.index = info.index + 1
 
 			return c(info.index, {
-				t(info.err_name),
-				sn(nil, fmt('fmt.Errorf("{}: %v", {})', { i(1), t(info.err_name) })),
+				sn(nil, i(1, info.err_name)),
+				sn(nil, fmt('fmt.Errorf("{}: %v", {})', { i(1), i(2, info.err_name) })),
 				-- Be cautious with wrapping, it makes the error part of the API of the
 				-- function, see https://go.dev/blog/go1.13-errors#whether-to-wrap
-				sn(nil, fmt('fmt.Errorf("{}: %w", {})', { i(1), t(info.err_name) })),
+				sn(nil, fmt('fmt.Errorf("{}: %w", {})', { i(1), i(2, info.err_name) })),
 			})
 		else
 			return t("err")
@@ -104,7 +104,7 @@ local function go_result_type(info)
 		end
 	end
 
-	return { t("nil") }
+	return { t("") }
 end
 
 -- Adapted from https://github.com/tjdevries/config_manager/blob/1a93f03dfe254b5332b176ae8ec926e69a5d9805/xdg_config/nvim/lua/tj/snips/ft/go.lua
@@ -121,7 +121,7 @@ end
 
 return {
 	-- Adapted from https://github.com/tjdevries/config_manager/blob/1a93f03dfe254b5332b176ae8ec926e69a5d9805/xdg_config/nvim/lua/tj/snips/ft/go.lua
-	s("iferr", {
+	s("err", {
 		t({ "if " }),
 		i(1, { "err" }),
 		t({ " != nil {", "\treturn " }),
