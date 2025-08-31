@@ -21,7 +21,7 @@ local function open_float_diagnostics()
 end
 
 -- closes the diagnostics window when leaving the current window
-vim.api.nvim_create_autocmd("WinLeave", {
+vim.api.nvim_create_autocmd({ "WinLeave", "BufWinLeave" }, {
 	group = vim.api.nvim_create_augroup("LspDiagnosticsClose", { clear = true }),
 	callback = function()
 		if M.current_win_id and vim.api.nvim_win_is_valid(M.current_win_id) then

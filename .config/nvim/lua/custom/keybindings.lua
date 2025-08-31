@@ -654,6 +654,8 @@ vim.keymap.set({ "n" }, "<S-F8>", function()
 end, { desc = "Toggle quickfix without focusing" })
 
 -- copilot
+-- let g:copilot_no_tab_map = v:true
+vim.g.copilot_no_tab_map = true
 vim.keymap.set(
 	{ "i" },
 	"<C-j>",
