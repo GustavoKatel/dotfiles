@@ -27,9 +27,6 @@ require("null-ls").setup({
 
 --vim.lsp.set_log_level("debug")
 
--- TODO: remove after this https://github.com/williamboman/mason-lspconfig.nvim/pull/526
-vim.lsp.enable("postgres_lsp")
-
 -- better signs in "signcolumn" for diagnostics
 
 vim.diagnostic.config({

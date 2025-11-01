@@ -118,21 +118,10 @@ require("lazy").setup({
 			-- { dir = "~/dev/neotest-go" },
 		},
 	},
+	-- }}}
 
+	-- {{{ AI Tools
 	{ "github/copilot.vim" },
-	-- {
-	-- 	"CopilotC-Nvim/CopilotChat.nvim",
-	-- 	-- branch = "canary",
-	-- 	dependencies = {
-	-- 		{ "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-	-- 		{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-	-- 	},
-	-- 	opts = {
-	-- 		debug = true, -- Enable debugging
-	-- 		-- See Configuration section for rest
-	-- 	},
-	-- 	-- See Commands section for default commands if you want to lazy load on them
-	-- },
 	{
 		"olimorris/codecompanion.nvim",
 		-- tag = "v16.1.0",
@@ -155,7 +144,11 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{ "b0o/schemastore.nvim" },
+	{
+		"folke/sidekick.nvim",
+		opts = require("custom.plugins.sidekick").opts,
+		-- keys = require("custom.plugins.sidekick").keys,
+	},
 	-- }}}
 
 	-- {{{ colorscheme
@@ -364,6 +357,7 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ utils
+	{ "b0o/schemastore.nvim" },
 	{ "tpope/vim-fugitive", dependencies = { { "tpope/vim-rhubarb" } } }, -- some git goodies
 	{ "voldikss/vim-floaterm", cmd = { "FloatermToggle" } }, -- floating terminal
 	{ "qpkorr/vim-bufkill" }, -- better support for killing buffers

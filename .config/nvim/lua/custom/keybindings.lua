@@ -641,6 +641,12 @@ vim.keymap.set({ "n" }, "<F7>", function()
 	-- })
 	-- toggle_quickfix(true)
 	require("trouble").toggle({ mode = "diagnostics", focus = true, auto_preview = false })
+	-- require("trouble").toggle({
+	-- 	mode = "diagnostics",
+	-- 	focus = true,
+	-- 	auto_preview = false,
+	-- 	win = { type = "split", position = "left" },
+	-- })
 end, { desc = "Set diagnostics to loclist" })
 
 -- toggle quickfix with <F8>
@@ -756,3 +762,26 @@ end)
 vim.keymap.set("n", "<leader>K", function()
 	require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner")
 end)
+
+-- sidekick
+
+vim.keymap.set({ "n", "t", "i", "x" }, "<C-.>", function()
+	require("sidekick.cli").toggle()
+end, { desc = "Toggle Sidekick" })
+
+vim.keymap.set({ "n", "t", "i", "x" }, "<M-C-.>", function()
+	vim.ui.select({
+		{ label = "This", value = { msg = "{this}" } },
+		{ label = "File", value = { msg = "{file}" } },
+		{ label = "Selection", value = { msg = "{selection}" } },
+	}, {
+		prompt = "Send to Sidekick cli:",
+		format_item = function(item)
+			return item.label
+		end,
+	}, function(choice)
+		if choice ~= nil then
+			require("sidekick.cli").send(choice)
+		end
+	end)
+end, { desc = "Send stuff to Sidekick cli" })

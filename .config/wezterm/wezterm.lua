@@ -316,7 +316,14 @@ config.keys = {
 		mods = "LEADER",
 		action = wezterm.action.SpawnCommandInNewTab({
 			args = { "~/dotfiles/dev/wez-windowizer.sh" },
+			label = "Windowizer",
 		}),
+	},
+
+	{
+		key = "p",
+		mods = "LEADER",
+		action = wezterm.action.ActivateCommandPalette,
 	},
 
 	-- https://github.com/wez/wezterm/pull/5025#issuecomment-2491114061

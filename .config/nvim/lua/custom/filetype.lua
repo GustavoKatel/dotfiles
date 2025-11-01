@@ -4,6 +4,7 @@ vim.filetype.add({
 		[".*/.vscode/.*.json"] = "jsonc",
 		["tsconfig.json"] = "jsonc",
 		[".eslintrc.json"] = "jsonc",
+		[".releaserc"] = "jsonc",
 	},
 })
 
