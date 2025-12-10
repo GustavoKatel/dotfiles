@@ -4,7 +4,6 @@ local ensure_installed = {
 	"lua",
 	"vim",
 	"json",
-	"jsonc",
 	"python",
 	"yaml",
 	"bash",

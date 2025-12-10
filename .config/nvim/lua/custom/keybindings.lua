@@ -365,7 +365,7 @@ end, { desc = "Picker marks" })
 vim.keymap.set({ "n" }, "<F9>", function()
 	local overseer = require("overseer")
 	-- Run a task and immediately open the floating window
-	overseer.run_template({}, function(task)
+	overseer.run_task({}, function(task)
 		if task then
 			overseer.run_action(task, "open sticky")
 		end
@@ -375,7 +375,7 @@ end, { desc = "Run a task and immediately open the floating window" })
 vim.keymap.set({ "n" }, "<leader><F9>", function()
 	local overseer = require("overseer")
 	-- Run a task and immediately open the floating window
-	overseer.run_template({}, function(task)
+	overseer.run_task({}, function(task)
 		if task then
 			overseer.run_action(task, "open float")
 		end
@@ -402,7 +402,17 @@ for _, code in ipairs({ "<D-F9>" }) do
 		if vim.tbl_isempty(tasks) then
 			vim.notify("No tasks found", vim.log.levels.WARN)
 		else
-			overseer.run_action(tasks[1], "open sticky")
+			-- overseer.run_action(tasks[1], "open sticky")
+			vim.ui.select(tasks, {
+				prompt = "Select task:",
+				format_item = function(item)
+					return item.name .. " [" .. item.status .. "]"
+				end,
+			}, function(choice)
+				if choice then
+					overseer.run_action(choice, nil)
+				end
+			end)
 		end
 	end, { desc = "Open output of the last task" })
 end
@@ -768,6 +778,13 @@ end)
 vim.keymap.set({ "n", "t", "i", "x" }, "<C-.>", function()
 	require("sidekick.cli").toggle()
 end, { desc = "Toggle Sidekick" })
+
+vim.keymap.set({ "n" }, "]a", function()
+	require("sidekick.nes").jump()
+end, { desc = "Sidekick nes jump next" })
+vim.keymap.set({ "n" }, "]A", function()
+	require("sidekick.nes").apply()
+end, { desc = "Sidekick nes jump apply" })
 
 vim.keymap.set({ "n", "t", "i", "x" }, "<M-C-.>", function()
 	vim.ui.select({

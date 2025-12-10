@@ -33,8 +33,6 @@ require("custom.paster")
 require("custom.dbs_local_project_config")
 require("custom.project").setup()
 
-require("custom.file_browser")
-
 require("custom.remote_ui_helpers")
 
 require("custom.overseer.overseer_local_project_config")

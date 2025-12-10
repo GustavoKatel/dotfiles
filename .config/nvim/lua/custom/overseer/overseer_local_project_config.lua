@@ -18,10 +18,10 @@ require("custom.project").register_on_load_handler(function(project)
 end)
 
 overseer.add_template_hook({}, function(task_defn, util)
-	if M.current_parser == nil then
-		return
-	end
-
-	local component = vim.tbl_deep_extend("force", { "on_output_parse" }, M.current_parser)
-	util.add_component(task_defn, component)
+	-- if M.current_parser == nil then
+	-- 	return
+	-- end
+	--
+	-- local component = vim.tbl_deep_extend("force", { "on_output_parse" }, M.current_parser)
+	-- util.add_component(task_defn, component)
 end)

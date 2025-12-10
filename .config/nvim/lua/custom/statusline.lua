@@ -95,6 +95,7 @@ lualine.setup({
 				symbols = {
 					[require("overseer").STATUS.RUNNING] = "󰑮 ",
 				},
+				colored = false,
 			},
 			-- require("tasks.statusline.running")(),
 			--{

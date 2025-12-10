@@ -122,11 +122,13 @@ config.font = wezterm.font({
 	weight = "Bold",
 })
 -- config.font_size = 12.4
-config.front_end = "OpenGL"
-config.freetype_load_target = "Light"
-config.freetype_render_target = "HorizontalLcd"
-config.cell_width = 0.9
-config.max_fps = 120
+-- config.front_end = "OpenGL"
+config.front_end = "WebGpu"
+-- config.freetype_load_flags = "NO_HINTING"
+-- config.freetype_load_target = "Light"
+-- config.freetype_render_target = "HorizontalLcd"
+-- config.cell_width = 0.9
+-- config.max_fps = 120
 -- disable italic?
 
 config.window_padding = {

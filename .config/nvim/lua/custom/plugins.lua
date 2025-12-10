@@ -194,7 +194,14 @@ require("lazy").setup({
 
 	{
 		"stevearc/oil.nvim",
+		dependencies = { "benomahony/oil-git.nvim" },
+		opts = require("custom.plugins.oil"),
 	},
+	-- {
+	-- 	"A7Lavinraj/fyler.nvim",
+	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- 	opts = { icon_provider = "nvim_web_devicons" },
+	-- },
 
 	{ "kevinhwang91/nvim-bqf" },
 
@@ -367,6 +374,7 @@ require("lazy").setup({
 
 	{
 		"stevearc/overseer.nvim",
+		-- dir = "~/dev/overseer.nvim",
 		opts = require("custom.overseer.opts"),
 	},
 
