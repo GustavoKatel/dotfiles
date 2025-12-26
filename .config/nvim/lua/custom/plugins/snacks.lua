@@ -23,9 +23,11 @@ return {
 		layouts = {
 			default = {
 				preset = "default",
-				cycle = false,
+				cycle = true,
 				layout = {
-					width = 0.5,
+					width = function()
+						return vim.o.columns >= 300 and 0.5 or 0.8
+					end,
 					backdrop = false,
 				},
 			},

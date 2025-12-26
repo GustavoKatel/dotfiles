@@ -365,7 +365,12 @@ end, { desc = "Picker marks" })
 vim.keymap.set({ "n" }, "<F9>", function()
 	local overseer = require("overseer")
 	-- Run a task and immediately open the floating window
-	overseer.run_task({}, function(task)
+	overseer.run_task({
+		search_params = {
+			dir = vim.fn.getcwd(),
+			filetype = vim.bo.filetype,
+		},
+	}, function(task)
 		if task then
 			overseer.run_action(task, "open sticky")
 		end
@@ -798,7 +803,7 @@ vim.keymap.set({ "n", "t", "i", "x" }, "<M-C-.>", function()
 		end,
 	}, function(choice)
 		if choice ~= nil then
-			require("sidekick.cli").send(choice)
+			require("sidekick.cli").send(choice.value)
 		end
 	end)
 end, { desc = "Send stuff to Sidekick cli" })

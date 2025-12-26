@@ -373,8 +373,8 @@ require("lazy").setup({
 	{ "rmagatti/auto-session" },
 
 	{
-		"stevearc/overseer.nvim",
-		-- dir = "~/dev/overseer.nvim",
+		-- "stevearc/overseer.nvim",
+		dir = "~/dev/overseer.nvim",
 		opts = require("custom.overseer.opts"),
 	},
 
