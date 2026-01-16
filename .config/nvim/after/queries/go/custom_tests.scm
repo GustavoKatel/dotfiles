@@ -24,4 +24,9 @@
 )
 ))
 
+(function_declaration
+  name: (identifier) @test_name (#match? @test_name "^Test.*")
+  body: (_) @test_func
+)
+
 ;; vim: set ft=query:

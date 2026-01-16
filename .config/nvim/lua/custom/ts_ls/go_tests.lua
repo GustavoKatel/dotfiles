@@ -1,8 +1,21 @@
 local custom_tests_handler = function(match, query, metadata, info)
 	local lenses = {}
 
-	local lens = {}
+	local lens = {
+		-- title = "Run test: " .. test_name,
+		command = {
+			title = "",
+			command = "ts_ls.custom_tests.run",
+			arguments = {
+				path = vim.fn.fnamemodify(info.filename, ":p:h"),
+				-- test_parent_name = test_parent_name,
+				-- test_name = test_name_clean,
+			},
+		},
+	}
+
 	local test_name = ""
+	local test_parent_name = ""
 
 	for id, nodes in pairs(match) do
 		local name = query.captures[id]
@@ -13,29 +26,16 @@ local custom_tests_handler = function(match, query, metadata, info)
 			local mt = metadata[id] -- Node level metadata
 
 			if name == "test_parent_name" then
-				local test_parent_name = vim.treesitter.get_node_text(node, info.bufnr, { metadata = mt })
-
-				lens = {
-					title = "Run test",
-					command = {
-						title = "",
-						command = "ts_ls.custom_tests.run",
-						arguments = {
-							path = vim.fn.fnamemodify(info.filename, ":p:h"),
-							test_parent_name = test_parent_name,
-						},
-					},
-				}
+				test_parent_name = vim.treesitter.get_node_text(node, info.bufnr, { metadata = mt })
+				lens.command.arguments.test_parent_name = test_parent_name
 			end
 
 			if name == "test_name" then
 				test_name = vim.treesitter.get_node_text(node, info.bufnr, { metadata = mt })
 
-				lens.title = lens.title .. ": " .. test_name
-
 				local test_name_clean = string.gsub(test_name or "", "%s", "_")
-
 				lens.command.arguments.test_name = test_name_clean
+				lens.title = "Run test: " .. test_name
 			end
 
 			if name == "test_func" then
@@ -47,20 +47,21 @@ local custom_tests_handler = function(match, query, metadata, info)
 					["end"] = { line = row2, character = col2 },
 				}
 				lens.command.arguments.range = lens.range
-
-				if info.range == nil or (info.range.start.line >= row1 and info.range["end"].line <= row2) then
-					table.insert(lenses, lens)
-
-					local debug_lens = vim.deepcopy(lens)
-					debug_lens.title = "Debug test: " .. test_name
-					debug_lens.command.title = ""
-					debug_lens.command.command = "ts_ls.custom_tests.debug"
-					table.insert(lenses, debug_lens)
-				end
-
-				lens = {}
 			end
 		end
+	end
+
+	if
+		(info.range == nil and lens.range ~= nil and lens.range.start ~= nil and lens.range["end"] ~= nil)
+		or (info.range.start.line >= lens.range.start.line and info.range["end"].line <= lens.range["end"].line)
+	then
+		table.insert(lenses, lens)
+
+		local debug_lens = vim.deepcopy(lens)
+		debug_lens.title = "Debug test: " .. test_name
+		debug_lens.command.title = ""
+		debug_lens.command.command = "ts_ls.custom_tests.debug"
+		table.insert(lenses, debug_lens)
 	end
 
 	return lenses
@@ -69,6 +70,14 @@ end
 local function run_test(path, test_parent_name, test_name, range)
 	local overseer = require("overseer")
 
+	local test_name_parts = { ".*" }
+	if test_parent_name and test_parent_name ~= "" then
+		table.insert(test_name_parts, test_parent_name)
+	end
+	table.insert(test_name_parts, test_name)
+
+	local test_name_clean = table.concat(test_name_parts, "/")
+
 	local args = {
 		"test",
 		"-count=1",
@@ -76,7 +85,7 @@ local function run_test(path, test_parent_name, test_name, range)
 		"-race",
 		vim.fs.joinpath(path, "..."),
 		"-run",
-		".*/" .. test_parent_name .. "/" .. test_name,
+		test_name_clean,
 	}
 
 	local task = overseer.new_task({

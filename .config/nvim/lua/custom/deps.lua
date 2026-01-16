@@ -26,7 +26,7 @@ local pkgs = user_profile.with_profile_table({
 
 -- local servers = { "python", "rust", "typescript", "go", "lua" }
 local common_servers =
-	{ "lua_ls", "vtsls", "eslint", "dockerls", "jsonls", "bashls", "cssls", "rubocop", "elixir-ls", "zls", "ruby-lsp" }
+	{ "lua_ls", "tsgo", "eslint", "dockerls", "jsonls", "bashls", "cssls", "rubocop", "elixir-ls", "zls", "ruby-lsp" }
 
 local servers = user_profile.with_profile_table({
 	default = vim.iter({
