@@ -33,9 +33,6 @@ neotest.setup({
 		require("neotest-golang")({
 			testify_enabled = true,
 		}),
-		require("neotest-jest")({
-			jestCommand = "npm run test --",
-		}),
 		--require("neotest-vim-test")({
 		--allow_file_types = { "typescript" },
 		--}),

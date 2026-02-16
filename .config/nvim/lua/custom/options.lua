@@ -100,7 +100,7 @@ vim.opt.signcolumn = "yes:2"
 
 vim.g.vim_json_conceal = 0
 
-vim.g.AutoPairsShortcutToggle = ""
+-- vim.g.AutoPairsShortcutToggle = ""
 
 vim.o.diffopt = "internal,filler,closeoff,linematch:60"
 

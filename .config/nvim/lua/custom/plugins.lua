@@ -46,18 +46,6 @@ require("lazy").setup({
 		},
 	},
 	{
-		"hrsh7th/nvim-cmp",
-		dependencies = {
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-emoji",
-			"hrsh7th/cmp-cmdline",
-			"saadparwaiz1/cmp_luasnip",
-		},
-	},
-	{
 		"saghen/blink.cmp",
 
 		-- use a release tag to download pre-built binaries
@@ -93,7 +81,7 @@ require("lazy").setup({
 		dependencies = { "OXY2DEV/markview.nvim" },
 	},
 	{ "windwp/nvim-ts-autotag" }, -- auto close html tags using treesitter
-	{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
+	{ "nvim-treesitter/nvim-treesitter-textobjects" },
 	{ "nvim-treesitter/nvim-treesitter-context" },
 	{ "haringsrob/nvim_context_vt" },
 	{ "cespare/vim-toml", ft = "toml" },
@@ -122,7 +110,6 @@ require("lazy").setup({
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-neotest/nvim-nio",
 			-- adapters
-			"haydenmeade/neotest-jest",
 			"nvim-neotest/neotest-plenary",
 			{
 				"fredrikaverpil/neotest-golang",
@@ -134,28 +121,6 @@ require("lazy").setup({
 
 	-- {{{ AI Tools
 	{ "github/copilot.vim" },
-	{
-		"olimorris/codecompanion.nvim",
-		-- tag = "v16.1.0",
-		opts = require("custom.plugins.codecompanion").opts,
-		init = require("custom.plugins.codecompanion").init,
-		dependencies = {
-			"zbirenbaum/copilot.lua", -- or github/copilot.vim
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-	},
-	-- needed for codecompanion diffs
-	{
-		"nvim-mini/mini.diff",
-		config = function()
-			local diff = require("mini.diff")
-			diff.setup({
-				-- Disabled by default
-				source = diff.gen_source.none(),
-			})
-		end,
-	},
 	{
 		"folke/sidekick.nvim",
 		opts = require("custom.plugins.sidekick").opts,
@@ -174,12 +139,6 @@ require("lazy").setup({
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup()
-		end,
-	},
-	{
-		"windwp/nvim-autopairs", -- auto close brackets, parenthesis etc
-		config = function()
-			require("nvim-autopairs").setup({})
 		end,
 	},
 	{
@@ -376,6 +335,7 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ utils
+	{ "nvim-mini/mini.nvim", version = "*" },
 	{ "b0o/schemastore.nvim" },
 	{ "tpope/vim-fugitive", dependencies = { { "tpope/vim-rhubarb" } } }, -- some git goodies
 	{ "voldikss/vim-floaterm", cmd = { "FloatermToggle" } }, -- floating terminal

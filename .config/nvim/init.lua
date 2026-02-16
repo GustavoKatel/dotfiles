@@ -11,7 +11,6 @@ require("custom.git_utils")
 
 require("custom.deps")
 require("custom.lsp")
--- require("custom.completion")
 require("custom.snips")
 require("custom.dap_setup")
 require("custom.neotest")
