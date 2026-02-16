@@ -11,7 +11,7 @@ require("custom.git_utils")
 
 require("custom.deps")
 require("custom.lsp")
-require("custom.completion")
+-- require("custom.completion")
 require("custom.snips")
 require("custom.dap_setup")
 require("custom.neotest")
@@ -38,3 +38,7 @@ require("custom.remote_ui_helpers")
 require("custom.overseer.overseer_local_project_config")
 
 require("custom.ts_ls").setup(require("custom.ts_ls.opts"))
+
+require("custom.scripts.remote_shell_to_overseer").setup()
+
+require("custom.terminal_handlers").setup()

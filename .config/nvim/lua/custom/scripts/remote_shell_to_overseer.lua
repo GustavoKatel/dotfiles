@@ -17,4 +17,13 @@ function M.run(args_str)
 	overseer.run_action(task, "open sticky")
 end
 
+function M.setup()
+	vim.api.nvim_create_user_command("Run", function(opts)
+		M.run(opts.args)
+	end, {
+		nargs = "+",
+		desc = "Run a remote shell command in overseer",
+	})
+end
+
 return M

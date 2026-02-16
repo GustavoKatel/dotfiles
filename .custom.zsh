@@ -113,5 +113,7 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 . $HOME/export-esp.sh
 
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
 eval "$(starship init zsh)"
 

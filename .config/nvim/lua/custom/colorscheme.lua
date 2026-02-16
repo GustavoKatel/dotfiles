@@ -11,6 +11,14 @@ require("kanagawa").setup({
 			},
 		},
 	},
+	overrides = function(colors)
+		return {
+			BlinkCmpMenu = { bg = colors.palette.dragonBlack3 },
+			BlinkCmpLabelDetail = { bg = colors.palette.dragonBlack3 },
+			BlinkCmpMenuSelection = { bg = colors.palette.waveBlue1 },
+			BlinkCmpSource = { fg = colors.palette.dragonBlack5, bg = "" },
+		}
+	end,
 })
 
 vim.cmd.colorscheme("kanagawa-dragon")

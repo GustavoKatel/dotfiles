@@ -16,6 +16,7 @@ return {
 	},
 	right = {
 		{ title = "Hurl Nvim", size = { width = 0.5 }, ft = "hurl-nvim" },
+		{ title = "Sidekick", ft = "sidekick_terminal", size = { width = 0.4 } },
 	},
 	bottom = {
 		-- toggleterm / lazyterm at the bottom with a height of 40% of the screen
@@ -61,6 +62,8 @@ return {
 				return vim.startswith(buf_name, "dap-scopes-")
 			end,
 		},
+
+		{ ft = "fugitive", title = "Fugitive", size = { height = 0.5 } },
 	},
 	left = {
 		{

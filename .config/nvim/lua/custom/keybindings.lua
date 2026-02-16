@@ -202,6 +202,7 @@ end
 -- terminal keymaps
 -- exit terminal mode with <ESC>
 vim.keymap.set({ "t" }, "<ESC>", "<C-\\><C-N>")
+vim.keymap.set({ "t" }, "<C-ESC>", "<ESC>")
 
 -- alt movements
 vim.keymap.set({ "t" }, "<M-Left>", "<M-B>")
@@ -217,6 +218,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		-- ctrl-c will close processes in normal mode
 		vim.keymap.set({ "n" }, "<C-c>", "i<C-c>", { buffer = true })
 		vim.keymap.set({ "n" }, "<C-d>", ":BD!<CR>", { buffer = true })
+
+		vim.keymap.set({ "n" }, "<F5>", function()
+			local cfile = vim.fn.expand("<cfile>")
+			vim.cmd("edit " .. cfile)
+		end, { buffer = true, desc = "Open the current file under the cursor in terminal" })
 	end,
 })
 
