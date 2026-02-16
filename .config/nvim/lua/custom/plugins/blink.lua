@@ -76,7 +76,12 @@ return {
 
 	cmdline = {
 		enabled = true,
-		keymap = { preset = "inherit" },
+		keymap = {
+			preset = "cmdline",
+
+			["<Up>"] = { "fallback" },
+			["<Down>"] = { "fallback" },
+		},
 		completion = {
 			menu = { auto_show = true },
 

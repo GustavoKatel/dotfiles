@@ -32,12 +32,6 @@ for _, code in ipairs({ "<C-_>", "<C-/>", "<M-/>", "<D-/>" }) do
 	vim.keymap.set({ "n" }, code, "gcc", { remap = true })
 	vim.keymap.set({ "v" }, code, "gc", { remap = true })
 end
--- ctrl/cmd-shift-/ to toggle comment block-wise
-for _, code in ipairs({ "<C-S-/>", create_special_keymap("cs/", true), create_special_keymap("ds/", true) }) do
-	vim.keymap.set({ "i" }, code, "<ESC>gbci", { remap = true })
-	vim.keymap.set({ "n" }, code, "gbc", { remap = true })
-	vim.keymap.set({ "v" }, code, "gb", { remap = true })
-end
 
 -- Alt-Shift-Left/Right to move to previous next position
 vim.keymap.set({ "n" }, "<M-S-Right>", "<C-I>")

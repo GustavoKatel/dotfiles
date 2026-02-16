@@ -2,10 +2,10 @@
 
 local M = {}
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-vim.lsp.config("*", {
-	capabilities = capabilities,
-})
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- vim.lsp.config("*", {
+-- 	capabilities = capabilities,
+-- })
 
 M.attached = false
 

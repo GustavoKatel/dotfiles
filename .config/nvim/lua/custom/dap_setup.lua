@@ -6,7 +6,6 @@ local dap_local_project_config = require("custom.dap_local_project_config")
 local dapview = require("dap-view")
 
 require("dap.ext.vscode").json_decode = require("overseer.json").decode
-require("dap.ext.vscode").load_launchjs()
 
 local widgets = require("custom.dap_widgets")
 widgets.setup()

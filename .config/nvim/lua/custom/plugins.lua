@@ -81,7 +81,7 @@ require("lazy").setup({
 		dependencies = { "OXY2DEV/markview.nvim" },
 	},
 	{ "windwp/nvim-ts-autotag" }, -- auto close html tags using treesitter
-	{ "nvim-treesitter/nvim-treesitter-textobjects" },
+	{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
 	{ "nvim-treesitter/nvim-treesitter-context" },
 	{ "haringsrob/nvim_context_vt" },
 	{ "cespare/vim-toml", ft = "toml" },
@@ -136,28 +136,14 @@ require("lazy").setup({
 
 	-- {{{ editting
 	{
-		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
-	},
-	{
 		"kylechui/nvim-surround",
-		-- "~/dev/nvim-surround",
-		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
-		end,
+		opts = {},
 	},
 	{ "tpope/vim-abolish" },
 	{
-		"phaazon/hop.nvim",
+		"hadronized/hop.nvim",
 		name = "hop",
-		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
-			require("hop").setup({})
-		end,
+		opts = {},
 	},
 	{ "mfussenegger/nvim-treehopper" },
 	{ "google/vim-searchindex" }, -- better search results
@@ -168,11 +154,6 @@ require("lazy").setup({
 		dependencies = { "benomahony/oil-git.nvim" },
 		opts = require("custom.plugins.oil"),
 	},
-	-- {
-	-- 	"A7Lavinraj/fyler.nvim",
-	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	-- 	opts = { icon_provider = "nvim_web_devicons" },
-	-- },
 
 	{ "kevinhwang91/nvim-bqf" },
 
@@ -185,15 +166,6 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"Wansmer/treesj",
-		keys = { "<space>m", "<space>j", "<space>s" },
-		dependencies = { "nvim-treesitter/nvim-treesitter" }, -- if you install parsers with `nvim-treesitter`
-		config = function()
-			require("treesj").setup({--[[ your config ]]
-			})
-		end,
-	},
 	-- {
 	-- 	"xb-bx/editable-term.nvim",
 	-- 	config = true,
@@ -335,7 +307,7 @@ require("lazy").setup({
 	-- }}}
 
 	-- {{{ utils
-	{ "nvim-mini/mini.nvim", version = "*" },
+	{ "nvim-mini/mini.nvim", version = "*", config = require("custom.mini").setup },
 	{ "b0o/schemastore.nvim" },
 	{ "tpope/vim-fugitive", dependencies = { { "tpope/vim-rhubarb" } } }, -- some git goodies
 	{ "voldikss/vim-floaterm", cmd = { "FloatermToggle" } }, -- floating terminal
@@ -379,16 +351,16 @@ require("lazy").setup({
 			require("custom.plugins.iron_repl")
 		end,
 	},
-	{
-		"jellydn/hurl.nvim",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		ft = "hurl",
-		opts = require("custom.plugins.hurl"),
-	},
+	-- {
+	-- 	"jellydn/hurl.nvim",
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 	},
+	-- 	ft = "hurl",
+	-- 	opts = require("custom.plugins.hurl"),
+	-- },
 	-- {
 	-- 	"rest-nvim/rest.nvim",
 	-- 	ft = { "http" },
@@ -444,9 +416,6 @@ require("lazy").setup({
 			"Time", -- measure how long it takes to run some stuff.
 		},
 	},
-	-- }}}
-
-	-- {{{ misc
 	-- }}}
 
 	config = {
